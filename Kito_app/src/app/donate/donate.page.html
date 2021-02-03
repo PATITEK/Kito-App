@@ -1,0 +1,141 @@
+
+<ion-content>
+  <!-- <ion-spinner *ngIf="!chabad.thumb_image" class="absolute-center" name="lines"></ion-spinner> -->
+  <ion-item-group>
+    
+    <div class="img__header" [style.background-image]="getUrl()">
+    </div>
+    <ion-back-button icon="chevron-back-outline" text="" class="back-btn"></ion-back-button>
+  </ion-item-group>
+  <ion-label class="title__chabad">{{chabad.name}}</ion-label>
+ 
+  <!-- <ion-segment value="pray">
+    <ion-segment-button value="pray"  (click)="clickPray()" >
+      <ion-label>Pray</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="donate" (click) ="clickDonate()">
+      <ion-label>Donate</ion-label>
+    </ion-segment-button>
+  </ion-segment> -->
+
+  <!-- <ion-grid *ngIf = "this.tab === 'pray'">
+    <ion-item-group class="group__day">
+      <ion-item-group class="day first-day">
+        Mon 03
+      </ion-item-group>
+      <ion-item-group class="day">
+        <ion-label class="new"></ion-label>
+        Tue 04
+      </ion-item-group>
+      <ion-item-group class="day">
+        Wed 05
+      </ion-item-group>
+      <ion-item-group class="day">
+        <ion-label class="new"></ion-label>
+        Thu 06
+      </ion-item-group>
+      <ion-item-group class="day">
+        Fri 07
+      </ion-item-group>
+      <ion-item-group class="day">
+        <ion-label class="new"></ion-label>
+        Sat 08
+      </ion-item-group>
+      <ion-item-group class="day last-day">
+        Sun 09
+      </ion-item-group>
+    </ion-item-group>
+    <ion-label class="time">
+      Wednesday, 05 January 2021
+    </ion-label>
+    <ion-label class="time">
+      Information:
+    </ion-label>
+    <ion-item-group class="time doladonate">
+      <ion-img src="assets/img/pen.svg" class="edit"></ion-img>
+      <ion-img src="assets/img/dola.svg"></ion-img>
+    <input type="text">
+    <ion-select value="dola">
+      <ion-select-option value="dola">USD</ion-select-option>
+      <ion-select-option value="vn">VNĐ</ion-select-option>
+      <ion-select-option value="vn">EURO</ion-select-option>
+    </ion-select>
+    </ion-item-group>
+    <ion-item-group class="time purpose">
+      <ion-img src="assets/img/edit2.svg" class="edit__big"></ion-img>
+      <ion-label class="purpose__label">Purpose:</ion-label>
+      <textarea class="textarea" placeholder="Enter more information here..."></textarea>
+    </ion-item-group>
+    <ion-grid class="user__info">
+      <ion-row>
+        <ion-col size= "5">
+          <img *ngIf="isHidden == false" src="assets/img/d1.jpg">
+          <img *ngIf="isHidden == true" src="assets/img/avatar-people-disable.svg">
+          <ion-label *ngIf="isHidden == false" class="user__name">David</ion-label>
+          <ion-label *ngIf="isHidden == true" class="user__name_dis">David</ion-label>
+          <ion-button *ngIf="isHidden == false" class="btn__nameless" (click)="clickHidden($event)">Nameless</ion-button>
+          <ion-button *ngIf="isHidden == true" class="btn__nameless_dis" (click)="clickHidden($event)">Nameless</ion-button>
+          <ion-label class="thanks">Thank member!</ion-label>
+        </ion-col>
+        <ion-col size="7">
+          <ion-button class="btn">
+            Confirm
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-grid> -->
+  <ion-grid>
+    <form [formGroup] ="frmDonate" (ngSubmit)="onSubmit()" >
+      <ion-label class="label__donate">
+        Donate
+      </ion-label>
+      <ion-label class="info">
+        Information:
+      </ion-label>
+      <ion-item-group class="wrapper">
+        <ion-item-group class="time doladonate">
+          <ion-img src="assets/img/pen.svg" class="edit"></ion-img>
+          <ion-img src="assets/img/dola.svg"></ion-img>
+        <input type="number" formControlName="amount">
+        <!-- <ion-select value="dola">
+          <ion-select-option value="dola">USD</ion-select-option>
+          <ion-select-option value="vn">VNĐ</ion-select-option>
+          <ion-select-option value="vn">EURO</ion-select-option>
+        </ion-select> -->
+        <ion-label class="require" *ngIf="required_mess">
+            {{message}}
+        </ion-label>
+        </ion-item-group>
+        <ion-item-group class="time purpose">
+          <ion-img src="assets/img/edit2.svg" class="edit__big"></ion-img>
+          <ion-label class="purpose__label">Purpose:</ion-label>
+          <textarea class="textarea" placeholder="Enter more information here..."  formControlName="note" ></textarea>
+        
+        </ion-item-group>
+        <ion-label class="require require__purpose" *ngIf="required_purpose">
+          {{message_purpose}}
+        </ion-label>
+        <ion-grid class="user__info">
+          <ion-row>
+            <ion-col size= "5">
+              <img *ngIf="isHidden == false" src="assets/img/d1.jpg">
+              <img *ngIf="isHidden == true" src="assets/img/avatar-people-disable.svg">
+              <ion-label *ngIf="isHidden == false" class="user__name">David</ion-label>
+              <ion-label *ngIf="isHidden == true" class="user__name_dis">David</ion-label>
+              <ion-label *ngIf="isHidden == false" class="btn__nameless" (click)="clickHidden($event)">Nameless</ion-label>
+              <ion-label *ngIf="isHidden == true" class="btn__nameless_dis" (click)="clickHidden($event)">Nameless</ion-label>
+              <ion-label class="thanks">Thank member!</ion-label>
+            </ion-col>
+            <ion-col size="7">
+              <ion-button class="btn"type="submit"  [disabled] ="frmDonate.invalid" >
+                Confirm
+              </ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item-group>
+    </form>
+  </ion-grid>
+
+</ion-content>

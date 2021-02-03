@@ -1,0 +1,40 @@
+<ion-header class="ion-no-border">
+  <ion-buttons class="user-container">
+    <span *ngIf="name.length != '' ">Hi {{ name }}!</span>
+    <ion-avatar class="main-box-shadow active-effect" (click)="goToUserInfo()">
+      <img src="assets/icon/person.svg" alt="">
+    </ion-avatar>
+  </ion-buttons>
+</ion-header>
+
+<ion-tabs>
+  <ion-tab-bar slot="top">
+    <ion-tab-button tab="chabad" selected>
+      <ion-item-group>
+        <img src="assets/icon/location.svg">
+        <ion-label>Chabads</ion-label>
+      </ion-item-group>
+    </ion-tab-button>
+
+    <ion-tab-button tab="people">
+      <ion-item-group>
+        <img src="assets/icon/person.svg">
+        <ion-label>Near you</ion-label>
+      </ion-item-group>
+    </ion-tab-button>
+
+    <ion-tab-button tab="shopping">
+      <ion-item-group>
+        <img src="assets/icon/shop.svg">
+        <ion-label>Shop</ion-label>
+      </ion-item-group>
+    </ion-tab-button>
+
+    <ion-tab-button tab="event">
+      <ion-item-group>
+        <img src="assets/icon/fruit.svg">
+        <ion-label>Event</ion-label>
+      </ion-item-group>
+    </ion-tab-button>
+  </ion-tab-bar>
+</ion-tabs>
