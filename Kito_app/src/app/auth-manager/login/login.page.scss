@@ -1,6 +1,6 @@
 ion-content {
     position: relative;
-    --background: #DCF7F8;
+    --background: #a7c22c, 100%;
     --overflow: hidden;
 }
 
@@ -21,9 +21,9 @@ img {
 
 .select,
 .input {
-    background: #30B9BB;
+    background: #C2402C, 100%;
     border-radius: 5px;
-    color: #AEFEFF;
+    color: #000000;
     font-size: 16px;
     border: 1px solid transparent;
     height: 36px;
@@ -56,15 +56,15 @@ img {
     bottom: 0;
     left: 0;
     right: 0;
-    height: 85vh;
-    background: #00B0B2;
+    height: 59vh;
+    background: #C2402C;
     border-top-left-radius: 40px;
     border-top-right-radius: 40px;
 }
 
 ion-segment{
     border-radius: 40px;
-    --background: #0DB9BB;
+    --background: #ffffff;
     width: 320px;
     max-width: calc(100vw - 20px);
     margin: 20px auto;
@@ -72,8 +72,7 @@ ion-segment{
     ion-segment-button {
         font-size: 18px;
         font-weight: 600;
-        font-family: "Poppins";
-        color: #fff;
+        color: #000000;
         --border-radius: 40px;
         height: 40px;
 
@@ -84,7 +83,7 @@ ion-segment{
  }
 
 .group {
-    height: calc(85vh - 65px);
+    height: calc(59vh - 65px);
     width: 80vw;
     min-width: 300px;
     margin: 0 auto;
@@ -112,6 +111,10 @@ ion-segment{
 
     .gender-box {
         width: 100px;
+        .input{
+            background-color: #ffffff;
+            color: #000000;
+        }
     }
 
     .phone-number-box {
@@ -147,4 +150,11 @@ ion-segment{
 
 .address-input {
     margin-top: 8px;
+}
+.ion-text-right{
+    ion-button{
+        ion-icon{
+            width: 50px;
+        }
+    }
 }

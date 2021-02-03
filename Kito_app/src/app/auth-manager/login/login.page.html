@@ -1,20 +1,20 @@
 <ion-content>
-  <img src="assets/img/login.png" alt="" />
+  <img src="assets/img/jesus.jpg" alt="" />
 
   <div class="body">
     <ion-segment (ionChange)="changedSegment($event)" value="login" swipeGesture="false" mode="ios">
       <ion-segment-button value="login">
-        <ion-label>Login</ion-label>
+        <ion-label>Đăng Nhập</ion-label>
       </ion-segment-button>
       <ion-segment-button value="signUp">
-        <ion-label>Sign up</ion-label>
+        <ion-label>Đăng Ký</ion-label>
       </ion-segment-button>
     </ion-segment>
 
     <div class="group" [ngClass]="{'display-none': segmentValue != 'login'}">
       <form class="form" [formGroup]="formLogin" (onSubmit)="submitLogin()">
         <div class="margin-bottom">
-          <ion-label class="label">Enter email or phone number</ion-label>
+          <ion-label class="label">Nhập số điện thoại</ion-label>
           <input class="input" type="text" formControlName="email">
           <ng-container *ngFor="let validation of validationLoginMessages.email">
             <div class="error-message"
@@ -25,7 +25,7 @@
         </div>
 
         <div class="margin-bottom">
-          <ion-label class="label">Password</ion-label>
+          <ion-label class="label">Mật Khẩu</ion-label>
           <input class="input" type="password" formControlName="password">
           <ng-container *ngFor="let validation of validationLoginMessages.password">
             <div class="error-message"
@@ -36,7 +36,7 @@
         </div>
 
         <div class="ion-text-right">
-          <ion-label class="forgot-password-btn" (click)="clickForgotPassword()">Forgot Password?</ion-label>
+          <ion-label class="forgot-password-btn" (click)="clickForgotPassword()">Quên mật khẩu?</ion-label>
         </div>
       </form>
       <div class="ion-text-right">
@@ -51,15 +51,15 @@
         <div class="margin-bottom">
           <ion-buttons class="row-1">
             <div class="name-box">
-              <ion-label class="label">Your name</ion-label>
+              <ion-label class="label">Họ Và Tên</ion-label>
               <input class="input" formControlName="full_name">
             </div>
             <div class="gender-box">
-              <ion-label class="label">Gender</ion-label>
+              <ion-label class="label">Giới tính</ion-label>
               <ion-select mode='ios' class="input" formControlName="sex" value="male">
-                <ion-select-option value="male">Male</ion-select-option>
-                <ion-select-option value="female">Female</ion-select-option>
-                <ion-select-option value="other">Other</ion-select-option>
+                <ion-select-option value="male">Nam</ion-select-option>
+                <ion-select-option value="female">Nữ</ion-select-option>
+                <ion-select-option value="other">Khác</ion-select-option>
               </ion-select>
             </div>
           </ion-buttons>
@@ -71,36 +71,23 @@
             </div>
           </ng-container>
         </div>
-
-        <div class="margin-bottom">
-          <ion-label class="label">Email</ion-label>
-          <input class="input" type="email" formControlName="email">
-          <ng-container *ngFor="let validation of validationSignUpMessages.email">
-            <div class="error-message"
-              *ngIf="formSignUp.get('email').hasError(validation.type) && (formSignUp.get('email').dirty || formSignUp.get('email').touched)">
-              {{ validation.message }}
-            </div>
-          </ng-container>
-        </div>
-
         <div class="margin-bottom">
           <ion-buttons class="row-1">
             <div class="phone-number-box">
-              <ion-label class="label">Phone number</ion-label>
+              <ion-label class="label">Số điện thoại</ion-label>
               <ion-buttons class="phone-number-body">
-                <ion-select mode='ios' class="select country-code-select" formControlName="country_code" value="84">
+                <!-- <ion-select mode='ios' class="select country-code-select" formControlName="country_code" value="84">
                   <ion-select-option [value]="country.phone_code" *ngFor="let country of country_codes">
                     {{country.phone_code}}</ion-select-option>
-                  <!-- <ion-select-option value="84">Viet Nam</ion-select-option> -->
-                </ion-select>
+                </ion-select> -->
                 <ion-label class="country-code">+{{ formSignUp.value.country_code }}</ion-label>
                 <input class="input" formControlName="phone_number">
               </ion-buttons>
             </div>
-            <div class="age-box">
+            <!-- <div class="age-box">
               <ion-label class="label">Age</ion-label>
               <ion-datetime formControlName="birthday" class="input" displayFormat="YYYY" min="1900" max="2021"></ion-datetime>
-            </div>
+            </div> -->
           </ion-buttons>
 
           <ng-container *ngFor="let validation of validationSignUpMessages.phone_number">
@@ -116,14 +103,26 @@
             </div>
           </ng-container>
         </div>
-
+        
         <div class="margin-bottom">
+          <ion-label class="label">Email (Không bắt buộc)</ion-label>
+          <input class="input" type="email" formControlName="email">
+          <!-- <ng-container *ngFor="let validation of validationSignUpMessages.email">
+            <div class="error-message"
+              *ngIf="formSignUp.get('email').hasError(validation.type) && (formSignUp.get('email').dirty || formSignUp.get('email').touched)">
+              {{ validation.message }}
+            </div>
+          </ng-container> -->
+        </div>
+
+    
+
+        <!-- <div class="margin-bottom">
           <ion-label class="label">Your address</ion-label>
           <ion-buttons>
             <ion-select mode='ios' class="select country-code-select" formControlName="country_code" value="84">
               <ion-select-option [value]="country.phone_code" *ngFor="let country of country_codes">
                 {{country.country}}</ion-select-option>
-              <!-- <ion-select-option value="84">Viet Nam</ion-select-option> -->
             </ion-select>
             <ion-select mode='ios' class="select province-select" formControlName="province" value="Ho Chi Minh">
               <ion-select-option value="Ho Chi Minh">Ho Chi Minh</ion-select-option>
@@ -155,10 +154,10 @@
               {{ validation.message }}
             </div>
           </ng-container>
-        </div>
+        </div> -->
 
         <div class="margin-bottom">
-          <ion-label class="label">Password</ion-label>
+          <ion-label class="label">Mật Khẩu</ion-label>
           <input class="input" type="password" formControlName="password">
           <ng-container *ngFor="let validation of validationSignUpMessages.password">
             <div class="error-message"
@@ -175,7 +174,7 @@
         </div>
 
         <div class="margin-bottom">
-          <ion-label class="label">Confirm password</ion-label>
+          <ion-label class="label">Xác nhận mật khẩu</ion-label>
           <input class="input" type="password" formControlName="confirmed_password">
         </div>
       </form>
