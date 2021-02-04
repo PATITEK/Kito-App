@@ -30,7 +30,11 @@ const routes: Routes = [
     path: '',
     redirectTo: '',
     pathMatch: 'full'
+  },  {
+    path: 'catechism-class',
+    loadChildren: () => import('./catechism-class/catechism-class.module').then( m => m.CatechismClassPageModule)
   }
+
 ];
 
 @NgModule({
