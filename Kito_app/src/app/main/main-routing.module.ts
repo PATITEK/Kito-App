@@ -33,6 +33,10 @@ const routes: Routes = [
   },  {
     path: 'catechism-class',
     loadChildren: () => import('./catechism-class/catechism-class.module').then( m => m.CatechismClassPageModule)
+  },
+  {
+    path: 'parish-news',
+    loadChildren: () => import('./parish-news/parish-news.module').then( m => m.ParishNewsPageModule)
   }
 
 ];
