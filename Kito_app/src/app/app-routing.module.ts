@@ -59,8 +59,8 @@ const routes: Routes = [
     path: 'slide',
     loadChildren: () => import('./@modular/slide/slide.module').then( m => m.SlideModule)
   },
-  { path: '', redirectTo: 'slide', pathMatch: 'full' },
-  { path: '**', redirectTo: 'slide' },
+  { path: '', redirectTo: 'main', pathMatch: 'full' },
+  { path: '**', redirectTo: 'main' },
   {
     path: 'modal-detail-order',
     loadChildren: () => import('./@modular/modal-detail-order/modal-detail-order.module').then( m => m.ModalDetailOrderPageModule)

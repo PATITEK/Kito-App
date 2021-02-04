@@ -28,7 +28,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'main/chabad',
+    redirectTo: '',
     pathMatch: 'full'
   }
 ];

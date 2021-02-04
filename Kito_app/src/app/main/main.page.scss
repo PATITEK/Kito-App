@@ -1,92 +1,114 @@
-ion-header {
-  ion-buttons {
-    justify-content: flex-end;
-    height: 106px;
-    margin: 0 20px;
+$size-img:100px;
 
-    span {
-      margin-right: 15px;
-      color: #838383;
-      font-size: 18px;
-      font-weight: 700;
-      width: calc(100% - 70px);
-      text-align: right;
-    }
-
-    ion-avatar {
-      width: 70px;
-      height: 70px;
-      box-shadow: 0 4px 4px rgba(84, 84, 84, 0.25);
-    }
-  }
-}
-
-:host {
-  ion-tabs {
-    background: #f5f5f5;
-
-    ion-tab-bar {
-      height: 130px;
-      border-radius: 40px;
-      margin: 106px 0 10px;
-      border: none;
-
-      :active {
-        ion-item-group {
-          background: #00b0b2;
-
-          ion-label {
-            color: #fff;
-          }
-        }
+ion-content {
+  .backgroup-header {
+    position: relative;
+    z-index: 5;
+    .img-bg {
+      object-fit: cover;
+      
+      // height: 40vh;
+      width: 100%;
+      
+      @media screen and (max-height: 737px) {
+        height: 35vh!important;
       }
-
-      ion-tab-button {
-        background: #fff;
-        margin-bottom: 15px;
-        --ripple-color: transparent;
-        --padding-start: 0;
-        --padding-end: 0;
-
-        ion-item-group {
-          box-shadow: 0 4px 4px rgba(84, 84, 84, 0.25);
-          border-radius: 40px;
-          border-bottom-left-radius: 27px;
-          border-bottom-right-radius: 27px;
-          padding: 4px;
-          background: #fff;
-          transition: 0.2s;
-
-          img {
-            width: 70px;
-            height: 70px;
-            padding: 11px;
-            background: #f5f5f5;
-            border-radius: 50%;
-
-            @media screen and (max-width: 320px) {
-              width: 60px;
-              height: 60px;
-            }
-          }
-
-          ion-label {
-            margin: 5px 0 8px;
-            color: #727171;
-            font-size: 12px;
-          }
-        }
+      @media screen and (max-height: 569px) {
+        height: 30vh!important;
+      }
+    }
+    .icon-avatar {
+      width: 60px;
+      height: 60px;
+      color: white;
+      background: #fdfdfd;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      margin: auto;
+      border-radius: 50%;
+      transform: translateY(30%);
+      @media screen and (max-height: 481px) {
+        height: 45px!important;
+        width: 45px!important;
+      }
+      // transform: matrix(-1, 0, 0, 1, 0, 0);
+      z-index: 10;
+    }
+    .name-user {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      margin: auto;
+      transform: translateY(200%);
+      text-align: center;
+      @media screen and (max-height: 481px) {
+        transform: translateY(150%)!important;
       }
     }
   }
-
-  .tab-selected {
-    ion-item-group {
-      background: #00b0b2 !important;
-  
-      ion-label {
-        color: #fff !important;
+  .home {
+    padding: 0 5px;
+    margin-top: 5vh;
+    .container-tong-gp {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      .menu-top {
+        text-align: center;
+        img{
+          @media screen and (max-height: 569px) {
+            $size-img:65px;
+            height: $size-img!important;
+          width: $size-img!important;    
+          }
+          @media screen and (max-height: 481px) {
+            $size-img:45px;
+            height: $size-img!important;
+          width: $size-img!important;    
+          }
+        }
+        .name-menu {
+          text-align: center;
+        }
       }
     }
-  } 
+    .menu-list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 10px;
+      ion-item-group {
+        text-align: center;
+        padding: 15px 5px;
+        img{
+          height: $size-img;
+          width: $size-img;
+          @media screen and (max-height: 668px) {
+            $size-img:70px;
+            height: $size-img!important;
+          width: $size-img!important;    
+          }
+          @media screen and (max-height: 641px) {
+            $size-img:45px;
+            height: $size-img!important;
+          width: $size-img!important;    
+          }
+          @media screen and (max-height: 569px) {
+            $size-img:40px;
+            height: $size-img!important;
+          width: $size-img!important;    
+          }
+          @media screen and (max-height: 481px) {
+            $size-img:25px;
+            height: $size-img!important;
+          width: $size-img!important;    
+          }
+          
+        }
+      }
+    }
+  }
 }
