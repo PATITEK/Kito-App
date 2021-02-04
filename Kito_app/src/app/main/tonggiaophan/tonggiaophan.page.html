@@ -8,7 +8,7 @@
 <ion-content>
   <ion-item-group class="home">
     <ion-item-group class="content-search">
-      <ion-icon (click)="openModalMenu()" class="icon-bars" name="menu-outline"></ion-icon>
+      <ion-icon  (click)="openModalMenu()" class="icon-bars" name="menu-outline"></ion-icon>
       <ion-icon *ngIf="!activeSeach" (click)="showSearch()"name="search-outline"></ion-icon>
     <ion-searchbar *ngIf="activeSeach" showCancelButton="never" placeholder="Tìm kiếm ..."  debounce="500"></ion-searchbar>
   </ion-item-group>

@@ -89,7 +89,12 @@ ion-content {
       @media screen and (max-height: 737px) {
         height: 33vh!important;
       }
-     
+      @media screen and (max-height: 481px) {
+        height: 29vh!important;
+      }
+      @media screen and (max-height: 668px) {
+        height: 31vh!important;
+      }
       ion-item-group {
         text-align: center;
         padding: 15px 5px;
