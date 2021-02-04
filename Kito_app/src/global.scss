@@ -27,9 +27,10 @@
 
 .active-effect {
   transition: 0.15s;
-
+  
   &:active {
-    filter: brightness(90%);
+    transform: scale(0.95);
+    // filter: brightness(90%);
   }
 }
 

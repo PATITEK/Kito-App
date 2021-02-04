@@ -25,7 +25,7 @@ export class MainPage implements OnInit {
  
   
   
-  goToUserInfo() {
-    this.router.navigateByUrl('account-setting');
-  }
+  // goToUserInfo() {
+  //   this.router.navigateByUrl('account-setting');
+  // }
 }

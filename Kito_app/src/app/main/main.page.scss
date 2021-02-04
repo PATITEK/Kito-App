@@ -85,13 +85,11 @@ ion-content {
       justify-content: center;
       margin-top: 5px;
       overflow: scroll;
-      height: 30vh;
+      height: 40vh;
       @media screen and (max-height: 737px) {
         height: 33vh!important;
       }
-      @media screen and (max-height: 737px) {
-        height: 30vh!important;
-      }
+     
       ion-item-group {
         text-align: center;
         padding: 15px 5px;

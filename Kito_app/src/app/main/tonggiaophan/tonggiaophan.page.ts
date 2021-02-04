@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ModalController, Platform } from '@ionic/angular';
 import { ModalMenuComponent } from 'src/app/@modular/modal-menu/modal-menu.component';
 @Component({
@@ -12,6 +13,7 @@ activeMenu=false;
   constructor(
     public platform: Platform,
     private modalCtrl: ModalController, 
+    private router: Router,
     ) { 
     
   }
@@ -34,5 +36,9 @@ activeMenu=false;
       cssClass: 'modalMenu  ',
     });
     return await popover.present();
+  }
+  checkoutVatican(){
+    this.router.navigateByUrl('main/parish-news');
+    
   }
 }
