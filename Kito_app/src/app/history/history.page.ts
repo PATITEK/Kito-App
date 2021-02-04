@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { IonContent, IonInfiniteScroll, ModalController } from '@ionic/angular';
 import { HistoryService } from '../@app-core/http';
-import { LoadingService } from '../@app-core/utils';
 import { EventDetailComponent } from '../@modular/event-detail/event-detail.component';
 
 @Component({
@@ -11,7 +10,6 @@ import { EventDetailComponent } from '../@modular/event-detail/event-detail.comp
 })
 export class HistoryPage implements OnInit {
   @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
-  // @ViewChild(IonInfiniteScroll) infiniteScrollEvent: IonInfiniteScroll;
   @ViewChild(IonContent) ionContent: IonContent;
 
   currentSegmentValue = 'service';
@@ -20,14 +18,12 @@ export class HistoryPage implements OnInit {
 
   constructor(
     private modalController: ModalController,
-    private loadingService: LoadingService,
     private historyService: HistoryService
   ) {
     this.init();
   }
 
   ngOnInit() {
-    // this.loadingService.present();
     this.getDataServices();
     this.getDataEvents();
   }
@@ -51,13 +47,6 @@ export class HistoryPage implements OnInit {
         loadedData: false
       }
     };
-
-    // if (this.infiniteScrollService) {
-    //   this.infiniteScrollService.disabled = false;
-    // }
-    // if (this.infiniteScrollEvent) {
-    //   this.infiniteScrollEvent.disabled = false;
-    // }
   }
 
   changedSegment(value) {
@@ -75,8 +64,6 @@ export class HistoryPage implements OnInit {
     let events = this.data.services;
     this.historyService.getServices(events.pageRequest).subscribe(data => {
       events.array = events.array.concat(data.events);
-      // this.loadingService.dismiss();
-
       func && func();
       events.pageRequest.page++;
 
