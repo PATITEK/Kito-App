@@ -1,12 +1,6 @@
-<!-- <ion-header class="ion-no-border">
-  <ion-buttons class="user-container">
-    <span *ngIf="name.length != '' ">Hi {{ name }}!</span>
-    <ion-avatar class="main-box-shadow active-effect" (click)="goToUserInfo()">
-      <img src="assets/icon/person.svg" alt="">
-    </ion-avatar>
-  </ion-buttons>
-</ion-header> -->
+
 <ion-content>
+  
   <ion-item-group class="backgroup-header">
     <img class="img-bg" src="assets/img/bg-main.jpg">
     <ion-img class="icon-avatar" src="assets/img/avatar-account.svg">
@@ -17,7 +11,7 @@
   </ion-item-group>
   <ion-item-group class="home">
     <ion-item-group class="container-tong-gp">
-      <ion-item-group class="menu-top">
+      <ion-item-group class="menu-top" (click)="routerLink('tonggiaophan')">
         <img class="img-menu" src="assets/img/menu/tonggiaophan.svg" alt="" srcset="">
         <ion-label class="name-menu">
           (Tổng) Giáo phận
@@ -39,7 +33,7 @@
         </ion-label>
       </ion-item-group>
       <ion-item-group>
-        <img src="assets/img/menu/lophocgiaoly.svg" alt="" srcset="">
+        <img src="assets/img/menu/lophocgiaoly.svg" alt="" srcset="" (click)="routerLink('catechism-class')">
         <ion-label class="name-menu">
           Lớp Học Giáo Lý
         </ion-label>
@@ -67,34 +61,4 @@
   </ion-item-group>
 
 </ion-content>
-<!-- <ion-tabs>
-  <ion-tab-bar slot="top">
-    <ion-tab-button tab="chabad" selected>
-      <ion-item-group>
-        <img src="assets/icon/location.svg">
-        <ion-label>Chabads</ion-label>
-      </ion-item-group>
-    </ion-tab-button>
 
-    <ion-tab-button tab="people">
-      <ion-item-group>
-        <img src="assets/icon/person.svg">
-        <ion-label>Near you</ion-label>
-      </ion-item-group>
-    </ion-tab-button>
-
-    <ion-tab-button tab="shopping">
-      <ion-item-group>
-        <img src="assets/icon/shop.svg">
-        <ion-label>Shop</ion-label>
-      </ion-item-group>
-    </ion-tab-button>
-
-    <ion-tab-button tab="event">
-      <ion-item-group>
-        <img src="assets/icon/fruit.svg">
-        <ion-label>Event</ion-label>
-      </ion-item-group>
-    </ion-tab-button>
-  </ion-tab-bar>
-</ion-tabs> -->

@@ -30,15 +30,19 @@ const routes: Routes = [
     path: '',
     redirectTo: '',
     pathMatch: 'full'
-  },  {
+  },
+  {
     path: 'catechism-class',
     loadChildren: () => import('./catechism-class/catechism-class.module').then( m => m.CatechismClassPageModule)
   },
   {
-    path: 'parish-news',
-    loadChildren: () => import('./parish-news/parish-news.module').then( m => m.ParishNewsPageModule)
-  }
-
+    path: 'tonggiaophan',
+    loadChildren: () => import('./tonggiaophan/tonggiaophan.module').then( m => m.TonggiaophanPageModule)
+  },
+{
+  path: 'parish-news',
+  loadChildren: () => import('./parish-news/parish-news.module').then( m => m.ParishNewsPageModule)
+}
 ];
 
 @NgModule({
