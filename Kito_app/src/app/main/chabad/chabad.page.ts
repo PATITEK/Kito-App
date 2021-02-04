@@ -23,6 +23,8 @@ export class ChabadPage implements OnInit {
   ) { }
 
   ngOnInit() {
+    console.log("chabab");
+    
     this.getData();
   }
 

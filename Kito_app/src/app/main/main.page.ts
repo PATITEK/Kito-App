@@ -15,7 +15,15 @@ export class MainPage implements OnInit {
 
   ngOnInit() {
   }
-
+  routerLink(path) {
+    
+    // this.router.navigate(['main/'+path]);
+    this.router.navigateByUrl('main/'+path);
+   
+  }
+ 
+  
+  
   goToUserInfo() {
     this.router.navigateByUrl('account-setting');
   }

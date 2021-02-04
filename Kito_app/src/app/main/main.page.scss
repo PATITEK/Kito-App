@@ -5,17 +5,10 @@ ion-content {
     position: relative;
     z-index: 5;
     .img-bg {
-      object-fit: cover;
-      
-      // height: 40vh;
       width: 100%;
+      // filter: drop-shadow(0 0 0.75rem rgb(174, 166, 167));
       
-      @media screen and (max-height: 737px) {
-        height: 35vh!important;
-      }
-      @media screen and (max-height: 569px) {
-        height: 30vh!important;
-      }
+      
     }
     .icon-avatar {
       width: 60px;
@@ -33,7 +26,7 @@ ion-content {
         height: 45px!important;
         width: 45px!important;
       }
-      // transform: matrix(-1, 0, 0, 1, 0, 0);
+
       z-index: 10;
     }
     .name-user {
@@ -52,6 +45,12 @@ ion-content {
   .home {
     padding: 0 5px;
     margin-top: 5vh;
+    overflow: scroll;
+    @media screen and (max-height: 737px) {
+        height: 50vh!important;
+      }
+      
+    
     .container-tong-gp {
       display: flex;
       justify-content: center;
