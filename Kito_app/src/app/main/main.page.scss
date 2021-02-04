@@ -1,6 +1,7 @@
 $size-img:100px;
 
 ion-content {
+  --overflow: hidden;
   .backgroup-header {
     position: relative;
     z-index: 5;
@@ -45,13 +46,14 @@ ion-content {
   .home {
     padding: 0 5px;
     margin-top: 5vh;
-    overflow: scroll;
-    @media screen and (max-height: 737px) {
-        height: 50vh!important;
-      }
+    // overflow: scroll;
+    // @media screen and (max-height: 737px) {
+    //     height: 50vh!important;
+    //   }
       
     
     .container-tong-gp {
+      margin-top: 5vh;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -81,7 +83,15 @@ ion-content {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      margin-top: 10px;
+      margin-top: 5px;
+      overflow: scroll;
+      height: 30vh;
+      @media screen and (max-height: 737px) {
+        height: 33vh!important;
+      }
+      @media screen and (max-height: 737px) {
+        height: 30vh!important;
+      }
       ion-item-group {
         text-align: center;
         padding: 15px 5px;

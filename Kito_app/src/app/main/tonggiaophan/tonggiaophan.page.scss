@@ -18,16 +18,35 @@ ion-header {
     }
 }
 ion-content {   
+    --overflow: hidden;
     .home {
         margin: 10px 20px;
-        ion-searchbar {
-            --border-radius: 5px;
-            --icon-color: #cacaca;
-            --color: #cacaca;
-            padding: 0;
-            margin: 10px auto 10px;
-            height: 25px;
+        .content-search{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            
+            ion-searchbar {
+                flex-basis: 80%;
+                --border-radius: 5px;
+                --icon-color: #cacaca;
+                --color: #cacaca;
+                padding: 0;
+                // margin: 10px auto 10px;
+                height: 25px;
+              
+                animation: mymove 1s;
+               
+            }
+            .icon-bars{
+                flex-basis: 20%;
+               width: 40px;
+               height: 40px;
+               color: #C4C4C4;
+               
+            }
         }
+        
         .list-item {
             overflow: scroll;
             height: 80vh;
@@ -62,3 +81,47 @@ ion-content {
 :host ::ng-deep .toolbar-container {
     height: 100% !important;
 }
+ion-footer{
+    ion-toolbar {
+        --background: #f6c33e;
+        --border: none;
+        height: 13vh;
+        --min-height: 100% !important;
+        clip-path: ellipse(69% 61% at 48% 61%);
+        text-align: center;
+
+        .icon-up{
+          width: 30px;
+          height: 5px;
+          background: #FFFFFF;
+          margin: auto;
+          border-radius: 5px;
+         
+        }
+        .menu-bottom{
+            display: flex;
+            justify-content: space-evenly;
+            text-align: center;
+            align-items: center;
+            
+        }
+        
+        
+    }
+}
+@keyframes mymove {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {opacity: 1;
+        transform: translateY(0px);
+    }
+  }
+  .modal-menu{
+      position: sticky;
+      height: 100px;
+      width: 100px;
+      background: black;
+      margin: auto;
+        }
