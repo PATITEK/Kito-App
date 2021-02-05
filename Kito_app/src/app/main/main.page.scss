@@ -53,13 +53,14 @@ ion-content {
       
     
     .container-tong-gp {
-      margin-top: 5vh;
+      padding-top: 5vh;
       display: flex;
       justify-content: center;
       align-items: center;
       .menu-top {
         text-align: center;
         img{
+           
           @media screen and (max-height: 569px) {
             $size-img:65px;
             height: $size-img!important;
@@ -85,15 +86,18 @@ ion-content {
       justify-content: center;
       margin-top: 5px;
       overflow: scroll;
-      height: 40vh;
+      height: 36vh;
       @media screen and (max-height: 737px) {
-        height: 33vh!important;
+        height: 29vh!important;
       }
       @media screen and (max-height: 481px) {
         height: 29vh!important;
       }
       @media screen and (max-height: 668px) {
-        height: 31vh!important;
+        height: 27vh!important;
+      }
+      @media screen and (max-height: 481px) {
+        height: 25vh!important;
       }
       ion-item-group {
         text-align: center;

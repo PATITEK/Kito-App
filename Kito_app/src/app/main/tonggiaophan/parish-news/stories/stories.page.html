@@ -1,9 +1,31 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>stories</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
+  <ion-back-button icon="chevron-back-outline" text="" class="back-btn back-btn-custom"></ion-back-button>
+  <ion-lable class="text-title">
+    Tiểu Sử
+  </ion-lable>
+  <ion-item-group class="home">
+    <ion-item-group class="content-search">
+      <ion-icon (click)="openModalMenu()" class="icon-bars" name="menu-outline"></ion-icon>
+      <ion-icon *ngIf="!activeSeach" (click)="showSearch()" name="search-outline"></ion-icon>
+      <ion-searchbar #search *ngIf="activeSeach" showCancelButton="never" (ionBlur)="BluSearch()"
+        placeholder="Tìm kiếm ..." debounce="500"></ion-searchbar>
+    </ion-item-group>
+    <ion-item-group class="list-item">
+      <ion-item-group *ngFor='let in of counter(5)' class="item-stories" (click)="gotoDetail()">
+        <img src="assets/img/stories/anh1.svg" alt="">
+        <ion-item-group class="stories-info">
+          <ion-label text-wrap class="stories-title">FRANCISCUS, S.J.
+            Giáo hoàng Phanxicô</ion-label>
+          <p class="stories-content three-dots-5">
+            - Lên ngôi ngày 13 tháng 3
+            năm 2013 đến nay.
+            - Người Mỹ La Tinh, Nam Mỹ,
+            Argentina và tu sĩ Dòng Tên
+            đầu tiên làm Giáo hoàng ... </p>
+        </ion-item-group>
+
+      </ion-item-group>
+    </ion-item-group>
+  </ion-item-group>
 
 </ion-content>

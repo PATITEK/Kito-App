@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { ModalController, Platform } from '@ionic/angular';
+import { ModalController, Platform, IonSearchbar } from '@ionic/angular';
+import { from } from 'rxjs';
 import { ModalMenuComponent } from 'src/app/@modular/modal-menu/modal-menu.component';
+
 @Component({
   selector: 'app-tonggiaophan',
   templateUrl: './tonggiaophan.page.html',
@@ -10,6 +12,7 @@ import { ModalMenuComponent } from 'src/app/@modular/modal-menu/modal-menu.compo
 export class TonggiaophanPage implements OnInit {
 activeSeach=false;
 activeMenu=false;
+@ViewChild('search') search:IonSearchbar;
   constructor(
     public platform: Platform,
     private modalCtrl: ModalController, 
@@ -29,6 +32,7 @@ activeMenu=false;
   }
   showSearch(){
     this.activeSeach=true;
+    setTimeout(() => this.search.setFocus(), 1000);
   }
   async openModalMenu() {
     const popover = await this.modalCtrl.create({
@@ -37,8 +41,14 @@ activeMenu=false;
     });
     return await popover.present();
   }
+  BluSearch(){
+    this.activeSeach=false;
+  }
   checkoutVatican(){
     this.router.navigateByUrl('main/tonggiaophan/parish-news');
     
   }
+  
+ 
+  
 }

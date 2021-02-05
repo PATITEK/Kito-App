@@ -122,6 +122,12 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+.three-dots-5 {
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
 
 .absolute-center {
   position: absolute;
