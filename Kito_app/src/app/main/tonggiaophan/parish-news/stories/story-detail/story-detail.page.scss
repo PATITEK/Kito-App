@@ -53,19 +53,21 @@ ion-content {
             font-size: 16px;
             font-weight: 500;
             text-align: left;
-            @media screen and (max-height: 641px) {
-                height: 36vh!important;
-            }
-            @media screen and (max-height: 481px) {
-                height: 24vh!important;
-            }
             @media screen and (max-height: 737px) {
                 height: 35vh!important;
+            }
+            @media screen and (max-height: 641px) {
+                height: 36vh!important;
             }
             @media screen and (max-height: 569px) {
                 height: 30vh!important;
             }
+            @media screen and (max-height: 481px) {
+                height: 24vh!important;
         }
+            }
+           
+           
     }
 }
 
