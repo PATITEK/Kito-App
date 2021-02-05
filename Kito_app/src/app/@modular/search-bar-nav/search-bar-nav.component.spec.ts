@@ -1,19 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { EventDetailComponent } from './event-detail.component';
+import { SearchBarNavComponent } from './search-bar-nav.component';
 
-describe('EventDetailComponent', () => {
-  let component: EventDetailComponent;
-  let fixture: ComponentFixture<EventDetailComponent>;
+describe('SearchBarNavComponent', () => {
+  let component: SearchBarNavComponent;
+  let fixture: ComponentFixture<SearchBarNavComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ EventDetailComponent ],
+      declarations: [ SearchBarNavComponent ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(EventDetailComponent);
+    fixture = TestBed.createComponent(SearchBarNavComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

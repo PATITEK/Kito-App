@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { ParishNewsPageRoutingModule } from './parish-news-routing.module';
 
 import { ParishNewsPage } from './parish-news.page';
+import { HeaderComponent } from 'src/app/@modular/header/header.component';
 
 @NgModule({
   imports: [
@@ -15,6 +16,6 @@ import { ParishNewsPage } from './parish-news.page';
     IonicModule,
     ParishNewsPageRoutingModule
   ],
-  declarations: [ParishNewsPage]
+  declarations: [ParishNewsPage, HeaderComponent]
 })
 export class ParishNewsPageModule {}

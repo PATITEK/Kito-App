@@ -59,12 +59,17 @@ const routes: Routes = [
     path: 'slide',
     loadChildren: () => import('./@modular/slide/slide.module').then( m => m.SlideModule)
   },
-  { path: '', redirectTo: 'main', pathMatch: 'full' },
-  { path: '**', redirectTo: 'main' },
   {
     path: 'modal-detail-order',
     loadChildren: () => import('./@modular/modal-detail-order/modal-detail-order.module').then( m => m.ModalDetailOrderPageModule)
   },
+  {
+    path: 'news-detail',
+    loadChildren: () => import('./@modular/news-detail/news-detail.module').then( m => m.NewsDetailPageModule)
+  },
+  { path: '', redirectTo: 'main', pathMatch: 'full' },
+  { path: '**'  , redirectTo: 'main' },
+
 
 ];
 @NgModule({

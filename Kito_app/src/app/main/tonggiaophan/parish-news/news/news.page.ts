@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./news.page.scss'],
 })
 export class NewsPage implements OnInit {
-  @ViewChild('searchBar') searchBar: any;
+  title = 'Thông tin';
 
   news = [
     {
@@ -39,8 +39,6 @@ export class NewsPage implements OnInit {
       time: '17:15  03.02.2021'
     }
   ]
-  
-  hiddenSearchBar = true;
 
   constructor(
     private router: Router
@@ -49,19 +47,12 @@ export class NewsPage implements OnInit {
   ngOnInit() {
   }
 
-  toggleHideSearchBar(value) {
-    event.stopPropagation();
-    this.hiddenSearchBar = value;
-    if (!value) {
-      this.searchBar.setFocus();
-    }
-  }
-
   goToNewsDetail(item) {
     const data = {
-      id: item.id
+      id: item.id,
+      type: 'News'
     }
-    this.router.navigate(['main/tonggiaophan/parish-news/news/news-detail'], {
+    this.router.navigate(['/news-detail'], {
       queryParams: {
         data: JSON.stringify(data)
       }

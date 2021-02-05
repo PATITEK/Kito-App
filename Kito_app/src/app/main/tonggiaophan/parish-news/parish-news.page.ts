@@ -72,11 +72,12 @@ export class ParishNewsPage implements OnInit {
     this.router.navigateByUrl('main/tonggiaophan/parish-news/news');
   }
 
-  goToNewsDetail(item) {
+  goToNewsDetail(item, type) {
     const data = {
-      id: item.id
+      id: item.id,
+      type: type
     }
-    this.router.navigate(['main/tonggiaophan/parish-news/news/news-detail'], {
+    this.router.navigate(['/news-detail'], {
       queryParams: {
         data: JSON.stringify(data)
       }
@@ -85,17 +86,6 @@ export class ParishNewsPage implements OnInit {
 
   goToStories() {
     this.router.navigateByUrl('main/tonggiaophan/parish-news/stories');
-  }
-
-  goToStoryDetail(item) {
-    const data = {
-      id: item.id
-    }
-    this.router.navigate(['main/tonggiaophan/parish-news/news/story-detail'], {
-      queryParams: {
-        data: JSON.stringify(data)
-      }
-    })
   }
 
   routerLink(path) {

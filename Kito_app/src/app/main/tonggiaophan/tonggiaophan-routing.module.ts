@@ -9,13 +9,13 @@ const routes: Routes = [
     component: TonggiaophanPage
   },
   {
-  path: 'parish-news',
-  loadChildren: () => import('./parish-news/parish-news.module').then( m => m.ParishNewsPageModule)
-}
+    path: 'parish-news',
+    loadChildren: () => import('./parish-news/parish-news.module').then(m => m.ParishNewsPageModule)
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class TonggiaophanPageRoutingModule {}
+export class TonggiaophanPageRoutingModule { }

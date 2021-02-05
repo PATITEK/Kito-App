@@ -39,6 +39,10 @@ const routes: Routes = [
     path: 'tonggiaophan',
     loadChildren: () => import('./tonggiaophan/tonggiaophan.module').then( m => m.TonggiaophanPageModule)
   },
+  {
+    path: 'news-detail',
+    loadChildren: () => import('./../@modular/news-detail/news-detail.module').then( m => m.NewsDetailPageModule)
+  },
 ];
 
 @NgModule({

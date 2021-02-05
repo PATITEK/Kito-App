@@ -8,10 +8,6 @@ const routes: Routes = [
     path: '',
     component: NewsPage
   },
-  {
-    path: 'news-detail',
-    loadChildren: () => import('./news-detail/news-detail.module').then( m => m.NewsDetailPageModule)
-  }
 ];
 
 @NgModule({

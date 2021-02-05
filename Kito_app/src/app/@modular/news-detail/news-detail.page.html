@@ -1,0 +1,19 @@
+<ion-header>
+  <app-header [title]="title"></app-header>
+</ion-header>
+
+<ion-content>
+  <app-search-bar-nav></app-search-bar-nav>
+
+  <ion-label class="main-title">{{ data.title }}</ion-label>
+  <div class="img-container">
+    <img [src]="data.thumbImage">
+  </div>
+
+  <ion-list class="list">
+    <div *ngFor="let item of data.content" class="item">
+      <ion-label class="item-title">{{ item.title }}</ion-label>
+      <p class="item-text">{{ item.text }}</p>
+    </div>
+  </ion-list>
+</ion-content>
