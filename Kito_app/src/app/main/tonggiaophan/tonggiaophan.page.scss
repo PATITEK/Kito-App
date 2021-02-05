@@ -7,6 +7,9 @@ ion-header {
         height: 13vh;
         --min-height: 100% !important;
         clip-path: ellipse(56% 86% at 48% 13%);
+        @media screen and (max-height: 481px) {
+            height: 18vh!important;
+        }
 
         ion-title {
             color: white;
