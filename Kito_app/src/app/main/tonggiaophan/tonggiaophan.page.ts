@@ -10,9 +10,9 @@ import { ModalMenuComponent } from 'src/app/@modular/modal-menu/modal-menu.compo
   styleUrls: ['./tonggiaophan.page.scss'],
 })
 export class TonggiaophanPage implements OnInit {
-activeSeach=false;
 activeMenu=false;
-@ViewChild('search') search:IonSearchbar;
+@ViewChild('searchBar') searchBar: any;
+  hiddenSearchBar = true;
   constructor(
     public platform: Platform,
     private modalCtrl: ModalController, 
@@ -30,10 +30,7 @@ activeMenu=false;
     }
      
   }
-  showSearch(){
-    this.activeSeach=true;
-    setTimeout(() => this.search.setFocus(), 1000);
-  }
+  
   async openModalMenu() {
     const popover = await this.modalCtrl.create({
       component: ModalMenuComponent,
@@ -41,8 +38,12 @@ activeMenu=false;
     });
     return await popover.present();
   }
-  BluSearch(){
-    this.activeSeach=false;
+  toggleHideSearchBar(value) {
+    event.stopPropagation();
+    this.hiddenSearchBar = value;
+    if (!value) {
+      this.searchBar.setFocus();
+    }
   }
   checkoutVatican(){
     this.router.navigateByUrl('main/tonggiaophan/parish-news');
