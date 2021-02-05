@@ -1,5 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { IonSlides } from '@ionic/angular';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-parish-news',
@@ -7,9 +6,6 @@ import { IonSlides } from '@ionic/angular';
   styleUrls: ['./parish-news.page.scss'],
 })
 export class ParishNewsPage implements OnInit {
-  // @ViewChild ('slideNews',{ static: true })  
-  // @ViewChild ('slideStories',{ static: true })  
-
   news = [
     {
       id: "1",
