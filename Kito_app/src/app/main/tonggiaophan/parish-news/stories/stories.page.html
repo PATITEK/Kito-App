@@ -11,7 +11,7 @@
         placeholder="Tìm kiếm ..." debounce="500"></ion-searchbar>
     </ion-item-group>
     <ion-item-group class="list-item">
-      <ion-item-group *ngFor='let in of counter(5)' class="item-stories">
+      <ion-item-group *ngFor='let in of counter(5)' class="item-stories" (click)="gotoDetail()">
         <img src="assets/img/stories/anh1.svg" alt="">
         <ion-item-group class="stories-info">
           <ion-label text-wrap class="stories-title">FRANCISCUS, S.J.
@@ -23,7 +23,7 @@
             Argentina và tu sĩ Dòng Tên
             đầu tiên làm Giáo hoàng ... </p>
         </ion-item-group>
-        
+
       </ion-item-group>
     </ion-item-group>
   </ion-item-group>
