@@ -95,10 +95,11 @@ export class ParishNewsPage implements OnInit {
       queryParams: {
         data: JSON.stringify(data)
       }
-  })
+    })
+  }
 
   routerLink(path) {
     // this.router.navigate(['main/'+path]);
-    this.router.navigateByUrl('main/tonggiaophan/parish-news/'+path);
+    this.router.navigateByUrl('main/tonggiaophan/parish-news/' + path);
   }
 }
