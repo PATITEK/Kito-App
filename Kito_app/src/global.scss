@@ -56,12 +56,12 @@
 
 .back-btn {
   display: inline-block;
-  color: #fff;
+  color: #C8C8C8;
   border-radius: 50%;
-  position: fixed;
-  top: 20px;
+  position: absolute;
+  top: 50%;
   left: 20px;
-  z-index: 101;
+  transform: translateY(-50%);
 
   &::part(native) {
     width: 40px;

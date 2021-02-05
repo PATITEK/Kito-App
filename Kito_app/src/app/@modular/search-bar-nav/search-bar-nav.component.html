@@ -1,0 +1,9 @@
+<ion-buttons class="nav-bar">
+  <ion-icon name="menu-outline" class="menu-icon active-effect" (click)="openModalMenu()"></ion-icon>
+  <ion-searchbar #searchBar mode="ios" placeholder="Tìm kiếm" [ngClass]="{'visible-search-bar': !hiddenSearchBar}"
+    (ionBlur)="toggleHideSearchBar(true)">
+  </ion-searchbar>
+
+  <ion-icon *ngIf="hiddenSearchBar" name="search-outline" class="search-icon" (click)="toggleHideSearchBar(false)">
+  </ion-icon>
+</ion-buttons>
