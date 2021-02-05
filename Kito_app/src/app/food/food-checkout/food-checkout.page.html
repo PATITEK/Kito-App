@@ -1,0 +1,73 @@
+<ion-header class="ion-no-border">
+  <ion-back-button icon="chevron-back-outline" text="" class="back-btn"></ion-back-button>
+  <ion-item-group class="title-main">
+    <ion-label class="title-header">Checkout</ion-label>
+ </ion-item-group>
+</ion-header>
+
+<ion-content>
+  <ion-item-group>
+    <!-- <ion-list class="group0"></ion-list> -->
+    <ion-list class="group1">
+      <ion-label class="group1-label">Destination:</ion-label>
+      <ion-item lines="none" class="group1-item">
+        <ion-icon src="assets/icon/location.svg"></ion-icon>
+        <span>{{order.full_address}}</span>
+      </ion-item>
+    </ion-list>
+
+    <ion-list class="group2">
+      <ion-item lines="none" class="group2-row-1">
+        <ion-label class="left-label">Your Order</ion-label>
+        <!-- <ion-label (click)="addItem()" class="add-item">Add items</ion-label> -->
+      </ion-item>
+      <ion-list class="group2-row-2-cover">
+        <ion-buttons *ngFor="let food of dataBasket" class="group2-row-2" [ngClass]="{'group2-row-2-deleted': isDel === true }">
+          <ion-buttons class="amount" lines="none">
+            <span>{{food.amount}} x</span>
+          </ion-buttons>
+          <span class="food-name">{{food.name}}</span>
+          <ion-buttons>
+            <!-- <img (click)="plusItem(food)" class="icon-add" src="assets/img/ion-add.svg" alt=""> -->
+            
+            <!-- <img (click)="minusItem(food)" class="icon-add" src="assets/img/ion-remove.svg" alt=""> -->
+          </ion-buttons>
+          <span class="price">${{food.price * food.amount | number:'2.1-2'}}</span>
+          <!-- <ion-icon (click)="removeItem(food)" class="icon-remove" src="assets/icon/remove-icon.svg"></ion-icon> -->
+        </ion-buttons>
+      </ion-list>
+      <ion-col class="group2-row-3" lines="none">
+        <!-- <ion-icon name="add-circle"></ion-icon> -->
+        <ion-label *ngIf="note !== '' ">Notes: </ion-label>
+        <ion-item *ngIf="note !== '' " lines="none">
+          <span>{{note}}</span>
+        </ion-item>
+      </ion-col>
+    </ion-list>
+
+    <ion-list class="group3">
+      <ion-row class="group3-row-1">
+        <ion-label class="group3-row1-total">Total ({{dataBasket.length}} items)</ion-label>
+        <ion-label class="group3-row1-prices" >${{calTotalPrice() | number:'2.1-2'}}</ion-label>
+      </ion-row>
+    </ion-list>
+    <ion-list class="group3">
+      <ion-row class="group3-row-1">
+        <ion-label class="group3-row1-total">Total payment</ion-label>
+      </ion-row>
+        <ion-row class="group3-row-1 group3-row1--modif">
+          <ion-label class="group3-row1-prices--modify">
+            <form  (ngSubmit)="showStripe()"  id="payment-form">
+              <div class="form-row">
+                <div id="card-element"> 
+                 </div>
+                <div id="card-errors" role="alert"></div>
+              </div>
+              <ion-button type="submit" color="success"  expand="full">Make Payment</ion-button>
+            </form>
+          </ion-label>
+      </ion-row>
+    </ion-list>
+    <ion-button (click)="confirm()" class="main-button">Confirm</ion-button>
+  </ion-item-group>
+</ion-content>

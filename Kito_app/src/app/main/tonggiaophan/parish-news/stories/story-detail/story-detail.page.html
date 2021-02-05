@@ -1,0 +1,41 @@
+<ion-content>
+  <ion-back-button icon="chevron-back-outline" text="" class="back-btn back-btn-custom"></ion-back-button>
+  <ion-label class="text-title">
+    Tiểu Sử
+  </ion-label>
+  <ion-item-group class="home">
+    <ion-item-group class="content-search">
+      <ion-icon (click)="openModalMenu()" class="icon-bars" name="menu-outline"></ion-icon>
+      <ion-searchbar #searchBar mode="ios" placeholder="Tìm kiếm" [ngClass]="{'visible-search-bar': !hiddenSearchBar}"
+      (ionBlur)="toggleHideSearchBar(true)" (click)="$event.stopPropagation();">
+    </ion-searchbar>
+    <ion-icon *ngIf="hiddenSearchBar" name="search-outline" class="search-icon" (click)="toggleHideSearchBar(false)">
+      </ion-icon>
+    </ion-item-group>
+    <ion-label text-wrap class="title-home">
+      FRANCISCUS, S.J.
+      Giáo hoàng Phanxicô
+    </ion-label>
+    <img src="assets/img/stories/giaohoang.svg" alt="">
+    <p class="content">Giáo hoàng Phanxicô
+      (tiếng Latinh: Franciscus [franˈtʃiskus];[3]
+      tiếng Ý: Francesco; tiếng Tây Ban Nha: Francisco;
+      sinh 17 tháng 12 năm 1936;
+      tên thật: Jorge Mario Bergoglio[b]) là vị giáo hoàng
+      thứ 266 và là đương kim giáo hoàng của Giáo hội
+      Công giáo Rôma.
+
+      Ông sinh tại Buenos Aires, Argentina trong một
+      gia đình có năm anh em di dân gốc Ý. Từ khi nhỏ,
+      Bergoglio đã biết được hai thứ tiếng Tây Ban Nha
+      và Italia. Bergoglio bắt đầu học Thần học sau khi có
+      bằng Thạc sĩ Hóa học của Đại học Buenos Aires.
+      [4] Ngày 11 tháng 3 năm 1958, ông gia nhập Dòng Tên
+      ở Argentina. Đến năm 1969, ông trở thành Linh mục
+      và sau đó đảm nhiệm nhiều vai trò khác nhau trong
+      Giáo hội. Từ năm 1998, ông trở thành Tổng Giám mục
+      của Tổng giáo phận Buenos Aires. Đến năm 2001,
+      Giáo hoàng Gioan Phaolô II phong ông làm hồng y.</p>
+  </ion-item-group>
+
+</ion-content>

@@ -1,0 +1,93 @@
+ion-content {
+    --overflow: hidden;
+    --background: #fbfbfb;
+    .text-title {
+        text-align: center;
+        font-size: 24px;
+        color: #805c00;
+        position: absolute;
+        left: 0;
+        right: 0;
+        margin: auto;
+        transform: translateY(100%);
+    }
+    .home {
+        margin-top: 10vh;
+        padding: 0 20px;
+        @media screen and (max-height: 481px) {
+            margin-top: 12vh!important;
+        }
+        .content-search {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+           
+
+            .icon-bars {
+                flex-basis: 20%;
+                width: 40px;
+                height: 40px;
+                color: #c4c4c4;
+                transform: translateX(-20%);
+            }
+        }
+        .list-item{
+            height: 84vh;
+            overflow: scroll;
+            @media screen and (max-height: 481px) {
+                height: 77vh!important;
+            }
+            @media screen and (max-height: 641px) {
+                height: 83vh!important;
+            }
+            .item-stories{
+                display: flex;
+                padding: 15px 0;
+                border-bottom: 2px solid #EEEEEE;
+                img{
+                    object-fit: cover;
+                    
+                    @media screen and (max-height: 569px) {
+                        flex-basis: 33%;
+                    }
+                }
+                .stories-info{
+                    flex-basis: 50%;
+                    padding-left: 10px;
+                    @media screen and (max-height: 569px) {
+                        flex-basis: 67%;
+                    }
+                    .stories-title{
+                        color: #002D63;
+                        font-size: 16px;
+                        font-weight: 500;
+                        @media screen and (max-height: 569px) {
+                            font-size: 14px!important;
+                        }
+                    }
+                    .stories-content{
+                        margin: 0;
+                        margin-top: 15px;
+                        color: #525252;
+                        font-size: 14px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.back-btn-custom {
+    color: #c8c8c8;
+}
+@keyframes mymove {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0px);
+    }
+}

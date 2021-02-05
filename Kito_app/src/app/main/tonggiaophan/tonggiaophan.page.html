@@ -1,0 +1,70 @@
+<ion-header no-border class="ion-no-border">
+  <ion-back-button icon="chevron-back-outline" text="" class="back-btn"></ion-back-button>
+  <ion-toolbar>
+    <ion-title>(Tổng) Giáo phận</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item-group class="home">
+    <ion-item-group class="content-search">
+      <ion-icon  (click)="openModalMenu()" class="icon-bars" name="menu-outline"></ion-icon>
+      <ion-searchbar #searchBar mode="ios" placeholder="Tìm kiếm" [ngClass]="{'visible-search-bar': !hiddenSearchBar}"
+      (ionBlur)="toggleHideSearchBar(true)" (click)="$event.stopPropagation();">
+    </ion-searchbar>
+    <ion-icon *ngIf="hiddenSearchBar" name="search-outline" class="search-icon" (click)="toggleHideSearchBar(false)">
+      </ion-icon>
+  </ion-item-group>
+    
+    <ion-item-group class="list-item">
+      <ion-item-group class="group-item" (click)="checkoutVatican()">
+        <ion-img src="assets/img/tonggiaophan/vatican.svg" alt=""></ion-img>
+        <ion-label class="text-label">
+          Tin tức
+          <br>
+          Tòa Thánh Vatican
+        </ion-label>
+      </ion-item-group>
+      <ion-item-group class="group-item">
+        <ion-img src="assets/img/tonggiaophan/hanoi.svg" alt=""></ion-img>
+        <ion-label class="text-label">
+          Tổng Giáo Phận
+          <br>
+          Hà Nội
+        </ion-label>
+      </ion-item-group>
+      <ion-item-group class="group-item">
+        <ion-img src="assets/img/tonggiaophan/hue.svg" alt=""></ion-img>
+        <ion-label class="text-label">
+          Tổng Giáo Phận
+          <br>
+          Huê
+        </ion-label>
+      </ion-item-group>
+      <ion-item-group class="group-item">
+        <ion-img src="assets/img/tonggiaophan/saigon.svg" alt=""></ion-img>
+        <ion-label class="text-label">
+          Tổng Giáo Phận
+          <br>
+          Sài Gòn
+        </ion-label>
+      </ion-item-group>
+      
+    </ion-item-group>
+   
+  </ion-item-group>
+
+</ion-content>
+<ion-footer class="ion-no-border">
+  <ion-toolbar>
+    <div class="icon-up">
+
+    </div>
+    <ion-item-group class="menu-bottom">
+      <img src="assets/img/icon-home.svg" alt="" srcset="">
+      <img src="assets/img/icon-info.svg" alt="" srcset="">
+    </ion-item-group>
+
+   
+  </ion-toolbar>
+</ion-footer>
