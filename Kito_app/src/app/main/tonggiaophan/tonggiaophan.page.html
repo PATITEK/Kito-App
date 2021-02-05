@@ -7,14 +7,7 @@
 
 <ion-content>
   <ion-item-group class="home">
-    <ion-item-group class="content-search">
-      <ion-icon  (click)="openModalMenu()" class="icon-bars" name="menu-outline"></ion-icon>
-      <ion-searchbar #searchBar mode="ios" placeholder="Tìm kiếm" [ngClass]="{'visible-search-bar': !hiddenSearchBar}"
-      (ionBlur)="toggleHideSearchBar(true)" (click)="$event.stopPropagation();">
-    </ion-searchbar>
-    <ion-icon *ngIf="hiddenSearchBar" name="search-outline" class="search-icon" (click)="toggleHideSearchBar(false)">
-      </ion-icon>
-  </ion-item-group>
+    <app-search-bar-nav></app-search-bar-nav>
     
     <ion-item-group class="list-item">
       <ion-item-group class="group-item" (click)="checkoutVatican()">
