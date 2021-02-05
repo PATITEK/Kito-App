@@ -1,1 +1,20 @@
 
+:host ::ng-deep ion-searchbar {
+    --background: #fff!important;
+    --icon-color: #cacaca!important;
+    --placeholder-color: #cacaca!important;
+    --placeholder-opacity: 1!important;
+    --color: #6c6c6c!important;
+    border: 1px solid #c8c8c8!important;
+    border-radius: 5px!important;
+    height: 32px!important;
+    width: 0!important;
+    max-width: calc(100vw - 110px)!important;
+    padding: 0 5px!important;
+    transition: 0.3s!important;
+    opacity: 0!important;
+  }
+  :host ::ng-deep .visible-search-bar {
+    width: 270px!important;
+    opacity: 1!important;
+  }

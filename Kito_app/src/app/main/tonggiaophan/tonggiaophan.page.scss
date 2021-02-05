@@ -29,18 +29,7 @@ ion-content {
             align-items: center;
             justify-content: space-between;
             
-            ion-searchbar {
-                flex-basis: 80%;
-                --border-radius: 5px;
-                --icon-color: #cacaca;
-                --color: #cacaca;
-                padding: 0;
-                // margin: 10px auto 10px;
-                height: 25px;
-              
-                animation: mymove 1s;
-               
-            }
+           
             .icon-bars{
                 flex-basis: 20%;
                width: 40px;
@@ -77,11 +66,7 @@ ion-content {
         }
     }
 }
-:host ::ng-deep .searchbar-input-container {
-    height: 25px !important;
-    border: 1px solid #cacaca;
-    border-radius: 5px;
-}
+
 :host ::ng-deep .toolbar-container {
     height: 100% !important;
 }
@@ -113,15 +98,7 @@ ion-footer{
         
     }
 }
-@keyframes mymove {
-    from {
-        opacity: 0;
-        transform: translateY(10px);
-    }
-    to {opacity: 1;
-        transform: translateY(0px);
-    }
-  }
+
   .modal-menu{
       position: sticky;
       height: 100px;

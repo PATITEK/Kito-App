@@ -11,7 +11,8 @@ import { ModalMenuComponent } from 'src/app/@modular/modal-menu/modal-menu.compo
 export class StoriesPage implements OnInit {
   activeSeach=false;
   activeMenu=false;
-  @ViewChild('search') search:IonSearchbar;
+  @ViewChild('searchBar') searchBar: any;
+  hiddenSearchBar = true;
   constructor(
     public platform: Platform,
     private modalCtrl: ModalController, 
@@ -25,9 +26,12 @@ export class StoriesPage implements OnInit {
 
     }
   }
-  showSearch(){
-    this.activeSeach=true;
-    setTimeout(() => this.search.setFocus(), 1000);
+  toggleHideSearchBar(value) {
+    event.stopPropagation();
+    this.hiddenSearchBar = value;
+    if (!value) {
+      this.searchBar.setFocus();
+    }
   }
   async openModalMenu() {
     const popover = await this.modalCtrl.create({
@@ -35,9 +39,6 @@ export class StoriesPage implements OnInit {
       cssClass: 'modalMenu  ',
     });
     return await popover.present();
-  }
-  BluSearch(){
-    this.activeSeach=false;
   }
   gotoDetail(){
     this.router.navigateByUrl('main/tonggiaophan/parish-news/stories/story-detail');

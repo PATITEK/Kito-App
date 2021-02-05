@@ -1,15 +1,16 @@
 <ion-content>
   <ion-back-button icon="chevron-back-outline" text="" class="back-btn back-btn-custom"></ion-back-button>
-  <ion-lable class="text-title">
+  <ion-label class="text-title">
     Tiểu Sử
-  </ion-lable>
+  </ion-label>
   <ion-item-group class="home">
     <ion-item-group class="content-search">
       <ion-icon (click)="openModalMenu()" class="icon-bars" name="menu-outline"></ion-icon>
-      <ion-icon *ngIf="!activeSeach" (click)="showSearch()" name="search-outline"></ion-icon>
-      <ion-searchbar #search *ngIf="activeSeach" showCancelButton="never" (ionBlur)="BluSearch()"
-        placeholder="Tìm kiếm ..." debounce="500"></ion-searchbar>
-
+      <ion-searchbar #searchBar mode="ios" placeholder="Tìm kiếm" [ngClass]="{'visible-search-bar': !hiddenSearchBar}"
+      (ionBlur)="toggleHideSearchBar(true)" (click)="$event.stopPropagation();">
+    </ion-searchbar>
+    <ion-icon *ngIf="hiddenSearchBar" name="search-outline" class="search-icon" (click)="toggleHideSearchBar(false)">
+      </ion-icon>
     </ion-item-group>
     <ion-label text-wrap class="title-home">
       FRANCISCUS, S.J.
