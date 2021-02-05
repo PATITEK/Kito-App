@@ -7,7 +7,11 @@ const routes: Routes = [
   {
     path: '',
     component: TonggiaophanPage
-  }
+  },
+  {
+  path: 'parish-news',
+  loadChildren: () => import('./parish-news/parish-news.module').then( m => m.ParishNewsPageModule)
+}
 ];
 
 @NgModule({

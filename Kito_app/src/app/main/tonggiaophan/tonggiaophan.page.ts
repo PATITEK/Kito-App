@@ -38,7 +38,7 @@ activeMenu=false;
     return await popover.present();
   }
   checkoutVatican(){
-    this.router.navigateByUrl('main/parish-news');
+    this.router.navigateByUrl('main/tonggiaophan/parish-news');
     
   }
 }
