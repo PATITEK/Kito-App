@@ -41,13 +41,14 @@ activeMenu=false;
     });
     return await popover.present();
   }
+  BluSearch(){
+    this.activeSeach=false;
+  }
   checkoutVatican(){
     this.router.navigateByUrl('main/tonggiaophan/parish-news');
     
   }
   
-  BluSearch(){
-    this.activeSeach=false;
-  }
+ 
   
 }
