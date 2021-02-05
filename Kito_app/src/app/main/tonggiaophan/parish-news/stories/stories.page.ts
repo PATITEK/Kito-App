@@ -39,6 +39,9 @@ export class StoriesPage implements OnInit {
   BluSearch(){
     this.activeSeach=false;
   }
+  gotoDetail(){
+    this.router.navigateByUrl('main/tonggiaophan/parish-news/stories/story-detail');
+  }
   counter(i: number) {
     return new Array(i);
 }
