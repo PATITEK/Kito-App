@@ -1,21 +1,15 @@
 ion-content {
   --padding-top: 80px;
-  --padding-start: 20px;
-  --padding-end: 20px;
+  --padding-start: 16px;
+  --padding-end: 16px;
 }
 
 .back-btn-custom {
   color: #c8c8c8;
 }
 
-.header {
-  height: 80px;
+.header-custom {
   background: #fff;
-  position: fixed;
-  left: 0;
-  right: 0;
-  z-index: 9;
-  top: 0;
 }
 
 .box {
@@ -53,7 +47,7 @@ ion-slides {
     .item-title {
       color: #525252;
       font-size: 16px;
-      font-weight: 600;
+      font-weight: 500;
       position: absolute;
       left: 0;
       right: 0;
@@ -65,7 +59,6 @@ ion-slides {
         rgba(255, 255, 255, 0.8) 70.83%,
         #ffffff 100%
       );
-      opacity: 0.8;
       margin: 0;
       padding: 19px 5px 5px;
       text-align: left;

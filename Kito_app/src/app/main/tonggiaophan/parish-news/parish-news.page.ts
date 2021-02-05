@@ -61,14 +61,44 @@ export class ParishNewsPage implements OnInit {
     }
   };
 
-  constructor( private router: Router) { }
+  constructor(
+    private router: Router
+  ) { }
 
   ngOnInit() {
   }
+
+  goToNews() {
+    this.router.navigateByUrl('main/tonggiaophan/parish-news/news');
+  }
+
+  goToNewsDetail(item) {
+    const data = {
+      id: item.id
+    }
+    this.router.navigate(['main/tonggiaophan/parish-news/news/news-detail'], {
+      queryParams: {
+        data: JSON.stringify(data)
+      }
+    })
+  }
+
+  goToStories() {
+    this.router.navigateByUrl('main/tonggiaophan/parish-news/stories');
+  }
+
+  goToStoryDetail(item) {
+    const data = {
+      id: item.id
+    }
+    this.router.navigate(['main/tonggiaophan/parish-news/news/story-detail'], {
+      queryParams: {
+        data: JSON.stringify(data)
+      }
+  })
+
   routerLink(path) {
-    
     // this.router.navigate(['main/'+path]);
     this.router.navigateByUrl('main/tonggiaophan/parish-news/'+path);
-   
   }
 }

@@ -1,9 +1,59 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>news</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content (click)="toggleHideSearchBar(true)">
+  <ion-back-button icon="chevron-back-outline" text="" class="back-btn back-btn-custom"></ion-back-button>
 
-<ion-content>
+  <div class="main-header header-custom">
+    <ion-label>Tin tức</ion-label>
+  </div>
 
+  <ion-buttons class="nav-bar">
+    <ion-icon name="menu-outline" class="menu-icon active-effect"></ion-icon>
+    <ion-searchbar #searchBar mode="ios" placeholder="Tìm kiếm" [ngClass]="{'visible-search-bar': !hiddenSearchBar}"
+      (ionBlur)="toggleHideSearchBar(true)" (click)="$event.stopPropagation();">
+    </ion-searchbar>
+
+    <ion-icon *ngIf="hiddenSearchBar" name="search-outline" class="search-icon" (click)="toggleHideSearchBar(false)">
+    </ion-icon>
+  </ion-buttons>
+
+  <div class="main-news" (click)="goToNewsDetail(news[0])">
+    <img class="item-img" [src]="news[0].thumbImage">
+
+    <ion-buttons class="text-box">
+      <p class="item-title three-dots-2">{{ news[0].title }}</p>
+      <ion-buttons class="right-box text">
+        <ion-buttons>
+          <ion-icon name="eye"></ion-icon>
+          <ion-label>{{ news[0].watchedUsers }}</ion-label>
+        </ion-buttons>
+        <ion-buttons class="time-box">
+          <ion-icon name="time"></ion-icon>
+          <ion-label>{{ news[0].time }}</ion-label>
+        </ion-buttons>
+      </ion-buttons>
+    </ion-buttons>
+  </div>
+
+  <ion-list class="sub-news">
+    <ng-container *ngFor="let item of news; let index = i;">
+      <ion-buttons *ngIf="index != 0" class="sub-news-item" (click)="goToNewsDetail(item)">
+        <div class="img-container">
+          <img [src]="item.thumbImage">
+        </div>
+
+        <ion-buttons class="content-box">
+          <p class="item-title three-dots-3">{{ item.title }}</p>
+          <ion-buttons class="bottom-box text">
+            <ion-buttons>
+              <ion-icon name="time"></ion-icon>
+              <ion-label>{{ item.time }}</ion-label>
+            </ion-buttons>
+            <ion-buttons>
+              <ion-icon name="eye"></ion-icon>
+              <ion-label>{{ item.watchedUsers }}</ion-label>
+            </ion-buttons>
+          </ion-buttons>
+        </ion-buttons>
+      </ion-buttons>
+    </ng-container>
+  </ion-list>
 </ion-content>

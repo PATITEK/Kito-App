@@ -3,25 +3,6 @@ ion-content {
   overflow-x: hidden;
 }
 
-.header {
-  height: 80px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #fff;
-  font-size: 24px;
-  font-weight: 500;
-  position: fixed;
-  top: 0;
-  z-index: 100;
-  left: 0;
-  right: 0;
-
-  @media screen and (max-width: 320px) {
-    font-size: 18px;
-  }
-}
-
 .catechism-list {
   max-width: 80vw;
   min-width: 300px;
