@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-parish-news',
@@ -60,9 +61,40 @@ export class ParishNewsPage implements OnInit {
     }
   };
 
-  constructor() { }
+  constructor(
+    private router: Router
+  ) { }
 
   ngOnInit() {
   }
 
+  goToNews() {
+    this.router.navigateByUrl('main/tonggiaophan/parish-news/news');
+  }
+
+  goToNewsDetail(item) {
+    const data = {
+      id: item.id
+    }
+    this.router.navigate(['main/tonggiaophan/parish-news/news/news-detail'], {
+      queryParams: {
+        data: JSON.stringify(data)
+      }
+    })
+  }
+
+  goToStories() {
+    this.router.navigateByUrl('main/tonggiaophan/parish-news/stories');
+  }
+
+  goToStoryDetail(item) {
+    const data = {
+      id: item.id
+    }
+    this.router.navigate(['main/tonggiaophan/parish-news/news/story-detail'], {
+      queryParams: {
+        data: JSON.stringify(data)
+      }
+    })
+  }
 }

@@ -1,22 +1,22 @@
 <ion-content>
   <ion-back-button icon="chevron-back-outline" text="" class="back-btn back-btn-custom"></ion-back-button>
 
-  <div class="header"></div>
-  
+  <div class="main-header header-custom"></div>
+
   <div class="box">
     <div class="heading-box">
       <ion-label>Tin tức <br>TÒA THÁNH VATICAN</ion-label>
     </div>
-  
+
     <ion-slides pager="true" [options]="slideOptions">
-      <ion-slide *ngFor="let item of news" class="item main-box-shadow">
+      <ion-slide *ngFor="let item of news" class="item main-box-shadow" (click)="goToNewsDetail(item)">
         <img class="item-img" [src]="item.thumbImage">
         <p class="item-title three-dots-2">{{ item.title }}</p>
       </ion-slide>
     </ion-slides>
 
     <div class="see-more-box">
-      <ion-label class="active-effect">Xem thêm ></ion-label>
+      <ion-label class="active-effect" (click)="goToNews()">Xem thêm ></ion-label>
     </div>
   </div>
 
@@ -24,16 +24,16 @@
     <div class="heading-box">
       <ion-label>Tiểu sử các <br>ĐỨC GIÁO HOÀNG</ion-label>
     </div>
-  
+
     <ion-slides pager="true" [options]="slideOptions">
-      <ion-slide *ngFor="let item of stories" class="item main-box-shadow">
+      <ion-slide *ngFor="let item of stories" class="item main-box-shadow" (click)="goToStoryDetail(item)">
         <img class="item-img" [src]="item.thumbImage">
         <p class="item-title three-dots-2">{{ item.title }}</p>
       </ion-slide>
     </ion-slides>
 
     <div class="see-more-box">
-      <ion-label>Xem thêm ></ion-label>
+      <ion-label class="active-effect" (click)="goToStories()">Xem thêm ></ion-label>
     </div>
   </div>
 </ion-content>
