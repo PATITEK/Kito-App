@@ -1,0 +1,57 @@
+<ion-content>
+  <ion-backdrop class="backdrop-event-detail" [style.display]="loadedData ? 'none' : 'block'"></ion-backdrop>
+
+  <span class="btn-donate main-box-shadow active-effect" (click)="goToDonate()">Donate</span>
+  <ion-item-group class="ion-text-center">
+    <span class="line"></span>
+  </ion-item-group>
+
+  <ion-item-group class="body" [style.height]="calBodyHeight()">
+    <ion-buttons class="ion-align-items-start ion-justify-content-between">
+      <h3 class="title">{{ event.name }}</h3>
+    </ion-buttons>
+
+    <ion-item-group class="date-box">
+      <span class="ion-margin-end">{{ getDayString() }}</span>
+      <span>From: </span>
+      <span class="ion-margin-end">{{ event.start_time.substring(11, 16) }}</span>
+      <span>To: </span>
+      <span>{{ event.end_time.substring(11, 16) }}</span>
+    </ion-item-group>
+    <p class="text">{{ event.description }}</p>
+
+    <h3 class="title">Description</h3>
+    <p class="text">{{ event.description }}</p>
+  </ion-item-group>
+
+  <ion-item-group class="fixed-bottom">
+    <ion-item-group class="donate" *ngIf="donors.length != 0">
+      <h3 class="title">Donors</h3>
+      <ion-list class="donors-list">
+        <ion-buttons class="donors-item" *ngFor="let donor of donors">
+          <ion-item-group class="avatar">
+            <div class="avatar-inner active-effect">
+              <img [src]="donor.thumbImage">
+            </div>
+            <ion-label class="avatar-name">{{ donor.name }}</ion-label>
+          </ion-item-group>
+          <ion-item-group class="info">
+            <ion-label class="info-title">Purpose</ion-label>
+            <p class="purpose-text">{{ donor.purpose }}</p>
+            <span class="dollar">$</span>
+            <span class="money">{{ donor.money }} {{ donor.unitPrice }}</span>
+            <span class="thank-sentence">{{ donor.thankSentence }}</span>
+          </ion-item-group>
+        </ion-buttons>
+      </ion-list>
+    </ion-item-group>
+  
+    <ion-item-group [style.display]="data.event.joined == false ? 'block' : 'none'" class="join">
+      <p class="join-title">Will you join with us?</p>
+      <ion-buttons class="ion-justify-content-between">
+        <span class="btn-join-with-us active-effect" (click)="chooseJoinSelection(false)">No</span>
+        <span class="btn-join-with-us active-effect" (click)="chooseJoinSelection(true)">Yes</span>
+      </ion-buttons>
+    </ion-item-group>
+  </ion-item-group>
+</ion-content>
