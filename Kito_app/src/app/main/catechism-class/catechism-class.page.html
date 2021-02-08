@@ -1,12 +1,9 @@
+<ion-header>
+  <app-background-header></app-background-header>
+  <app-header [title]="title" class="app-header-custom"></app-header>
+</ion-header>
+
 <ion-content>
-  <ion-back-button icon="chevron-back-outline" text="" class="back-btn"></ion-back-button>
-
-  <div class="background-header main-box-shadow"></div>
-
-  <div class="main-header">
-    <ion-label>Lớp Học Giáo Lý</ion-label>
-  </div>
-
   <ion-list class="catechism-list">
     <div class="catechism" *ngFor="let catechism of catechismList" (click)="goToCatechismDetail(catechism)">
       <ion-buttons class="catechism-name">

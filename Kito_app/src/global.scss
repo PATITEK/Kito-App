@@ -211,21 +211,13 @@
   }
 }
 
-.main-header {
-  height: 80px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #fff;
-  font-size: 24px;
-  font-weight: 500;
-  position: fixed;
-  top: 0;
-  z-index: 100;
-  left: 0;
-  right: 0;
+.app-header-custom {
+  .header {
+    background: transparent !important;
+    color: #fff !important;
 
-  @media screen and (max-width: 320px) {
-    font-size: 18px;
+    .back-btn {
+      color: #fff !important;
+    }
   }
 }
