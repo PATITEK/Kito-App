@@ -1,0 +1,137 @@
+.back-btn {
+  top: 20px;
+  transform: none;
+}
+
+.circle {
+  position: absolute;
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  background: #faae42;
+  border-radius: 50%;
+  box-shadow: 0 2px 2px rgb(0 0 0 / 25%);
+}
+
+.img-container {
+  height: 60vw;
+  overflow: hidden;
+  border-bottom-left-radius: 30px;
+  border-bottom-right-radius: 30px;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.parish-name {
+  color: #002d63;
+  font-size: 18px;
+  font-weight: 500;
+  display: block;
+  text-align: center;
+  padding: 16px;
+}
+
+.body {
+  padding: 45px 10px 10px;
+  background: #f5f5f5;
+  position: relative;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  margin-top: 25px;
+  min-height: calc(100vh - 60vw - 54px - 25px);
+}
+
+.date-list {
+  justify-content: space-around;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  transform: translateY(-50%);
+  padding: 0;
+
+  .date-item {
+    flex-direction: column;
+    border-radius: 25px;
+    width: calc(100% / 7 - 10px);
+    max-width: 50px;
+    padding: 10px 0;
+    color: #828282;
+    font-size: 14px;
+    line-height: 19px;
+    transition: 0.15s;
+    border: 1px solid #fafafa;
+    position: relative;
+    background: #fff;
+
+    .date-text {
+      font-weight: 500;
+    }
+
+    .date-item-note {
+      left: 50%;
+      top: 0;
+      transform: translate(-50%, -50%);
+    }
+  }
+
+  .active-date-item {
+    background: #f5f5f5;
+    border-color: #c8c8c8;
+    color: #002d63;
+    box-shadow: none;
+  }
+}
+
+.body-header {
+  color: #002d63;
+  font-size: 16px;
+  text-align: center;
+  line-height: 20px;
+  margin-bottom: 16px;
+
+  ion-label {
+    display: block;
+  }
+
+  .item-name {
+    font-weight: 500;
+    text-transform: uppercase;
+  }
+}
+
+.event-list {
+  background: transparent;
+
+  .event {
+    background: #fefefe;
+    color: #727272;
+    border-radius: 20px;
+    padding: 16px;
+
+    &:not(:last-child) {
+      margin-bottom: 10px;
+    }
+
+    .event-name {
+      display: block;
+      font-size: 20px;
+      font-weight: 700;
+    }
+
+    .event-time {
+      display: block;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .event-text {
+      font-size: 14px;
+      margin-right: 16px;
+    }
+  }
+}
