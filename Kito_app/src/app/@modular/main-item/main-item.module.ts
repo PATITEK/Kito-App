@@ -5,6 +5,7 @@ import { MainItemRoutingModule } from './main-item-routing.module';
 import { MainItemComponent } from './main-item.component';
 
 
+
 @NgModule({
   declarations: [MainItemComponent],
   imports: [

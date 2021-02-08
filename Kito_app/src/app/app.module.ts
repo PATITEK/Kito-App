@@ -15,6 +15,7 @@ import { Camera } from '@ionic-native/camera/ngx';
 import { SlideService } from './@modular/slide/slide.service';
 import { Stripe } from '@ionic-native/stripe/ngx';
 import {enableProdMode} from '@angular/core';
+// import { IonicSwipeAllModule } from 'ionic-swipe-all';
 
 @NgModule({
   declarations: [AppComponent],
@@ -26,6 +27,7 @@ import {enableProdMode} from '@angular/core';
     CoreModule.forRoot(),
     FormsModule, 
     ReactiveFormsModule,
+    
    
   ],
   providers: [
