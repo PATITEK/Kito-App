@@ -8,7 +8,6 @@ import { CatechismClassPageRoutingModule } from './catechism-class-routing.modul
 
 import { CatechismClassPage } from './catechism-class.page';
 import { HeaderModule } from 'src/app/@modular/header/header.module';
-import { BackgroundHeaderComponent } from 'src/app/@modular/background-header/background-header.component';
 
 @NgModule({
   imports: [
@@ -16,11 +15,10 @@ import { BackgroundHeaderComponent } from 'src/app/@modular/background-header/ba
     FormsModule,
     IonicModule,
     CatechismClassPageRoutingModule,
-    HeaderModule
+    HeaderModule,
   ],
   declarations: [
     CatechismClassPage,
-    BackgroundHeaderComponent
   ]
 })
 export class CatechismClassPageModule {}

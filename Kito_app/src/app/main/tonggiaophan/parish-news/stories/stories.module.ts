@@ -7,16 +7,18 @@ import { IonicModule } from '@ionic/angular';
 import { StoriesPageRoutingModule } from './stories-routing.module';
 
 import { StoriesPage } from './stories.page';
-import { HeaderComponent } from 'src/app/@modular/header/header.component';
-import { SearchBarNavComponent } from 'src/app/@modular/search-bar-nav/search-bar-nav.component';
+import { HeaderModule } from 'src/app/@modular/header/header.module';
+import { SearchBarNavModule } from 'src/app/@modular/search-bar-nav/search-bar-nav.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    StoriesPageRoutingModule
+    StoriesPageRoutingModule,
+    HeaderModule,
+    SearchBarNavModule
   ],
-  declarations: [StoriesPage, HeaderComponent, SearchBarNavComponent]
+  declarations: [StoriesPage]
 })
 export class StoriesPageModule {}

@@ -7,8 +7,9 @@ import { IonicModule } from '@ionic/angular';
 import { TonggiaophanPageRoutingModule } from './tonggiaophan-routing.module';
 
 import { TonggiaophanPage } from './tonggiaophan.page';
-import { HeaderComponent } from 'src/app/@modular/header/header.component';
-import { SearchBarNavComponent } from 'src/app/@modular/search-bar-nav/search-bar-nav.component';
+import { HeaderModule } from 'src/app/@modular/header/header.module';
+import { SearchBarNavModule } from 'src/app/@modular/search-bar-nav/search-bar-nav.module';
+import { MainItemModule } from 'src/app/@modular/main-item/main-item.module';
 import { FooterComponent } from 'src/app/@modular/footer/footer.component';
 
 @NgModule({
@@ -16,8 +17,11 @@ import { FooterComponent } from 'src/app/@modular/footer/footer.component';
     CommonModule,
     FormsModule,
     IonicModule,
-    TonggiaophanPageRoutingModule
+    TonggiaophanPageRoutingModule,
+    HeaderModule,
+    SearchBarNavModule,
+    MainItemModule
   ],
-  declarations: [TonggiaophanPage,HeaderComponent, SearchBarNavComponent,FooterComponent]
+  declarations: [TonggiaophanPage,FooterComponent]
 })
-export class TonggiaophanPageModule {}
+export class TonggiaophanPageModule { }

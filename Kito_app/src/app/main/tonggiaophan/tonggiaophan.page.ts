@@ -1,8 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
-import { ModalController, Platform, IonSearchbar } from '@ionic/angular';
-import { from } from 'rxjs';
-import { ModalMenuComponent } from 'src/app/@modular/modal-menu/modal-menu.component';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-tonggiaophan',
@@ -10,42 +6,31 @@ import { ModalMenuComponent } from 'src/app/@modular/modal-menu/modal-menu.compo
   styleUrls: ['./tonggiaophan.page.scss'],
 })
 export class TonggiaophanPage implements OnInit {
-activeMenu=false;
-title = '(Tổng) Giáo phận'
-@ViewChild('searchBar') searchBar: any;
-  hiddenSearchBar = true;
-  constructor(
-    public platform: Platform,
-    private modalCtrl: ModalController, 
-    private router: Router,
-    ) { 
-    
-  }
+  title = '(Tổng) Giáo phận';
+  list = [
+    {
+      thumbImage: 'assets/img/tonggiaophan/vatican.svg',
+      title: 'Tin tức tòa thánh Vatican',
+      desUrl: 'main/tonggiaophan/parish-news'
+    },
+    {
+      thumbImage: 'assets/img/tonggiaophan/hanoi.svg',
+      title: 'Tổng giáo phận Hà Nội',
+      desUrl: 'main/tonggiaophan/parish-news'
+    },
+    {
+      thumbImage: 'assets/img/tonggiaophan/hue.svg',
+      title: 'Tổng giáo phận Huế',
+      desUrl: 'main/tonggiaophan/parish-news'
+    },
+    {
+      thumbImage: 'assets/img/tonggiaophan/saigon.svg',
+      title: 'Tổng giáo phận Sài Gòn',
+      desUrl: 'main/tonggiaophan/parish-news'
+    }
+  ]
 
-  ngOnInit() {
-    
-     
-  }
-  
-  // async openModalMenu() {
-  //   const popover = await this.modalCtrl.create({
-  //     component: ModalMenuComponent,
-  //     cssClass: 'modalMenu  ',
-  //   });
-  //   return await popover.present();
-  // }
-  // toggleHideSearchBar(value) {
-  //   event.stopPropagation();
-  //   this.hiddenSearchBar = value;
-  //   if (!value) {
-  //     this.searchBar.setFocus();
-  //   }
-  // }
-  checkoutVatican(){
-    this.router.navigateByUrl('main/tonggiaophan/parish-news');
-    
-  }
-  
- 
-  
+  constructor() {}
+
+  ngOnInit() { }
 }

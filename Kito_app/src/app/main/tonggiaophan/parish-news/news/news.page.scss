@@ -28,14 +28,8 @@ ion-content {
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(
-      180deg,
-      rgba(255, 255, 255, 0) 0%,
-      rgba(255, 255, 255, 0.582353) 46.35%,
-      rgba(255, 255, 255, 0.8) 70.83%,
-      #ffffff 100%
-    );
-    padding: 19px 5px 5px;
+    background: rgba(#fff, 0.8);
+    padding: 10px 5px 5px;
     z-index: 1;
 
     .item-title {

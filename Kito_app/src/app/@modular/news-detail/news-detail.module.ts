@@ -7,8 +7,9 @@ import { IonicModule } from '@ionic/angular';
 import { NewsDetailPageRoutingModule } from './news-detail-routing.module';
 
 import { NewsDetailPage } from './news-detail.page';
-import { HeaderModule } from '../header/header.module';
 import { SearchBarNavComponent } from '../search-bar-nav/search-bar-nav.component';
+import { HeaderComponent } from '../header/header.component';
+import { MainItemComponent } from '../main-item/main-item.component';
 
 @NgModule({
   imports: [
@@ -16,11 +17,12 @@ import { SearchBarNavComponent } from '../search-bar-nav/search-bar-nav.componen
     FormsModule,
     IonicModule,
     NewsDetailPageRoutingModule,
-    HeaderModule
   ],
   declarations: [
     NewsDetailPage,
-    SearchBarNavComponent
+    SearchBarNavComponent,
+    HeaderComponent,
+    MainItemComponent
   ]
 })
 export class NewsDetailPageModule { }
