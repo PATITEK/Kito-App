@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-parish-news',
@@ -7,89 +6,70 @@ import { Router } from '@angular/router';
   styleUrls: ['./parish-news.page.scss'],
 })
 export class ParishNewsPage implements OnInit {
-  news = [
+  list = [
     {
-      id: "1",
-      title: 'ĐTC Phanxicô cử hành Thánh lễ Ngày Đời sống Thánh hiến',
-      thumbImage: 'assets/img/parish-item.svg'
+      heading: 'Tin tức TÒA THÁNH VATICAN',
+      desUrl: 'main/tonggiaophan/parish-news/news',
+      items: [
+        {
+          id: "1",
+          type: 'News',
+          title: 'ĐTC Phanxicô cử hành Thánh lễ Ngày Đời sống Thánh hiến',
+          thumbImage: 'assets/img/parish-item.svg'
+        },
+        {
+          id: "2",
+          type: 'News',
+          title: 'ĐTC Phanxicô cử hành Thánh lễ Ngày Đời sống Thánh hiến',
+          thumbImage: 'assets/img/parish-item.svg'
+        },
+        {
+          id: "3",
+          type: 'News',
+          title: 'ĐTC Phanxicô cử hành Thánh lễ Ngày Đời sống Thánh hiến',
+          thumbImage: 'assets/img/parish-item.svg'
+        },
+        {
+          id: "4",
+          type: 'News',
+          title: 'ĐTC Phanxicô cử hành Thánh lễ Ngày Đời sống Thánh hiến',
+          thumbImage: 'assets/img/parish-item.svg'
+        },
+      ]
     },
     {
-      id: "2",
-      title: 'ĐTC Phanxicô cử hành Thánh lễ Ngày Đời sống Thánh hiến',
-      thumbImage: 'assets/img/parish-item.svg'
-    },
-    {
-      id: "3",
-      title: 'ĐTC Phanxicô cử hành Thánh lễ Ngày Đời sống Thánh hiến',
-      thumbImage: 'assets/img/parish-item.svg'
-    },
-    {
-      id: "4",
-      title: 'ĐTC Phanxicô cử hành Thánh lễ Ngày Đời sống Thánh hiến',
-      thumbImage: 'assets/img/parish-item.svg'
+      heading: 'Tiểu sử các ĐỨC GIÁO HOÀNG',
+      desUrl: 'main/tonggiaophan/parish-news/stories',
+      items: [
+        {
+          id: "1",
+          type: 'Story',
+          title: 'Giáo hoàng Phanxicô - Đương kim giáo hoàng',
+          thumbImage: 'assets/img/pope.svg'
+        },
+        {
+          id: "2",
+          type: 'Story',
+          title: 'Giáo hoàng Phanxicô - Đương kim giáo hoàng',
+          thumbImage: 'assets/img/pope.svg'
+        },
+        {
+          id: "3",
+          type: 'Story',
+          title: 'Giáo hoàng Phanxicô - Đương kim giáo hoàng',
+          thumbImage: 'assets/img/pope.svg'
+        },
+        {
+          id: "4",
+          type: 'Story',
+          title: 'Giáo hoàng Phanxicô - Đương kim giáo hoàng',
+          thumbImage: 'assets/img/pope.svg'
+        },
+      ]
     }
   ]
 
-  stories = [
-    {
-      id: "1",
-      title: `Giáo hoàng Phanxicô - Đương kim giáo hoàng`,
-      thumbImage: 'assets/img/pope.svg'
-    },
-    {
-      id: "2",
-      title: `Giáo hoàng Phanxicô - Đương kim giáo hoàng`,
-      thumbImage: 'assets/img/pope.svg'
-    },
-    {
-      id: "3",
-      title: `Giáo hoàng Phanxicô - Đương kim giáo hoàng`,
-      thumbImage: 'assets/img/pope.svg'
-    },
-    {
-      id: "4",
-      title: `Giáo hoàng Phanxicô - Đương kim giáo hoàng`,
-      thumbImage: 'assets/img/pope.svg'
-    }
-  ]
+  constructor() { }
 
-  slideOptions = {
-    initialSlide: 0,
-    loop: true,
-    autoplay: {
-      disableOnInteraction: false
-    }
-  };
-
-  constructor(
-    private router: Router
-  ) { }
-
-  ngOnInit() {
-  }
-
-  goToNews() {
-    this.router.navigateByUrl('main/tonggiaophan/parish-news/news');
-  }
-
-  goToNewsDetail(item, type) {
-    const data = {
-      id: item.id,
-      type: type
-    }
-    this.router.navigate(['/news-detail'], {
-      queryParams: {
-        data: JSON.stringify(data)
-      }
-    })
-  }
-
-  goToStories() {
-    this.router.navigateByUrl('main/tonggiaophan/parish-news/stories');
-  }
-
-  routerLink(path) {
-    // this.router.navigate(['main/'+path]);
-    this.router.navigateByUrl('main/tonggiaophan/parish-news/' + path);
-  }
+  ngOnInit() { }
 }
