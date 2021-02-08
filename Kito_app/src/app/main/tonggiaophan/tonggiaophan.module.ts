@@ -7,6 +7,8 @@ import { IonicModule } from '@ionic/angular';
 import { TonggiaophanPageRoutingModule } from './tonggiaophan-routing.module';
 
 import { TonggiaophanPage } from './tonggiaophan.page';
+import { HeaderComponent } from 'src/app/@modular/header/header.component';
+import { SearchBarNavComponent } from 'src/app/@modular/search-bar-nav/search-bar-nav.component';
 
 @NgModule({
   imports: [
@@ -15,6 +17,6 @@ import { TonggiaophanPage } from './tonggiaophan.page';
     IonicModule,
     TonggiaophanPageRoutingModule
   ],
-  declarations: [TonggiaophanPage]
+  declarations: [TonggiaophanPage,HeaderComponent, SearchBarNavComponent]
 })
 export class TonggiaophanPageModule {}
