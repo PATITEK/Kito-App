@@ -7,16 +7,18 @@ import { IonicModule } from '@ionic/angular';
 import { TonggiaophanPageRoutingModule } from './tonggiaophan-routing.module';
 
 import { TonggiaophanPage } from './tonggiaophan.page';
-import { HeaderComponent } from 'src/app/@modular/header/header.component';
-import { SearchBarNavComponent } from 'src/app/@modular/search-bar-nav/search-bar-nav.component';
+import { HeaderModule } from 'src/app/@modular/header/header.module';
+import { SearchBarNavModule } from 'src/app/@modular/search-bar-nav/search-bar-nav.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    TonggiaophanPageRoutingModule
+    TonggiaophanPageRoutingModule,
+    HeaderModule,
+    SearchBarNavModule
   ],
-  declarations: [TonggiaophanPage,HeaderComponent, SearchBarNavComponent]
+  declarations: [TonggiaophanPage]
 })
-export class TonggiaophanPageModule {}
+export class TonggiaophanPageModule { }

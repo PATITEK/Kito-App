@@ -9,7 +9,6 @@ import { NewsPageRoutingModule } from './news-routing.module';
 import { NewsPage } from './news.page';
 import { HeaderModule } from 'src/app/@modular/header/header.module';
 import { SearchBarNavModule } from 'src/app/@modular/search-bar-nav/search-bar-nav.module';
-import { SearchBarNavComponent } from 'src/app/@modular/search-bar-nav/search-bar-nav.component';
 
 @NgModule({
   imports: [
@@ -17,11 +16,9 @@ import { SearchBarNavComponent } from 'src/app/@modular/search-bar-nav/search-ba
     FormsModule,
     IonicModule,
     NewsPageRoutingModule,
-    HeaderModule
+    HeaderModule,
+    SearchBarNavModule
   ],
-  declarations: [
-    NewsPage,
-    SearchBarNavComponent
-  ]
+  declarations: [ NewsPage ]
 })
-export class NewsPageModule {}
+export class NewsPageModule { }

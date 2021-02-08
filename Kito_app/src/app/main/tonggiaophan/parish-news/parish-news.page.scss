@@ -21,7 +21,7 @@ ion-content {
 
 ion-slides {
   height: 70vw;
-  --bullet-background-active: #DEDEDE;
+  --bullet-background-active: #dedede;
   --bullet-background: #bcbcbc;
 
   ion-slide {
@@ -44,22 +44,16 @@ ion-slides {
       left: 0;
       right: 0;
       bottom: 0;
-      background: linear-gradient(
-        180deg,
-        rgba(255, 255, 255, 0) 0%,
-        rgba(255, 255, 255, 0.582353) 46.35%,
-        rgba(255, 255, 255, 0.8) 70.83%,
-        #ffffff 100%
-      );
+      background: rgba(#fff, 0.8);
       margin: 0;
-      padding: 19px 5px 5px;
+      padding: 10px 5px 5px;
       text-align: left;
     }
   }
 }
 
 .see-more-box {
-  color: #002D63;
+  color: #002d63;
   font-size: 14px;
   font-weight: 300;
   text-align: right;
