@@ -1,0 +1,33 @@
+.footer-main {
+    background: #f6c33e;
+    height: 50px;
+    --min-height: 100% !important;
+    text-align: center;
+    transform: translateY(-36%);
+    border-top-left-radius: 40px;
+    border-top-right-radius: 40px;
+    position: fixed;
+    bottom: -32px;
+    width: 100%;
+    transition: all 0.5s linear;
+
+    .icon-up {
+        width: 30px;
+        height: 5px;
+        background: #ffffff;
+        margin: auto;
+        border-radius: 5px;
+        transform: translateY(10px);
+    }
+    .menu-bottom {
+        display: flex;
+        justify-content: space-evenly;
+        text-align: center;
+        align-items: center;
+        height: 100%;
+        opacity: 0;
+        transition: opacity 0.4s linear;
+       
+    }
+
+}

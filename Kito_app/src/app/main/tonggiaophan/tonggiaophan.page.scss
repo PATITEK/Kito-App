@@ -1,15 +1,5 @@
 ion-content {
-  --padding-top: calc(80px + 45px);
-
-  .list-item {
-    .group-item {
-      position: relative;
-      padding: 10px 0;
-      .text-label {
-        color: whitesmoke;
-        text-align: center;
-        font-size: 20px;
-      }
-    }
-  }
+  --padding-top: calc(80px + 45px + 16px);
+  --padding-start: 16px;
+  --padding-end: 16px;
 }

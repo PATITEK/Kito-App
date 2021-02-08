@@ -19,6 +19,8 @@ import { SpeechRecognition } from '@ionic-native/speech-recognition/ngx'
 import { SpeechRecognitionService } from './@app-core/utils/speech-recognition.service';
 import { AudioManagement } from '@ionic-native/audio-management/ngx';
 import { AudioManagerService } from './@app-core/utils';
+// import { IonicSwipeAllModule } from 'ionic-swipe-all';
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -29,6 +31,7 @@ import { AudioManagerService } from './@app-core/utils';
     CoreModule.forRoot(),
     FormsModule, 
     ReactiveFormsModule,
+    
    
   ],
   providers: [
