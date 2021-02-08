@@ -9,7 +9,7 @@
     position: fixed;
     bottom: -32px;
     width: 100%;
-    transition: all 0.5s linear;
+    transition: all 0.3s linear;
 
     .icon-up {
         width: 30px;
@@ -26,8 +26,18 @@
         align-items: center;
         height: 100%;
         opacity: 0;
-        transition: opacity 0.4s linear;
+        transition: opacity 0.3s linear;
        
     }
 
 }
+// .active-footer{
+// height: 70px;
+// transform: translateY(20px);
+// background: red;
+// }
+// .not-active{
+//     height: 50px;
+//     transform: translateY(-12px);
+    
+// }
