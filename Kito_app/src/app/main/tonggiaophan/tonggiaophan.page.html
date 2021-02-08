@@ -1,8 +1,6 @@
 <ion-header no-border class="ion-no-border">
   <ion-back-button icon="chevron-back-outline" text="" class="back-btn"></ion-back-button>
-  <ion-toolbar>
-    <ion-title>(Tổng) Giáo phận</ion-title>
-  </ion-toolbar>
+  <app-header [title]="title"></app-header>
 </ion-header>
 
 <ion-content>
@@ -42,12 +40,20 @@
           Sài Gòn
         </ion-label>
       </ion-item-group>
-      
+      <ion-item-group class="group-item">
+        <ion-img src="assets/img/tonggiaophan/saigon.svg" alt=""></ion-img>
+        <ion-label class="text-label">
+          Tổng Giáo Phận
+          <br>
+          Sài Gòn
+        </ion-label>
+      </ion-item-group>
     </ion-item-group>
    
   </ion-item-group>
-
+<app-footer></app-footer>
 </ion-content>
+<!-- 
 <ion-footer class="ion-no-border">
   <ion-toolbar>
     <div class="icon-up">
@@ -60,4 +66,4 @@
 
    
   </ion-toolbar>
-</ion-footer>
+</ion-footer> -->

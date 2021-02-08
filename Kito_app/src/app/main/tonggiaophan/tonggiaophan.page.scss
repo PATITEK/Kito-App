@@ -1,5 +1,4 @@
 ion-header {
-    filter: drop-shadow(0 0 0.75rem rgb(174, 166, 167));
 
     ion-toolbar {
         --background: #f6c33e;
@@ -42,24 +41,25 @@ ion-content {
         
         .list-item {
             overflow: scroll;
-            height: 77vh;
+            height: 90vh;
             @media screen and (max-height: 668px) {
                 height: 77vh;
             }
             .group-item {
                 position: relative;
                 padding: 10px 0;
+                // display: flex;
+                align-items: center;
+                text-align: center;
                 .text-label {
                     position: absolute;
                     left: 0;
                     right: 0;
-                    top: 0;
-                    bottom: 0;
-                    margin: auto;
+                    margin: -30% auto;
                     color: whitesmoke;
                     text-align: center;
                     align-items: center;
-                    transform: translateY(35%);
+                    // transform: translateY(35%);
                     font-size: 20px;
                 }
             }
@@ -67,37 +67,8 @@ ion-content {
     }
 }
 
-:host ::ng-deep .toolbar-container {
-    height: 100% !important;
-}
-ion-footer{
-    ion-toolbar {
-        --background: #f6c33e;
-        --border: none;
-        height: 13vh;
-        --min-height: 100% !important;
-        clip-path: ellipse(69% 61% at 48% 61%);
-        text-align: center;
 
-        .icon-up{
-          width: 30px;
-          height: 5px;
-          background: #FFFFFF;
-          margin: auto;
-          border-radius: 5px;
-         
-        }
-        .menu-bottom{
-            display: flex;
-            justify-content: space-evenly;
-            text-align: center;
-            align-items: center;
-            
-        }
-        
-        
-    }
-}
+
 
   .modal-menu{
       position: sticky;

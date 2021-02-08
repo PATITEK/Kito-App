@@ -9,6 +9,7 @@ import { TonggiaophanPageRoutingModule } from './tonggiaophan-routing.module';
 import { TonggiaophanPage } from './tonggiaophan.page';
 import { HeaderComponent } from 'src/app/@modular/header/header.component';
 import { SearchBarNavComponent } from 'src/app/@modular/search-bar-nav/search-bar-nav.component';
+import { FooterComponent } from 'src/app/@modular/footer/footer.component';
 
 @NgModule({
   imports: [
@@ -17,6 +18,6 @@ import { SearchBarNavComponent } from 'src/app/@modular/search-bar-nav/search-ba
     IonicModule,
     TonggiaophanPageRoutingModule
   ],
-  declarations: [TonggiaophanPage,HeaderComponent, SearchBarNavComponent]
+  declarations: [TonggiaophanPage,HeaderComponent, SearchBarNavComponent,FooterComponent]
 })
 export class TonggiaophanPageModule {}

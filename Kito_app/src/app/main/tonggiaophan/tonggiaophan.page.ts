@@ -11,6 +11,7 @@ import { ModalMenuComponent } from 'src/app/@modular/modal-menu/modal-menu.compo
 })
 export class TonggiaophanPage implements OnInit {
 activeMenu=false;
+title = '(Tổng) Giáo phận'
 @ViewChild('searchBar') searchBar: any;
   hiddenSearchBar = true;
   constructor(

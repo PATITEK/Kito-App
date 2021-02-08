@@ -1,0 +1,25 @@
+.footer-main {
+    background: #f6c33e;
+    height: 260px;
+    --min-height: 100% !important;
+    text-align: center;
+    transform: translateY(-36%);
+    border-radius: 40px;
+
+    .icon-up {
+        width: 30px;
+        height: 5px;
+        background: #ffffff;
+        margin: auto;
+        border-radius: 5px;
+        transform: translateY(10px);
+    }
+    .menu-bottom {
+        display: flex;
+        justify-content: space-evenly;
+        text-align: center;
+        align-items: center;
+        margin-top: 5%;
+       
+    }
+}
