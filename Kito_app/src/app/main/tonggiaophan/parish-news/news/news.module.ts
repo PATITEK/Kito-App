@@ -7,7 +7,8 @@ import { IonicModule } from '@ionic/angular';
 import { NewsPageRoutingModule } from './news-routing.module';
 
 import { NewsPage } from './news.page';
-import { HeaderComponent } from 'src/app/@modular/header/header.component';
+import { HeaderModule } from 'src/app/@modular/header/header.module';
+import { SearchBarNavModule } from 'src/app/@modular/search-bar-nav/search-bar-nav.module';
 import { SearchBarNavComponent } from 'src/app/@modular/search-bar-nav/search-bar-nav.component';
 
 @NgModule({
@@ -15,8 +16,12 @@ import { SearchBarNavComponent } from 'src/app/@modular/search-bar-nav/search-ba
     CommonModule,
     FormsModule,
     IonicModule,
-    NewsPageRoutingModule
+    NewsPageRoutingModule,
+    HeaderModule
   ],
-  declarations: [NewsPage, HeaderComponent, SearchBarNavComponent]
+  declarations: [
+    NewsPage,
+    SearchBarNavComponent
+  ]
 })
 export class NewsPageModule {}
