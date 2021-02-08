@@ -2,7 +2,7 @@ ion-header {
     filter: drop-shadow(0 0 0.75rem rgb(174, 166, 167));
 
     ion-toolbar {
-        --background: #f6c33e;
+        --background: var(--main-color);
         --border: none;
         height: 13vh;
         --min-height: 100% !important;
@@ -72,7 +72,7 @@ ion-content {
 }
 ion-footer{
     ion-toolbar {
-        --background: #f6c33e;
+        --background: var(--main-color);
         --border: none;
         height: 13vh;
         --min-height: 100% !important;
