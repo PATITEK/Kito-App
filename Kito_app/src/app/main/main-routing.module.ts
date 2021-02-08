@@ -42,7 +42,11 @@ const routes: Routes = [
   {
     path: 'news-detail',
     loadChildren: () => import('./../@modular/news-detail/news-detail.module').then( m => m.NewsDetailPageModule)
+  },  {
+    path: 'prayer-time',
+    loadChildren: () => import('./prayer-time/prayer-time.module').then( m => m.PrayerTimePageModule)
   },
+
 ];
 
 @NgModule({
