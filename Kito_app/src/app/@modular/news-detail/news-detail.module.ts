@@ -9,6 +9,7 @@ import { NewsDetailPageRoutingModule } from './news-detail-routing.module';
 import { NewsDetailPage } from './news-detail.page';
 import { HeaderModule } from '../header/header.module';
 import { SearchBarNavComponent } from '../search-bar-nav/search-bar-nav.component';
+import { HeaderComponent } from '../header/header.component';
 
 @NgModule({
   imports: [
@@ -20,7 +21,8 @@ import { SearchBarNavComponent } from '../search-bar-nav/search-bar-nav.componen
   ],
   declarations: [
     NewsDetailPage,
-    SearchBarNavComponent
+    SearchBarNavComponent,
+    HeaderComponent
   ]
 })
 export class NewsDetailPageModule { }
