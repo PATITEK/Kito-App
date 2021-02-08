@@ -71,5 +71,7 @@ export class ParishNewsPage implements OnInit {
 
   constructor() { }
 
-  ngOnInit() { }
+  ngOnInit() {
+   
+   }
 }

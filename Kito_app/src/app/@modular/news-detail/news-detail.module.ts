@@ -10,6 +10,7 @@ import { NewsDetailPage } from './news-detail.page';
 import { SearchBarNavComponent } from '../search-bar-nav/search-bar-nav.component';
 import { HeaderComponent } from '../header/header.component';
 import { MainItemComponent } from '../main-item/main-item.component';
+import { FooterModule } from '../footer/footer.module';
 
 @NgModule({
   imports: [
@@ -17,6 +18,7 @@ import { MainItemComponent } from '../main-item/main-item.component';
     FormsModule,
     IonicModule,
     NewsDetailPageRoutingModule,
+    FooterModule
   ],
   declarations: [
     NewsDetailPage,

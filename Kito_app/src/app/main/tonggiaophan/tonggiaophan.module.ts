@@ -10,7 +10,7 @@ import { TonggiaophanPage } from './tonggiaophan.page';
 import { HeaderModule } from 'src/app/@modular/header/header.module';
 import { SearchBarNavModule } from 'src/app/@modular/search-bar-nav/search-bar-nav.module';
 import { MainItemModule } from 'src/app/@modular/main-item/main-item.module';
-import { FooterComponent } from 'src/app/@modular/footer/footer.component';
+import { FooterModule } from 'src/app/@modular/footer/footer.module';
 
 @NgModule({
   imports: [
@@ -20,8 +20,9 @@ import { FooterComponent } from 'src/app/@modular/footer/footer.component';
     TonggiaophanPageRoutingModule,
     HeaderModule,
     SearchBarNavModule,
-    MainItemModule
+    MainItemModule,
+    FooterModule
   ],
-  declarations: [TonggiaophanPage,FooterComponent]
+  declarations: [TonggiaophanPage,]
 })
 export class TonggiaophanPageModule { }

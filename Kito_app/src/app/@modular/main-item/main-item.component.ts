@@ -16,6 +16,7 @@ export class MainItemComponent implements OnInit {
   ngOnInit() {}
 
   goToDetail() {
-    this.router.navigateByUrl(this.data.desUrl);
+    this.router.navigate([this.data.desUrl]);
+    
   }
 }

@@ -17,5 +17,16 @@
     border-radius: 5px;
     height: 32px;
     padding: 0 5px;
+   
   }
+}
+.voice{
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  right: 25px;
+  top: 0;
+  bottom: 7px;
+  margin: auto;
+  z-index: 99;
 }

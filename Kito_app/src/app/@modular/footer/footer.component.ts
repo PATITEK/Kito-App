@@ -8,6 +8,7 @@ import { Gesture, GestureConfig, GestureController } from '@ionic/angular';
   styleUrls: ['./footer.component.scss'],
 })
 export class FooterComponent implements OnInit {
+ active_footer=false;
   constructor(
     private gestureCtrl: GestureController,
     public element: ElementRef,
@@ -15,8 +16,9 @@ export class FooterComponent implements OnInit {
   ){}
     
     
-  async ngOnInit() {
+  async ngAfterContentInit() {
 
+    console.log(this.active_footer);
     const options: GestureConfig = {
       el: this.element.nativeElement,
       direction: "y",
@@ -39,13 +41,14 @@ export class FooterComponent implements OnInit {
             `translateY(${ev.deltaY}px)`
           );
           document.querySelector<HTMLElement>('.footer-main').style.height="90px";
+          
         }
       },
       onEnd: (ev) => {
         this.renderer.setStyle(
           this.element.nativeElement,
           "transition",
-          "0.5s linear"
+          "0.3s linear"
         );
         if (ev.deltaY < -40) {
           this.renderer.setStyle(
@@ -58,6 +61,7 @@ export class FooterComponent implements OnInit {
           document.querySelector<HTMLElement>('.footer-main').style.height="70px";
           document.querySelector<HTMLElement>('.footer-main').style.transform="translateY(20px)";
           document.querySelector<HTMLElement>('.menu-bottom').style.opacity="1";
+          
          
           
         } else {
@@ -70,6 +74,7 @@ export class FooterComponent implements OnInit {
           document.querySelector<HTMLElement>('.footer-main').style.transform="translateY(-12px)";
           document.querySelector<HTMLElement>('.menu-bottom').style.opacity="0";
           
+          
         }
       },
     };
@@ -78,11 +83,9 @@ export class FooterComponent implements OnInit {
 
     gesture.enable();
   }
-  // ngOnInit() {
-    
-  // }
-  swipeUp(event: any): any {
-    console.log('Swipe Up', event);
-}
+  ngOnInit() {
+   
+  }
+ 
 
 }
