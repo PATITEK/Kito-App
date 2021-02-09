@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { IonBackButton, NavController } from '@ionic/angular';
+import { NavController } from '@ionic/angular';
 import { DateTimeService } from 'src/app/@app-core/utils';
 
 @Component({
@@ -9,8 +9,6 @@ import { DateTimeService } from 'src/app/@app-core/utils';
   styleUrls: ['./prayer-detail.page.scss'],
 })
 export class PrayerDetailPage implements OnInit {
-  private backBtn: IonBackButton;
-
   title = 'Chi tiết Bài đọc';
   dateList = [];
   dateItem: any;
