@@ -51,7 +51,9 @@ export class DonatePage implements OnInit {
       amount: new FormControl('', Validators.compose([
         Validators.required,
       ])),
-      note: new FormControl('',[]),
+      note: new FormControl('', Validators.compose([
+        //Validators.required,
+      ])),
    });
   }
   ngOnInit() {
@@ -82,61 +84,82 @@ export class DonatePage implements OnInit {
     getUrl() {
     return `url(assets/img/19.jpg)`
   }
+  
   onSubmit() {
-    
-  }
-//   onSubmit() {
-//     this.loadingService.present();
-//     const getNumber = this.frmDonate.get('amount').value;
-//     if(getNumber%18 == 0 && getNumber>0) {
-//     }
-//     const sourceId = this.dataParams.event ? this.dataParams.event.id : this.dataParams.chabad.id;
-//     var result = {
-//       "donation" : {
-//         "email": this.email,
-//         "token": localStorage.getItem('Authorization'),
-//         "amount": this.frmDonate.get('amount').value,
-//         "note": this.frmDonate.get('note').value,
-//         "source_type": this.dataParams.type,
-//         "source_id": sourceId
-//       }
-//     }
-//     if (this.frmDonate.get('amount').dirty || this.frmDonate.get('amount').touched ) {
-//       if(this.frmDonate.get('amount').value.length == 0) {
-//         this.required_mess = true;
-//         this.message = 'This field have a value!';
-//         this.loadingService.dismiss();
-//       }
-//       else if(this.frmDonate.get('amount').value %18 !==0){
-//         this.required_mess = true;
-//         this.message = 'The number must be divisible by 18!';
-//         this.loadingService.dismiss();
-//       }
-//       else {
-//         this.required_mess = false;
-//         this.loadingService.dismiss();
-//       }
-//     }
-//     if (this.frmDonate.get('note').dirty || this.frmDonate.get('note').touched ) {
-//       if(this.frmDonate.get('note').value.length == 0) {
-//         this.required_purpose = true;
-//         this.message_purpose = 'This field is require!';
-//         this.loadingService.dismiss();
-//       }
-//       else {
-//         this.required_purpose = false;
-//         this.loadingService.dismiss();
-//       }
-//     }
-//     if(this.frmDonate.get('amount').value %18 ===0) {
-//       this.donateService.donateLog(result).subscribe((data) => {
-//         // console.log(data);
-//         this.presentToast('Pray successfully!');
-//     })
-//     }
-//     else {
-//     }
-// }
+    this.loadingService.present();
+    const getNumber = this.frmDonate.get('amount').value;
+    if(getNumber%18 == 0 && getNumber>0) {
+    }
+    // const sourceId = this.dataParams.event ? this.dataParams.event.id : this.dataParams.chabad.id;
+    // var result = {
+    //   "donation" : {
+    //     "email": this.email,
+    //     "token": localStorage.getItem('Authorization'),
+    //     "amount": this.frmDonate.get('amount').value,
+    //     "note": this.frmDonate.get('note').value,
+    //     "source_type": this.dataParams.type,
+    //     "source_id": sourceId
+    //   }
+    // }
+    var donate = {
+      "donation" : {
+        "email": "hoaimiqng@gmail.com",
+        "token": "",
+        "amount": this.frmDonate.get('amount').value,
+        "note": this.frmDonate.get('note').value,
+        "source_type": "Event",
+        "source_id": 1
+      }
+    }
+    if (this.frmDonate.get('amount').dirty || this.frmDonate.get('amount').touched ) {
+      if(this.frmDonate.get('amount').value < 18 ) {
+        this.required_mess = true;
+        this.message = 'The number must be greater than 18$';
+        this.loadingService.dismiss();
+        return;
+      }
+      else if(this.frmDonate.get('amount').value %18 !==0){
+        this.required_mess = true;
+        this.message = 'The number must be divisible by 18!';
+        this.loadingService.dismiss();
+        return;
+
+      }
+      else {
+        this.required_mess = false;
+        this.loadingService.dismiss();
+      }
+    }
+    if (this.frmDonate.get('note').dirty || this.frmDonate.get('note').touched ) {
+      if(this.frmDonate.get('note').value.length == 0) {
+        this.required_purpose = true;
+        this.message_purpose = 'This field is require!';
+        this.loadingService.dismiss();
+        return;
+      }
+      else {
+        this.required_purpose = false;
+        this.loadingService.dismiss();
+      }
+    }
+    if(this.frmDonate.get('note').value.length == 0) {
+      this.required_purpose = true;
+      this.message_purpose = 'This field is require!';
+      this.loadingService.dismiss();
+      return;
+    }
+    else {
+      this.required_purpose = false;
+      this.loadingService.dismiss();
+    }
+
+    this.router.navigate(['paymentmethods'], {
+      queryParams: {
+        data: JSON.stringify(donate)
+      }
+    })
+  
+}
   clickPray() {
     this.tab = 'pray';
   }

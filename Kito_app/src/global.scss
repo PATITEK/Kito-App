@@ -19,6 +19,8 @@
   --second-color: #CC9D3E;
   --third-color: #f1c56b;
   --title-color: #717171;
+  --gray-color: #e5e5e5;
+  --gray-color8a: #8A8A8A;
   --white-color: #fff;
   --black-color: #000;
 }
@@ -50,7 +52,12 @@
 .over-flow-hidden-ion {
   --overflow: hidden;
 }
-
+.modal__payment {
+  --height: 380px;
+  .modal-wrapper {
+    border-radius: 17px;
+}
+}
 .back-btn {
   display: inline-block;
   color: #C8C8C8;
@@ -68,7 +75,6 @@
     border-radius: 50%;
   }
 }
-
 .background-header {
   background: #F6C33E;
   border-radius: 50% 50% 50% 50% / 50% 50% 50% 50%;
