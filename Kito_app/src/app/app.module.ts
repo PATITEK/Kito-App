@@ -17,8 +17,10 @@ import { Stripe } from '@ionic-native/stripe/ngx';
 import {enableProdMode} from '@angular/core';
 import { SpeechRecognition } from '@ionic-native/speech-recognition/ngx'
 import { AudioManagement } from '@ionic-native/audio-management/ngx';
-import { AudioManagerService, OneSignalService, SpeechRecognitionService } from './@app-core/utils';
+import { AudioManagerService, GeolocationService, OneSignalService, SpeechRecognitionService } from './@app-core/utils';
 import { OneSignal } from '@ionic-native/onesignal/ngx';
+import { Geolocation } from '@ionic-native/geolocation/ngx';
+import { NativeGeocoder, NativeGeocoderOptions, NativeGeocoderResult } from '@ionic-native/native-geocoder/ngx';
 // import { IonicSwipeAllModule } from 'ionic-swipe-all';
 
 @NgModule({
@@ -31,8 +33,6 @@ import { OneSignal } from '@ionic-native/onesignal/ngx';
     CoreModule.forRoot(),
     FormsModule, 
     ReactiveFormsModule,
-    
-   
   ],
   providers: [
     StatusBar,
@@ -48,6 +48,9 @@ import { OneSignal } from '@ionic-native/onesignal/ngx';
     AudioManagerService,
     OneSignal,
     OneSignalService,
+    Geolocation,
+    GeolocationService,
+    NativeGeocoder,
   ],
   bootstrap: [AppComponent]
 })
