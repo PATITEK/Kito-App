@@ -213,6 +213,14 @@
     border-radius: 20px;
   }
 }
+.modalDonate {
+  --height: 200px;
+  --width: 90%;
+  --overflow: hidden;
+  .modal-wrapper {
+    border-radius: 20px;
+  }
+}
 
 .app-header-custom {
   .header {

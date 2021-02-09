@@ -24,20 +24,21 @@
         justify-content: space-evenly;
         text-align: center;
         align-items: center;
-        height: 100%;
         opacity: 0;
         transition: opacity 0.3s linear;
+        height: 100%;
+        
        
     }
 
 }
-// .active-footer{
-// height: 70px;
-// transform: translateY(20px);
-// background: red;
-// }
-// .not-active{
-//     height: 50px;
-//     transform: translateY(-12px);
+.active-footer{
+height: 70px;
+transform: translateY(20px);
+background: red;
+}
+.not-active{
+    height: 50px;
+    transform: translateY(-12px);
     
-// }
+}
