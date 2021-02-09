@@ -18,7 +18,6 @@ export class FooterComponent implements OnInit {
     
   async ngAfterContentInit() {
 
-    console.log(this.active_footer);
     const options: GestureConfig = {
       el: this.element.nativeElement,
       direction: "y",
@@ -28,8 +27,11 @@ export class FooterComponent implements OnInit {
         this.renderer.setStyle(
           this.element.nativeElement,
           "transition",
-          "none"
+          "none",
+         
+        
         );
+        
       },
       onMove: (ev) => {
         // do something in response to movement
@@ -41,7 +43,7 @@ export class FooterComponent implements OnInit {
             `translateY(${ev.deltaY}px)`
           );
           document.querySelector<HTMLElement>('.footer-main').style.height="90px";
-          
+          // this.active_footer=true;
         }
       },
       onEnd: (ev) => {
@@ -58,6 +60,7 @@ export class FooterComponent implements OnInit {
            
             
           );
+          this.active_footer=true;
           document.querySelector<HTMLElement>('.footer-main').style.height="70px";
           document.querySelector<HTMLElement>('.footer-main').style.transform="translateY(20px)";
           document.querySelector<HTMLElement>('.menu-bottom').style.opacity="1";
@@ -70,6 +73,7 @@ export class FooterComponent implements OnInit {
             "transform",
             `translateY(0px)`
           );
+          this.active_footer=false;
           document.querySelector<HTMLElement>('.footer-main').style.height="50px";
           document.querySelector<HTMLElement>('.footer-main').style.transform="translateY(-12px)";
           document.querySelector<HTMLElement>('.menu-bottom').style.opacity="0";
