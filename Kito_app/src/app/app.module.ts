@@ -16,9 +16,9 @@ import { SlideService } from './@modular/slide/slide.service';
 import { Stripe } from '@ionic-native/stripe/ngx';
 import {enableProdMode} from '@angular/core';
 import { SpeechRecognition } from '@ionic-native/speech-recognition/ngx'
-import { SpeechRecognitionService } from './@app-core/utils/speech-recognition.service';
 import { AudioManagement } from '@ionic-native/audio-management/ngx';
-import { AudioManagerService } from './@app-core/utils';
+import { AudioManagerService, OneSignalService, SpeechRecognitionService } from './@app-core/utils';
+import { OneSignal } from '@ionic-native/onesignal/ngx';
 // import { IonicSwipeAllModule } from 'ionic-swipe-all';
 
 @NgModule({
@@ -45,7 +45,9 @@ import { AudioManagerService } from './@app-core/utils';
     SpeechRecognition,
     SpeechRecognitionService,
     AudioManagement,
-    AudioManagerService
+    AudioManagerService,
+    OneSignal,
+    OneSignalService,
   ],
   bootstrap: [AppComponent]
 })

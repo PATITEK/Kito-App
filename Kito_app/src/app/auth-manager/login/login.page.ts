@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { AuthService, PATTERN } from 'src/app/@app-core/http';
 import { ToastController } from '@ionic/angular';
 import { defaultCoreCipherList } from 'constants';
-import { LoadingService } from 'src/app/@app-core/utils';
+import { LoadingService, OneSignalService } from 'src/app/@app-core/utils';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastService } from 'src/app/@app-core/utils';
@@ -78,7 +78,9 @@ export class LoginPage implements OnInit {
     public toastController: ToastController,
     private formBuilder: FormBuilder,
     private toastService: ToastService,
-    private loadingService: LoadingService
+    private loadingService: LoadingService,
+
+    private oneSignal: OneSignalService,
   ) { }
   ngOnInit() {
     this.authService.countryCode().subscribe((data: any) => {
@@ -86,6 +88,8 @@ export class LoginPage implements OnInit {
     })
 
     this.initForm();
+
+    this.oneSignal.setUpOneSignal();
   }
 
   initForm() {
