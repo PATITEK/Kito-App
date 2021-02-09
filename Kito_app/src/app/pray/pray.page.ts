@@ -227,7 +227,7 @@ export class PrayPage implements OnInit {
       "donation" : {
         "amount": this.setamount,
         "note": this.frmPray.get('note').value,
-        "source_type": "event",
+        "source_type": "Event",
         "source_id":  1
       }
     }
@@ -238,7 +238,8 @@ export class PrayPage implements OnInit {
       })
      }
     else {
-     result_fk.donation['email'] = localStorage.getItem('email');
+    //  result_fk.donation['email'] = localStorage.getItem('email');
+     result_fk.donation['email'] = "hoaimiqng@gmail.com"
      result_fk.donation['token'] = '';
       this.router.navigate(['paymentmethods'], {
         queryParams: {

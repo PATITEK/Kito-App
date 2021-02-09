@@ -51,7 +51,9 @@ export class DonatePage implements OnInit {
       amount: new FormControl('', Validators.compose([
         Validators.required,
       ])),
-      note: new FormControl('',[]),
+      note: new FormControl('', Validators.compose([
+        //Validators.required,
+      ])),
    });
   }
   ngOnInit() {
@@ -105,7 +107,7 @@ export class DonatePage implements OnInit {
         "token": "",
         "amount": this.frmDonate.get('amount').value,
         "note": this.frmDonate.get('note').value,
-        "source_type": "event",
+        "source_type": "Event",
         "source_id": 1
       }
     }
@@ -133,11 +135,22 @@ export class DonatePage implements OnInit {
         this.required_purpose = true;
         this.message_purpose = 'This field is require!';
         this.loadingService.dismiss();
+        return;
       }
       else {
         this.required_purpose = false;
         this.loadingService.dismiss();
       }
+    }
+    if(this.frmDonate.get('note').value.length == 0) {
+      this.required_purpose = true;
+      this.message_purpose = 'This field is require!';
+      this.loadingService.dismiss();
+      return;
+    }
+    else {
+      this.required_purpose = false;
+      this.loadingService.dismiss();
     }
 
     this.router.navigate(['paymentmethods'], {
