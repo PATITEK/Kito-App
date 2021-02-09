@@ -55,19 +55,19 @@ export class DonatePage implements OnInit {
    });
   }
   ngOnInit() {
-    this.loadingService.present()
-    this.route.queryParams.subscribe(params => {
-      this.dataParams = JSON.parse(params['data']);
-      this.chabadService.getDetail(this.dataParams.chabad.id).subscribe(data => {
-            this.chabad = data.chabad
-            this.loadingService.dismiss()
-      })
-    })
-    this.loadingService.present()
-    this.accountService.getAccounts().subscribe(data => {
-      this.email = data.app_user.email;
-      this.loadingService.dismiss();
-    });
+    // this.loadingService.present()
+    // this.route.queryParams.subscribe(params => {
+    //   this.dataParams = JSON.parse(params['data']);
+    //   this.chabadService.getDetail(this.dataParams.chabad.id).subscribe(data => {
+    //         this.chabad = data.chabad
+    //         this.loadingService.dismiss()
+    //   })
+    // })
+    // this.loadingService.present()
+    // this.accountService.getAccounts().subscribe(data => {
+    //   this.email = data.app_user.email;
+    //   this.loadingService.dismiss();
+    // });
   }
   async presentToast(message) {
     const toast = await this.toastController.create({
@@ -76,61 +76,67 @@ export class DonatePage implements OnInit {
     });
     toast.present();
   }
-  getUrl() {
-    return `url(${this.chabad.thumb_image})`
+  // getUrl() {
+  //   return `url(${this.chabad.thumb_image})`
+  // }
+    getUrl() {
+    return `url(assets/img/19.jpg)`
   }
   onSubmit() {
-    this.loadingService.present();
-    const getNumber = this.frmDonate.get('amount').value;
-    if(getNumber%18 == 0 && getNumber>0) {
-    }
-    const sourceId = this.dataParams.event ? this.dataParams.event.id : this.dataParams.chabad.id;
-    var result = {
-      "donation" : {
-        "email": this.email,
-        "token": localStorage.getItem('Authorization'),
-        "amount": this.frmDonate.get('amount').value,
-        "note": this.frmDonate.get('note').value,
-        "source_type": this.dataParams.type,
-        "source_id": sourceId
-      }
-    }
-    if (this.frmDonate.get('amount').dirty || this.frmDonate.get('amount').touched ) {
-      if(this.frmDonate.get('amount').value.length == 0) {
-        this.required_mess = true;
-        this.message = 'This field have a value!';
-        this.loadingService.dismiss();
-      }
-      else if(this.frmDonate.get('amount').value %18 !==0){
-        this.required_mess = true;
-        this.message = 'The number must be divisible by 18!';
-        this.loadingService.dismiss();
-      }
-      else {
-        this.required_mess = false;
-        this.loadingService.dismiss();
-      }
-    }
-    if (this.frmDonate.get('note').dirty || this.frmDonate.get('note').touched ) {
-      if(this.frmDonate.get('note').value.length == 0) {
-        this.required_purpose = true;
-        this.message_purpose = 'This field is require!';
-        this.loadingService.dismiss();
-      }
-      else {
-        this.required_purpose = false;
-        this.loadingService.dismiss();
-      }
-    }
-    if(this.frmDonate.get('amount').value %18 ===0) {
-      this.donateService.donateLog(result).subscribe((data) => {
-        // console.log(data);
-        this.presentToast('Pray successfully!');
-    })
-    }
-    else {
-    }
-}
+    
+  }
+//   onSubmit() {
+//     this.loadingService.present();
+//     const getNumber = this.frmDonate.get('amount').value;
+//     if(getNumber%18 == 0 && getNumber>0) {
+//     }
+//     const sourceId = this.dataParams.event ? this.dataParams.event.id : this.dataParams.chabad.id;
+//     var result = {
+//       "donation" : {
+//         "email": this.email,
+//         "token": localStorage.getItem('Authorization'),
+//         "amount": this.frmDonate.get('amount').value,
+//         "note": this.frmDonate.get('note').value,
+//         "source_type": this.dataParams.type,
+//         "source_id": sourceId
+//       }
+//     }
+//     if (this.frmDonate.get('amount').dirty || this.frmDonate.get('amount').touched ) {
+//       if(this.frmDonate.get('amount').value.length == 0) {
+//         this.required_mess = true;
+//         this.message = 'This field have a value!';
+//         this.loadingService.dismiss();
+//       }
+//       else if(this.frmDonate.get('amount').value %18 !==0){
+//         this.required_mess = true;
+//         this.message = 'The number must be divisible by 18!';
+//         this.loadingService.dismiss();
+//       }
+//       else {
+//         this.required_mess = false;
+//         this.loadingService.dismiss();
+//       }
+//     }
+//     if (this.frmDonate.get('note').dirty || this.frmDonate.get('note').touched ) {
+//       if(this.frmDonate.get('note').value.length == 0) {
+//         this.required_purpose = true;
+//         this.message_purpose = 'This field is require!';
+//         this.loadingService.dismiss();
+//       }
+//       else {
+//         this.required_purpose = false;
+//         this.loadingService.dismiss();
+//       }
+//     }
+//     if(this.frmDonate.get('amount').value %18 ===0) {
+//       this.donateService.donateLog(result).subscribe((data) => {
+//         // console.log(data);
+//         this.presentToast('Pray successfully!');
+//     })
+//     }
+//     else {
+//     }
+// }
   clickPray() {
     this.tab = 'pray';
   }

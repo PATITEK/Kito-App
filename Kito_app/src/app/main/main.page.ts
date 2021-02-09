@@ -17,8 +17,7 @@ export class MainPage implements OnInit {
   }
   routerLink(path) {
     console.log(path);
-    // this.router.navigate(['main/'+path]);
-    this.router.navigateByUrl('main/'+path);
+    this.router.navigateByUrl('main/'+ path);
   }
   // goToUserInfo() {
   //   this.router.navigateByUrl('account-setting');
