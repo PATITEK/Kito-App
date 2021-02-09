@@ -18,11 +18,19 @@ const routes: Routes = [
     loadChildren: () => import('./donate/donate.module').then(m => m.DonatePageModule),
     // canActivate: [AuthGuard],
   },
-  // {
-  //   path: 'pray',
-  //   loadChildren: () => import('./pray/pray.module').then(m => m.PrayPageModule),
-  //   canActivate: [AuthGuard],
-  // },
+  {
+    path: 'payment',
+    loadChildren: () => import('./payment/payment.module').then( m => m.PaymentPageModule)
+  },
+  {
+    path: 'paymentmethods',
+    loadChildren: () => import('./paymentmethods/paymentmethods.module').then( m => m.PaymentmethodsPageModule)
+  },
+  {
+    path: 'pray',
+    loadChildren: () => import('./pray/pray.module').then(m => m.PrayPageModule),
+    // canActivate: [AuthGuard],
+  },
   {
     path: 'page-noti',
     loadChildren: () => import('./@modular/page-noti/page-noti-routing.module').then(m => m.PageNotiRoutingModule),
