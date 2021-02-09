@@ -44,10 +44,10 @@ img {
 }
 
 .submit-btn {
-    color: #00b0b2;
-    --background: #DCF7F8;
+    color: var(--white-color);
+    --background: var(--second-color);
     --border-radius: 18px;
-    width: 45px;
+    width: 53px;
     height: 45px;
 }
 
@@ -57,7 +57,7 @@ img {
     left: 0;
     right: 0;
     height: 59vh;
-    background: #C2402C;
+    background: var(--main-color);
     border-top-left-radius: 40px;
     border-top-right-radius: 40px;
 }
@@ -72,12 +72,13 @@ ion-segment{
     ion-segment-button {
         font-size: 18px;
         font-weight: 600;
-        color: #000000;
+        --color-checked: var(--white-color);
+        --color: var(--second-color);
         --border-radius: 40px;
         height: 40px;
 
         &::part(indicator-background) {
-            background:#FAAE41;
+            background: var(--second-color);
         }
     }
  }
@@ -122,7 +123,7 @@ ion-segment{
         
         .phone-number-body {
             padding-left: 5px;
-            background: #30B9BB;
+            background: var(--second-color);
             border-radius: 5px;
 
             .country-code {

@@ -9,16 +9,13 @@
       top: 50%;
     }
     ion-item-group {
-     
       .img__header {
           height: 270px;
           width: 100%;
-        //  position: absolute;
           border-bottom-left-radius: 40px;
           border-bottom-right-radius: 40px;
           background-size: cover;
           box-shadow: 0 0 6px 4px rgba(0,0,0, 0.2);
-        
       }
       .back-btn {
         display: inline-block;

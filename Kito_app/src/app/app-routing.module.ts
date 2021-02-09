@@ -11,13 +11,13 @@ const routes: Routes = [
   {
     path: 'main',
     loadChildren: () => import('./main/main.module').then(m => m.MainPageModule),
-    canActivate: [AuthGuard],
+    // canActivate: [AuthGuard],
   },
-  // {
-  //   path: 'donate',
-  //   loadChildren: () => import('./donate/donate.module').then(m => m.DonatePageModule),
-  //   canActivate: [AuthGuard],
-  // },
+  {
+    path: 'donate',
+    loadChildren: () => import('./donate/donate.module').then(m => m.DonatePageModule),
+    // canActivate: [AuthGuard],
+  },
   // {
   //   path: 'pray',
   //   loadChildren: () => import('./pray/pray.module').then(m => m.PrayPageModule),

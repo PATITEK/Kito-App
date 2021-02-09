@@ -50,9 +50,9 @@ export class LoginPage implements OnInit {
       { type: 'required', message: 'Phone number is required' },
       { type: 'pattern', message: 'Phone number is invalid' },
     ],
-    birthday: [
-      { type: 'required', message: 'Age is required' }
-    ],
+    // birthday: [
+    //   { type: 'required', message: 'Age is required' }
+    // ],
     country_code: [
       { type: 'required', message: 'Country is required' },
     ],

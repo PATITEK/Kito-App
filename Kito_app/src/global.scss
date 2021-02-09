@@ -1,15 +1,4 @@
-/*
- * App Global CSS
- * ----------------------------------------------------------------------------
- * Put style rules here that you want to apply globally. These styles are for
- * the entire app and not just one component. Additionally, this file can be
- * used as an entry point to import other CSS/Sass files to be included in the
- * output CSS.
- * For more information on global stylesheets, visit the documentation:
- * https://ionicframework.com/docs/layout/global-stylesheets
- */
 
-/* Core CSS required for Ionic components to work properly */
 @import "~@ionic/angular/css/core.css";
 
 /* Basic CSS for apps built with Ionic */
@@ -25,6 +14,14 @@
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
 
+:root {
+  --main-color: #F6C33E;
+  --second-color: #CC9D3E;
+  --third-color: #f1c56b;
+  --title-color: #717171;
+  --white-color: #fff;
+  --black-color: #000;
+}
 .active-effect {
   transition: 0.15s;
   
@@ -172,7 +169,6 @@
 }
 .modal__logout {
     --height: 200px;
-
     .modal-wrapper {
         position: absolute;
         bottom: 0;
