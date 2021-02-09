@@ -7,9 +7,10 @@ import { IonicModule } from '@ionic/angular';
 import { NewsDetailPageRoutingModule } from './news-detail-routing.module';
 
 import { NewsDetailPage } from './news-detail.page';
-import { HeaderModule } from '../header/header.module';
 import { SearchBarNavComponent } from '../search-bar-nav/search-bar-nav.component';
 import { HeaderComponent } from '../header/header.component';
+import { MainItemComponent } from '../main-item/main-item.component';
+import { FooterModule } from '../footer/footer.module';
 
 @NgModule({
   imports: [
@@ -17,12 +18,13 @@ import { HeaderComponent } from '../header/header.component';
     FormsModule,
     IonicModule,
     NewsDetailPageRoutingModule,
-    HeaderModule
+    FooterModule
   ],
   declarations: [
     NewsDetailPage,
     SearchBarNavComponent,
-    HeaderComponent
+    HeaderComponent,
+    MainItemComponent
   ]
 })
 export class NewsDetailPageModule { }

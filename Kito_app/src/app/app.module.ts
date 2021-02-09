@@ -15,6 +15,11 @@ import { Camera } from '@ionic-native/camera/ngx';
 import { SlideService } from './@modular/slide/slide.service';
 import { Stripe } from '@ionic-native/stripe/ngx';
 import {enableProdMode} from '@angular/core';
+import { SpeechRecognition } from '@ionic-native/speech-recognition/ngx'
+import { SpeechRecognitionService } from './@app-core/utils/speech-recognition.service';
+import { AudioManagement } from '@ionic-native/audio-management/ngx';
+import { AudioManagerService } from './@app-core/utils';
+// import { IonicSwipeAllModule } from 'ionic-swipe-all';
 
 @NgModule({
   declarations: [AppComponent],
@@ -26,6 +31,7 @@ import {enableProdMode} from '@angular/core';
     CoreModule.forRoot(),
     FormsModule, 
     ReactiveFormsModule,
+    
    
   ],
   providers: [
@@ -36,6 +42,10 @@ import {enableProdMode} from '@angular/core';
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     AuthGuard,
     Camera,
+    SpeechRecognition,
+    SpeechRecognitionService,
+    AudioManagement,
+    AudioManagerService
   ],
   bootstrap: [AppComponent]
 })

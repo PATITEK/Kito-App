@@ -12,6 +12,26 @@ export class DateTimeService {
     'Saturday',
   ];
 
+  public VIETNAMESE_DAYS = [
+    'Hai',
+    'Ba',
+    'Tư',
+    'Năm',
+    'Sáu',
+    'Bảy',
+    'CN'
+  ];
+
+  public VIETNAMESE_DAYS_2 = [
+    'Thứ hai',
+    'Thứ ba',
+    'Thứ tư',
+    'Thứ năm',
+    'Thứ sáu',
+    'Thứ bảy',
+    'Chủ nhật'
+  ];
+
   public MONTHS = [
     'January',
     'February',
@@ -37,5 +57,10 @@ export class DateTimeService {
   // 2021-01-01
   public getDateString2(day) {
     return `${day.getFullYear()}-${day.getMonth() + 1}-${day.getDate()}`;
+  }
+
+  // Thursday, 03 January 2021
+  public getDateString3(day) {
+    return `${this.VIETNAMESE_DAYS_2[day.getDay()]} - ${day.getDate()}.${day.getMonth()}.${day.getFullYear()}`;
   }
 }

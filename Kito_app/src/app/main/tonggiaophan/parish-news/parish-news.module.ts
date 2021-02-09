@@ -8,6 +8,9 @@ import { ParishNewsPageRoutingModule } from './parish-news-routing.module';
 
 import { ParishNewsPage } from './parish-news.page';
 import { HeaderModule } from 'src/app/@modular/header/header.module';
+import { MainSlideModule } from 'src/app/@modular/main-slide/main-slide.module';
+import { MainSlideComponent } from 'src/app/@modular/main-slide/main-slide.component';
+import { FooterModule } from 'src/app/@modular/footer/footer.module';
 
 @NgModule({
   imports: [
@@ -15,8 +18,9 @@ import { HeaderModule } from 'src/app/@modular/header/header.module';
     FormsModule,
     IonicModule,
     ParishNewsPageRoutingModule,
-    HeaderModule
+    HeaderModule,
+    FooterModule
   ],
-  declarations: [ParishNewsPage]
+  declarations: [ParishNewsPage, MainSlideComponent]
 })
 export class ParishNewsPageModule {}

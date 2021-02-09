@@ -8,6 +8,7 @@ import { CatechismClassPageRoutingModule } from './catechism-class-routing.modul
 
 import { CatechismClassPage } from './catechism-class.page';
 import { HeaderModule } from 'src/app/@modular/header/header.module';
+import { FooterModule } from 'src/app/@modular/footer/footer.module';
 
 @NgModule({
   imports: [
@@ -16,6 +17,7 @@ import { HeaderModule } from 'src/app/@modular/header/header.module';
     IonicModule,
     CatechismClassPageRoutingModule,
     HeaderModule,
+    FooterModule
   ],
   declarations: [
     CatechismClassPage,

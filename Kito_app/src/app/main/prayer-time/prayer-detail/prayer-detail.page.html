@@ -1,0 +1,22 @@
+<ion-header>
+  <app-header [title]="title"></app-header>
+</ion-header>
+
+<ion-content>
+  <div class="body">
+    <ion-buttons class="date-list">
+      <ion-buttons *ngFor="let d of dateList" class="date-item main-box-shadow"
+        [ngClass]="{'active-date-item': dateItem.id == d.id}" (click)="changeDateItem(d)">
+        <span class="date-text">{{ dateTimeService.VIETNAMESE_DAYS[d.day.getDay()].substring(0, 3) }}</span>
+        <span>{{ d.day.getDate() }}</span>
+        <span *ngIf="d.events.length" class="circle date-item-note"></span>
+      </ion-buttons>
+    </ion-buttons>
+
+    <div class="body-header">
+      <ion-label>{{ dateTimeService.getDateString3(dateItem.day) }}</ion-label>
+      <ion-label *ngIf="dateItem.events.length" class="item-name">{{ dateItem.name }}</ion-label>
+      <p class="event-text">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ullam, culpa adipisci veritatis perspiciatis laudantium fugiat praesentium aliquid beatae odio id suscipit? Officiis nostrum cum aut id deleniti quia cupiditate aspernatur sapiente quasi praesentium. Minus vitae minima necessitatibus veniam, est sapiente recusandae amet nemo molestias doloribus dolore laboriosam ad dolorem sequi veritatis impedit repellat. Odio totam vitae, sequi eos iste, eum consequuntur sint vel nihil ipsum illo, maxime quisquam voluptates! Maxime est corporis, reprehenderit dolorem expedita temporibus fuga. Id maxime voluptas reprehenderit sint ut assumenda repellendus blanditiis. Suscipit ut velit quidem dolore consequuntur reprehenderit doloremque, mollitia itaque perferendis sunt adipisci nostrum, esse ad iusto, vitae illum explicabo voluptate! Ut velit alias perspiciatis fugiat neque labore amet ea, dolore tenetur aliquid assumenda itaque minima similique? Atque voluptates voluptatum ratione veritatis? Nisi culpa facere laboriosam, laudantium aliquam nesciunt adipisci illo veritatis! Voluptate blanditiis, fugit ipsum sequi ea enim debitis laudantium cum autem minus omnis expedita consequuntur aut. Maxime accusamus numquam veritatis illum impedit iste amet dicta doloribus unde, porro dignissimos labore dolores! Perferendis, consectetur eligendi est iure labore nihil eaque doloribus quas dolore nisi. Ducimus ipsam voluptates dolorem velit, iure hic possimus reiciendis quaerat illo. Dolorum perferendis repellendus dolores consequatur ea est sit!</p>
+    </div>
+  </div>
+</ion-content>
