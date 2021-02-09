@@ -25,18 +25,6 @@ const routes: Routes = [
         path: 'event',
         loadChildren: () => import('./event/event.module').then( m => m.EventPageModule)
       },
-      {
-        path: 'catechism-class',
-        loadChildren: () => import('./catechism-class/catechism-class.module').then( m => m.CatechismClassPageModule)
-      },
-      {
-        path: 'tonggiaophan',
-        loadChildren: () => import('./tonggiaophan/tonggiaophan.module').then( m => m.TonggiaophanPageModule)
-      },
-      {
-        path: 'news-detail',
-        loadChildren: () => import('./../@modular/news-detail/news-detail.module').then( m => m.NewsDetailPageModule)
-      },
     ]
   },
   {
@@ -44,6 +32,18 @@ const routes: Routes = [
     redirectTo: '',
     pathMatch: 'full'
   },
+  {
+    path: 'catechism-class',
+    loadChildren: () => import('./catechism-class/catechism-class.module').then( m => m.CatechismClassPageModule)
+  },
+  {
+    path: 'tonggiaophan',
+    loadChildren: () => import('./tonggiaophan/tonggiaophan.module').then( m => m.TonggiaophanPageModule)
+  },  {
+    path: 'prayer-time',
+    loadChildren: () => import('./prayer-time/prayer-time.module').then( m => m.PrayerTimePageModule)
+  },
+
 ];
 
 @NgModule({
