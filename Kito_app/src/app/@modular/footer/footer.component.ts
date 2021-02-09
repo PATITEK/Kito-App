@@ -8,7 +8,7 @@ import { Gesture, GestureConfig, GestureController } from '@ionic/angular';
   styleUrls: ['./footer.component.scss'],
 })
 export class FooterComponent implements OnInit {
- active_footer=false;
+ active_footer :boolean=false;
   constructor(
     private gestureCtrl: GestureController,
     public element: ElementRef,
@@ -88,7 +88,12 @@ export class FooterComponent implements OnInit {
     gesture.enable();
   }
   ngOnInit() {
-   
+    if (!localStorage.getItem('foo')) { 
+      localStorage.setItem('foo', 'no reload') 
+      location.reload() 
+    } else {
+      localStorage.removeItem('foo') 
+    }
   }
  
 
