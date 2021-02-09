@@ -1,0 +1,41 @@
+<ion-header (click)="onCheckClickOutsideHeaderIcon($event)">
+  <app-header [title]="title"></app-header>
+</ion-header>
+
+<ion-content (click)="onCheckClickOutsideHeaderIcon($event)">
+  <app-search-bar-nav class="nav-bar-custom"></app-search-bar-nav>
+
+  <div class="cart active-effect">
+    <img src="assets/icon/cart.svg" class="cart-icon">
+
+    <span *ngIf="cart.length" class="cart-amount">{{ cart.length <= 99 ? cart.length : '+99' }}</span>
+  </div>
+
+  <div class="header">
+    <ion-label class="header-title">Mặt dây chuyền</ion-label>
+    <img src="assets/icon/setting.svg" id="header-icon" class="header-icon active-effect" (click)="toggleHasSetting(true)" (pointerover)="toggleHasSetting(false)">
+
+    <div *ngIf="hasSetting" class="setting main-box-shadow">
+      <div class="setting-item">Giá cao > thấp</div>
+      <div class="setting-item">Giá thấp > cao</div>
+      <div class="setting-item">Hàng mới nhất</div>
+      <div class="setting-item">Bán chạy nhất</div>
+    </div>
+  </div>
+
+  <ion-list>
+    <ion-buttons *ngFor="let row of list" class="row">
+      <div *ngFor="let col of row" class="col main-box-shadow">
+        <div class="img-container">
+          <img [src]="col.thumbImage" class="img">
+        </div>
+        <div class="text-box">
+          <ion-label class="name three-dots-2">{{ col.name }}</ion-label>
+          <ion-label class="price">{{ dateTimeService.numberWithCommas(col.price) }} {{ col.unitPrice}}</ion-label>
+        </div>
+
+        <img src="assets/icon/add.svg" class="add-btn active-effect" (click)="addToCart(col)">
+      </div>
+    </ion-buttons>
+  </ion-list>
+</ion-content>
