@@ -28,11 +28,6 @@ const routes: Routes = [
     ]
   },
   {
-    path: '',
-    redirectTo: '',
-    pathMatch: 'full'
-  },
-  {
     path: 'catechism-class',
     loadChildren: () => import('./catechism-class/catechism-class.module').then( m => m.CatechismClassPageModule)
   },
@@ -47,6 +42,12 @@ const routes: Routes = [
   {
     path: 'store',
     loadChildren: () => import('./store/store.module').then( m => m.StorePageModule)
+  },
+
+  {
+    path: '',
+    redirectTo: '',
+    pathMatch: 'full'
   },
 
 ];

@@ -34,10 +34,10 @@ export class ForgotPasswordPage implements OnInit {
       })
     } else {
       if(this.email.email == '') {
-        this.toastService.present('Please type your email!', 'top', 2000);
+        this.toastService.present('Please type your phone number!', 'top', 2000);
       }
       else {
-        this.toastService.present('Email is invalid!', 'top', 2000);
+        this.toastService.present('Phone number is invalid!', 'top', 2000);
       }
     }
   }
