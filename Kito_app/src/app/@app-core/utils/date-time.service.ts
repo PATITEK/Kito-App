@@ -63,4 +63,10 @@ export class DateTimeService {
   public getDateString3(day) {
     return `${this.VIETNAMESE_DAYS_2[day.getDay()]} - ${day.getDate()}.${day.getMonth()}.${day.getFullYear()}`;
   }
+
+  public numberWithCommas(str) {
+    let parts = str.toString().split(".");
+    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    return parts.join(",");
+  }
 }

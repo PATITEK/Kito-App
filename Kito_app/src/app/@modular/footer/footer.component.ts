@@ -6,14 +6,13 @@ import { Gesture, GestureConfig, GestureController } from '@ionic/angular';
   styleUrls: ['./footer.component.scss'],
 })
 export class FooterComponent implements OnInit {
- active_footer = false;
+ active_footer :boolean=false;
   constructor(
     private gestureCtrl: GestureController,
     public element: ElementRef,
     public renderer: Renderer2
   ){}
   async ngAfterContentInit() {
-    console.log(this.active_footer);
     const options: GestureConfig = {
       el: this.element.nativeElement,
       direction: "y",
@@ -22,8 +21,9 @@ export class FooterComponent implements OnInit {
         this.renderer.setStyle(
           this.element.nativeElement,
           "transition",
-          "none"
+          "none",
         );
+        
       },
       onMove: (ev) => {
         if (ev.deltaY < 0 && ev.deltaY> 80) {
@@ -33,6 +33,7 @@ export class FooterComponent implements OnInit {
             `translateY(${ev.deltaY}px)`
           );
           document.querySelector<HTMLElement>('.footer-main').style.height="90px";
+          // this.active_footer=true;
         }
       },
       onEnd: (ev) => {
@@ -47,6 +48,7 @@ export class FooterComponent implements OnInit {
             "transform",
             `translateY(-50px)`,
           );
+          this.active_footer=true;
           document.querySelector<HTMLElement>('.footer-main').style.height="70px";
           document.querySelector<HTMLElement>('.footer-main').style.transform="translateY(20px)";
           document.querySelector<HTMLElement>('.menu-bottom').style.opacity="1";
@@ -56,11 +58,10 @@ export class FooterComponent implements OnInit {
             "transform",
             `translateY(0px)`
           );
+          this.active_footer=false;
           document.querySelector<HTMLElement>('.footer-main').style.height="50px";
           document.querySelector<HTMLElement>('.footer-main').style.transform="translateY(-12px)";
           document.querySelector<HTMLElement>('.menu-bottom').style.opacity="0";
-          
-          
         }
       },
     };
@@ -70,7 +71,12 @@ export class FooterComponent implements OnInit {
     gesture.enable();
   }
   ngOnInit() {
-   
+    if (!localStorage.getItem('foo')) { 
+      localStorage.setItem('foo', 'no reload') 
+      location.reload() 
+    } else {
+      localStorage.removeItem('foo') 
+    }
   }
  
 

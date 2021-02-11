@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
+import { ModalDonateComponent } from 'src/app/@modular/modal-donate/modal-donate.component';
 
 @Component({
   selector: 'app-tonggiaophan',
@@ -30,7 +32,16 @@ export class TonggiaophanPage implements OnInit {
     }
   ]
 
-  constructor() {}
+  constructor(
+    private modalCtrl: ModalController,
+    ) { }
 
   ngOnInit() { }
+  // async openModalMenu() {
+  //   const popover = await this.modalCtrl.create({
+  //     component: ModalDonateComponent,
+  //     cssClass: 'modalDonate  ',
+  //   });
+  //   return await popover.present();
+  // }
 }
