@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './@app-core/auth-guard.service';
+import {} from './changepassword/changepassword.module'
 import {SlideComponent} from './@modular/slide/slide.component';
 
 const routes: Routes = [
@@ -35,6 +36,10 @@ const routes: Routes = [
     path: 'page-noti',
     loadChildren: () => import('./@modular/page-noti/page-noti-routing.module').then(m => m.PageNotiRoutingModule),
     canActivate: [AuthGuard],
+  },
+  {
+    path: 'changepassword',
+    loadChildren: () => import('./changepassword/changepassword.module').then( m => m.ChangepasswordPageModule)
   },
   // {
   //   path: 'chabad',
