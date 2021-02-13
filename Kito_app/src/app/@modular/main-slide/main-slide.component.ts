@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 })
 export class MainSlideComponent implements OnInit {
   @Input() data: any;
+  
   slideOptions = {
     initialSlide: 0,
     loop: true,
