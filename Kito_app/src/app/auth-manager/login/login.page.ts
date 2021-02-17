@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService, IPageRequest, PATTERN } from 'src/app/@app-core/http';
 import { ToastController } from '@ionic/angular';
-import { LoadingService } from 'src/app/@app-core/utils';
+import { LoadingService, OneSignalService } from 'src/app/@app-core/utils';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastService } from 'src/app/@app-core/utils';
 import { DioceseService } from 'src/app/@app-core/http/diocese';
@@ -102,7 +102,7 @@ export class LoginPage implements OnInit {
     // })
   //  this.id_diocese = this.formSignUp.get('dioceses').value;
     this.initForm();
-    this.oneSignal.setUpOneSignal();
+    this.oneSignal.startOneSignal();
   }
   pageRequestParishes: IPageParishes = {
     diocese_id: this.id_diocese,
