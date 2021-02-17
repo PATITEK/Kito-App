@@ -5,9 +5,8 @@
 <ion-content (click)="onCheckClickOutsideHeaderIcon($event)">
   <app-search-bar-nav class="nav-bar-custom"></app-search-bar-nav>
 
-  <div class="cart active-effect">
+  <div class="cart active-effect" (click)="goToCart()">
     <img src="assets/icon/cart.svg" class="cart-icon">
-
     <span *ngIf="cart.length" class="cart-amount">{{ calTotalItem() }}</span>
   </div>
 

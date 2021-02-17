@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { DateTimeService } from 'src/app/@app-core/utils';
 
 @Component({
@@ -14,7 +15,8 @@ export class StorePage implements OnInit {
   headerIconElement: any;
 
   constructor(
-    public dateTimeService: DateTimeService
+    public dateTimeService: DateTimeService,
+    private router: Router
   ) {
     for (let i = 0; i < 10; i++) {
       this.list.push([
@@ -37,6 +39,9 @@ export class StorePage implements OnInit {
   }
 
   ngOnInit() {
+  }
+  
+  ionViewWillEnter() {
     this.getCart();
   }
 
@@ -82,5 +87,9 @@ export class StorePage implements OnInit {
   calTotalItem() {
     const total = this.cart.reduce((acc, item) => acc + item.amount, 0);
     return total <= 99 ? total : '+99';
+  }
+
+  goToCart() {
+    this.router.navigateByUrl('main/store/cart');
   }
 }
