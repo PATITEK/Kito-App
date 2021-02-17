@@ -7,3 +7,4 @@ export * from './speech-recognition.service';
 export * from './audio-manager.service';
 export * from './onesignal.service'
 export * from './geolocation.service';
+export * from './camera.service';

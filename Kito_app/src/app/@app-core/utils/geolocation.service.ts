@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { NativeGeocoder, NativeGeocoderOptions, NativeGeocoderResult } from '@ionic-native/native-geocoder/ngx';
 import { LoadingService } from './loading.service';
+import { Platform } from '@ionic/angular';
 
 interface Location {
     lat: number;
@@ -27,25 +28,33 @@ export class GeolocationService {
         address: "null"
     };
 
-    constructor(public geolocation: Geolocation, public nativeGeocoder: NativeGeocoder, public loadingService: LoadingService) {}
+    constructor(public geolocation: Geolocation,
+        public nativeGeocoder: NativeGeocoder,
+        public loadingService: LoadingService,
+        public PlatForm: Platform,
+        ) {}
 
+    //only use this method
     getCurrentLocation() {
-        this.loadingService.present();
-        this.geolocation.getCurrentPosition().then((resp) => {
-            this.lat = resp.coords.latitude;
-            this.lng = resp.coords.longitude;
-            this.getGeoEncoder(this.lat, this.lng);
-            console.log(this.lat,'  ', this.lng)
-            this.loadingService.dismiss();
-        })
-        .catch((err) => {
-            console.log(err);
+        this.PlatForm.ready().then(() => {
+            this.loadingService.present();
+            this.geolocation.getCurrentPosition().then((resp) => {
+                this.lat = resp.coords.latitude;
+                this.lng = resp.coords.longitude;
+                this.getGeoEncoder(this.lat, this.lng);
+                console.log(this.lat,'  ', this.lng)
+                this.loadingService.dismiss();
+            })
+            .catch((err) => {
+                console.log(err);
+            })
         })
     }
 
     getGeoEncoder(latitude, longitude) {
         this.nativeGeocoder.reverseGeocode(latitude, longitude, this.geoEncoderOptions)
         .then((result: NativeGeocoderResult[]) => {
+            console.log('result', result)
             this.customerLocation.address = this.generateAddress(result[result.length-1]);
             console.log('address: ',this.customerLocation.address);
         })
