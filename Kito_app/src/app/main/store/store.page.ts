@@ -19,16 +19,18 @@ export class StorePage implements OnInit {
     for (let i = 0; i < 10; i++) {
       this.list.push([
         {
+          id: i,
           thumbImage: 'assets/img/item-store.svg',
           name: 'Mặt thánh giá inox',
           price: 50000,
-          unitPrice: 'đ'
+          unitPrice: 'đ',
         },
         {
+          id: i + 30,
           thumbImage: 'assets/img/item-store.svg',
           name: 'Mặt thánh giá inox',
           price: 500000000,
-          unitPrice: 'đ'
+          unitPrice: 'đ',
         }
       ]);
     }
@@ -62,8 +64,23 @@ export class StorePage implements OnInit {
 
   addToCart(item) {
     let itemTemp = item;
-    itemTemp.amount = 0;
-    this.cart.push(itemTemp);
+    itemTemp.amount = 1;
+
+    let duplicated = false;
+    for (let i = 0; i < this.cart.length; i++) {
+      if (this.cart[i].id == itemTemp.id) {
+        this.cart[i].amount++;
+        duplicated = true;
+        break;
+      }
+    }
+    !duplicated && this.cart.push(itemTemp);
+
     this.setCart();
+  }
+
+  calTotalItem() {
+    const total = this.cart.reduce((acc, item) => acc + item.amount, 0);
+    return total <= 99 ? total : '+99';
   }
 }

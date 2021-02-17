@@ -8,7 +8,7 @@
   <div class="cart active-effect">
     <img src="assets/icon/cart.svg" class="cart-icon">
 
-    <span *ngIf="cart.length" class="cart-amount">{{ cart.length <= 99 ? cart.length : '+99' }}</span>
+    <span *ngIf="cart.length" class="cart-amount">{{ calTotalItem() }}</span>
   </div>
 
   <div class="header">
@@ -32,7 +32,7 @@
         </div>
         <div class="text-box">
           <ion-label class="name three-dots-2">{{ col.name }}</ion-label>
-          <!-- <ion-label class="price">{{ dateTimeService.numberWithCommas(col.price) }} {{ col.unitPrice}}</ion-label> -->
+          <ion-label class="price">{{ dateTimeService.numberWithCommas(col.price) }} {{ col.unitPrice}}</ion-label>
         </div>
         <img src="assets/icon/add.svg" class="add-btn active-effect" (click)="addToCart(col)">
       </div>
