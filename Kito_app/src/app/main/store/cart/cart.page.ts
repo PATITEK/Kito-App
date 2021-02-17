@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { NavController } from '@ionic/angular';
 import { DateTimeService } from 'src/app/@app-core/utils';
 
@@ -15,12 +16,12 @@ export class CartPage implements OnInit {
     {
       srcIcon: 'assets/icon/dollar.svg',
       name: 'Tiền mặt',
-      id: 1
+      id: 0
     },
     {
       srcIcon: 'assets/icon/visa.svg',
       name: 'VISA/MASTER',
-      id: 2
+      id: 1
     }
   ];
   currentPaymentMethodId = 1;
@@ -29,7 +30,8 @@ export class CartPage implements OnInit {
 
   constructor(
     public dateTimeService: DateTimeService,
-    private navCtrl: NavController
+    private navCtrl: NavController,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -100,5 +102,16 @@ export class CartPage implements OnInit {
   changePayment(paymentMethod) {
     this.currentPaymentMethodId = paymentMethod.id;
     this.toggleHasPaymentModal(false);
+  }
+
+  goToCheckout() {
+    const data = {
+      paymentMethod: this.paymentMethods[this.currentPaymentMethodId]
+    }
+    this.router.navigate(['main/store/cart/checkout'], {
+      queryParams: {
+        data: JSON.stringify(data)
+      }
+    })
   }
 }

@@ -36,6 +36,7 @@ ion-footer {
     background: #f8f8f8;
     border-radius: 10px;
     padding: 16px;
+    margin-top: 5px;
 
     .address {
       color: #424242;
@@ -221,6 +222,7 @@ ion-footer {
   border-radius: 10px;
   width: 300px;
   overflow: hidden;
+  max-width: calc(100vw - 20px);
 
   &__title {
     color: #424242;

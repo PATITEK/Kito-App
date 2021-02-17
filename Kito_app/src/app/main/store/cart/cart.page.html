@@ -62,9 +62,9 @@
 
 <ion-footer (click)="onCheckClickOutsidePaymentSelect($event)">
   <ion-buttons class="ion-justify-content-around">
-    <div class="payment-method-container active-effect" (click)="toggleHasPaymentModal(true)">
+    <div class="payment-method-container" (click)="toggleHasPaymentModal(true)">
       <ng-container *ngFor="let paymentMethod of paymentMethods">
-        <ion-buttons class="payment-method active-effect" *ngIf="currentPaymentMethodId == paymentMethod.id">
+        <ion-buttons class="payment-method" *ngIf="currentPaymentMethodId == paymentMethod.id">
           <img class="payment-method-icon" [src]="paymentMethod.srcIcon">
           <span class="payment-method-name three-dots-1">{{ paymentMethod.name }}</span>
           <img src="assets/icon/up.svg">
@@ -72,7 +72,7 @@
       </ng-container>
     </div>
 
-    <ion-button class="order-btn active-effect" [disabled]="!cart.length">Đặt hàng</ion-button>
+    <ion-button class="order-btn active-effect" [disabled]="!cart.length" (click)="goToCheckout()">Đặt hàng</ion-button>
   </ion-buttons>
 
   <div class="payment-method-modal" *ngIf="hasPaymentModal" (click)="onClickPaymentModal()">

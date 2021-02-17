@@ -68,7 +68,7 @@ export class StorePage implements OnInit {
   }
 
   addToCart(item) {
-    let itemTemp = item;
+    let itemTemp = Object.assign({}, item);
     itemTemp.amount = 1;
 
     let duplicated = false;

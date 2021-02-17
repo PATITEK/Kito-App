@@ -11,9 +11,9 @@ export class ModalFoodComponent implements OnInit {
 
   constructor(private router: Router, private modalCtrl: ModalController) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
   dismiss() {
-    this.router.navigate(['main/shopping']);
+    this.router.navigate(['main']);
     this.modalCtrl.dismiss({
       'dismissed': true
     });
