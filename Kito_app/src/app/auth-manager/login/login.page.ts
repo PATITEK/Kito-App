@@ -1,12 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService, PATTERN } from 'src/app/@app-core/http';
+import { AuthService, IPageRequest, PATTERN } from 'src/app/@app-core/http';
 import { ToastController } from '@ionic/angular';
 import { defaultCoreCipherList } from 'constants';
 import { LoadingService, OneSignalService } from 'src/app/@app-core/utils';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastService } from 'src/app/@app-core/utils';
+import { DioceseService } from 'src/app/@app-core/http/diocese';
+import { ParishesService } from 'src/app/@app-core/http/parishes';
+import { IPageParishes } from 'src/app/@app-core/http/parishes/parishes.DTO';
+
 
 
 @Component({
@@ -21,16 +25,14 @@ export class LoginPage implements OnInit {
   // public status = 'login';
   
   country_codes: any;
-
   segmentValue = 'login';
   matchPassword = false;
-
   formLogin: FormGroup;
   formSignUp: FormGroup;
 
   validationLoginMessages = {
-    email: [
-      { type: 'required', message: 'Email or phone number is required' },
+    phone_number: [
+    { type: 'required', message: 'phone number is required' },
     ],
     password: [
       { type: 'required', message: 'Password is required' }
@@ -50,9 +52,9 @@ export class LoginPage implements OnInit {
       { type: 'required', message: 'Phone number is required' },
       { type: 'pattern', message: 'Phone number is invalid' },
     ],
-    // birthday: [
-    //   { type: 'required', message: 'Age is required' }
-    // ],
+    age: [
+      { type: 'required', message: 'Age is required' }
+    ],
     country_code: [
       { type: 'required', message: 'Country is required' },
     ],
@@ -72,6 +74,10 @@ export class LoginPage implements OnInit {
   }
 
   countries:any;
+  listDioceses: any;
+  listParishes: any;
+  id_diocese = 1;
+  tagret;
   constructor(
     private router: Router,
     private authService: AuthService,
@@ -79,25 +85,47 @@ export class LoginPage implements OnInit {
     private formBuilder: FormBuilder,
     private toastService: ToastService,
     private loadingService: LoadingService,
-
+    private diocese: DioceseService,
     private oneSignal: OneSignalService,
+    private parishes: ParishesService
   ) { }
+  pageRequestDioceses: IPageRequest = {
+    page: 1,
+    per_page: 100,
+  }
+  pageRequestParishes: IPageParishes = {
+    diocese_id: this.id_diocese,
+    page: 1,
+    per_page: 100,
+  }
+ 
   ngOnInit() {
-    this.authService.countryCode().subscribe((data: any) => {
-      this.country_codes = data.country_codes;
+    // this.authService.countryCode().subscribe((data: any) => {
+    //   this.country_codes = data.country_codes;
+    // })
+    this.diocese.getAll(this.pageRequestDioceses).subscribe(data =>{
+      this.listDioceses = data.dioceses;
+      this.tagret = this.listDioceses[0].name
+    }),
+    this.parishes.getAll(this.pageRequestParishes).subscribe(data=> {
+      this.listParishes = data.parishes;
     })
-
+   
     this.initForm();
-
     this.oneSignal.setUpOneSignal();
   }
-
+  onSelectChange() {
+     this.pageRequestParishes.diocese_id = this.formSignUp.get('dioceses').value;
+     console.log(this.pageRequestParishes);
+     this.parishes.getAll(this.pageRequestParishes).subscribe(data=> {
+      this.listParishes = data.parishes;
+    })
+  }
   initForm() {
     this.formLogin = this.formBuilder.group({
-      email: new FormControl('', Validators.required),
+      phone_number: new FormControl('', Validators.required),
       password: new FormControl('', Validators.required)
     })
-
     this.formSignUp = this.formBuilder.group({
       full_name: new FormControl('', Validators.compose([
         Validators.required,
@@ -112,12 +140,18 @@ export class LoginPage implements OnInit {
         Validators.required,
         Validators.pattern(PATTERN.PHONE_NUMBER_VIETNAM)
       ])),
-      birthday: new FormControl('', Validators.compose([
+      age: new FormControl('', Validators.compose([
         Validators.required
       ])),
-      country_code: new FormControl('84'),
-      province: new FormControl('Ho Chi Minh'),
-      district: new FormControl('Thu Duc'),
+      dioceses: new FormControl('', Validators.compose([
+        Validators.required
+      ])),
+      parish_id: new FormControl('', Validators.compose([
+        Validators.required
+      ])),
+     // country_code: new FormControl('84'),
+     // province: new FormControl('Ho Chi Minh'),
+     // district: new FormControl('Thu Duc'),
       full_address: new FormControl('', Validators.required),
       password: new FormControl('', Validators.compose([
         Validators.required,
@@ -126,11 +160,9 @@ export class LoginPage implements OnInit {
       confirmed_password: new FormControl('')
     })
   }
-
   changedSegment(event) {
     this.segmentValue = event.target.value;
   }
-
   canSubmitLogin() {
     return this.formLogin.valid;
   }
@@ -142,22 +174,32 @@ export class LoginPage implements OnInit {
     if (!this.canSubmitLogin()) {
       this.markFormGroupTouched(this.formLogin);
     } else {
-      this.authService.login(this.formLogin.value).subscribe(data => {
-        this.router.navigate(['main/chabad']);
-      });
+      console.log(this.formLogin.value);
+      this.authService.login(this.formLogin.value).subscribe(
+      (data: any) => {
+        console.log(data)
+        //  this.router.navigate(['main/chabad']);
+      },
+
+      );
     }
   }
 
   submitSignUp() {
     if (!this.canSubmitSignUp()) {
-      this.markFormGroupTouched(this.formSignUp);
+        this.markFormGroupTouched(this.formSignUp);
     } else if (!this.checkMatchConfirmedPassword()) {
       this.toastService.present('Confirmed password not match');
     } else {
       let data = this.formSignUp.value;
-      data.phone_number = data.phone_number.length == 10 ? data.phone_number.substring(1, 10) : data.phone_number;
-      data.phone_number = `+${this.formSignUp.value.country_code}${data.phone_number}`;
-      this.authService.signup(this.formSignUp.value).subscribe();
+      // data.phone_number = data.phone_number.length == 10 ? data.phone_number.substring(1, 10) : data.phone_number;
+      // data.phone_number = `+${this.formSignUp.value.country_code}${data.phone_number}`;
+      data.phone_number = `+${84}${data.phone_number}`
+      console.log(data.phone_number);
+      console.log(data)
+      this.authService.signup(this.formSignUp.value).subscribe((data)=>{
+        console.log(data)
+      });
     }
   }
 
@@ -195,7 +237,6 @@ export class LoginPage implements OnInit {
   private markFormGroupTouched(formGroup: FormGroup) {
     (<any>Object).values(formGroup.controls).forEach(control => {
       control.markAsTouched();
-
       if (control.controls) {
         this.markFormGroupTouched(control);
       }

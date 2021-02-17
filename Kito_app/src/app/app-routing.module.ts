@@ -80,7 +80,7 @@ const routes: Routes = [
     path: 'news-detail',
     loadChildren: () => import('./@modular/news-detail/news-detail.module').then( m => m.NewsDetailPageModule)
   },
-  { path: '', redirectTo: 'main', pathMatch: 'full' },
+  { path: '', redirectTo: '/main', pathMatch: 'full' },
   { path: '**'  , redirectTo: 'main' },
 
 

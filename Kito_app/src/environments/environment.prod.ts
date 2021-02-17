@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl:'https://chabad-api.herokuapp.com',
+  apiUrl:'https://kito-api.herokuapp.com/',
 };
