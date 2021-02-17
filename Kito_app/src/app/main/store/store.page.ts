@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { DateTimeService } from 'src/app/@app-core/utils';
 
 @Component({
@@ -14,27 +15,33 @@ export class StorePage implements OnInit {
   headerIconElement: any;
 
   constructor(
-    public dateTimeService: DateTimeService
+    public dateTimeService: DateTimeService,
+    private router: Router
   ) {
     for (let i = 0; i < 10; i++) {
       this.list.push([
         {
+          id: i,
           thumbImage: 'assets/img/item-store.svg',
           name: 'Mặt thánh giá inox',
           price: 50000,
-          unitPrice: 'đ'
+          unitPrice: 'đ',
         },
         {
+          id: i + 30,
           thumbImage: 'assets/img/item-store.svg',
           name: 'Mặt thánh giá inox',
           price: 500000000,
-          unitPrice: 'đ'
+          unitPrice: 'đ',
         }
       ]);
     }
   }
 
   ngOnInit() {
+  }
+  
+  ionViewWillEnter() {
     this.getCart();
   }
 
@@ -61,9 +68,28 @@ export class StorePage implements OnInit {
   }
 
   addToCart(item) {
-    let itemTemp = item;
-    itemTemp.amount = 0;
-    this.cart.push(itemTemp);
+    let itemTemp = Object.assign({}, item);
+    itemTemp.amount = 1;
+
+    let duplicated = false;
+    for (let i = 0; i < this.cart.length; i++) {
+      if (this.cart[i].id == itemTemp.id) {
+        this.cart[i].amount++;
+        duplicated = true;
+        break;
+      }
+    }
+    !duplicated && this.cart.push(itemTemp);
+
     this.setCart();
+  }
+
+  calTotalItem() {
+    const total = this.cart.reduce((acc, item) => acc + item.amount, 0);
+    return total <= 99 ? total : '+99';
+  }
+
+  goToCart() {
+    this.router.navigateByUrl('main/store/cart');
   }
 }

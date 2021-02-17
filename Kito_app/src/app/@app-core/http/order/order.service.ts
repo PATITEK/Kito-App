@@ -73,6 +73,7 @@ export class OrderService {
     const popover = await this.modalCtrl.create({
       component: ModalFoodComponent,
       cssClass: 'modalFood',
+      backdropDismiss: false
     });
     return await popover.present();
   }

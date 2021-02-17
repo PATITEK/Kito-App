@@ -1,10 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService, PATTERN } from 'src/app/@app-core/http';
+import { AuthService, IPageRequest, PATTERN } from 'src/app/@app-core/http';
 import { ToastController } from '@ionic/angular';
 import { LoadingService } from 'src/app/@app-core/utils';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastService } from 'src/app/@app-core/utils';
+import { DioceseService } from 'src/app/@app-core/http/diocese';
+import { ParishesService } from 'src/app/@app-core/http/parishes';
+import { IPageParishes } from 'src/app/@app-core/http/parishes/parishes.DTO';
+
 
 
 @Component({
@@ -19,10 +23,8 @@ export class LoginPage implements OnInit {
   // public status = 'login';
   
   country_codes: any;
-
   segmentValue = 'login';
   matchPassword = false;
-
   formLogin: FormGroup;
   formSignUp: FormGroup;
 
@@ -48,9 +50,9 @@ export class LoginPage implements OnInit {
       { type: 'required', message: 'Phone number is required' },
       { type: 'pattern', message: 'Phone number is invalid' },
     ],
-    // birthday: [
-    //   { type: 'required', message: 'Age is required' }
-    // ],
+    birthday: [
+      { type: 'required', message: 'Age is required' }
+    ],
     country_code: [
       { type: 'required', message: 'Country is required' },
     ],
@@ -70,6 +72,10 @@ export class LoginPage implements OnInit {
   }
 
   countries:any;
+  listDioceses: any;
+  listParishes: any;
+  id_diocese = 1;
+  default = '';
   constructor(
     private router: Router,
     private authService: AuthService,
@@ -77,21 +83,54 @@ export class LoginPage implements OnInit {
     private formBuilder: FormBuilder,
     private toastService: ToastService,
     private loadingService: LoadingService,
+    private diocese: DioceseService,
+    private oneSignal: OneSignalService,
+    private parishes: ParishesService
   ) { }
+  pageRequestDioceses: IPageRequest = {
+    page: 1,
+    per_page: 100,
+    // total_objects: 0,
+    // search: '',
+    // sort: '',
+    // typeSort: 0,
+  }
+ 
   ngOnInit() {
-    this.authService.countryCode().subscribe((data: any) => {
-      this.country_codes = data.country_codes;
+    // this.authService.countryCode().subscribe((data: any) => {
+    //   this.country_codes = data.country_codes;
+    // })
+  //  this.id_diocese = this.formSignUp.get('dioceses').value;
+    this.initForm();
+    this.oneSignal.setUpOneSignal();
+  }
+  pageRequestParishes: IPageParishes = {
+    diocese_id: this.id_diocese,
+    page: 1,
+    per_page: 100,
+    // total_objects: 0,
+    // search: '',
+    // sort: '',
+    // typeSort: 0,
+  }
+  onChange(tagret) {
+    console.log(tagret.name)
+  }
+  ionViewWillEnter () {
+    this.diocese.getAll(this.pageRequestDioceses).subscribe(data =>{
+      this.listDioceses = data.dioceses;
+      console.log(this.default = this.listDioceses[0].name)
+    }),
+    this.parishes.getAll(this.pageRequestParishes).subscribe(data=> {
+      console.log(data);
     })
 
-    this.initForm();
   }
-
   initForm() {
     this.formLogin = this.formBuilder.group({
       email: new FormControl('', Validators.required),
       password: new FormControl('', Validators.required)
     })
-
     this.formSignUp = this.formBuilder.group({
       full_name: new FormControl('', Validators.compose([
         Validators.required,
@@ -109,9 +148,15 @@ export class LoginPage implements OnInit {
       birthday: new FormControl('', Validators.compose([
         Validators.required
       ])),
-      country_code: new FormControl('84'),
-      province: new FormControl('Ho Chi Minh'),
-      district: new FormControl('Thu Duc'),
+      dioceses: new FormControl('', Validators.compose([
+        Validators.required
+      ])),
+      parishes: new FormControl('', Validators.compose([
+        Validators.required
+      ])),
+     // country_code: new FormControl('84'),
+     // province: new FormControl('Ho Chi Minh'),
+     // district: new FormControl('Thu Duc'),
       full_address: new FormControl('', Validators.required),
       password: new FormControl('', Validators.compose([
         Validators.required,
@@ -143,15 +188,24 @@ export class LoginPage implements OnInit {
   }
 
   submitSignUp() {
+    console.log(this.formSignUp.get('dioceses').value)
     if (!this.canSubmitSignUp()) {
-      this.markFormGroupTouched(this.formSignUp);
+      console.log('1')
+      //  this.markFormGroupTouched(this.formSignUp);
     } else if (!this.checkMatchConfirmedPassword()) {
+      console.log('2')
+
       this.toastService.present('Confirmed password not match');
     } else {
+      console.log('3')
+
       let data = this.formSignUp.value;
       data.phone_number = data.phone_number.length == 10 ? data.phone_number.substring(1, 10) : data.phone_number;
-      data.phone_number = `+${this.formSignUp.value.country_code}${data.phone_number}`;
-      this.authService.signup(this.formSignUp.value).subscribe();
+      // data.phone_number = `+${this.formSignUp.value.country_code}${data.phone_number}`;
+      console.log(data);
+      this.authService.signup(this.formSignUp.value).subscribe((data)=>{
+        console.log(data)
+      });
     }
   }
 
