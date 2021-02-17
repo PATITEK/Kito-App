@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ModalController } from '@ionic/angular';
+import { SpeechRecognitionService } from 'src/app/@app-core/utils';
 import { ModalMenuComponent } from '../modal-menu/modal-menu.component';
 
 @Component({
@@ -14,6 +15,7 @@ export class SearchBarNavComponent implements OnInit {
 
   constructor(
     private modalCtrl: ModalController,
+    private SpeechRecognitionService: SpeechRecognitionService,
   ) { }
 
   ngOnInit() { }
@@ -31,5 +33,9 @@ export class SearchBarNavComponent implements OnInit {
       cssClass: 'modalMenu',
     });
     return await popover.present();
+  }
+
+  startVoice() {
+    this.SpeechRecognitionService.checkPermission();
   }
 }
