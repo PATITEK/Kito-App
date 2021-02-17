@@ -25,6 +25,12 @@ export const APICONFIG = {
     UPDATE_PREMIUM: (id) => `/app/users/request_upgrade`,
     CONTACT_ADMIN: `/app/interact_email/submit`
   },
+  DIOCESE: {
+    GET: `/app/dioceses`
+  },
+  PARISHES: {
+    GET:`/app/parishes`
+  },
   CHABAD: {
     GET: `/app/chabads`,
     GET_DETAIL: id => `/app/chabads/${id}`

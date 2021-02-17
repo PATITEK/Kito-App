@@ -21,7 +21,7 @@ img {
 
 .select,
 .input {
-    background: #C2402C, 100%;
+    background: var(--white-color);
     border-radius: 5px;
     color: #000000;
     font-size: 16px;
@@ -31,10 +31,12 @@ img {
     outline: none;
     padding-left: 10px;
     padding-right: 10px;
-
     &:focus {
         border: 1px solid #fff;
     }   
+}
+.mr-bottom {
+    margin-bottom: 14px;
 }
 
 .error-message {
@@ -131,6 +133,7 @@ ion-segment{
                 font-weight: 700;
                 margin: 0 5px;
             }
+           
         }
     }
 

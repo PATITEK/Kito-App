@@ -1,18 +1,17 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, catchError } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
+import { APICONFIG, IPageRequest } from '..';
 import { requestQuery } from '../../utils';
-import { APICONFIG } from '../@http-config';
-import { IPageRequest } from '../global';
 
 @Injectable({
   providedIn: 'root'
 })
-export class DonateService {
+export class DioceseService {
 
-  constructor( private http: HttpClient) { }
-  public donateLog(req) {
-    return this.http.post(`${APICONFIG.DONATES.DONATE}`, req).pipe(
+  constructor(private http: HttpClient) { }
+  public getAll(request: IPageRequest) {
+    return this.http.get<any>(`${APICONFIG.DIOCESE.GET}?${(requestQuery(request))}`).pipe(
       map((result) => {
         return result;
       }),
