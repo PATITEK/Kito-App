@@ -7,13 +7,17 @@ import { IonicModule } from '@ionic/angular';
 import { CatechismMarriagePageRoutingModule } from './catechism-marriage-routing.module';
 
 import { CatechismMarriagePage } from './catechism-marriage.page';
+import { HeaderModule } from 'src/app/@modular/header/header.module';
+import { SearchBarNavModule } from 'src/app/@modular/search-bar-nav/search-bar-nav.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    CatechismMarriagePageRoutingModule
+    CatechismMarriagePageRoutingModule,
+    HeaderModule,
+    SearchBarNavModule
   ],
   declarations: [CatechismMarriagePage]
 })

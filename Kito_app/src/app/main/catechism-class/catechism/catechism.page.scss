@@ -58,6 +58,7 @@ ion-slides {
 .list {
   width: 100%;
   flex-wrap: wrap;
+  align-items: stretch;
 
   .item {
     width: calc(50% - 10px);
