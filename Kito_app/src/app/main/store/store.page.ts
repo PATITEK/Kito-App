@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DateTimeService } from 'src/app/@app-core/utils';
 
@@ -13,6 +13,17 @@ export class StorePage implements OnInit {
   cart = [];
   hasSetting = false;
   headerIconElement: any;
+  recommendedItems = [
+    'Mặt dây',
+    'Vòng tay',
+    'Dây chuyền',
+    'Tượng',
+    'Mặt dây',
+    'Vòng tay',
+    'Dây chuyền',
+    'Tượng'
+  ];
+  currentRecommendedItem = this.recommendedItems[0] || '';
 
   constructor(
     public dateTimeService: DateTimeService,
@@ -91,5 +102,9 @@ export class StorePage implements OnInit {
 
   goToCart() {
     this.router.navigateByUrl('main/store/cart');
+  }
+
+  changeRecommendedItem(recommendedItem) {
+    this.currentRecommendedItem = recommendedItem;
   }
 }
