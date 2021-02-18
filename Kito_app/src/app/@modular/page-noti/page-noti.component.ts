@@ -18,19 +18,14 @@ export class PageNotiComponent implements OnInit {
   }
 
   ngOnInit() {
-    // setTimeout(() => {
-    //   this.router.navigate(['main/chabad']);
-    // }, 2000);
     this.pageNotiService.dataStatusNoti.subscribe((data: IDataNoti) => {
       this.title = data.title;
       this.routerLink = data.routerLink;
+      setTimeout(() => {
+        this.router.navigateByUrl(this.routerLink);
+      }, 2000);
+     
     })
-  }
-  linkRouter() {
-    this.router.navigateByUrl(this.routerLink);
-    const tabs = document.querySelectorAll('ion-tab-bar');
-    Object.keys(tabs).map((key) => {
-      tabs[key].style.display = 'flex';
-    });
+  
   }
 }

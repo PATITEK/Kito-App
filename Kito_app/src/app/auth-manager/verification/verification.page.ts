@@ -86,7 +86,6 @@ export class VerificationPage implements OnInit {
   // }
 
   confirmCode() {
-
     var c1 = this.inputCode.get('code1').value;
     var c2 = this.inputCode.get('code2').value;
     var c3 = this.inputCode.get('code3').value;
@@ -101,7 +100,11 @@ export class VerificationPage implements OnInit {
       this.loadingService.dismiss();
       localStorage.setItem('Authorization', data.token);
       this.router.navigateByUrl("/auth-manager/new-password");
-      this.toastService.present('Code confirmed, present your new password!', 'top', 2000);
+      this.toastService.present('Present your new password!', 'top', 2000);
+    },
+    (data:any)=> {
+        this.wrongCode = true;
+
     })
   }
 }

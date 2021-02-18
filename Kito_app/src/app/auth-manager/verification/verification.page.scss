@@ -90,11 +90,14 @@ ion-content {
     margin: 0 auto;
   }
   .wrong-code {
-    color: #FFA9A9;
+    color: var(--main-color);
     font-size: 16px;
     width: 280px;
     margin-left: auto;
     margin-right: auto;
+  }
+  .visibility {
+    visibility: visible;
   }
 
   .get-code-container {

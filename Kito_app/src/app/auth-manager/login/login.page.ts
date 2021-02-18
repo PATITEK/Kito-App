@@ -28,7 +28,7 @@ export class LoginPage implements OnInit {
   matchPassword = false;
   formLogin: FormGroup;
   formSignUp: FormGroup;
- public showSpinner = false;
+  showSpinner = false;
   validationLoginMessages = {
     phone_number: [
     { type: 'required', message: 'phone number is required' },
@@ -187,21 +187,24 @@ export class LoginPage implements OnInit {
       "phone_number":  dataFormLogin.phone_number,
       "password": dataFormLogin.password
     }
-    console.log(dataSubmit);
       this.authService.login(dataSubmit).subscribe(
       (data: any) => {
-      this.showSpinner = true;
-        console.log(data)
         this.router.navigate(['main/chabad']);
-      },
+        },
+        (data: any)=> {
+            this.showSpinner = false;
+        }
       );
     }
   }
 
   submitSignUp() {
+    this.showSpinner = true;
     if (!this.canSubmitSignUp()) {
+      this.showSpinner = false;
         this.markFormGroupTouched(this.formSignUp);
     } else if (!this.checkMatchConfirmedPassword()) {
+      this.showSpinner = false;
       this.toastService.present('Confirmed password not match');
     } else {
       let data = this.formSignUp.value;
@@ -210,7 +213,7 @@ export class LoginPage implements OnInit {
       let submitData = {
           "full_name": data.full_name,
           "sex": data.sex,
-          "age": data.age,
+          "birthday": data.age,
           "full_address": data.full_address,
           "phone_number": data.phone_number,
           "email": data.email,
@@ -218,8 +221,14 @@ export class LoginPage implements OnInit {
           "password_confirmation": data.confirmed_password,
           "parish_id": data.parish_id
       }
-      this.authService.signup(submitData).subscribe((data)=>{
-      });
+      this.authService.signup(submitData).subscribe(
+        (data)=>{
+        },
+        (data:any) =>{
+          this.showSpinner = false;
+        }
+
+      );
     }
   }
 

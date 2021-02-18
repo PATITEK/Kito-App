@@ -5,7 +5,7 @@
   <ion-buttons class="top-block">
     <h1 class="title">Verification</h1>
     <p class="desc">Nhập vào mã xác minh vừa được gửi tới
-      điện thoại của bạn</p>
+      email của bạn</p>
     <img src="assets/icon/forget-password.svg">
   </ion-buttons>
   <ion-buttons class="bottom-block">
@@ -20,9 +20,10 @@
         <input id="code5" class="input-tel" (keyup)="keytab($event,'code4', 'code5', 'code6')" type="number" formControlName="code5">
         <input id="code6" class="input-tel" (keyup)="keytab($event,'code5', 'code6', 'code6')" type="number" formControlName="code6">
       </ion-label>
-      <p class="wrong-code" [ngClass]="{'visibility-hidden': wrongCode}">Mã sai. Mời nhập lại</p>
+      <!-- [ngClass]="{'visibility': wrongCode}" -->
+      <p class="wrong-code" (click)="resendCode()">Gửi lại mã</p>
       <ion-buttons class="get-code-container">
-        <span class="get-code-label active-effect" (click)="resendCode()">Resend code ?</span>
+        <span class="get-code-label active-effect">Resend code ?</span>
         <ion-icon name="chevron-forward-outline" class="get-code-icon active-effect" (click)="confirmCode()" ></ion-icon>
       </ion-buttons>
   </form>

@@ -26,7 +26,6 @@ export class MainPage implements OnInit {
     // this.OneSignalService.startOneSignal();
   }
   routerLink(path) {
-    console.log(path);
     this.router.navigateByUrl(path);
   } 
 
