@@ -28,13 +28,7 @@ ion-menu {
         background: transparent;
     }
     ion-content {
-        filter: drop-shadow(-5px 10px 4px #96969a);
-
-        border-bottom-left-radius: 30px;
-        border-top-left-radius: 30px;
-        background: #fbfbfb;
-        height: 100vh;
-        border-radius: 30px;
+        --background: #fbfbfb;
     }
     ion-toolbar {
         height: 70px;
