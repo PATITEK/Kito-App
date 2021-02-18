@@ -9,9 +9,10 @@ import { PopuplogoutComponent } from '../@modular/popuplogout/popuplogout.compon
   styleUrls: ['./account-setting.page.scss'],
 })
 export class AccountSettingPage implements OnInit {
+  title = 'Thông tin cá nhân';
   isOpeningModal = false;
   name = localStorage.getItem('fullname') || '';
-  img_url = 'assets/img/user.png';
+  avatar = 'assets/img/avatar-account.svg';
 
   constructor(
     public modalController: ModalController,
@@ -21,8 +22,8 @@ export class AccountSettingPage implements OnInit {
   ngOnInit() {
   }
   ionViewWillEnter() {
-    if(localStorage.getItem('img_url')) {
-      this.img_url = localStorage.getItem('img_url');
+    if(localStorage.getItem('avatar')) {
+      this.avatar = localStorage.getItem('avatar');
     }
   }
 
@@ -31,7 +32,7 @@ export class AccountSettingPage implements OnInit {
     const modal = await this.modalController.create({
       component: PopuplogoutComponent,
       swipeToClose: true,
-      cssClass: 'modal__logout'
+      cssClass: 'modal__logout',
     });
     await modal.present();
 
@@ -43,7 +44,8 @@ export class AccountSettingPage implements OnInit {
       component: PopupComponent,
       cssClass: 'my-custom-class',
       event: ev,
-      translucent: true
+      translucent: true,
+      mode: 'md',
     });
     return await popover.present();
   }

@@ -11,8 +11,8 @@ export class CameraService {
         public loadingService: LoadingService,
         public accountService: AccountService,
     ) { }
-    image_avatar: any;
-    uploadAvatarViaDevice() {
+    // public image_avatar: any;
+    public getAvatarUpload(image_avatar) {
         this.loadingService.present();
         const options = {
             destinationType: this.camera.DestinationType.DATA_URL,
@@ -28,24 +28,25 @@ export class CameraService {
                 let formData = new FormData;
                 formData.append('files[]', image);
                 this.accountService.uploadPhoto(formData).subscribe((data) => {
-                    this.image_avatar = {
+                    // console.log(data)
+                    image_avatar = {
                         "app_user": {
                             "avatar": data['data'][0]
                         }
                     }
-                    this.accountService.updateAvatar(this.image_avatar).subscribe(data => {
-                        this.loadingService.dismiss();
-                    }) 
+                    // console.log('image_avatar: ',image_avatar.app_user.avatar)
+                    localStorage.setItem('avatar', image_avatar.app_user.avatar);
+                    // this.accountService.updateAvatar(image_avatar).subscribe(data => {
+                    // })
                     this.loadingService.dismiss();
-                })
+                },)
             } else {
-                this.loadingService.dismiss();
             }
         }).catch(() => {
             this.loadingService.dismiss();
         })
     }
-    takeAvatarByCamera() {
+    public getAvatarTake(image_avatar) {
         this.loadingService.present();
         const options = {
             destinationType: this.camera.DestinationType.DATA_URL,
@@ -60,21 +61,19 @@ export class CameraService {
                 var image = this.dataURItoBlob(dataUri);
                 let formData = new FormData;
                 formData.append('files[]', image);
-                this.accountService.uploadPhoto(formData).subscribe(
-                    (data) => {
-                        console.log(data)
-                        this.image_avatar = {
-                            "app_user": {
-                                "avatar": data['data'][0]
-                            }
+                this.accountService.uploadPhoto(formData).subscribe((data) => {
+                    console.log(data)
+                    image_avatar = {
+                        "app_user": {
+                            "avatar": data['data'][0]
                         }
-                        this.accountService.updateAvatar(this.image_avatar).subscribe(data => {
-                        })
-                        this.loadingService.dismiss();
-                    },
-                    (data) => {
                     }
-                )
+                    console.log(image_avatar)
+                    // localStorage.setItem('avatar', image_avatar);
+                    // this.accountService.updateAvatar(image_avatar).subscribe(data => {
+                    // })
+                    this.loadingService.dismiss();
+                },)
             } else {
             }
         }).catch(() => {

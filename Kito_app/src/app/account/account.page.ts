@@ -44,15 +44,15 @@ export class AccountPage implements OnInit {
     private loadingService: LoadingService,
     private toastService: ToastService
   ) { }
-  img_url = 'assets/img/user.png';
+  avatar = 'assets/img/user.png';
   ngOnInit() {
     this.initForm();
     this.getData();
   }
 
   ionViewWillEnter() {
-    if(localStorage.getItem('img_url')) {
-      this.img_url = localStorage.getItem('img_url');
+    if(localStorage.getItem('avatar')) {
+      this.avatar = localStorage.getItem('avatar');
     }
   }
 
