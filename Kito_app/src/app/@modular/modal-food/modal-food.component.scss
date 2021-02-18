@@ -1,17 +1,25 @@
 ion-label {
-    display: block;
-    margin: auto;
-    font-size: 20px;
-    margin-top: 60px;
-    color: #515151;
-    font-weight: 600;
+  display: block;
+  font-size: 20px;
+  font-weight: 500;
+  color: #424242;
+  text-align: center;
+  margin: 40px 16px 16px;
 }
-ion-button {
-    --background: #00B0B2;
-    display: block;
-    margin: auto;
-    width: 7vh;
-    height: 7vh;
-    --border-radius: 20px;
+
+div {
+  margin-bottom: 20px;
+  text-align: center;
+  
+  span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #f6c33e;
+    border-radius: 100%;
     font-size: 30px;
+    color: #fff;
+    width: 40px;
+    height: 40px;
+  }
 }

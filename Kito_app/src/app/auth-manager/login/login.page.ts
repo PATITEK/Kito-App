@@ -112,7 +112,8 @@ export class LoginPage implements OnInit {
     })
    
     this.initForm();
-    this.oneSignal.setUpOneSignal();
+    // this.oneSignal.startOneSignal();
+    // this.oneSignal.setUpOneSignal();
   }
   onSelectChange() {
      this.pageRequestParishes.diocese_id = this.formSignUp.get('dioceses').value;
@@ -171,18 +172,18 @@ export class LoginPage implements OnInit {
     return this.formSignUp.valid;
   }
   submitLogin() {
-    if (!this.canSubmitLogin()) {
-      this.markFormGroupTouched(this.formLogin);
-    } else {
+    // if (!this.canSubmitLogin()) {
+    //   this.markFormGroupTouched(this.formLogin);
+    // } else {
       console.log(this.formLogin.value);
       this.authService.login(this.formLogin.value).subscribe(
       (data: any) => {
         console.log(data)
-        //  this.router.navigate(['main/chabad']);
+          this.router.navigate(['main/chabad']);
       },
 
       );
-    }
+    //}
   }
 
   submitSignUp() {

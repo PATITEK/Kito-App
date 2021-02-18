@@ -12,25 +12,27 @@ const routes: Routes = [
   {
     path: 'main',
     loadChildren: () => import('./main/main.module').then(m => m.MainPageModule),
-    // canActivate: [AuthGuard],
+     canActivate: [AuthGuard],
   },
   {
     path: 'donate',
     loadChildren: () => import('./donate/donate.module').then(m => m.DonatePageModule),
-    // canActivate: [AuthGuard],
+     canActivate: [AuthGuard],
   },
   {
     path: 'payment',
-    loadChildren: () => import('./payment/payment.module').then( m => m.PaymentPageModule)
+    loadChildren: () => import('./payment/payment.module').then( m => m.PaymentPageModule),
+    canActivate: [AuthGuard],
   },
   {
     path: 'paymentmethods',
-    loadChildren: () => import('./paymentmethods/paymentmethods.module').then( m => m.PaymentmethodsPageModule)
+    loadChildren: () => import('./paymentmethods/paymentmethods.module').then( m => m.PaymentmethodsPageModule),
+    canActivate: [AuthGuard],
   },
   {
     path: 'pray',
     loadChildren: () => import('./pray/pray.module').then(m => m.PrayPageModule),
-    // canActivate: [AuthGuard],
+     canActivate: [AuthGuard],
   },
   {
     path: 'page-noti',
@@ -39,7 +41,8 @@ const routes: Routes = [
   },
   {
     path: 'changepassword',
-    loadChildren: () => import('./changepassword/changepassword.module').then( m => m.ChangepasswordPageModule)
+    loadChildren: () => import('./changepassword/changepassword.module').then( m => m.ChangepasswordPageModule),
+    canActivate: [AuthGuard],
   },
   // {
   //   path: 'chabad',
@@ -70,15 +73,18 @@ const routes: Routes = [
   // },
   {
     path: 'slide',
-    loadChildren: () => import('./@modular/slide/slide.module').then( m => m.SlideModule)
+    loadChildren: () => import('./@modular/slide/slide.module').then( m => m.SlideModule),
+    canActivate: [AuthGuard],
   },
   {
     path: 'modal-detail-order',
-    loadChildren: () => import('./@modular/modal-detail-order/modal-detail-order.module').then( m => m.ModalDetailOrderPageModule)
+    loadChildren: () => import('./@modular/modal-detail-order/modal-detail-order.module').then( m => m.ModalDetailOrderPageModule),
+    canActivate: [AuthGuard],
   },
   {
     path: 'news-detail',
-    loadChildren: () => import('./@modular/news-detail/news-detail.module').then( m => m.NewsDetailPageModule)
+    loadChildren: () => import('./@modular/news-detail/news-detail.module').then( m => m.NewsDetailPageModule),
+    canActivate: [AuthGuard],
   },
   { path: '', redirectTo: '/main', pathMatch: 'full' },
   { path: '**'  , redirectTo: 'main' },
