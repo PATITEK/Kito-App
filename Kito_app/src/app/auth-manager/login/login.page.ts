@@ -104,6 +104,7 @@ export class LoginPage implements OnInit {
       this.country_codes = data.country_codes;
       this.code = data.country_codes[0].phone_code;
     })
+
     this.diocese.getAll(this.pageRequestDioceses).subscribe(data =>{
       this.listDioceses = data.dioceses;
       this.tagret = this.listDioceses[0].name

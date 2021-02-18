@@ -6,16 +6,17 @@
   </ion-item-group>
 </ion-header>
 <ion-item-group class="main__avatar">
-  <ion-img class="icon-avatar" src="assets/img/avatar-account.svg">
-  </ion-img>
+  <ion-avatar class="icon-avatar" (click)="routerLink('account-setting')" >
+    <ion-img src="{{avatar}}"></ion-img>
+  </ion-avatar>
   <span class="name-user">
-    Maria  Maria  Maria
+    {{name}}
   </span>
 </ion-item-group>
 <ion-content>
   <ion-item-group class="home">
     <ion-item-group class="container-tong-gp">
-      <ion-item-group class="menu-top" (click)="routerLink('tonggiaophan')">
+      <ion-item-group class="menu-top" (click)="routerLink('main/tonggiaophan')">
         <ion-item-group class="bg-icon">
           <img class="img-menu" src="assets/img/menu/tonggiaophan.svg" alt="" srcset="">
         </ion-item-group>
@@ -25,7 +26,7 @@
       </ion-item-group>
     </ion-item-group>
     <ion-item-group class="menu-list">
-      <ion-item-group class="menu-top"  (click)="routerLink('tonggiaophan')">
+      <ion-item-group class="menu-top"  (click)="routerLink('main/tonggiaophan')">
         <ion-item-group class="bg-icon">
           <img class="img-menu" src="assets/img/menu/tintuc.svg" alt="" srcset="">
         </ion-item-group>
@@ -33,7 +34,7 @@
           Tin tức Giáo xứ
         </ion-label>
       </ion-item-group>
-      <ion-item-group class="menu-top" (click)="routerLink('prayer-time')">
+      <ion-item-group class="menu-top" (click)="routerLink('main/prayer-time')">
         <ion-item-group class="bg-icon">
           <img class="img-menu" src="assets/img/menu/chitietgiole.svg" alt="" srcset="">
         </ion-item-group>
@@ -41,7 +42,7 @@
           Chi tiết giờ lễ
         </ion-label>
       </ion-item-group>
-      <ion-item-group class="menu-top" (click)="routerLink('catechism-class')">
+      <ion-item-group class="menu-top" (click)="routerLink('main/catechism-class')">
         <ion-item-group class="bg-icon">
           <img class="img-menu" src="assets/img/menu/lophocgiaoly.svg" alt="" srcset="">
         </ion-item-group>
@@ -49,7 +50,7 @@
           Lớp học Giáo lý
         </ion-label>
       </ion-item-group>
-      <ion-item-group class="menu-top" routerLink="/donate">
+      <ion-item-group class="menu-top" (click)="routerLink('/donate')">
         <ion-item-group class="bg-icon">
           <img class="img-menu" src="assets/img/menu/donggop.svg" alt="" srcset="">
         </ion-item-group>
@@ -57,7 +58,7 @@
           Đóng góp
         </ion-label>
       </ion-item-group>
-      <ion-item-group class="menu-top" routerLink="/pray">
+      <ion-item-group class="menu-top" (click)="routerLink('/pray')">
         <ion-item-group class="bg-icon">
           <img class="img-menu" src="assets/img/menu/xinle.svg" alt="" srcset="">
         </ion-item-group>
@@ -65,7 +66,7 @@
           Xin lễ
         </ion-label>
       </ion-item-group>
-      <ion-item-group class="menu-top" routerLink="/main/store">
+      <ion-item-group class="menu-top" (click)="routerLink('/main/store')">
         <ion-item-group class="bg-icon">
           <img class="img-menu" src="assets/img/menu/cuahang.svg" alt="" srcset="">
         </ion-item-group>

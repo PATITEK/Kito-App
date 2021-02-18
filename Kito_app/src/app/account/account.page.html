@@ -1,13 +1,13 @@
+<ion-header>
+  <app-header [title]="title"></app-header>
+</ion-header>
+
 <ion-content [ngClass]="{ 'ion-content-activated': activatedInput}">
-  <ion-back-button icon="chevron-back-outline" text="" class="back-btn"></ion-back-button>
-
-  <div class="header">
-    <ion-label>ACCOUNT INFORMATION</ion-label>
-  </div>
-
   <div class="user">
     <div class="user-img-container">
-      <img src="{{img_url}}" class="user-img main-box-shadow">
+      <ion-avatar class="user-img main-box-shadow">
+        <img src="{{avatar}}" >
+      </ion-avatar>
       <img src="assets/img/edit2.svg" class="icon-edit" (click)="presentPopover()">
     </div>
     <ion-label *ngIf="loadedData && !activatedInput" class="edit-btn" (click)="activateInput()">Edit</ion-label>

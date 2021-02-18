@@ -20,11 +20,13 @@ export class OneSignalService {
             this.oneSignal.handleNotificationReceived().subscribe(data => {
                 let message = data.payload.body;
                 let title = data.payload.title;
+                console.log(title,'   ',message)
                 this.showNotification(title, message);
             });
             this.oneSignal.handleNotificationOpened().subscribe(data => {
                 let message = data.notification.payload.body;
                 let title = data.notification.payload.title;
+                console.log(title,'   ',message)
                 this.showNotification(title, message);
             });
             this.oneSignal.endInit();
