@@ -1,10 +1,12 @@
 <ion-header>
   <app-header></app-header>
+  <app-menu></app-menu>
 </ion-header>
 
 <ion-content class="ion-padding">
-  <ion-list>
-    <app-main-slide *ngFor="let item of list" [data]="item"></app-main-slide>
-  </ion-list>
+    <ion-list>
+      <app-main-slide *ngFor="let item of list" [data]="item"></app-main-slide>
+    </ion-list>
+  
 </ion-content>
 <!-- <app-footer></app-footer> -->
