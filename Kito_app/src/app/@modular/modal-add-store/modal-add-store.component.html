@@ -1,0 +1,29 @@
+<ion-buttons class="header">
+  Thêm hàng
+  <ion-icon name="close-outline" class="active-effect" (click)="dismiss()"></ion-icon>
+</ion-buttons>
+
+<ion-buttons class="body">
+  <div class="img-container">
+    <img [src]="item.thumbImage">
+  </div>
+
+  <div class="content-box">
+    <div class="name">{{ item.name }}</div>
+    <div class="price">{{ dateTimeService.numberWithCommas(item.price) }} {{ item.unitPrice}}</div>
+  </div>
+</ion-buttons>
+
+<ion-buttons class="footer">
+  <ion-buttons class="modifier-box">
+    <span class="label">Số lương: </span>
+    <ion-buttons class="modifier">
+      <ion-buttons class="modifier-btn modifier-btn-decrease active-effect" (click)="decreaseAmount(item)">-
+      </ion-buttons>
+      <span class="counter">{{ amount }}</span>
+      <ion-buttons class="modifier-btn modifier-btn-increase active-effect" (click)="increaseAmount(item)">+
+      </ion-buttons>
+    </ion-buttons>
+  </ion-buttons>
+  <ion-button class="btn active-effect" (click)="addToCart()">Thêm vào giỏ hàng</ion-button>
+</ion-buttons>

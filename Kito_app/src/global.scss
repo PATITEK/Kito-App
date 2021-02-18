@@ -241,3 +241,20 @@
     padding-right: 52px !important;
   }
 }
+
+.add-store-modal {
+  --height: 330px;
+
+  .modal-wrapper {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+
+    .ion-page {
+      justify-content: flex-start;
+    }
+  }
+}
