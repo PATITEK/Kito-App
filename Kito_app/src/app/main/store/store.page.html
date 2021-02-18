@@ -10,12 +10,14 @@
     <span *ngIf="cart.length" class="cart-amount">{{ calTotalItem() }}</span>
   </div>
 
-  <ion-buttons class="segment">
-    <div class="segment__item" [ngClass]="{'segment__item--selected': currentRecommendedItemId == recommendedItem.id}"
-      *ngFor="let recommendedItem of recommendedItems" (click)="changeRecommendedItem(recommendedItem)">
-      {{ recommendedItem.name }}
-    </div>
-  </ion-buttons>
+  <div class="segment-container">
+    <ion-buttons class="segment">
+      <div class="segment__item" [ngClass]="{'segment__item--selected': currentRecommendedItemId == recommendedItem.id}"
+        *ngFor="let recommendedItem of recommendedItems" (click)="changeRecommendedItem(recommendedItem)">
+        {{ recommendedItem.name }}
+      </div>
+    </ion-buttons>
+  </div>
 
   <div class="body">
     <div class="header">
@@ -30,19 +32,29 @@
       </div>
     </div>
 
-    <ion-list>
-      <ion-buttons *ngFor="let row of list" class="row">
-        <div *ngFor="let col of row" class="col main-box-shadow">
-          <div class="img-container">
-            <img [src]="col.thumbImage" class="img">
-          </div>
-          <div class="text-box">
-            <ion-label class="name three-dots-2">{{ col.name }}</ion-label>
-            <ion-label class="price">{{ dateTimeService.numberWithCommas(col.price) }} {{ col.unitPrice}}</ion-label>
-          </div>
-          <img src="assets/icon/add.svg" class="add-btn active-effect" (click)="addToCart(col)">
+    <ion-buttons class="list">
+      <div *ngFor="let col of list" class="col main-box-shadow">
+        <div class="img-container">
+          <img [src]="col.thumbImage" class="img">
         </div>
-      </ion-buttons>
-    </ion-list>
+        <div class="text-box">
+          <ion-label class="name three-dots-2">{{ col.name }}</ion-label>
+          <ion-label class="price">{{ dateTimeService.numberWithCommas(col.price) }} {{ col.unitPrice}}</ion-label>
+        </div>
+
+        <div *ngIf="col.amount <= 0" class="add-btn">
+          <ion-buttons class="modifier-btn modifier-btn-increase active-effect" (click)="openAddModal(col)">+
+          </ion-buttons>
+        </div>
+
+        <ion-buttons *ngIf="col.amount > 0" class="modifier">
+          <ion-buttons class="modifier-btn modifier-btn-decrease active-effect" (click)="decreaseAmount(col)">-
+          </ion-buttons>
+          <span class="counter">{{ col.amount }}</span>
+          <ion-buttons class="modifier-btn modifier-btn-increase active-effect" (click)="increaseAmount(col)">+
+          </ion-buttons>
+        </ion-buttons>
+      </div>
+    </ion-buttons>
   </div>
 </ion-content>
