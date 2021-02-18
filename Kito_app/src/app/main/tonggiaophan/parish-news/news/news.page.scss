@@ -28,12 +28,12 @@ ion-content {
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(#fff, 0.8);
+    background: rgba(#424242, 0.5);
     padding: 10px 5px 5px;
     z-index: 1;
+    color: #fff;
 
     .item-title {
-      color: #525252;
       font-size: 14px;
       font-weight: 500;
       margin: 0;
@@ -43,6 +43,7 @@ ion-content {
     .right-box {
       flex-direction: column;
       align-items: flex-end;
+      color: #fff;
 
       .time-box {
         justify-content: flex-end;
@@ -72,7 +73,6 @@ ion-content {
     .img-container {
       width: 35%;
       height: 75px;
-      background: red;
       border-radius: 5px;
       overflow: hidden;
 
