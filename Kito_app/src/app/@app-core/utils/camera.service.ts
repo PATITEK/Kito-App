@@ -11,9 +11,7 @@ export class CameraService {
         public loadingService: LoadingService,
         public accountService: AccountService,
     ) { }
-
     image_avatar: any;
-
     uploadAvatarViaDevice() {
         this.loadingService.present();
         const options = {
