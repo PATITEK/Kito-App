@@ -86,7 +86,7 @@ ion-content{
                 }
                 &-flat {
                     display: inline-flex;
-                    background-color: #5CC7C8;
+                    background-color: #f2f2f2;
                     border-radius: 6px;
                     height: 26px;
                     img {
@@ -102,7 +102,7 @@ ion-content{
             }
             ion-select{
                 --placeholder-opacity: 1;
-                --background: #5CC7C8;
+                --background: #f2f2f2;
                 --padding-bottom: 0;
                 --padding-end: 6px;
                 --padding-top: 0;

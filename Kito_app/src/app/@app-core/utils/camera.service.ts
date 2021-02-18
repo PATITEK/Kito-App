@@ -11,8 +11,10 @@ export class CameraService {
         public loadingService: LoadingService,
         public accountService: AccountService,
     ) { }
+
     // public image_avatar: any;
     public getAvatarUpload(image_avatar) {
+
         this.loadingService.present();
         const options = {
             destinationType: this.camera.DestinationType.DATA_URL,
