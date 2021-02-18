@@ -59,16 +59,22 @@ export class NewPasswordPage implements OnInit {
   confirmPassword() {
     this.loadingService.present();
     const datapasing: IDataNoti = {
-      title: 'SUCCESSFUL!',
-      image: 'Change Password successful!',
-      routerLink: '/main/chabad'
+      title: 'THÀNH CÔNG!',
+      image: 'Lấy lại mật khẩu thành công!',
+      routerLink: '/auth-manager/login'
     }
     this.invalidPassword = this.checkValidPassword('Password', this.passwordValue);
     this.invalidConfirmedPassword = this.checkValidPassword('Confirmed password', this.confirmedPasswordValue);
     if (this.invalidPassword == '' && this.invalidConfirmedPassword == '') {
+      let dataSubmit = {
+        "app_user": {
+            "password":  this.passwordValue,
+            "password_confirmation": this.confirmedPasswordValue
+        }
+    }
       this.loadingService.dismiss();
-      this.authService.newPassword({ password: this.passwordValue }).subscribe((data) => {
-        // console.log(data);
+      this.authService.newPassword(dataSubmit).subscribe((data) => {
+        console.log(data);
         this.pageNotiService.setdataStatusNoti(datapasing);
         this.router.navigateByUrl('/page-noti');
       })

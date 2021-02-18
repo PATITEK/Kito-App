@@ -36,7 +36,12 @@ export class AuthService {
         return result;
       }),
       catchError((errorRes: any) => {
-        this.toastService.present("Email is not available!")
+        if(errorRes.error.messages) {
+          this.toastService.present(errorRes.error.messages)
+        }
+        else if(errorRes.error.errors) {
+          this.toastService.present(errorRes.error.errors)
+        }
         this.loadingService.dismiss();
         throw errorRes.error;
       }));
@@ -79,7 +84,6 @@ export class AuthService {
   public login(req) {
     return this.http.post(`${APICONFIG.AUTH.LOGIN}`, req).pipe(
       map((result: any) => {
-        // console.log(result)
         this.storage.clear();
         localStorage.setItem('Authorization', result.token);
         localStorage.setItem('fullname', result.full_name);
@@ -100,22 +104,19 @@ export class AuthService {
     localStorage.clear();
     this.storage.clear();
     this.storage.setInfoAccount();
-    // this.router.navigateByUrl('/main/product-categories');
     window.location.assign('/');
   }
   public signup(req) {
     return this.http.post(`${APICONFIG.AUTH.SIGNUP}`, req).pipe(
-      
       map((result: any) => {
         // this.toastr.success(SUCCESS.AUTH.LOGIN);
         localStorage.setItem('Authorization', result.token);
         localStorage.setItem('fullname', result.full_name);
-        // console.log('auth-signup');
         this.router.navigate(['main/chabad']);
         return result;
       }),
       catchError((errorRes: any) => {
-        this.presentToast(errorRes.error);
+        this.presentToast("Please check and try again !");
         throw errorRes.error;
       }));
   }

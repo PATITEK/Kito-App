@@ -28,16 +28,16 @@ export class ForgotPasswordPage implements OnInit {
     if (PATTERN.EMAIL.test(this.email.email)) {
       this.loadingService.present();
       this.authService.forgotPassword({email: this.email.email}).subscribe((data) => {
-        this.toastService.present('Complete! Check the OTP code in your email', 'top');
+        this.toastService.present('Please check OTP code in your email', 'top');
         this.loadingService.dismiss();
         this.router.navigateByUrl('auth-manager/verification');
       })
     } else {
       if(this.email.email == '') {
-        this.toastService.present('Please type your phone number!', 'top', 2000);
+        this.toastService.present('Please type your email!', 'top', 2000);
       }
       else {
-        this.toastService.present('Phone number is invalid!', 'top', 2000);
+        this.toastService.present('Email is invalid!', 'top', 2000);
       }
     }
   }

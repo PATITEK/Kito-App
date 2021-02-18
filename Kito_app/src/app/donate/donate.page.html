@@ -1,10 +1,14 @@
-
+<ion-back-button icon="chevron-back-outline" text="" class="back-btn"></ion-back-button>
+<ion-item-group class="header">
+  <ion-label>Đóng góp</ion-label>
+</ion-item-group>
 <ion-content class="ion-padding">
-  <!-- <ion-spinner *ngIf="!chabad.thumb_image" class="absolute-center" name="lines"></ion-spinner> -->
-  <ion-item-group class="header">
-    <ion-back-button icon="chevron-back-outline" text="" class="back-btn"></ion-back-button>
-    <ion-label>Đóng góp</ion-label>
-    <span class="header__name">Giáo xứ Chánh Tòa Sài Gòn</span>
+  <form [formGroup] ="frmDonate" (ngSubmit)="onSubmit()" >
+    <ion-item-group class="wrapper">
+
+  
+  <ion-item-group class="title">
+    <span class="header__name">Tổng Giáo phận Sài Gòn</span>
     <ion-item-group class="header__group-address">
       <img src="assets/img/address.svg" alt="">
       <span class="header__address">
@@ -19,65 +23,39 @@
         </span>
       </ion-item-group>
   </ion-item-group>
-  <!-- <ion-item-group> -->
-    
-    <!-- <div class="img__header" [style.background-image]="getUrl()">
-    </div> -->
-  <!-- </ion-item-group> -->
   <ion-label class="title__chabad">{{chabad.name}}</ion-label>
- 
-  <ion-grid>
-    <form [formGroup] ="frmDonate" (ngSubmit)="onSubmit()" >
-      <!-- <ion-label class="label__donate">
-        Donate
-      </ion-label> -->
-      <ion-label class="info amount">
-        Số tiền đóng góp:
-      </ion-label>
-      <ion-item-group class="wrapper">
-        <ion-item-group class="time doladonate">
-          <ion-img src="assets/img/pen.svg" class="edit"></ion-img>
-          <ion-img src="assets/img/dola.svg"></ion-img>
-        <input type="number" formControlName="amount">
-        <!-- <ion-select value="dola">
-          <ion-select-option value="dola">USD</ion-select-option>
-          <ion-select-option value="vn">VNĐ</ion-select-option>
-          <ion-select-option value="vn">EURO</ion-select-option>
-        </ion-select> -->
-        <span class="require" *ngIf="required_mess">
-            {{message}}
-        </span>
-        </ion-item-group>
-        <ion-item-group class="time purpose">
-          <ion-img src="assets/img/edit2.svg" class="edit__big"></ion-img>
-          <ion-label class="purpose__label">Mục đích:</ion-label>
-          <textarea class="textarea" placeholder="Ghi chú thêm thông tin..."  formControlName="note" ></textarea>
-        
-        </ion-item-group>
-        <ion-label class="require require__purpose" *ngIf="required_purpose">
-          {{message_purpose}}
-        </ion-label>
-        <!-- <ion-label class="">Đóng góp Giáo xứ khác?</ion-label> -->
 
-        <ion-grid class="user__info">
-          <ion-row>
-            <ion-col size= "5">
-              <img *ngIf="isHidden == false" src="assets/img/d1.jpg">
-              <img *ngIf="isHidden == true" src="assets/img/avatar-people-disable.svg">
-              <ion-label *ngIf="isHidden == false" class="user__name">David</ion-label>
-              <ion-label *ngIf="isHidden == true" class="user__name_dis">David</ion-label>
-              <ion-label *ngIf="isHidden == false" class="btn__nameless" (click)="clickHidden($event)">Ârn danh</ion-label>
-              <ion-label *ngIf="isHidden == true" class="btn__nameless_dis" (click)="clickHidden($event)">Ẩn danh</ion-label>
-            </ion-col>
-            <ion-col size="7">
-              <ion-button class="btn"type="submit"  [disabled] ="frmDonate.invalid" >
-                Confirm
-              </ion-button>
-            </ion-col>
-          </ion-row>
-        </ion-grid>
-      </ion-item-group>
-    </form>
-  </ion-grid>
+ <ion-item-group class="group__donate">
+    <ion-label>Số tiền đóng góp:</ion-label>
+    <ion-item-group>
+      <ion-img src="assets/img/pen.svg" class="group__donate-pen--edit"></ion-img>
+      <ion-img src="assets/img/dola.svg"></ion-img>
+      <input type="number" formControlName ="amount" class="group__donate-amount">
+      <ion-label>VND</ion-label>
+    </ion-item-group>
+    <span class="require" *ngIf="required_mess">
+      {{message}}
+  </span>
+    <ion-item-group class="group__purpose">
+      <ion-img src="assets/img/pen.svg" class="group__donate-pen--edit2"></ion-img>
+      <ion-label class="group__purpose-label">Mục đích:</ion-label>
+      <textarea placeholder="Ghi chú thêm thông tin..."  formControlName="note" ></textarea>
+    </ion-item-group>
+    <ion-label class="require" *ngIf="required_purpose">
+      {{message_purpose}}
+    </ion-label>
+ </ion-item-group>
 
+ <ion-label class="donate__other">Đóng góp giáo xứ khác?</ion-label>
+</ion-item-group>
+ <ion-item-group class="footer">
+   <ion-item-group>
+     <ion-img src="assets/img/avatar.png"></ion-img>
+     {{name}}
+   </ion-item-group>
+  <ion-button type="submit"  [disabled] ="frmDonate.invalid">
+    Xác nhận
+  </ion-button>
+ </ion-item-group>
+</form>
 </ion-content>

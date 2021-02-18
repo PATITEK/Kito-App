@@ -23,6 +23,7 @@ export class DonatePage implements OnInit {
   source_id: any;
   frmDonate: FormGroup;
   email = '';
+  name;
   error_messages = {
     'amount': [
       { 
@@ -70,6 +71,7 @@ export class DonatePage implements OnInit {
     //   this.email = data.app_user.email;
     //   this.loadingService.dismiss();
     // });
+    this.name = localStorage.getItem('fullname')
   }
   async presentToast(message) {
     const toast = await this.toastController.create({
@@ -112,15 +114,15 @@ export class DonatePage implements OnInit {
       }
     }
     if (this.frmDonate.get('amount').dirty || this.frmDonate.get('amount').touched ) {
-      if(this.frmDonate.get('amount').value < 18 ) {
+      if(this.frmDonate.get('amount').value < 18000 ) {
         this.required_mess = true;
-        this.message = 'The number must be greater than 18$';
+        this.message = 'Số tiền đóng góp phải lớn hơn 18,000';
         this.loadingService.dismiss();
         return;
       }
       else if(this.frmDonate.get('amount').value %18 !==0){
         this.required_mess = true;
-        this.message = 'The number must be divisible by 18!';
+        this.message = 'Số tiền đóng góp phải là bội số của 18';
         this.loadingService.dismiss();
         return;
 
@@ -133,7 +135,7 @@ export class DonatePage implements OnInit {
     if (this.frmDonate.get('note').dirty || this.frmDonate.get('note').touched ) {
       if(this.frmDonate.get('note').value.length == 0) {
         this.required_purpose = true;
-        this.message_purpose = 'This field is require!';
+        this.message_purpose = 'Thêm thông tin vào trường này !';
         this.loadingService.dismiss();
         return;
       }
