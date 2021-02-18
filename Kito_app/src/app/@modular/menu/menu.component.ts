@@ -12,18 +12,19 @@ export class MenuComponent implements OnInit {
     private menu: MenuController
   ) { }
 
-  ngOnInit() {}
-  openFirst() {
-    this.menu.enable(true, 'first');
-    this.menu.open('first');
+  ngOnInit() {
   }
+  // openFirst() {
+  //   this.menu.enable(true, 'first');
+  //   this.menu.open('first');
+  // }
 
-  openEnd() {
-    this.menu.open('end');
-  }
+  // openEnd() {
+  //   this.menu.open('end');
+  // }
 
-  openCustom() {
-    this.menu.enable(true, 'custom');
-    this.menu.open('custom');
-  }
+  // openCustom() {
+  //   this.menu.enable(true, 'custom');
+  //   this.menu.open('custom');
+  // }
 }
