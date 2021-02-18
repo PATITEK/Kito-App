@@ -9,29 +9,35 @@
         <ion-avatar class="user-img main-box-shadow">
           <img src="{{avatar}}" >
         </ion-avatar>
-        <img src="assets/img/edit2.svg" class="icon-edit" (click)="presentPopover()">
+        <!-- <img src="assets/img/edit2.svg" class="icon-edit" (click)="presentPopover()"> -->
       </div>
       <ion-label class="user-name three-dots-2">{{ name }}</ion-label>
     </div>
 
     <ion-list class="settings">
-      <ion-buttons routerLink="/account">
-        <ion-label>Account information</ion-label>
+      <ion-buttons (click)="routerLink('/account')">
+        <ion-label>Thông tin cá nhân</ion-label>
       </ion-buttons>
-      <ion-buttons routerLink="/history">
+      <ion-buttons (click)="routerLink('/paymentmethods')">
+        <ion-label>Phương thức thanh toán</ion-label>
+      </ion-buttons>
+      <!-- <ion-buttons routerLink="/history">
         <ion-label>Your event</ion-label>
       </ion-buttons>
       <ion-buttons routerLink="/account-setting/orders-history">
         <ion-label>Your orders</ion-label>
+      </ion-buttons> -->
+      <ion-buttons>
+        <ion-label>Cài đặt</ion-label>
       </ion-buttons>
       <ion-buttons>
-        <ion-label>Setting</ion-label>
+        <ion-label>Giới thiệu</ion-label>
       </ion-buttons>
       <ion-buttons>
-        <ion-label>About us</ion-label>
+        <ion-label>Trợ giúp</ion-label>
       </ion-buttons>
       <ion-buttons (click)="openModalLogOut()">
-        <ion-label>Log out</ion-label>
+        <ion-label>Đăng xuất</ion-label>
         <img [ngClass]="{ 'display-none': isOpeningModal }" src="assets/img/logout.svg" alt="" class="img_logout">
       </ion-buttons>
     </ion-list>

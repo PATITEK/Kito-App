@@ -38,8 +38,8 @@ export class CameraService {
                     }
                     // console.log('image_avatar: ',image_avatar.app_user.avatar)
                     localStorage.setItem('avatar', image_avatar.app_user.avatar);
-                    // this.accountService.updateAvatar(image_avatar).subscribe(data => {
-                    // })
+                    this.accountService.updateAvatar({"thumb_image" : {"url": image_avatar.app_user.avatar}}).subscribe(data => {
+                    })
                     this.loadingService.dismiss();
                 },)
             } else {
@@ -71,9 +71,9 @@ export class CameraService {
                         }
                     }
                     console.log(image_avatar)
-                    // localStorage.setItem('avatar', image_avatar);
-                    // this.accountService.updateAvatar(image_avatar).subscribe(data => {
-                    // })
+                    localStorage.setItem('avatar', image_avatar.app_user.avatar);
+                    this.accountService.updateAvatar({"thumb_image" : {"url": image_avatar.app_user.avatar}}).subscribe(data => {
+                    })
                     this.loadingService.dismiss();
                 },)
             } else {
