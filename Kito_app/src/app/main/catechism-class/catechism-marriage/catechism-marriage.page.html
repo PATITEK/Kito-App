@@ -4,10 +4,10 @@
 
 <ion-content>
   <app-search-bar-nav></app-search-bar-nav>
-  
+
   <div class="list-container">
     <ion-buttons class="list">
-      <div *ngFor="let item of list" class="item active-effect">
+      <div *ngFor="let item of list" class="item">
         <span class="name">{{ item.name }}</span>
         <ion-buttons class="ion-align-items-start">
           <img class="icon" src="assets/icon/clock.svg">
@@ -18,6 +18,9 @@
           <img class="icon" src="assets/icon/location.svg">
           <span class="room">{{ item.room }}</span>
         </ion-buttons>
+
+        <span class="btn" [ngClass]="{'btn--disabled': !item.canRegister}">{{ item.canRegister ? 'Đăng ký'
+          : 'Hết' }}</span>
       </div>
     </ion-buttons>
   </div>
