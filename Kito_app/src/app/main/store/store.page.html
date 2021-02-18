@@ -11,9 +11,9 @@
   </div>
 
   <ion-buttons class="segment">
-    <div class="segment__item" [ngClass]="{'segment__item--selected': currentRecommendedItem == recommendedItem}"
-      *ngFor="let recommendedItem of recommendedItems" value="recommendedItem" (click)="changeRecommendedItem(recommendedItem)">
-      {{ recommendedItem }}
+    <div class="segment__item" [ngClass]="{'segment__item--selected': currentRecommendedItemId == recommendedItem.id}"
+      *ngFor="let recommendedItem of recommendedItems" (click)="changeRecommendedItem(recommendedItem)">
+      {{ recommendedItem.name }}
     </div>
   </ion-buttons>
 
