@@ -18,43 +18,13 @@ export class PrayPage implements OnInit {
     ],
    
   }
-  DAY = [
-    'Sunday',
-    'Monday',
-    'Tuesday',
-    'Wednesday',
-    'Thursday',
-    'Friday',
-    'Saturday',
-  ];
-  MONTH = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December'
-  ];
-  today: any;
-  dateList = [];
-  DateObj = '';
-  fulldate: any;
-  date: any;
-  month :any;
-  year: any;
-  public tab = 'pray'
   isHidden = false;
   isChoose = false;
   source_type: any;
   source_id: any;
   id_change :any;
   required_mess  = false;
+  name;
   message_purpose = "";
   required_purpose = false;
   message = "";
@@ -78,11 +48,9 @@ export class PrayPage implements OnInit {
   constructor(
     public formBuilder: FormBuilder,
      private route: ActivatedRoute,
-     private eventService: EventsService,
      private router: Router,
      public donateService: DonateService,
      public chabadService: ChabadService,
-     public dateTimeService: DateTimeService,
      public loadingService: LoadingService,
      public toastController: ToastController
   ) {
@@ -92,22 +60,7 @@ export class PrayPage implements OnInit {
       ])),
       amount: new FormControl('',[])
    });
-    this.today = new Date();
-    for (let i = 0; i < 7; i++) {
-      let nextDay = new Date(this.today);
-      nextDay.setDate(nextDay.getDate() + i);
-      this.dateList.push({
-        "id": i,
-        "day": this.DAY[nextDay.getDay()].substring(0, 3),
-        "fullday": this.DAY[nextDay.getDay()],
-        "date": nextDay.getDate(),
-        "month": this.MONTH[this.today.getMonth()],
-        "year" : this.today.getFullYear(),
-        "eventslength": 0,
-        "full": nextDay,
-       
-      })
-    }
+   
   }
   async presentToast(message) {
     const toast = await this.toastController.create({
@@ -116,15 +69,7 @@ export class PrayPage implements OnInit {
     });
     toast.present();
   }
-  displayDate(item) {
-    this.fulldate = item.fullday;
-      this.date = item.date;
-      this.month = item.month;
-      this.year = item.year;
-      this.DateObj = `${this.fulldate}, ${this.date} ${this.month} ${ this.year}`;
-      this.id_change = item.id;
-      this.clicked = true;
-  }
+ 
   ngOnInit() {
     // this.loadingService.present();
     //   this.route.queryParams.subscribe(params => {
@@ -136,42 +81,17 @@ export class PrayPage implements OnInit {
     // })
     //this.dataParams.chabad.id = 6;
     //this.getDataEvents();
-    
+    this.name = localStorage.getItem('fullname')
   }
-  getDataEvents() {
-    for (let i = 0; i < 7; i++) {
-      this.pageRequestEvent.cal_date = this.dateTimeService.getDateString2(this.dateList[i].full);
-      this.pageRequestEvent.chabad_id = this.dataParams.chabad.id;
-      this.eventService.getAll(this.pageRequestEvent).subscribe(data => {
-          this.dateList[i].eventslength = data.meta.pagination.total_objects;
-      })
-      
-    }
-  }
-  ionViewWillEnter() {
-    if(this.DateObj === '') {
-      this.fulldate = `${this.dateList[0].fullday}`;
-      this.date = `${this.dateList[0].date}`;
-      this.month = `${this.dateList[0].month}`;
-      this.year = `${this.dateList[0].year}`;
-      this.DateObj = `${this.fulldate}, ${this.date} ${this.month} ${ this.year}`;
-    }
-    else {
-      return
-    }
-  }
+ 
+  
   getUrl() {
     return `url(assets/img/19.jpg)`
   }
   //getUrl() {
   //   return `url(${this.chabad.thumb_image})`
   // }
-  clickPray() {
-    this.tab = 'pray';
-  }
-  clickDonate() {
-    this.tab = 'donate';
-  }
+ 
   clickHidden(e) {
     if(this.isHidden == false) {
       this.isHidden = true;
@@ -182,27 +102,18 @@ export class PrayPage implements OnInit {
       e.target.classList.remove('btn__nameless_dis_pray');
     }
   }
-  btnActivate(e) {
-    this.isChoose = true;
-    let choosed = document.querySelectorAll('day');
-    choosed.forEach(element => {
-      element.classList.remove(('day'));
-      document.getElementById('day-choose').style.background = '#64C18E';
-    });
-    e.target.classList.add('active-button');
-  }
+  
   onSubmit() {
-   
     let amount = this.frmPray.get('amount')
     if (amount.dirty || amount.touched ) {
-      if(amount.value!= "" && amount.value < 18) {
+      if(amount.value!= "" && amount.value < 18000) {
         this.required_mess = true;
-        this.message = 'The number must be greater than 18$';
+        this.message = 'Số tiền đóng góp phải lớn hơn 18,000.';
         return;
       }
       else if(amount.value!= "" && amount.value %18 !==0){
         this.required_mess = true;
-        this.message = 'The number must be divisible by 18.';
+        this.message = 'Số tiền đóng góp phải là bội số của 18.';
         return;
       }
       else {
