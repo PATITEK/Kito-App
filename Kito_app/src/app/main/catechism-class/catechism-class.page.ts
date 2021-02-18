@@ -11,14 +11,14 @@ export class CatechismClassPage implements OnInit {
 
   catechismList = [
     {
-      id: '1',
       name: 'Giáo lý lớp 1-12',
-      thumbImage: 'assets/img/catechism-menu-1.svg'
+      thumbImage: 'assets/img/catechism-menu-1.svg',
+      desUrl: 'main/catechism-class/catechism'
     },
     {
-      id: '2',
       name: 'Giáo lý hôn nhân',
-      thumbImage: 'assets/img/catechism-menu-2.svg'
+      thumbImage: 'assets/img/catechism-menu-2.svg',
+      desUrl: 'main/catechism-class/catechism-marriage'
     }
   ]
 
@@ -30,13 +30,6 @@ export class CatechismClassPage implements OnInit {
   }
 
   goToCatechismDetail(catechism) {
-    const data = {
-      id: catechism.id
-    }
-    // this.router.navigate([''], {
-    //   queryParams: {
-    //     data: JSON.stringify(data)
-    //   }
-    // })
+    this.router.navigateByUrl(catechism.desUrl);
   }
 }

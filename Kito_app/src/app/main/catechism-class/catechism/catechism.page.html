@@ -1,0 +1,35 @@
+<ion-header>
+  <app-header [title]="title"></app-header>
+</ion-header>
+
+<ion-content>
+  <app-search-bar-nav></app-search-bar-nav>
+
+  <div class="segment-container">
+    <ion-buttons class="segment">
+      <div class="segment__item" [ngClass]="{'segment__item--selected': currentMenuItemId == menuItem.id}"
+        *ngFor="let menuItem of menuItems" (click)="changeSegment(menuItem.id)">
+        {{ menuItem.name }}
+      </div>
+    </ion-buttons>
+  </div>
+
+  <ion-slides #slides [options]="slideOptions" (ionSlideDidChange)="changeSegmentSlide()">
+    <ion-slide *ngFor="let menuItem of menuItems">
+      <ion-buttons class="list">
+        <div *ngFor="let item of menuItem.list" class="item active-effect">
+          <span class="name">{{ item.name }}</span>
+          <ion-buttons class="ion-align-items-start">
+            <img class="icon" src="assets/icon/clock.svg">
+            <span class="time">{{ item.time }}</span>
+          </ion-buttons>
+          <span class="day">{{ item.day }}</span>
+          <ion-buttons class="ion-align-items-start">
+            <img class="icon" src="assets/icon/location.svg">
+            <span class="room">{{ item.room }}</span>
+          </ion-buttons>
+        </div>
+      </ion-buttons>
+    </ion-slide>
+  </ion-slides>
+</ion-content>
