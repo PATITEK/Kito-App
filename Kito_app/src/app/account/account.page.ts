@@ -33,9 +33,9 @@ export class AccountPage implements OnInit {
       { type: 'required', message: 'Email is required.' },
       { type: 'pattern', message: 'Email is invalid.' },
     ],
-    full_address: [
-      { type: 'required', message: 'Address is required.' }
-    ]
+    // full_address: [
+    //   { type: 'required', message: 'Address is required.' }
+    // ]
   }
 
   constructor(
@@ -69,7 +69,7 @@ export class AccountPage implements OnInit {
         Validators.required,
         Validators.pattern(PATTERN.EMAIL)
       ])),
-      full_address: new FormControl('', Validators.required),
+      // full_address: new FormControl('', Validators.required),
     });
   }
 
@@ -78,7 +78,8 @@ export class AccountPage implements OnInit {
       component: PopupComponent,
       cssClass: 'my-custom-class',
       event: ev,
-      translucent: true
+      translucent: true,
+      mode: 'md',
     });
     return await popover.present();
   }

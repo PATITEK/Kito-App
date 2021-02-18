@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AccountService } from '../@app-core/http';
 import { OneSignalService } from '../@app-core/utils';
-import { CameraService } from '../@app-core/utils/camera.service';
 
 @Component({
   selector: 'app-main',
@@ -9,24 +9,29 @@ import { CameraService } from '../@app-core/utils/camera.service';
   styleUrls: ['./main.page.scss'],
 })
 export class MainPage implements OnInit {
-  name = localStorage.getItem('fullname');
+  name = '';
   avatar = 'assets/img/avatar-account.svg';
 
   constructor(
     private router: Router,
     private OneSignalService: OneSignalService,
+    private accountService: AccountService
   ) { }
   ionViewWillEnter () {
+    this.accountService.getAccounts().subscribe((data) => {
+      localStorage.setItem('avatar', data.app_user.thumb_image.url);
+      localStorage.setItem('fullname', data.app_user.full_name)
+    })
     if(localStorage.getItem('avatar')) {
       this.avatar = localStorage.getItem('avatar');
     }
-    // localStorage.setItem('Authorization', 'eyJhbGciOiJIUzI1NiJ9.eyJhcHBfdXNlcl9pZCI6MSwiZXhwIjoxNjEyOTQ4MjQ1fQ.FIsNqEvPmAsdP7lMIkOLTL99mFVt1-Bll840nUBG7eg')
+    this.name = localStorage.getItem('fullname');
   }
   ngOnInit() {
-    // this.OneSignalService.startOneSignal();
+    this.OneSignalService.startOneSignal();
   }
   routerLink(path) {
-    console.log(path);
+    // console.log(path);
     this.router.navigateByUrl(path);
   } 
 

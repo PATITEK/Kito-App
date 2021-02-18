@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ModalController, PopoverController } from '@ionic/angular';
 import { PopupComponent } from '../@modular/popup/popup.component';
 import { PopuplogoutComponent } from '../@modular/popuplogout/popuplogout.component';
@@ -16,7 +17,8 @@ export class AccountSettingPage implements OnInit {
 
   constructor(
     public modalController: ModalController,
-    private popoverController: PopoverController
+    private popoverController: PopoverController,
+    private router: Router,
   ) { }
 
   ngOnInit() {
@@ -25,6 +27,11 @@ export class AccountSettingPage implements OnInit {
     if(localStorage.getItem('avatar')) {
       this.avatar = localStorage.getItem('avatar');
     }
+  }
+
+  routerLink(path) {
+    // console.log(path);
+    this.router.navigateByUrl(path);
   }
 
   async openModalLogOut() {
