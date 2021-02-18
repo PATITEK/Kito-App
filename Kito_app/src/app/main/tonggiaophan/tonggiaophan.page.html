@@ -3,7 +3,7 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-  <app-search-bar-nav></app-search-bar-nav>
+  <app-search-bar-nav>{{search}}</app-search-bar-nav>
   <ion-list>
     <app-main-item *ngFor="let item of list" [data]="item"></app-main-item>
   </ion-list>

@@ -12,6 +12,8 @@ import { LoadingService, ToastService } from '../@app-core/utils';
   styleUrls: ['./account.page.scss'],
 })
 export class AccountPage implements OnInit {
+  avatar = 'assets/img/avatar-account.svg';
+  title = 'Thông tin cá nhân';
   activatedInput = false;
   loadedData = false;
   form: FormGroup;
@@ -44,7 +46,6 @@ export class AccountPage implements OnInit {
     private loadingService: LoadingService,
     private toastService: ToastService
   ) { }
-  avatar = 'assets/img/user.png';
   ngOnInit() {
     this.initForm();
     this.getData();
