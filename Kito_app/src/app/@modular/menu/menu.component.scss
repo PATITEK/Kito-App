@@ -1,0 +1,38 @@
+ion-buttons{
+    position: absolute;
+    right: 15px;
+    ion-menu-button{
+      color: #C8C8C8;
+    }
+  }
+  .menu-main{
+      width: 200px;
+      height: 100vh;
+      position: absolute;
+      right: 0;
+      top: 40px;
+      z-index: 100;
+      .ion-page{
+        z-index:200;
+        
+      }
+      .list-menu{
+          list-style: none;
+          margin-left: 50px;
+          li{
+            padding: 20px 0;
+            margin-left: 30px;
+            border-bottom: 1px solid #C8C8C8;
+              .item-text{
+                  font-size: 16px;
+                  line-height: 19px;
+                  color: #C8C8C8;
+              }
+          }
+      }
+      ion-menu{
+        //   border: 1px solid black;
+        filter: drop-shadow(-5px 10px 4px #96969a);
+          border-radius: 20px;
+      }
+  }
