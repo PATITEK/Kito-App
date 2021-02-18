@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ModalController, PopoverController } from '@ionic/angular';
 import { PopupComponent } from '../@modular/popup/popup.component';
 import { PopuplogoutComponent } from '../@modular/popuplogout/popuplogout.component';
@@ -9,21 +10,28 @@ import { PopuplogoutComponent } from '../@modular/popuplogout/popuplogout.compon
   styleUrls: ['./account-setting.page.scss'],
 })
 export class AccountSettingPage implements OnInit {
+  title = 'Thiết lập tài khoản';
   isOpeningModal = false;
   name = localStorage.getItem('fullname') || '';
-  img_url = 'assets/img/user.png';
+  avatar = 'assets/img/avatar-account.svg';
 
   constructor(
     public modalController: ModalController,
-    private popoverController: PopoverController
+    private popoverController: PopoverController,
+    private router: Router,
   ) { }
 
   ngOnInit() {
   }
   ionViewWillEnter() {
-    if(localStorage.getItem('img_url')) {
-      this.img_url = localStorage.getItem('img_url');
+    if(localStorage.getItem('avatar')) {
+      this.avatar = localStorage.getItem('avatar');
     }
+  }
+
+  routerLink(path) {
+    // console.log(path);
+    this.router.navigateByUrl(path);
   }
 
   async openModalLogOut() {
@@ -31,7 +39,7 @@ export class AccountSettingPage implements OnInit {
     const modal = await this.modalController.create({
       component: PopuplogoutComponent,
       swipeToClose: true,
-      cssClass: 'modal__logout'
+      cssClass: 'modal__logout',
     });
     await modal.present();
 
@@ -43,7 +51,8 @@ export class AccountSettingPage implements OnInit {
       component: PopupComponent,
       cssClass: 'my-custom-class',
       event: ev,
-      translucent: true
+      translucent: true,
+      mode: 'md',
     });
     return await popover.present();
   }

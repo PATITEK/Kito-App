@@ -11,19 +11,28 @@ img {
 .margin-bottom {
     margin-bottom: 20px;
 }
-
+.password {
+    position: relative;
+    ion-icon {
+    position: absolute;
+    color: #DBDBDB;
+    top: 46px;
+    right: 10px;
+    }
+}
 .label {
     font-size: 18px;
-    color: #fff;
+    color: var(--second-color);
     margin-bottom: 14px;
     display: inline-block;
 }
 
+
 .select,
 .input {
-    background: var(--white-color);
+    background: #F2F2F2;
     border-radius: 5px;
-    color: #000000;
+    color: #828282;
     font-size: 16px;
     border: 1px solid transparent;
     height: 36px;
@@ -32,7 +41,7 @@ img {
     padding-left: 10px;
     padding-right: 10px;
     &:focus {
-        border: 1px solid #fff;
+        border: 1px solid var(--second-color);
     }   
 }
 .mr-bottom {
@@ -40,16 +49,16 @@ img {
 }
 
 .error-message {
-    color: #ffeb00;;
+    color: var(--main-color);
     font-size: 13px;
     margin: 6px;
 }
 
 .submit-btn {
-    color: var(--white-color);
-    --background: var(--second-color);
+    color: var(--second-color);
+    --background: #f2f2f2;
     --border-radius: 18px;
-    width: 53px;
+    width: 45px;
     height: 45px;
 }
 
@@ -58,15 +67,16 @@ img {
     bottom: 0;
     left: 0;
     right: 0;
-    height: 59vh;
-    background: var(--main-color);
+    color: #828282;
+    height: 68vh;
+    background: #FAFAFA;
     border-top-left-radius: 40px;
     border-top-right-radius: 40px;
 }
 
 ion-segment{
     border-radius: 40px;
-    --background: #ffffff;
+    --background: #f2f2f2;
     width: 320px;
     max-width: calc(100vw - 20px);
     margin: 20px auto;
@@ -91,6 +101,7 @@ ion-segment{
     min-width: 300px;
     margin: 0 auto;
     color: #fff;
+    margin-top: 9vh;
 }
 
 .form {
@@ -100,7 +111,7 @@ ion-segment{
 
 
     .forgot-password-btn {
-        color: #fff;
+        color: var(--second-color);
         font-size: 12px;
     }
 }
@@ -115,8 +126,8 @@ ion-segment{
     .gender-box {
         width: 100px;
         .input{
-            background-color: #ffffff;
-            color: #000000;
+            background-color: #f2f2f2;
+            color: #828282;
         }
     }
 
@@ -125,11 +136,12 @@ ion-segment{
         
         .phone-number-body {
             padding-left: 5px;
-            background: var(--second-color);
+            background: #f2f2f2;
+            color: #828282;
             border-radius: 5px;
 
             .country-code {
-                color: #fff;
+                color: #828282;
                 font-weight: 700;
                 margin: 0 5px;
             }
@@ -138,14 +150,17 @@ ion-segment{
     }
 
     .age-box {
-        width: 60px;
+        min-width: 97px;
+        margin-left: 10px;
     }
 }
 
 .country-code-select {
     height: 28px;
-    width: 150px;
-    background: #5CC7C8;
+    max-width: 54px;
+    background: #f2f2f2;
+    padding-left: 3px;
+    padding-right: 13px;
 }
 
 .province-select {
@@ -157,6 +172,7 @@ ion-segment{
 }
 .ion-text-right{
     ion-button{
+        margin-top: 2vh;
         ion-icon{
             width: 50px;
         }

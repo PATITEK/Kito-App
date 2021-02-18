@@ -231,6 +231,7 @@ export class PrayPage implements OnInit {
         "source_id":  1
       }
     }
+    console.log(result_fk);
     if(amount.value == "") {
           this.donateService.donateLog(result_fk).subscribe((data) => { 
             console.log(data);

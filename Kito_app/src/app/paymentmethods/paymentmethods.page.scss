@@ -1,5 +1,5 @@
 .header {
-    height: 79px;
+    height: 80px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -18,4 +18,7 @@
 ion-item-group {
     display: flex;
     align-items: center;
+}
+.back-btn {
+    top: 40px;
 }

@@ -49,10 +49,10 @@ const routes: Routes = [
   //   loadChildren: () => import('./chabad/chabad.module').then(m => m.ChabadPageModule),
   //   canActivate: [AuthGuard],
   // },
-  // {
-  //   path: 'account',
-  //   loadChildren: () => import('./account/account.module').then(m => m.AccountPageModule)
-  // },
+  {
+    path: 'account',
+    loadChildren: () => import('./account/account.module').then(m => m.AccountPageModule)
+  },
   // {
   //   path: 'event',
   //   loadChildren: () => import('./event/event.module').then(m => m.EventPageModule),
@@ -63,10 +63,10 @@ const routes: Routes = [
   //   loadChildren: () => import('./food/food.module').then(m => m.FoodPageModule),
   //   canActivate: [AuthGuard],
   // },
-  // {
-  //   path: 'account-setting',
-  //   loadChildren: () => import('./account-setting/account-setting.module').then(m => m.AccountSettingPageModule)
-  // },
+  {
+    path: 'account-setting',
+    loadChildren: () => import('./account-setting/account-setting.module').then(m => m.AccountSettingPageModule)
+  },
   // {
   //   path: 'history',
   //   loadChildren: () => import('./history/history.module').then( m => m.HistoryPageModule)
