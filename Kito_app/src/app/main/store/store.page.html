@@ -10,31 +10,39 @@
     <span *ngIf="cart.length" class="cart-amount">{{ calTotalItem() }}</span>
   </div>
 
-  <div class="header">
-    <ion-label class="header-title">Mặt dây chuyền</ion-label>
-    <img src="assets/icon/setting.svg" id="header-icon" class="header-icon active-effect"
-      (click)="toggleHasSetting(true)">
-
-    <div *ngIf="hasSetting" class="setting main-box-shadow">
-      <div class="setting-item">Giá cao > thấp</div>
-      <div class="setting-item">Giá thấp > cao</div>
-      <div class="setting-item">Hàng mới nhất</div>
-      <div class="setting-item">Bán chạy nhất</div>
+  <ion-buttons class="segment">
+    <div class="segment__item" [ngClass]="{'segment__item--selected': currentRecommendedItem == recommendedItem}"
+      *ngFor="let recommendedItem of recommendedItems" value="recommendedItem" (click)="changeRecommendedItem(recommendedItem)">
+      {{ recommendedItem }}
     </div>
-  </div>
+  </ion-buttons>
 
-  <ion-list>
-    <ion-buttons *ngFor="let row of list" class="row">
-      <div *ngFor="let col of row" class="col main-box-shadow">
-        <div class="img-container">
-          <img [src]="col.thumbImage" class="img">
-        </div>
-        <div class="text-box">
-          <ion-label class="name three-dots-2">{{ col.name }}</ion-label>
-          <ion-label class="price">{{ dateTimeService.numberWithCommas(col.price) }} {{ col.unitPrice}}</ion-label>
-        </div>
-        <img src="assets/icon/add.svg" class="add-btn active-effect" (click)="addToCart(col)">
+  <div class="body">
+    <div class="header">
+      <img src="assets/icon/setting.svg" id="header-icon" class="header-icon active-effect"
+        (click)="toggleHasSetting(true)">
+
+      <div *ngIf="hasSetting" class="setting main-box-shadow">
+        <div class="setting-item">Giá cao > thấp</div>
+        <div class="setting-item">Giá thấp > cao</div>
+        <div class="setting-item">Hàng mới nhất</div>
+        <div class="setting-item">Bán chạy nhất</div>
       </div>
-    </ion-buttons>
-  </ion-list>
+    </div>
+
+    <ion-list>
+      <ion-buttons *ngFor="let row of list" class="row">
+        <div *ngFor="let col of row" class="col main-box-shadow">
+          <div class="img-container">
+            <img [src]="col.thumbImage" class="img">
+          </div>
+          <div class="text-box">
+            <ion-label class="name three-dots-2">{{ col.name }}</ion-label>
+            <ion-label class="price">{{ dateTimeService.numberWithCommas(col.price) }} {{ col.unitPrice}}</ion-label>
+          </div>
+          <img src="assets/icon/add.svg" class="add-btn active-effect" (click)="addToCart(col)">
+        </div>
+      </ion-buttons>
+    </ion-list>
+  </div>
 </ion-content>

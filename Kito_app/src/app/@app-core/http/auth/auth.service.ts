@@ -79,17 +79,18 @@ export class AuthService {
   public login(req) {
     return this.http.post(`${APICONFIG.AUTH.LOGIN}`, req).pipe(
       map((result: any) => {
+        console.log(result)
         this.storage.clear();
         localStorage.setItem('Authorization', result.token);
         localStorage.setItem('fullname', result.full_name);
-        this.storage.setInfoAccount();
+        // this.storage.setInfoAccount();
         //  this.toastr.success(SUCCESS.AUTH.LOGIN);
         return result;
       }),
       catchError((errorRes: any) => {
         localStorage.clear();
         this.storage.clear();
-        this.presentToast('Password or Email is invalid!');
+        this.presentToast(errorRes.error.errors);
         throw errorRes.error;
       })
       );

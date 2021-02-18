@@ -12,13 +12,13 @@
     </ion-segment>
 
     <div class="group" [ngClass]="{'display-none': segmentValue != 'login'}">
-      <form class="form" [formGroup]="formLogin" (onSubmit)="submitLogin()">
+      <form class="form" [formGroup]="formLogin">
         <div class="margin-bottom">
           <ion-label class="label">Nhập số điện thoại</ion-label>
-          <input class="input" type="text" formControlName="email">
-          <ng-container *ngFor="let validation of validationLoginMessages.email">
+          <input class="input" type="text" formControlName="phone_number">
+          <ng-container *ngFor="let validation of validationLoginMessages.phone_number">
             <div class="error-message"
-              *ngIf="formLogin.get('email').hasError(validation.type) && (formLogin.get('email').dirty || formLogin.get('email').touched)">
+              *ngIf="formLogin.get('phone_number').hasError(validation.type) && (formLogin.get('phone_number').dirty || formLogin.get('phone_number').touched)">
               {{ validation.message }}
             </div>
           </ng-container>
@@ -40,14 +40,14 @@
         </div>
       </form>
       <div class="ion-text-right">
-        <ion-button class="submit-btn" (click)="submitLogin()">
+        <ion-button class="submit-btn" type ="submit" (click)="submitLogin()">
           <ion-icon name="chevron-forward-outline" class="ion__next"> </ion-icon>
         </ion-button>
       </div>
     </div>
 
     <div class="group" [ngClass]="{'display-none': segmentValue != 'signUp'}">
-      <form class="form" [formGroup]="formSignUp" (onSubmit)="submitSignUp()">
+      <form class="form" [formGroup]="formSignUp">
         <div class="margin-bottom">
           <ion-buttons class="row-1">
             <div class="name-box">
@@ -82,7 +82,7 @@
             </div>
             <div class="age-box">
               <ion-label class="label">Age</ion-label>
-              <ion-datetime formControlName="birthday" class="input" displayFormat="YYYY" min="1900" max="2021"></ion-datetime>
+              <ion-datetime formControlName="age" class="input" displayFormat="YYYY" min="1900" max="2021"></ion-datetime>
             </div>
           </ion-buttons>
 
@@ -92,9 +92,9 @@
               {{ validation.message }}
             </div>
           </ng-container>
-          <ng-container *ngFor="let validation of validationSignUpMessages.birthday">
+          <ng-container *ngFor="let validation of validationSignUpMessages.age">
             <div class="error-message"
-              *ngIf="formSignUp.get('birthday').hasError(validation.type) && (formSignUp.get('birthday').dirty || formSignUp.get('birthday').touched)">
+              *ngIf="formSignUp.get('age').hasError(validation.type) && (formSignUp.get('age').dirty || formSignUp.get('age').touched)">
               {{ validation.message }}
             </div>
           </ng-container>
@@ -152,8 +152,9 @@
          
         </div> 
         <ion-label class="label">Giáo phận</ion-label>
-        <ion-select mode='ios' [selectedText]="default"  [(ngModel)]="default"  class="select mr-bottom" formControlName="dioceses" value="1" >
-          <ion-select-option [value]="item.id" *ngFor="let item of listDioceses">
+        <!--  [selectedText]="tagret" [(ngModel)]="tagret" -->
+        <ion-select mode='ios' class="select mr-bottom" formControlName="dioceses"  (ionChange)="onSelectChange($event)">
+          <ion-select-option value="{{item.id}}" *ngFor="let item of listDioceses">
             {{item.name}}
           </ion-select-option>
         </ion-select>
@@ -164,8 +165,8 @@
           </div>
        </ng-container>
         <ion-label class="label">Giáo xứ</ion-label>
-        <ion-select mode='ios' class="select mr-bottom" formControlName="parishes" value="1">
-          <ion-select-option  [value]="item.id" *ngFor="let item of listDioceses">
+        <ion-select mode='ios' class="select mr-bottom" formControlName="parish_id">
+          <ion-select-option  [value]="item.id" *ngFor="let item of listParishes">
             {{item.name}}
           </ion-select-option>
           </ion-select>
@@ -192,7 +193,7 @@
         </div>
       </form>
       <div class="ion-text-right">
-        <ion-button class="submit-btn" (click)="submitSignUp()">
+        <ion-button class="submit-btn"type ="submit" (click)="submitSignUp()">
           <ion-icon name="chevron-forward-outline" class="ion__next"> </ion-icon>
         </ion-button>
       </div>
