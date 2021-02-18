@@ -23,12 +23,13 @@ export class MainPage implements OnInit {
     // localStorage.setItem('Authorization', 'eyJhbGciOiJIUzI1NiJ9.eyJhcHBfdXNlcl9pZCI6MSwiZXhwIjoxNjEyOTQ4MjQ1fQ.FIsNqEvPmAsdP7lMIkOLTL99mFVt1-Bll840nUBG7eg')
   }
   ngOnInit() {
-    this.OneSignalService.startOneSignal();
+    // this.OneSignalService.startOneSignal();
   }
   routerLink(path) {
     console.log(path);
     this.router.navigateByUrl(path);
   } 
+
   // goToUserInfo() {
   //   this.router.navigateByUrl('account-setting');
   // }
