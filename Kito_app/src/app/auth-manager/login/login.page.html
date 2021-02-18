@@ -24,9 +24,10 @@
           </ng-container>
         </div>
 
-        <div class="margin-bottom">
+        <div class="margin-bottom password">
           <ion-label class="label">Mật Khẩu</ion-label>
-          <input class="input" type="password" formControlName="password">
+          <input class="input" type="{{type}}" formControlName="password">
+          <ion-icon name="{{name}}" (click)="showPass()" ></ion-icon>
           <ng-container *ngFor="let validation of validationLoginMessages.password">
             <div class="error-message"
               *ngIf="formLogin.get('password').hasError(validation.type) && (formLogin.get('password').dirty || formLogin.get('password').touched)">
@@ -38,12 +39,14 @@
         <div class="ion-text-right">
           <ion-label class="forgot-password-btn" (click)="clickForgotPassword()">Quên mật khẩu?</ion-label>
         </div>
+        <div class="ion-text-right">
+          <ion-button class="submit-btn" type ="submit" (click)="submitLogin()">
+            <img src="assets/img/next.svg" alt="">
+            <ion-spinner *ngIf="showSpinner"></ion-spinner>
+          </ion-button>
+        </div>
       </form>
-      <div class="ion-text-right">
-        <ion-button class="submit-btn" type ="submit" (click)="submitLogin()">
-          <ion-icon name="chevron-forward-outline" class="ion__next"> </ion-icon>
-        </ion-button>
-      </div>
+   
     </div>
 
     <div class="group" [ngClass]="{'display-none': segmentValue != 'signUp'}">
@@ -76,13 +79,19 @@
             <div class="phone-number-box">
               <ion-label class="label">Số điện thoại</ion-label>
               <ion-buttons class="phone-number-body">
-                <ion-label class="country-code">+84</ion-label>
+                +
+                <ion-select mode='ios' [selectedText]="code" value=""formControlName="country_code"  [(ngModel)]="code" class="select country-code-select">
+                  <ion-select-option [value]="country.phone_code" *ngFor="let country of country_codes">
+                    {{country.phone_code}}</ion-select-option>
+                </ion-select>
+                <!-- <ion-label class="country-code">+{{ formSignUp.value.country_code }}</ion-label> -->
+                <!-- <ion-label class="country-code">+84</ion-label> -->
                 <input class="input" formControlName="phone_number">
               </ion-buttons>
             </div>
             <div class="age-box">
-              <ion-label class="label">Age</ion-label>
-              <ion-datetime formControlName="age" class="input" displayFormat="YYYY" min="1900" max="2021"></ion-datetime>
+              <ion-label class="label">Năm Sinh</ion-label>
+              <ion-datetime formControlName="age" class="input" displayFormat="YYYY" min="1900" max="2021" ></ion-datetime>
             </div>
           </ion-buttons>
 
@@ -101,14 +110,14 @@
         </div>
         
         <div class="margin-bottom">
-          <ion-label class="label">Email (Không bắt buộc)</ion-label>
+          <ion-label class="label">Email</ion-label>
           <input class="input" type="email" formControlName="email">
-          <!-- <ng-container *ngFor="let validation of validationSignUpMessages.email">
+          <ng-container *ngFor="let validation of validationSignUpMessages.email">
             <div class="error-message"
               *ngIf="formSignUp.get('email').hasError(validation.type) && (formSignUp.get('email').dirty || formSignUp.get('email').touched)">
               {{ validation.message }}
             </div>
-          </ng-container> -->
+          </ng-container>
         </div>
 
     
@@ -191,12 +200,13 @@
           <ion-label class="label">Xác nhận mật khẩu</ion-label>
           <input class="input" type="password" formControlName="confirmed_password">
         </div>
+        <div class="ion-text-right">
+          <ion-button class="submit-btn"type ="submit" (click)="submitSignUp()">
+            <img src="assets/img/next.svg" alt="">
+          </ion-button>
+        </div>
       </form>
-      <div class="ion-text-right">
-        <ion-button class="submit-btn"type ="submit" (click)="submitSignUp()">
-          <ion-icon name="chevron-forward-outline" class="ion__next"> </ion-icon>
-        </ion-button>
-      </div>
+     
     </div>
   </div>
 </ion-content>
