@@ -1,10 +1,11 @@
-
-<ion-header>
-  <ion-toolbar>
-    <ion-title>dioceses</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content>
-
+<div class="header ion-page ion-no-border" id="main-content">
+  <ion-label>{{ title }}</ion-label>
+  <ion-back-button icon="chevron-back-outline" text="" class="back-btn" routerLink="/main"></ion-back-button>
+</div>
+<ion-content class="ion-padding">
+  <app-search-bar-nav>{{search}}</app-search-bar-nav>
+  <ion-list>
+    <app-list-dioceses *ngFor="let item of data" [data]="item"></app-list-dioceses>
+  </ion-list>
 </ion-content>
+<app-footer></app-footer>
