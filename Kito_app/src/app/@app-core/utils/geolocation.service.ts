@@ -50,7 +50,7 @@ export class GeolocationService {
                 this.loadingService.dismiss();
             })
             .catch((err) => {
-                console.log(err);
+                console.error(err);
             })
         })
     }
@@ -64,7 +64,7 @@ export class GeolocationService {
             console.log(this.customerLocation.address);
         })
         .catch((error: any) => {
-            console.log(error);
+            console.error(error);
         });
     }
 

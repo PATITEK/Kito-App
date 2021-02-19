@@ -44,7 +44,8 @@ export class CameraService {
                 },)
             } else {
             }
-        }).catch(() => {
+        }).catch((err) => {
+            console.error(err)
             this.loadingService.dismiss();
         })
     }
@@ -78,7 +79,8 @@ export class CameraService {
                 },)
             } else {
             }
-        }).catch(() => {
+        }).catch((err) => {
+            console.error(err)
             this.loadingService.dismiss();
         })
     }
