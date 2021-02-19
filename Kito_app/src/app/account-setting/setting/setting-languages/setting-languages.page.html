@@ -6,9 +6,9 @@
 <ion-content>
   
   <ion-list>
-    <ion-item class="main-checkbox" *ngFor="let entry of form">
-      <ion-label>{{entry.val}}</ion-label>
-      <ion-checkbox mode='ios' slot="end" [(ngModel)]="entry.isChecked"></ion-checkbox>
+    <ion-item class="main-checkbox" *ngFor="let language of languages; let i = index">
+      <ion-label>{{language.val}}</ion-label>
+      <ion-checkbox mode='ios' slot="end" [(ngModel)]="language.isChecked" (click)="check(language)" [disabled]="!language.isChecked && checkeds === limit"></ion-checkbox>
     </ion-item>
 
     <ion-item class="add-language">
