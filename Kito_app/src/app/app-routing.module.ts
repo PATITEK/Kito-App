@@ -12,7 +12,7 @@ const routes: Routes = [
   {
     path: 'main',
     loadChildren: () => import('./main/main.module').then(m => m.MainPageModule),
-     canActivate: [AuthGuard],
+    //  canActivate: [AuthGuard],
   },
   {
     path: 'donate',
