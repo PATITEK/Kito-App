@@ -20,20 +20,24 @@
   background-color: #E5E5E5;
 }
   ion-content {
+    --overflow: hidden;
     --background: var(--gray-color);
     .wrapper {
       overflow: scroll;
       @media screen and (max-height: 737px){
-        height: 516px;
+        height: 500px;
       }
       @media screen and (max-height: 668px){
-        height: 450px;
+        height: 438px;
       }
       @media screen and (max-height: 641px){
-        height: 420px;
+        height: 410px;
       }
       @media screen and (max-height: 569px){
-        height: 360px;
+        height: 338px;
+      }
+      @media screen and (max-height: 480px){
+        height: 268px;
       }
     
     .title {
