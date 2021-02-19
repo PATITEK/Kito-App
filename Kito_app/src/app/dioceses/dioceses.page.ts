@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
+import { IPageRequest } from '../@app-core/http';
+import { DioceseService } from '../@app-core/http/diocese';
 import { ModalDonateComponent } from '../@modular/modal-donate/modal-donate.component';
 
 @Component({
@@ -10,34 +12,21 @@ import { ModalDonateComponent } from '../@modular/modal-donate/modal-donate.comp
 export class DiocesesPage implements OnInit {
 
   title = 'Chọn Giáo Phận';
-  list = [
-    {
-      thumbImage: 'assets/img/tonggiaophan/vatican.svg',
-      title: 'Giáo phận Bà Rịa',
-      desUrl: 'main/tonggiaophan/parish-news'
-    },
-    {
-      thumbImage: 'assets/img/tonggiaophan/hanoi.svg',
-      title: 'Giáo phận Cần Thơ',
-      desUrl: 'main/tonggiaophan/parish-news'
-    },
-    {
-      thumbImage: 'assets/img/tonggiaophan/hue.svg',
-      title: 'Giáo phận Đà Lạt',
-      desUrl: 'main/tonggiaophan/parish-news'
-    },
-    {
-      thumbImage: 'assets/img/tonggiaophan/saigon.svg',
-      title: 'Giáo Phận Sài Gòn',
-      desUrl: 'main/tonggiaophan/parish-news'
-    }
-  ]
+  data:any = [];
+  pageResult:IPageRequest={
+    page: 1,
+    per_page: 5,
+  }
+  
 
   constructor(
     private modalCtrl: ModalController,
+    private diocesesService:DioceseService
     ) { }
 
-  ngOnInit() { }
+  ngOnInit() { 
+    this.getAll();
+  }
   async goToDetail() {
     const popover = await this.modalCtrl.create({
       component: ModalDonateComponent,
@@ -45,5 +34,14 @@ export class DiocesesPage implements OnInit {
     });
     return await popover.present();
   }
+  getAll(){
+    this.diocesesService.getAll(this.pageResult).subscribe((data: any) => {
+      
 
+      this.data=data.dioceses;
+      
+      
+      this.pageResult.total_objects = data.meta.pagination.total_objects || 1;
+    });
+  }
 }
