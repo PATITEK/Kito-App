@@ -89,9 +89,6 @@ export class DonatePage implements OnInit {
   
   onSubmit() {
     this.loadingService.present();
-    const getNumber = this.frmDonate.get('amount').value;
-    if(getNumber%18 == 0 && getNumber>0) {
-    }
     // const sourceId = this.dataParams.event ? this.dataParams.event.id : this.dataParams.chabad.id;
     // var result = {
     //   "donation" : {
@@ -105,27 +102,20 @@ export class DonatePage implements OnInit {
     // }
     var donate = {
       "donation" : {
-        "email": "hoaimiqng@gmail.com",
+        "email": localStorage.getItem('email'),
         "token": "",
         "amount": this.frmDonate.get('amount').value,
         "note": this.frmDonate.get('note').value,
-        "source_type": "Event",
-        "source_id": 1
+        "source_type": "Diocese",
+        "source_id": localStorage.getItem('parish_id')
       }
     }
     if (this.frmDonate.get('amount').dirty || this.frmDonate.get('amount').touched ) {
-      if(this.frmDonate.get('amount').value < 18000 ) {
+      if(this.frmDonate.get('amount').value < 12000 ) {
         this.required_mess = true;
-        this.message = 'Số tiền đóng góp phải lớn hơn 18,000';
+        this.message = 'Số tiền đóng góp phải lớn hơn 12,000';
         this.loadingService.dismiss();
         return;
-      }
-      else if(this.frmDonate.get('amount').value %18 !==0){
-        this.required_mess = true;
-        this.message = 'Số tiền đóng góp phải là bội số của 18';
-        this.loadingService.dismiss();
-        return;
-
       }
       else {
         this.required_mess = false;
@@ -146,7 +136,7 @@ export class DonatePage implements OnInit {
     }
     if(this.frmDonate.get('note').value.length == 0) {
       this.required_purpose = true;
-      this.message_purpose = 'This field is require!';
+      this.message_purpose = 'Thêm thông tin vào trường này !';
       this.loadingService.dismiss();
       return;
     }
@@ -162,12 +152,6 @@ export class DonatePage implements OnInit {
     })
   
 }
-  clickPray() {
-    this.tab = 'pray';
-  }
-  clickDonate() {
-    this.tab = 'donate';
-  }
   clickHidden(e) {
     if(this.isHidden == false) {
       this.isHidden = true;
