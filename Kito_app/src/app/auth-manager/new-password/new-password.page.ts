@@ -61,7 +61,7 @@ export class NewPasswordPage implements OnInit {
     const datapasing: IDataNoti = {
       title: 'THÀNH CÔNG!',
       image: 'Lấy lại mật khẩu thành công!',
-      routerLink: '/auth-manager/login'
+      routerLink: '/main'
     }
     this.invalidPassword = this.checkValidPassword('Password', this.passwordValue);
     this.invalidConfirmedPassword = this.checkValidPassword('Confirmed password', this.confirmedPasswordValue);
