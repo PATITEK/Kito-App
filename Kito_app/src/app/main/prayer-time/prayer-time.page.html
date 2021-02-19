@@ -9,7 +9,7 @@
     <ion-label class="parish-name">{{ parish.name }}</ion-label>
 
     <ion-buttons class="date-list">
-      <ion-buttons *ngFor="let dateItem of dateList" class="date-item main-box-shadow"
+      <ion-buttons *ngFor="let dateItem of dateList" class="date-item main-box-shadow active-effect"
         [ngClass]="{'active-date-item': activeDateItemId == dateItem.id}" (click)="changeSegment(dateItem.id)">
         <span class="date-text">{{ dateTimeService.VIETNAMESE_DAYS[dateItem.day.getDay()].substring(0, 3) }}</span>
         <span>{{ dateItem.day.getDate() }}</span>
@@ -25,8 +25,11 @@
         <ion-label *ngIf="dateItem.events.length" class="item-name">{{ dateItem.name }}</ion-label>
       </div>
 
+      <div *ngIf="!dateItem.events.length" class="empty-list-text">Không có giờ lễ</div>
+
       <ion-list class="event-list">
-        <div *ngFor="let event of dateItem.events" class="event" (click)="goToEventDetail(dateItem, event)">
+        <div *ngFor="let event of dateItem.events" class="event active-effect"
+          (click)="goToEventDetail(dateItem, event)">
           <ion-label class="event-name">{{ event.name }}</ion-label>
           <ion-label class="event-time">{{ event.time }}</ion-label>
           <ion-buttons class="ion-align-items-end">

@@ -5,7 +5,7 @@
 <ion-content>
   <div class="body">
     <ion-buttons class="date-list">
-      <ion-buttons *ngFor="let d of dateList" class="date-item main-box-shadow"
+      <ion-buttons *ngFor="let d of dateList" class="date-item main-box-shadow active-effect"
         [ngClass]="{'active-date-item': dateItem.id == d.id}" (click)="changeDateItem(d)">
         <span class="date-text">{{ dateTimeService.VIETNAMESE_DAYS[d.day.getDay()].substring(0, 3) }}</span>
         <span>{{ d.day.getDate() }}</span>

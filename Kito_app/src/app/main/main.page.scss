@@ -1,170 +1,139 @@
-$size-img:100px;
-.header-md::after {
-  background-image: none;
+ion-content {
+  --background: #F3F3F3;
+  --padding-top: 100px;
 }
-.main__avatar {
-  position: absolute;
-  right: 12px;
-  width: 104px;
-  top: 22vh;
-  @media screen and (max-height: 737px) {
-    top: 13vh;
-  }
+
+.background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 350px;
+  overflow: hidden;
+  z-index: -1;
+}
+
+.avatar-box {
   text-align: center;
-  z-index: 12;
-  height: 97px;
-  .icon-avatar {
-    width: 60px;
-    height: 60px;
-    color: white;
-    background: #fdfdfd;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    margin: auto;
-    border-radius: 50%;
+  display: inline-block;
+  width: 100px;
+  margin-right: 16px;
+
+  .avatar {
+    margin: 5px auto 7px;
+    border: 1px solid #fff;
+    box-shadow: 0 4px 4px rgba(#fff, 5);
+    background: #fff;
   }
 
+  .avatar-name {
+    color: #002d63;
+    font-size: 14px;
+    text-shadow: 1px 0 0 #fff, -1px 0 0 #fff, 0 1px 0 #fff, 0 -1px 0 #fff,
+      1px 1px #fff, -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff;
+  }
 }
-ion-content {
-  position: absolute;
+
+.menu {
+  background: #fff;
   border-top-left-radius: 40px;
   border-top-right-radius: 40px;
-  top: 24vh;
-  z-index: 10;
-  background-color: #E5E5E5;
-  --background: none;
-  --overflow: scroll;
-  @media screen and (max-height: 737px) {
-    top: 17vh;
-  }
-  @media screen and (max-height: 668px) {
-    top: 16vh;
-  }
-  .backgroup-header {
-    position: relative;
-    z-index: 5;
-    .img-bg {
-      width: 100%;
-    }
-  }
-  .vatican__title {
-    display: block;
-    padding-top: 9px ;
-    margin: 10px 16px 7px;
-    border-top: 1px solid #ccc;
-    color: #424242;
-  }
-  .home {
-    padding: 0 5px;
-    box-shadow: 0 4px 2px -2px #dcd9d9;
-    border-radius: 40px;
-    background-color: var(--white-color);
-   
-    .container-tong-gp {
-      padding-top: 3vh;
-      @media screen and (max-height: 737px) {
-        padding-top: 3vh;
-       }
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      .menu-top {
-        text-align: center;
-        .bg-icon {
-          width: 60px;
-          height: 60px;
-          border-radius: 20px;
-          margin: 0 auto;
-          color: var( --title-color);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          background-color: var(--second-color);
-        }
-        .name-menu {
-          font-weight: 500;
-          margin-top: 6px;
-        }
-      }
-    }
-    .menu-list {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      padding: 4px 0px 14px 0;
-      @media screen and (max-height: 668px) {
-       padding: 0;
-       height: 184px;
-      }
-       @media screen and (max-height: 569px) {
-        height: 115px;
-       }
-      overflow: scroll;
-      .menu-top {
-        text-align: center;
-        .bg-icon {
-          width: 60px;
-          height: 60px;
-          border-radius: 20px;
-          margin: 0 auto;
-          color: var( --title-color);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          background-color: var(--second-color);
-          @media screen and (max-height: 668px) {
-            width: 50px;
-            height: 50px;
-          }
-        }
-        .name-menu {
-          font-weight: 500;
-          margin-top: 6px;
-        }
-      }
-     
-      ion-item-group {
-        text-align: center;
-        padding: 15px 5px;
-        width: 121px;
-      }
-    }
-  }
-  .vatican {
-    &__list {
-      display: flex;
-      font-size: 1.6rem;
-      overflow-x: auto;
-      list-style: none;
-      padding: 0;
-      max-width: 100%;
-      margin: 0 16px 20px;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  padding: 15px 0;
 
-      .vatican__list-item {
-        margin-right: 16px;
-        position: relative;
-        flex-shrink: 0;
-        img {
-          border-radius: 6px;
-          width: 314px;
-          height: 164px;
-        }
-        span {
-          display: block;
-          bottom: 4px;
-          border-bottom-left-radius: 6px;
-          border-bottom-right-radius: 6px;
-          padding: 0 6px;
-          position: absolute;
-          color: #fff;
-          height: 47px;
-          line-height: 23px;
-          font-size: 16px;
-          background-color: rgba(66, 66, 66, 0.5);
+  .item-container {
+    text-align: center;
+
+    .item {
+      width: 120px;
+      margin: 8px;
+      text-align: center;
+
+      .img-container {
+        width: 70px;
+        height: 70px;
+        background: #cc9d3e;
+        border-radius: 27px;
+        box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
+        justify-content: center;
+        margin: 5px auto;
+        border: 1px solid #ffca5d;
+      }
+
+      .name {
+        color: #424242;
+        font-size: 16px;
+        font-weight: 500;
+      }
+    }
+
+    &--full-width {
+      width: 100%;
+
+      .item {
+        margin: 8px auto;
+        width: 160px;
+      }
+    }
+  }
+
+  
+}
+
+.news {
+  padding: 16px;
+  background: #F3F3F3;
+
+  &__title {
+    color: #424242;
+    font-size: 18px;
+    font-weight: 500;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    display: block;
+  }
+
+  &__content {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+
+    .main-news {
+      position: relative;
+      height: 40vw;
+      border-radius: 8px;
+      overflow: hidden;
+      border-bottom: 1px solid #EEEEEE;
+      padding: 0;
+      border: 1px solid #0000002b;
+      
+      &:not(:last-child) {
+        margin-right: 10px;
+      }
+    
+      .item-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    
+      .text-box {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(#424242, 0.5);
+        padding: 10px 5px 5px;
+        z-index: 1;
+        color: #fff;
+    
+        .item-title {
+          font-size: 14px;
+          font-weight: 500;
+          margin: 0;
+          text-align: left;
         }
       }
     }
-   
   }
 }
