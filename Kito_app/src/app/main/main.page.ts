@@ -10,7 +10,7 @@ import { OneSignalService } from '../@app-core/utils';
 })
 export class MainPage implements OnInit {
   name = '';
-  avatar = 'assets/img/avatar-account.svg';
+  avatar = '';
 
   menu = [
     {
@@ -79,7 +79,7 @@ export class MainPage implements OnInit {
   ionViewWillEnter() {
     this.accountService.getAccounts().subscribe((data) => {
       this.avatar = data.app_user.thumb_image.url || '';
-      this.name = data.app_user.full_name || '';
+      this.name = data.app_user.full_name;
       localStorage.setItem('avatar', this.avatar);
       localStorage.setItem('fullname', this.name)
     })
