@@ -3,7 +3,8 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router';
 import { DonateService, ChabadService, AccountService } from '../@app-core/http';
 import { LoadingService } from '../@app-core/utils';
-import { ToastController } from '@ionic/angular';
+import { ModalController, ToastController } from '@ionic/angular';
+import { ModalDonateComponent } from '../@modular/modal-donate/modal-donate.component';
 
 
 @Component({
@@ -24,6 +25,7 @@ export class DonatePage implements OnInit {
   frmDonate: FormGroup;
   email = '';
   name;
+  avatar='';
   error_messages = {
     'amount': [
       { 
@@ -46,7 +48,8 @@ export class DonatePage implements OnInit {
      public donateService: DonateService,
      public loadingService: LoadingService,
      public toastController: ToastController,
-     private accountService: AccountService
+     private accountService: AccountService,
+     private modalCtrl: ModalController,
      ) {
     this.frmDonate = this.formBuilder.group({
       amount: new FormControl('', Validators.compose([
@@ -72,6 +75,7 @@ export class DonatePage implements OnInit {
     //   this.loadingService.dismiss();
     // });
     this.name = localStorage.getItem('fullname')
+    this.avatar = localStorage.getItem('avatar');
   }
   async presentToast(message) {
     const toast = await this.toastController.create({
@@ -171,5 +175,12 @@ export class DonatePage implements OnInit {
       document.getElementById('day-choose').style.background = '#64C18E';
     });
     e.target.classList.add('active-button');
+  }
+   async openModalMenu() {
+    const popover = await this.modalCtrl.create({
+      component: ModalDonateComponent,
+      cssClass: 'modalDonate  ',
+    });
+    return await popover.present();
   }
 }

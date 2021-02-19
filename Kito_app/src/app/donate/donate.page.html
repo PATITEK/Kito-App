@@ -46,13 +46,13 @@
     </ion-label>
  </ion-item-group>
 
- <ion-label class="donate__other">Đóng góp giáo xứ khác?</ion-label>
+ <ion-label (click)="openModalMenu()" class="donate__other">Đóng góp giáo xứ khác?</ion-label>
 </ion-item-group>
  <ion-item-group class="footer">
-   <ion-item-group>
-     <ion-img src="assets/img/avatar.png"></ion-img>
+   <ion-avatar>
+     <ion-img src="{{avatar}}"></ion-img>
      {{name}}
-   </ion-item-group>
+   </ion-avatar>
   <ion-button type="submit"  [disabled] ="frmDonate.invalid">
     Xác nhận
   </ion-button>
