@@ -1,121 +1,37 @@
-
-<ion-header>
-  <ion-item-group class="backgroup-header">
-    <img class="img-bg" src="assets/img/giamphan.jpg">
-   
-  </ion-item-group>
-</ion-header>
-<ion-item-group class="main__avatar">
-  <ion-avatar class="icon-avatar" (click)="routerLink('account-setting')" >
-    <ion-img src="{{avatar}}"></ion-img>
-  </ion-avatar>
-  <span class="name-user">
-    {{name}}
-  </span>
-</ion-item-group>
 <ion-content>
-  <ion-item-group class="home">
-    <ion-item-group class="container-tong-gp">
-      <ion-item-group class="menu-top" (click)="routerLink('main/tonggiaophan')">
-        <ion-item-group class="bg-icon">
-          <img class="img-menu" src="assets/img/menu/tonggiaophan.svg" alt="" srcset="">
-        </ion-item-group>
-        <ion-label class="name-menu">
-          (Tổng) Giáo phận
-        </ion-label>
-      </ion-item-group>
-    </ion-item-group>
-    <ion-item-group class="menu-list">
-      <ion-item-group class="menu-top"  (click)="routerLink('main/tonggiaophan')">
-        <ion-item-group class="bg-icon">
-          <img class="img-menu" src="assets/img/menu/tintuc.svg" alt="" srcset="">
-        </ion-item-group>
-        <ion-label class="name-menu">
-          Tin tức Giáo xứ
-        </ion-label>
-      </ion-item-group>
-      <ion-item-group class="menu-top" (click)="routerLink('main/prayer-time')">
-        <ion-item-group class="bg-icon">
-          <img class="img-menu" src="assets/img/menu/chitietgiole.svg" alt="" srcset="">
-        </ion-item-group>
-        <ion-label class="name-menu">
-          Chi tiết giờ lễ
-        </ion-label>
-      </ion-item-group>
-      <ion-item-group class="menu-top" (click)="routerLink('main/catechism-class')">
-        <ion-item-group class="bg-icon">
-          <img class="img-menu" src="assets/img/menu/lophocgiaoly.svg" alt="" srcset="">
-        </ion-item-group>
-        <ion-label class="name-menu">
-          Lớp học Giáo lý
-        </ion-label>
-      </ion-item-group>
-      <ion-item-group class="menu-top" (click)="routerLink('/donate')">
-        <ion-item-group class="bg-icon">
-          <img class="img-menu" src="assets/img/menu/donggop.svg" alt="" srcset="">
-        </ion-item-group>
-        <ion-label class="name-menu">
-          Đóng góp
-        </ion-label>
-      </ion-item-group>
-      <ion-item-group class="menu-top" (click)="routerLink('/pray')">
-        <ion-item-group class="bg-icon">
-          <img class="img-menu" src="assets/img/menu/xinle.svg" alt="" srcset="">
-        </ion-item-group>
-        <ion-label class="name-menu">
-          Xin lễ
-        </ion-label>
-      </ion-item-group>
-      <ion-item-group class="menu-top" (click)="routerLink('/main/store')">
-        <ion-item-group class="bg-icon">
-          <img class="img-menu" src="assets/img/menu/cuahang.svg" alt="" srcset="">
-        </ion-item-group>
-        <ion-label class="name-menu">
-          Cửa hàng
-        </ion-label>
-      </ion-item-group>
-  </ion-item-group>
-  </ion-item-group>
-  <ion-label class="vatican__title">
-    TIN TỨC VATICAN
-  </ion-label>
-  <ul class="vatican__list">
-    <li class="vatican__list-item 1">
-      <img src="assets/img/bgnew.jpg" alt="">
-      <span>ĐTC Phanxicô cử hành 
-        Thánh lễ Ngày Đời sống Thánh hiến</span>
-    </li>
-    <li class="vatican__list-item 2">
-      <img src="assets/img/bgnew.jpg" alt="">
-      <span>ĐTC Phanxicô cử hành 
-        Thánh lễ Ngày Đời sống Thánh hiến</span>
-    </li>
-    <li class="vatican__list-item 3">
-      <img src="assets/img/bgnew.jpg" alt="">
-      <span>ĐTC Phanxicô cử hành 
-        Thánh lễ Ngày Đời sống Thánh hiến</span>
-    </li>
-    <li class="vatican__list-item 4">
-      <img src="assets/img/bgnew.jpg" alt="">
-      <span>ĐTC Phanxicô cử hành 
-        Thánh lễ Ngày Đời sống Thánh hiến</span>
-    </li>
-  </ul>
- 
-  <!-- <ion-item-group class="vatican" >
-    <ion-label class="vatican__title">
-      TIN TỨC VATICAN
-    </ion-label>
-    <ion-item-group class="vatican__list">
-      <ion-item-group class="vatican__list-item">
-       <img src="assets/img/vatican_new.jpg">
-       <span>ĐTC Phanxicô cử hành 
-        Thánh lễ Ngày Đời sống Thánh hiến</span>
-      </ion-item-group>
-    
-     
-    </ion-item-group>
-  </ion-item-group> -->
+  <div class="background">
+    <img class="cover-img" src="assets/img/giamphan.jpg">
+  </div>
 
+  <div class="ion-text-right ion-margin-bottom">
+    <div class="avatar-box active-effect" (click)="goToAccountSetting()">
+      <ion-avatar class="avatar" (click)="routerLink('account-setting')">
+        <ion-img [src]="avatar"></ion-img>
+      </ion-avatar>
+      <span class="avatar-name">{{ name }}</span>
+    </div>
+  </div>
+
+  <ion-buttons class="menu">
+    <div class="item-container" [ngClass]="{'item-container--full-width': item.fullWidth}" *ngFor="let item of menu">
+      <div class="item active-effect" (click)="goToDetail(item)">
+        <ion-buttons class="img-container">
+          <img class="img" [src]="item.thumbImage" alt="">
+        </ion-buttons>
+        <span class="name">{{ item.name }}</span>
+      </div>
+    </div>
+  </ion-buttons>
+
+  <div class="news">
+    <span class="news__title">Tin tức Vatican</span>
+    <ion-row class="news__content">
+      <ion-col class="main-news active-effect" size="8" *ngFor="let item of news" (click)="goToNewsDetail(item)">
+        <img class="item-img" [src]="item.thumbImage">
+        <ion-buttons class="text-box">
+          <p class="item-title three-dots-2">{{ item.title }}</p>
+        </ion-buttons>
+      </ion-col>
+    </ion-row>
+  </div>
 </ion-content>
-
