@@ -1,40 +1,40 @@
-<ion-content>
+<ion-content [style.--padding-top]="paddingTopIonContent()">
   <ion-back-button icon="chevron-back-outline" text="" class="back-btn"></ion-back-button>
 
-  <div class="img-container main-box-shadow">
-    <img [src]="parish.thumbImage">
-  </div>
+  <div class="fixed">
+    <div class="img-container main-box-shadow">
+      <img [src]="parish.thumbImage">
+    </div>
 
-  <ion-label class="parish-name">{{ parish.name }}</ion-label>
+    <ion-label class="parish-name">{{ parish.name }}</ion-label>
 
-  <div class="body">
     <ion-buttons class="date-list">
       <ion-buttons *ngFor="let dateItem of dateList" class="date-item main-box-shadow"
-        [ngClass]="{'active-date-item': activeDateItem == dateItem.id}" (click)="changeDateItem(dateItem)">
+        [ngClass]="{'active-date-item': activeDateItemId == dateItem.id}" (click)="changeSegment(dateItem.id)">
         <span class="date-text">{{ dateTimeService.VIETNAMESE_DAYS[dateItem.day.getDay()].substring(0, 3) }}</span>
         <span>{{ dateItem.day.getDate() }}</span>
         <span *ngIf="dateItem.events.length" class="circle date-item-note"></span>
       </ion-buttons>
     </ion-buttons>
-
-    <ng-container *ngFor="let dateItem of dateList">
-      <div *ngIf="activeDateItem == dateItem.id">
-        <div class="body-header">
-          <ion-label>{{ dateTimeService.getDateString3(dateItem.day) }}</ion-label>
-          <ion-label *ngIf="dateItem.events.length" class="item-name">{{ dateItem.name }}</ion-label>
-        </div>
-
-        <ion-list class="event-list">
-          <div *ngFor="let event of dateList[activeDateItem].events" class="event" (click)="goToEventDetail(dateItem, event)">
-            <ion-label class="event-name">{{ event.name }}</ion-label>
-            <ion-label class="event-time">{{ event.time }}</ion-label>
-            <ion-buttons class="ion-align-items-end">
-              <ion-text class="three-dots-2 event-text">{{ event.text }}</ion-text>
-              <img src="assets/icon/three-dots-gray.svg" class="three-dots-icon">
-            </ion-buttons>
-          </div>
-        </ion-list>
-      </div>
-    </ng-container>
   </div>
+
+  <ion-slides #slides [options]="slideOptions" (ionSlideDidChange)="changeSegmentSlide()">
+    <ion-slide *ngFor="let dateItem of dateList">
+      <div class="body-header">
+        <ion-label>{{ dateTimeService.getDateString3(dateItem.day) }}</ion-label>
+        <ion-label *ngIf="dateItem.events.length" class="item-name">{{ dateItem.name }}</ion-label>
+      </div>
+
+      <ion-list class="event-list">
+        <div *ngFor="let event of dateItem.events" class="event" (click)="goToEventDetail(dateItem, event)">
+          <ion-label class="event-name">{{ event.name }}</ion-label>
+          <ion-label class="event-time">{{ event.time }}</ion-label>
+          <ion-buttons class="ion-align-items-end">
+            <ion-text class="three-dots-2 event-text">{{ event.text }}</ion-text>
+            <img src="assets/icon/three-dots-gray.svg" class="three-dots-icon">
+          </ion-buttons>
+        </div>
+      </ion-list>
+    </ion-slide>
+  </ion-slides>
 </ion-content>
