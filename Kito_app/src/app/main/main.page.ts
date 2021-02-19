@@ -10,22 +10,23 @@ import { OneSignalService } from '../@app-core/utils';
 })
 export class MainPage implements OnInit {
   name = '';
-  avatar = 'assets/img/avatar-account.svg';
-
+  avatar: any;
   constructor(
     private router: Router,
     private OneSignalService: OneSignalService,
     private accountService: AccountService
   ) { }
   ionViewWillEnter () {
-    this.accountService.getAccounts().subscribe((data) => {
-      localStorage.setItem('avatar', data.app_user.thumb_image.url);
-      localStorage.setItem('fullname', data.app_user.full_name)
+     this.name = localStorage.getItem('fullname');
+    this.accountService.getAccounts().subscribe(data => {
+      if(data.app_user.thumb_image == null) {
+        data.app_user['thumb_image'] = "https://i.imgur.com/edwXSJa.png";
+        this.avatar = data.app_user.thumb_image;
+      }
+      else {
+        this.avatar =  data.app_user.thumb_image.url;
+      }
     })
-    if(localStorage.getItem('avatar')) {
-      this.avatar = localStorage.getItem('avatar');
-    }
-    this.name = localStorage.getItem('fullname');
   }
   ngOnInit() {
     this.OneSignalService.startOneSignal();
@@ -33,8 +34,4 @@ export class MainPage implements OnInit {
   routerLink(path) {
     this.router.navigateByUrl(path);
   } 
-
-  // goToUserInfo() {
-  //   this.router.navigateByUrl('account-setting');
-  // }
 }

@@ -12,7 +12,6 @@ export class CameraService {
         public accountService: AccountService,
     ) { }
 
-    // public image_avatar: any;
     public getAvatarUpload(image_avatar) {
 
         this.loadingService.present();
@@ -30,13 +29,11 @@ export class CameraService {
                 let formData = new FormData;
                 formData.append('files[]', image);
                 this.accountService.uploadPhoto(formData).subscribe((data) => {
-                    // console.log(data)
                     image_avatar = {
                         "app_user": {
                             "avatar": data['data'][0]
                         }
                     }
-                    // console.log('image_avatar: ',image_avatar.app_user.avatar)
                     localStorage.setItem('avatar', image_avatar.app_user.avatar);
                     this.accountService.updateAvatar({"thumb_image" : {"url": image_avatar.app_user.avatar}}).subscribe(data => {
                     })

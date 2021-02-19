@@ -52,9 +52,7 @@ export class AccountPage implements OnInit {
   }
 
   ionViewWillEnter() {
-    if(localStorage.getItem('avatar')) {
       this.avatar = localStorage.getItem('avatar');
-    }
   }
 
   initForm() {

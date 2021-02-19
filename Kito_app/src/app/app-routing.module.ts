@@ -44,33 +44,14 @@ const routes: Routes = [
     loadChildren: () => import('./changepassword/changepassword.module').then( m => m.ChangepasswordPageModule),
     canActivate: [AuthGuard],
   },
-  // {
-  //   path: 'chabad',
-  //   loadChildren: () => import('./chabad/chabad.module').then(m => m.ChabadPageModule),
-  //   canActivate: [AuthGuard],
-  // },
   {
     path: 'account',
     loadChildren: () => import('./account/account.module').then(m => m.AccountPageModule)
   },
-  // {
-  //   path: 'event',
-  //   loadChildren: () => import('./event/event.module').then(m => m.EventPageModule),
-  //   canActivate: [AuthGuard],
-  // },
-  // {
-  //   path: 'food',
-  //   loadChildren: () => import('./food/food.module').then(m => m.FoodPageModule),
-  //   canActivate: [AuthGuard],
-  // },
   {
     path: 'account-setting',
     loadChildren: () => import('./account-setting/account-setting.module').then(m => m.AccountSettingPageModule)
   },
-  // {
-  //   path: 'history',
-  //   loadChildren: () => import('./history/history.module').then( m => m.HistoryPageModule)
-  // },
   {
     path: 'slide',
     loadChildren: () => import('./@modular/slide/slide.module').then( m => m.SlideModule),
@@ -92,8 +73,6 @@ const routes: Routes = [
     path: 'dioceses',
     loadChildren: () => import('./dioceses/dioceses.module').then( m => m.DiocesesPageModule)
   },
-
-
 
 ];
 @NgModule({

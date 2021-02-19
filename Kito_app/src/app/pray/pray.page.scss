@@ -163,33 +163,44 @@
       }
     }
    .donate__other {
-    display: flex;
-    justify-content: flex-end;
-     margin: 10px;
-     color: #002D63;
-     text-decoration: underline;
+    margin: 10px;
+    color: #002D63;
+    width: 173px;
+    margin-left: auto;
+    text-decoration: underline;
    }
   }
-   .footer {
-     display: flex;
-     align-items: center;
-     text-align: center;
-     justify-content: space-between;
-     ion-item-group {
-      ion-img {
-        width: 80px;
-        height: 80px;
+  .footer {
+    padding-top: 6px;
+    ion-avatar {
+      height: auto;
+      width: 104px;
+     ion-img {
+     margin-left: 50%;
+      transform: translateX(-50%);
+       margin-left: 50%;
+       width: 80px;
+       height: 80px;
+     }
+    }
+    ion-item-group {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      span {
+        width: 104px;
+        text-align: center;
       }
-     }
-    ion-button {
-      font-size: 18px;
-      width: 168px;
-      height: 39px;
-      line-height: 21px;
-      --border-radius: 15px;
-      --background: var(--main-color);
-     }
-   }
+    }
+   ion-button {
+     font-size: 18px;
+     width: 168px;
+     height: 39px;
+     line-height: 21px;
+     --border-radius: 15px;
+     --background: var(--main-color);
+    }
+  }
 }
 
 

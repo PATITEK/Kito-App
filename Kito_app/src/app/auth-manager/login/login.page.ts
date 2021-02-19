@@ -182,7 +182,6 @@ export class LoginPage implements OnInit {
      let dataFormLogin = this.formLogin.value;
      dataFormLogin.phone_number =  dataFormLogin.phone_number.length == 10 ? dataFormLogin.phone_number.substring(1, 10) : dataFormLogin.phone_number;
      dataFormLogin.phone_number = `+84${dataFormLogin.phone_number}`;
-     
      let dataSubmit = {
       "phone_number":  dataFormLogin.phone_number,
       "password": dataFormLogin.password
@@ -227,7 +226,6 @@ export class LoginPage implements OnInit {
         (data:any) =>{
           this.showSpinner = false;
         }
-
       );
     }
   }
@@ -243,15 +241,12 @@ export class LoginPage implements OnInit {
       this.name = 'eye-outline'
     }
   }
-
   clickForgotPassword() {
     this.router.navigate(['auth-manager/forgot-password']);
   }
-
   checkMatchConfirmedPassword() {
     return this.formSignUp.get('password').value == this.formSignUp.get('confirmed_password').value;
   }
-
   // async presentToast(message) {
   //   const toast = await this.toastController.create({
   //     message: message,
@@ -262,7 +257,6 @@ export class LoginPage implements OnInit {
   // showSelectValue = function (mySelect) {
   //   console.log(mySelect);
   // }
-
   private markFormGroupTouched(formGroup: FormGroup) {
     (<any>Object).values(formGroup.controls).forEach(control => {
       control.markAsTouched();

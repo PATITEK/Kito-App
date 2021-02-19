@@ -23,7 +23,6 @@ export class AuthService {
     private loadingService: LoadingService,
     private toastService: ToastService
   ) { }
-
   public get receiveData(): Observable<any> {
     return this.data.asObservable();
   }
@@ -88,7 +87,6 @@ export class AuthService {
         localStorage.setItem('Authorization', result.token);
         localStorage.setItem('fullname', result.full_name);
          this.storage.setInfoAccount();
-        //  this.toastr.success(SUCCESS.AUTH.LOGIN);
         return result;
       }),
       catchError((errorRes: any) => {
@@ -99,7 +97,6 @@ export class AuthService {
       })
       );
   }
- 
   logout() {
     localStorage.clear();
     this.storage.clear();
@@ -109,7 +106,6 @@ export class AuthService {
   public signup(req) {
     return this.http.post(`${APICONFIG.AUTH.SIGNUP}`, req).pipe(
       map((result: any) => {
-        // this.toastr.success(SUCCESS.AUTH.LOGIN);
         localStorage.setItem('Authorization', result.token);
         localStorage.setItem('fullname', result.full_name);
         this.router.navigate(['main/chabad']);
@@ -120,7 +116,6 @@ export class AuthService {
         throw errorRes.error;
       }));
   }
-
   public countryCode() {
     return this.http.get(`${APICONFIG.AUTH.COUNTRY_CODE}`).pipe(
       map((result: any) => {
@@ -130,7 +125,6 @@ export class AuthService {
         throw errorRes.error;
       }))
   }
- 
   checkLogin() {
     const token = localStorage.getItem('Authorization');
     if (!token) {
@@ -139,12 +133,6 @@ export class AuthService {
       return true;
     }
   }
-  private setLocalStore(data) {
-    localStorage.setItem('Authorization', data.token);
-    localStorage.setItem('fullname', data.fullname);
-    localStorage.setItem('exp', data.exp);
-  }
-
   async presentToast(message: string) {
     const toast = await this.toastController.create({
       message: message,
