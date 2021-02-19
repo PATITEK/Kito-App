@@ -87,7 +87,8 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   { path: '', redirectTo: '/main', pathMatch: 'full' },
-  { path: '**'  , redirectTo: 'main' },  {
+  { path: '**'  , redirectTo: 'main' },
+  {
     path: 'dioceses',
     loadChildren: () => import('./dioceses/dioceses.module').then( m => m.DiocesesPageModule)
   },

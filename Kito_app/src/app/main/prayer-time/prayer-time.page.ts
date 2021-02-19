@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { IonSlides } from '@ionic/angular';
 import { DateTimeService } from 'src/app/@app-core/utils';
 
 @Component({
@@ -8,13 +9,22 @@ import { DateTimeService } from 'src/app/@app-core/utils';
   styleUrls: ['./prayer-time.page.scss'],
 })
 export class PrayerTimePage implements OnInit {
+  @ViewChild('slides', { static: false }) slides: IonSlides;
+
+  slideOptions = {
+    initialSlide: 0,
+    autoHeight: true
+  };
+
   parish = {
     thumbImage: 'assets/img/tonggiaophan/hanoi.svg',
     name: 'Giáo xứ Chánh Tòa Sài Gòn'
   }
 
   dateList = [];
-  activeDateItem;
+  activeDateItemId;
+
+  parishNameHeight = 0;
 
   constructor(
     public dateTimeService: DateTimeService,
@@ -29,9 +39,14 @@ export class PrayerTimePage implements OnInit {
   ionViewWillEnter() {
     const dateItemId = localStorage.getItem('dateItemId');
     if (dateItemId) {
-      this.activeDateItem = dateItemId;
+      this.changeSegment(dateItemId);
       localStorage.removeItem('dateItemId');  
     }
+  }
+
+  ionViewDidEnter() {
+    const parishNameElement : any = document.querySelector('.parish-name');
+    this.parishNameHeight = parishNameElement.offsetHeight;
   }
 
   initDateList() {
@@ -57,11 +72,21 @@ export class PrayerTimePage implements OnInit {
         events: events
       })
     }
-    this.activeDateItem = this.dateList[0].id;
+    this.activeDateItemId = this.dateList[0].id;
   }
 
-  changeDateItem(dateItem) {
-    this.activeDateItem = dateItem.id;
+  changeDateItem(id) {
+    this.activeDateItemId = id;
+  }
+
+  changeSegmentSlide() {
+    this.slides.getActiveIndex().then(index => {
+      this.changeDateItem(index);
+    })
+  }
+
+  changeSegment(id) {
+    this.slides.slideTo(id).then(() => this.changeDateItem(id));
   }
 
   goToEventDetail(dateItem, event) {
@@ -75,5 +100,9 @@ export class PrayerTimePage implements OnInit {
         data: JSON.stringify(data)
       }
     })
+  }
+
+  paddingTopIonContent() {
+    return `calc(60vw + ${this.parishNameHeight}px + 60px + 15px)`
   }
 }

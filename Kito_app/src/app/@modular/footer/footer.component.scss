@@ -1,5 +1,5 @@
 .footer-main {
-    background: #f6c33e;
+    background: var(--main-color);
     height: 50px;
     --min-height: 100% !important;
     text-align: center;
@@ -33,9 +33,9 @@
 
 }
 .active-footer{
-height: 90px;
-transform: translateY(20px);
-background: red;
+    height: 90px;
+    transform: translateY(20px);
+    background: var(--main-color);
 }
 .not-active{
     height: 50px;

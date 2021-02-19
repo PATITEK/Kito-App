@@ -76,7 +76,7 @@
   }
 }
 .background-header {
-  background: #F6C33E;
+  background: var(--main-color);
   border-radius: 50% 50% 50% 50% / 50% 50% 50% 50%;
   height: 180px;
   width: 140vw;
