@@ -7,6 +7,7 @@ ion-content{
         font-weight: 600;
         color: #CC9D3E;
         margin-top: 20px;
+        margin-bottom: 10px;
         @media screen and (max-height: 569px){
             font-size: 13px!important;
           }
@@ -22,7 +23,7 @@ ion-content{
             width: 100%;
             background: #f2f2f2;
             border-radius: 10px;
-            margin: 10px 0;
+            margin: 5px 0;
             .text-item{
                 font-size: 18px;
                 transform: translateY(50%);
