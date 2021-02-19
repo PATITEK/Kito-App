@@ -23,17 +23,6 @@ $size-img:100px;
     right: 0;
     margin: auto;
     border-radius: 50%;
-    // @media screen and (max-height: 481px) {
-    //   height: 45px!important;
-    //   width: 45px!important;
-    // }
-    // .name-user {
-    //   margin: auto;
-    //   line-clamp: 2;
-    //   @media screen and (max-height: 481px) {
-    //     transform: translateY(150%)!important;
-    //   }
-    // }
   }
 
 }
@@ -41,7 +30,7 @@ ion-content {
   position: absolute;
   border-top-left-radius: 40px;
   border-top-right-radius: 40px;
-  top: 26vh;
+  top: 24vh;
   z-index: 10;
   background-color: #E5E5E5;
   --background: none;
@@ -50,7 +39,7 @@ ion-content {
     top: 17vh;
   }
   @media screen and (max-height: 668px) {
-    top: 17vh;
+    top: 16vh;
   }
   .backgroup-header {
     position: relative;
@@ -93,19 +82,6 @@ ion-content {
           justify-content: center;
           background-color: var(--second-color);
         }
-        // img{
-           
-        //   @media screen and (max-height: 569px) {
-        //     $size-img:65px;
-        //     height: $size-img!important;
-        //   width: $size-img!important;    
-        //   }
-        //   @media screen and (max-height: 481px) {
-        //     $size-img:45px;
-        //     height: $size-img!important;
-        //   width: $size-img!important;    
-        //   }
-        // }
         .name-menu {
           font-weight: 500;
           margin-top: 6px;
@@ -119,10 +95,8 @@ ion-content {
       padding: 4px 0px 14px 0;
       @media screen and (max-height: 668px) {
        padding: 0;
+       height: 184px;
       }
-      @media screen and (max-height: 668px) {
-        height: 184px;
-       }
        @media screen and (max-height: 569px) {
         height: 115px;
        }
@@ -144,67 +118,16 @@ ion-content {
             height: 50px;
           }
         }
-        // img{
-           
-        //   @media screen and (max-height: 569px) {
-        //     $size-img:65px;
-        //     height: $size-img!important;
-        //   width: $size-img!important;    
-        //   }
-        //   @media screen and (max-height: 481px) {
-        //     $size-img:45px;
-        //     height: $size-img!important;
-        //   width: $size-img!important;    
-        //   }
-        // }
         .name-menu {
           font-weight: 500;
           margin-top: 6px;
         }
       }
-      // @media screen and (max-height: 737px) {
-      //   height: 29vh!important;
-      // }
-      // @media screen and (max-height: 481px) {
-      //   height: 29vh!important;
-      // }
-      // @media screen and (max-height: 668px) {
-      //   height: 27vh!important;
-      // }
-      // @media screen and (max-height: 481px) {
-      //   height: 25vh!important;
-      // }
+     
       ion-item-group {
         text-align: center;
         padding: 15px 5px;
         width: 121px;
-        // @media screen and (max-height: 569px) {
-        //   width: 133px!important;
-        // }
-        img{
-          // height: $size-img;
-          // width: $size-img;
-          // @media screen and (max-height: 668px) {
-          //   $size-img:70px;
-          //   height: $size-img!important;
-          // width: $size-img!important;    
-          // }
-          // @media screen and (max-height: 641px) {
-          //   $size-img:45px;
-          //   height: $size-img!important;
-          // width: $size-img!important;    
-          // }
-          // @media screen and (max-height: 569px) {
-          //   $size-img:40px;
-          //   height: $size-img!important;
-          // width: $size-img!important;    
-          // }
-          // @media screen and (max-height: 481px) {
-          //   $size-img:25px;
-          //   height: $size-img!important;
-          // width: $size-img!important;    
-          // }
-        }
       }
     }
   }
@@ -241,27 +164,6 @@ ion-content {
           background-color: rgba(66, 66, 66, 0.5);
         }
       }
-      // &-item {
-      //    position: relative;
-        
-      //   // height: 198px;
-      //   img {
-      //     display: block;
-      //     height: 100%;
-      //     width: 100%;
-      //     background-size: contain;
-      //   }
-      //   span {
-      //     position: absolute;
-      //     bottom: 0;
-      //     background-color: rgba(66, 66, 66, 0.5);
-      //     font-size: 16px;
-      //     font-weight: 500;
-      //     line-height: 20px;
-      //     color: var(--white-color);
-      //   }
-      // }
-      
     }
    
   }

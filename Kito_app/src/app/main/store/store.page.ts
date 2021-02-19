@@ -27,7 +27,7 @@ export class StorePage implements OnInit {
   currentRecommendedItemId = this.recommendedItems[0].id || '';
 
   constructor(
-    // public dateTimeService: DateTimeService,
+    public dateTimeService: DateTimeService,
     private router: Router,
     private modalController: ModalController
   ) {

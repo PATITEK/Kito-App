@@ -12,7 +12,7 @@ const routes: Routes = [
   {
     path: 'main',
     loadChildren: () => import('./main/main.module').then(m => m.MainPageModule),
-    //  canActivate: [AuthGuard],
+     canActivate: [AuthGuard],
   },
   {
     path: 'donate',
@@ -88,6 +88,11 @@ const routes: Routes = [
   },
   { path: '', redirectTo: '/main', pathMatch: 'full' },
   { path: '**'  , redirectTo: 'main' },
+  {
+    path: 'dioceses',
+    loadChildren: () => import('./dioceses/dioceses.module').then( m => m.DiocesesPageModule)
+  },
+
 
 
 ];

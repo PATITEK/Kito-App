@@ -21,6 +21,7 @@
 }
   ion-content {
     --overflow: hidden;
+    --padding-top: 0;
     --background: var(--gray-color);
     .wrapper {
       overflow: scroll;
@@ -99,7 +100,7 @@
     }
     .group__donate {
       background: #F5F5F5;
-      padding: 26px 16px 15px;
+      padding: 20px 16px 15px;
       border-radius: 30px;
       box-shadow: 0 4px 2px -2px rgb(180, 176, 176);
       .require {
