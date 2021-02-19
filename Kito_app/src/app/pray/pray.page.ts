@@ -106,16 +106,12 @@ export class PrayPage implements OnInit {
   onSubmit() {
     let amount = this.frmPray.get('amount')
     if (amount.dirty || amount.touched ) {
-      if(amount.value!= "" && amount.value < 18000) {
+      if(amount.value!= "" && amount.value < 12000) {
         this.required_mess = true;
-        this.message = 'Số tiền đóng góp phải lớn hơn 18,000.';
+        this.message = 'Số tiền đóng góp phải lớn hơn 12,000.';
         return;
       }
-      else if(amount.value!= "" && amount.value %18 !==0){
-        this.required_mess = true;
-        this.message = 'Số tiền đóng góp phải là bội số của 18.';
-        return;
-      }
+      
       else {
         this.required_mess = false;
       }
@@ -134,28 +130,27 @@ export class PrayPage implements OnInit {
     //     "source_id":  this.dataParams.chabad.id
     //   }
     // }
-    var result_fk = {
+    var result = {
       "donation" : {
+        "email": localStorage.getItem('email'),
         "amount": this.setamount,
         "note": this.frmPray.get('note').value,
-        "source_type": "Event",
-        "source_id":  1
+        "source_type": "Diocese",
+        "source_id":  localStorage.getItem('parish_id')
       }
     }
-    console.log(result_fk);
+    console.log(result);
     if(amount.value == "") {
-          this.donateService.donateLog(result_fk).subscribe((data) => { 
+          this.donateService.donateLog(result).subscribe((data) => { 
             console.log(data);
           this.presentToast('Pray successfully!');
       })
      }
     else {
-    //  result_fk.donation['email'] = localStorage.getItem('email');
-     result_fk.donation['email'] = "hoaimiqng@gmail.com"
-     result_fk.donation['token'] = '';
+     result.donation['token'] = '';
       this.router.navigate(['paymentmethods'], {
         queryParams: {
-          data: JSON.stringify(result_fk)
+          data: JSON.stringify(result)
         }
       })
     }
