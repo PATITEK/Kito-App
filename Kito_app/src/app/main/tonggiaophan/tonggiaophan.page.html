@@ -1,14 +1,14 @@
 <!-- <ion-header>
   <app-header [title]="title"></app-header>
 </ion-header> -->
-<div class="header ion-page ion-no-border" id="main-content">
-  <ion-label>{{ title }}</ion-label>
-  <ion-back-button icon="chevron-back-outline" text="" class="back-btn" routerLink="/main"></ion-back-button>
-</div>
-<ion-content class="ion-padding">
-  <app-search-bar-nav>{{search}}</app-search-bar-nav>
-  <ion-list>
-    <app-main-item *ngFor="let item of list" [data]="item"></app-main-item>
-  </ion-list>
-</ion-content>
-<app-footer></app-footer>
+  <div class="header ion-page ion-no-border" id="main-content">
+    <ion-label>{{ title }}</ion-label>
+    <ion-back-button icon="chevron-back-outline" text="" class="back-btn" routerLink="/main"></ion-back-button>
+  </div>
+  <ion-content class="ion-padding">
+    <app-search-bar-nav>{{search}}</app-search-bar-nav>
+    <ion-list>
+      <app-main-item *ngFor="let item of list" [data]="item"></app-main-item>
+    </ion-list>
+  </ion-content>
+  <app-footer></app-footer>

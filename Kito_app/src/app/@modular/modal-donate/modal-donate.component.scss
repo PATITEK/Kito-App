@@ -7,6 +7,9 @@ ion-content{
         font-weight: 600;
         color: #CC9D3E;
         margin-top: 20px;
+        @media screen and (max-height: 569px){
+            font-size: 13px!important;
+          }
     }
     .list-item{
         display: flex;

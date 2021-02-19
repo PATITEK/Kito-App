@@ -82,16 +82,18 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
+    path: 'dioceses',
+    loadChildren: () => import('./dioceses/dioceses.module').then( m => m.DiocesesPageModule),
+    canActivate: [AuthGuard],
+  },
+  {
     path: 'news-detail',
     loadChildren: () => import('./@modular/news-detail/news-detail.module').then( m => m.NewsDetailPageModule),
     canActivate: [AuthGuard],
   },
   { path: '', redirectTo: '/main', pathMatch: 'full' },
   { path: '**'  , redirectTo: 'main' },
-  {
-    path: 'dioceses',
-    loadChildren: () => import('./dioceses/dioceses.module').then( m => m.DiocesesPageModule)
-  },
+  
 
 
 

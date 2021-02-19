@@ -176,11 +176,7 @@ export class DonatePage implements OnInit {
     });
     e.target.classList.add('active-button');
   }
-   async openModalMenu() {
-    const popover = await this.modalCtrl.create({
-      component: ModalDonateComponent,
-      cssClass: 'modalDonate  ',
-    });
-    return await popover.present();
+   async goToDioceses() {
+    this.router.navigateByUrl('/dioceses')
   }
 }
