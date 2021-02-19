@@ -75,16 +75,14 @@ export class MainPage implements OnInit {
     private OneSignalService: OneSignalService,
     private accountService: AccountService
   ) { }
-  
+
   ionViewWillEnter() {
     this.accountService.getAccounts().subscribe((data) => {
-      localStorage.setItem('avatar', data.app_user.thumb_image.url);
-      localStorage.setItem('fullname', data.app_user.full_name)
+      this.avatar = data.app_user.thumb_image.url || '';
+      this.name = data.app_user.full_name || '';
+      localStorage.setItem('avatar', this.avatar);
+      localStorage.setItem('fullname', this.name)
     })
-    if (localStorage.getItem('avatar')) {
-      this.avatar = localStorage.getItem('avatar');
-    }
-    this.name = localStorage.getItem('fullname');
   }
 
   ngOnInit() {
