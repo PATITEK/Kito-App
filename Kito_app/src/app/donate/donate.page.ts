@@ -106,7 +106,7 @@ export class DonatePage implements OnInit {
         "token": "",
         "amount": this.frmDonate.get('amount').value,
         "note": this.frmDonate.get('note').value,
-        "source_type": "Diocese",
+        "source_type": "Parishes",
         "source_id": localStorage.getItem('parish_id')
       }
     }
