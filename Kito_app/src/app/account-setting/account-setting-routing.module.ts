@@ -11,7 +11,11 @@ const routes: Routes = [
   {
     path: 'orders-history',
     loadChildren: () => import('./orders-history/orders-history.module').then( m => m.OrdersHistoryPageModule)
+  },  {
+    path: 'setting',
+    loadChildren: () => import('./setting/setting.module').then( m => m.SettingPageModule)
   }
+
  
 ];
 
