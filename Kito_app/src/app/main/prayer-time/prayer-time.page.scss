@@ -63,7 +63,6 @@ ion-content {
     color: #828282;
     font-size: 14px;
     line-height: 19px;
-    transition: 0.15s;
     border: 1px solid #fafafa;
     position: relative;
     background: #fff;
@@ -117,6 +116,7 @@ ion-slides {
 .event-list {
   background: transparent;
 
+
   .event {
     background: #fefefe;
     color: #727272;
@@ -146,4 +146,9 @@ ion-slides {
       margin-right: 16px;
     }
   }
+}
+
+.empty-list-text {
+  font-size: 18px;
+  color: #424242;
 }

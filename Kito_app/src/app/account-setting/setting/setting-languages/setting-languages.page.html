@@ -1,0 +1,19 @@
+<ion-header>
+  <app-header [title]="title"></app-header>
+  <app-search-bar-nav></app-search-bar-nav>
+</ion-header>
+
+<ion-content>
+  
+  <ion-list>
+    <ion-item class="main-checkbox" *ngFor="let entry of form">
+      <ion-label>{{entry.val}}</ion-label>
+      <ion-checkbox mode='ios' slot="end" [(ngModel)]="entry.isChecked"></ion-checkbox>
+    </ion-item>
+
+    <ion-item class="add-language">
+      <ion-label>Thêm ngôn ngữ</ion-label>
+      <ion-icon name="add"></ion-icon>
+    </ion-item>
+  </ion-list>
+</ion-content>

@@ -1,0 +1,23 @@
+ion-header {
+    margin-bottom: 150px;
+}
+
+ion-content {
+    .main-checkbox {
+        ion-label {
+            color: #828282;
+        }
+        ion-checkbox {
+            --background-checked: #F6C33E;
+            --border-color-checked: #F6C33E;
+        }
+    }
+    .add-language {
+        ion-label {
+            color: #424242;
+        }
+        ion-icon {
+            margin-right: 10px;
+        }
+    }
+}

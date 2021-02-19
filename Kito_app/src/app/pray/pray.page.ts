@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DonateService, ChabadService,EventsService, IPageEvent } from '../@app-core/http';
+import { DonateService, ChabadService,EventsService, IPageEvent, AccountService } from '../@app-core/http';
 import { DateTimeService, LoadingService } from '../@app-core/utils';
 import { ToastController } from '@ionic/angular';
 
@@ -32,6 +32,7 @@ export class PrayPage implements OnInit {
   url: any;
   events;
   dataParams;
+  avatar: any;
   chabad = {
     name: ' ',
     thumb_image: ''
@@ -52,6 +53,7 @@ export class PrayPage implements OnInit {
      public donateService: DonateService,
      public chabadService: ChabadService,
      public loadingService: LoadingService,
+     private accountService: AccountService,
      public toastController: ToastController
   ) {
     this.frmPray = this.formBuilder.group({
@@ -83,7 +85,21 @@ export class PrayPage implements OnInit {
     //this.getDataEvents();
     this.name = localStorage.getItem('fullname')
   }
- 
+  ionViewWillEnter() {
+    this.accountService.getAccounts().subscribe(data => {
+      if(data.app_user.thumb_image == null) {
+        data.app_user['thumb_image'] = "https://i.imgur.com/edwXSJa.png";
+        this.avatar = data.app_user.thumb_image;
+      }
+      else if( data.app_user.thumb_image.url == null) {
+        data.app_user['thumb_image'] = "https://i.imgur.com/edwXSJa.png";
+        this.avatar = data.app_user.thumb_image;
+      }
+      else {
+        this.avatar =  data.app_user.thumb_image.url;
+      }
+  })
+}
   
   getUrl() {
     return `url(assets/img/19.jpg)`

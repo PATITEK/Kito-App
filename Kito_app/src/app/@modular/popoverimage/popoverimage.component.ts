@@ -10,7 +10,6 @@ export class PopoverimageComponent implements OnInit {
   constructor() { }
   image: any;
   ngOnInit() {
-    this.image = localStorage.getItem('avatar')
   }
   
 }

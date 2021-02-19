@@ -12,7 +12,7 @@ import { LoadingService, ToastService } from '../@app-core/utils';
   styleUrls: ['./account.page.scss'],
 })
 export class AccountPage implements OnInit {
-  avatar = 'assets/img/avatar-account.svg';
+  avatar = '';
   title = 'Thông tin cá nhân';
   activatedInput = false;
   loadedData = false;
@@ -52,7 +52,19 @@ export class AccountPage implements OnInit {
   }
 
   ionViewWillEnter() {
-      this.avatar = localStorage.getItem('avatar');
+    this.accountService.getAccounts().subscribe(data => {
+      if(data.app_user.thumb_image == null) {
+        data.app_user['thumb_image'] = "https://i.imgur.com/edwXSJa.png";
+        this.avatar = data.app_user.thumb_image;
+      }
+      else if( data.app_user.thumb_image.url == null) {
+        data.app_user['thumb_image'] = "https://i.imgur.com/edwXSJa.png";
+        this.avatar = data.app_user.thumb_image;
+      }
+      else {
+        this.avatar =  data.app_user.thumb_image.url;
+      }
+  })
   }
 
   initForm() {
@@ -114,7 +126,7 @@ export class AccountPage implements OnInit {
     this.accountService.updateProfile(data).subscribe(() => {
       this.activatedInput = false;
       this.loadingService.dismiss();
-      this.toastService.present('Updated successfully!');
+      this.toastService.present('Cập nhật thành công !');
     });
   }
 

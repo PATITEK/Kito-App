@@ -13,7 +13,6 @@ export class CameraService {
     ) { }
 
     public getAvatarUpload(image_avatar) {
-
         this.loadingService.present();
         const options = {
             destinationType: this.camera.DestinationType.DATA_URL,
@@ -34,7 +33,6 @@ export class CameraService {
                             "avatar": data['data'][0]
                         }
                     }
-                    localStorage.setItem('avatar', image_avatar.app_user.avatar);
                     this.accountService.updateAvatar({"thumb_image" : {"url": image_avatar.app_user.avatar}}).subscribe(data => {
                     })
                     this.loadingService.dismiss();
@@ -67,8 +65,6 @@ export class CameraService {
                             "avatar": data['data'][0]
                         }
                     }
-                    console.log(image_avatar)
-                    localStorage.setItem('avatar', image_avatar.app_user.avatar);
                     this.accountService.updateAvatar({"thumb_image" : {"url": image_avatar.app_user.avatar}}).subscribe(data => {
                     })
                     this.loadingService.dismiss();

@@ -6,7 +6,9 @@
   <div class="user">
     <div class="user-img-container">
       <ion-avatar class="user-img main-box-shadow">
-        <img src="{{avatar}}" >
+          <img [src] ="avatar" alt="" *ngIf="avatar">
+          <img src="assets/img/avatar.png" alt=""*ngIf="!avatar">
+          <ion-spinner *ngIf="!avatar" class="absolute-center" name="lines"></ion-spinner>
       </ion-avatar>
       <img src="assets/img/edit2.svg" class="icon-edit" (click)="presentPopover()">
     </div>

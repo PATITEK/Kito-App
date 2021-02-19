@@ -173,9 +173,10 @@
   .footer {
     padding-top: 6px;
     ion-avatar {
+      position: relative;
       height: auto;
       width: 104px;
-     ion-img {
+     img {
      margin-left: 50%;
       transform: translateX(-50%);
        margin-left: 50%;

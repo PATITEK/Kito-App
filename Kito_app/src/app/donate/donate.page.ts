@@ -75,8 +75,22 @@ export class DonatePage implements OnInit {
     //   this.loadingService.dismiss();
     // });
     this.name = localStorage.getItem('fullname')
-    this.avatar = localStorage.getItem('avatar');
   }
+  ionViewWillEnter() {
+    this.accountService.getAccounts().subscribe(data => {
+      if(data.app_user.thumb_image == null) {
+        data.app_user['thumb_image'] = "https://i.imgur.com/edwXSJa.png";
+        this.avatar = data.app_user.thumb_image;
+      }
+      else if( data.app_user.thumb_image.url == null) {
+        data.app_user['thumb_image'] = "https://i.imgur.com/edwXSJa.png";
+        this.avatar = data.app_user.thumb_image;
+      }
+      else {
+        this.avatar =  data.app_user.thumb_image.url;
+      }
+  })
+}
   async presentToast(message) {
     const toast = await this.toastController.create({
       message: message,

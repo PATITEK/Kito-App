@@ -41,7 +41,6 @@ export class PopupComponent implements OnInit {
   }
   removeAvatar() {
     this.loadingService.present();
-    localStorage.removeItem('avatar')
     console.log('hi');
     this.image_null = {
       "thumb_image": {
@@ -50,7 +49,6 @@ export class PopupComponent implements OnInit {
   }
   this.accountService.updateAvatar(this.image_null).subscribe(
     (data:any) => {
-    localStorage.setItem('avatar',"https://i.imgur.com/edwXSJa.png")
     this.loadingService.dismiss();
     this.dismissPopover();
     this.toastService.present('Ảnh đã cập nhật thành công !', 'top', 2000);

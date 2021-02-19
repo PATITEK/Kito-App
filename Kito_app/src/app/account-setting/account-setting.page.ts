@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ModalController, PopoverController } from '@ionic/angular';
+import { AccountService } from '../@app-core/http/account/account.service';
 import { PopupComponent } from '../@modular/popup/popup.component';
 import { PopuplogoutComponent } from '../@modular/popuplogout/popuplogout.component';
 
@@ -13,21 +14,32 @@ export class AccountSettingPage implements OnInit {
   title = 'Thiết lập tài khoản';
   isOpeningModal = false;
   name = localStorage.getItem('fullname') || '';
-  avatar = 'assets/img/avatar-account.svg';
+  avatar = '';
 
   constructor(
     public modalController: ModalController,
     private popoverController: PopoverController,
+    private accountService: AccountService,
     private router: Router,
   ) { }
 
   ngOnInit() {
   }
   ionViewWillEnter() {
-    if(localStorage.getItem('avatar')) {
-      this.avatar = localStorage.getItem('avatar');
-    }
-  }
+    this.accountService.getAccounts().subscribe(data => {
+      if(data.app_user.thumb_image == null) {
+        data.app_user['thumb_image'] = "https://i.imgur.com/edwXSJa.png";
+        this.avatar = data.app_user.thumb_image;
+      }
+      else if( data.app_user.thumb_image.url == null) {
+        data.app_user['thumb_image'] = "https://i.imgur.com/edwXSJa.png";
+        this.avatar = data.app_user.thumb_image;
+      }
+      else {
+        this.avatar =  data.app_user.thumb_image.url;
+      }
+  })
+}
 
   routerLink(path) {
     // console.log(path);

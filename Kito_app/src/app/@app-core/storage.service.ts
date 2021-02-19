@@ -19,17 +19,9 @@ export class StorageService {
     public setInfoAccount() {
         if (localStorage.getItem('Authorization') !== null) {
             return this.accountService.getAccounts().subscribe((data: any) => {
-                console.log(data)
                 localStorage.setItem('email',data.app_user.email);
                 localStorage.setItem('diocese_id',data.app_user.diocese_id);
                 localStorage.setItem('parish_id', data.app_user.parish_id);
-                if(data.app_user.thumb_image == null) {
-                    data.app_user['thumb_image'] = "https://i.imgur.com/edwXSJa.png";
-                    localStorage.setItem('avatar', data.app_user.thumb_image);
-                  }
-                  else {
-                    localStorage.setItem('avatar', data.app_user.thumb_image.url);
-                  }
                 this.userSub.next(data.user);
             })
         }
