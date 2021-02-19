@@ -82,7 +82,9 @@ export class CartPage implements OnInit {
   }
 
   goBackToStore() {
-    this.navCtrl.back();
+    // this.navCtrl.back();
+    console.log('object');
+    this.router.navigateByUrl('main/store');
   }
 
   toggleHasPaymentModal(value) {
