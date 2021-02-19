@@ -10,9 +10,10 @@
     <ion-label class="address-title">Giao hàng đến:</ion-label>
     <ion-buttons class="address-content">
       <img src="assets/icon/location-lite.svg">
-      <p class="address">5a (villa) Nguyen Dinh Chieu, Dakao, District 1, Ho Chi Minh</p>
+      <p class="address">{{location}}</p>
     </ion-buttons>
     <div class="change-address-box">
+      <ion-label class="active-effect" (click)="reTakeLocation()">Lấy địa chỉ</ion-label>
       <ion-label class="active-effect" (click)="changeAddress()">Thay đổi</ion-label>
     </div>
   </div>
