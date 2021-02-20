@@ -16,7 +16,6 @@ export class AuthService {
 
   constructor(
     private http: HttpClient,
-    // private toastr: ToastrService,
     private router: Router,
     private storage: StorageService,
     public toastController: ToastController,

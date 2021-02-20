@@ -9,7 +9,7 @@ ion-content{
         margin-top: 20px;
         margin-bottom: 10px;
         @media screen and (max-height: 569px){
-            font-size: 13px!important;
+            font-size: 17px !important;
           }
     }
     .list-item{
@@ -19,13 +19,14 @@ ion-content{
         
         .item{
             text-align: center;
-            height: 50px;
+            height: 47px;
             width: 100%;
             background: #f2f2f2;
             border-radius: 10px;
             margin: 5px 0;
             .text-item{
                 font-size: 18px;
+                line-height: 23.5px;
                 transform: translateY(50%);
                 color: #424242;
             }

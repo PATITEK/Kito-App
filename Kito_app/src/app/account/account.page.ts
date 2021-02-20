@@ -3,8 +3,8 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { ModalController, PopoverController } from '@ionic/angular';
 import { AccountService, PATTERN } from '../@app-core/http';
 import { PopupComponent } from '../@modular/popup/popup.component';
-import { ModalPasswordComponent } from '../@modular/modal-password/modal-password.component'
 import { ImageService, LoadingService, ToastService } from '../@app-core/utils';
+import { ChangepasswordPage } from '../changepassword/changepassword.page';
 
 @Component({
   selector: 'app-account',
@@ -100,7 +100,7 @@ export class AccountPage implements OnInit {
 
   async openModalPassword(ev: any) {
     const popover = await this.passwordModal.create({
-      component: ModalPasswordComponent,
+      component: ChangepasswordPage,
       cssClass: 'modalPassword',
     });
     return await popover.present();

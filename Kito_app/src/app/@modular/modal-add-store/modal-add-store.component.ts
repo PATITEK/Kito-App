@@ -9,19 +9,17 @@ import { DateTimeService } from 'src/app/@app-core/utils';
 })
 export class ModalAddStoreComponent implements OnInit {
   @Input() item: any;
-
   amount = 1;
   cart = [];
-
   constructor(
     public dateTimeService: DateTimeService,
     private modalController: ModalController
   ) { }
 
   ngOnInit() {
+    console.log(this.item)
     this.getCart();
   }
-
   decreaseAmount() {
     if (this.amount > 1) {
       this.amount--;

@@ -3,7 +3,8 @@
   <app-search-bar-nav>{{search}}</app-search-bar-nav>
   <!-- <ion-label class="ion-text-center">CHỌN GIÁO PHẬN</ion-label> -->
   <ion-list>
-    <app-list-dioceses *ngFor="let item of data" [type_data] ="data" [data] = "item" [flag_parishes_diocese]="'diocese'"
-    [flag_donate_pray]="'donate'"></app-list-dioceses>
+    <app-list-dioceses *ngFor="let item of data" [data] = "item" [flag_parishes_diocese]="'parishes'"
+    [flag_donate_pray]="'donate'"
+    ></app-list-dioceses>
   </ion-list>
 </ion-content>

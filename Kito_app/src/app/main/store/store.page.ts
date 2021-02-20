@@ -29,7 +29,7 @@ export class StorePage implements OnInit {
   constructor(
     public dateTimeService: DateTimeService,
     private router: Router,
-    private modalController: ModalController
+    private modalController: ModalController,
   ) {
     for (let i = 0; i < 10; i++) {
       this.list.push({
@@ -107,6 +107,7 @@ export class StorePage implements OnInit {
     modal.onWillDismiss().then(data => {
       if (data.role == 'ok') {
         item.amount = data.data;
+        console.log(item.amount)
         this.getCart();
       }
     })

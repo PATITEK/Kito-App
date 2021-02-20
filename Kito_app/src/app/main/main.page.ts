@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from '../@app-core/http';
 import { AccountService } from '../@app-core/http/account/account.service';
 import { ImageService, OneSignalService } from '../@app-core/utils';
 
@@ -11,7 +12,7 @@ import { ImageService, OneSignalService } from '../@app-core/utils';
 export class MainPage implements OnInit {
   name = '';
   avatar = '';
-
+  previousUrl = '';
   menu = [
     {
       name: '(Tổng) Giáo phận',
@@ -74,7 +75,8 @@ export class MainPage implements OnInit {
     private router: Router,
     private OneSignalService: OneSignalService,
     private imageService: ImageService,
-    private accountService: AccountService
+    private accountService: AccountService,
+    private authService: AuthService
   ) { }
   ionViewWillEnter() {
     // this.imageService.getImage();
@@ -96,6 +98,7 @@ export class MainPage implements OnInit {
   ngOnInit() {
     this.OneSignalService.startOneSignal();
     this.name = localStorage.getItem('fullname');
+   
   }
   routerLink(path) {
     this.router.navigateByUrl(path);

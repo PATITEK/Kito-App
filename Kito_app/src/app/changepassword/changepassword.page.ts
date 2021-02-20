@@ -3,7 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 import { AuthService } from 'src/app/@app-core/http';
-import { LoadingService } from 'src/app/@app-core/utils';
+import { LoadingService, ToastService } from 'src/app/@app-core/utils';
 import { IDataNoti, PageNotiService } from '../@modular/page-noti/page-noti.service';
 
 @Component({
@@ -22,9 +22,10 @@ export class ChangepasswordPage implements OnInit {
     private router: Router,
     private loadService: LoadingService,
     private passwordModal: ModalController,
+    private toastService: ToastService,
     private authService: AuthService) { 
     this.formSubmit = this.formBuilder.group({
-      // passwordcurrent: new FormControl('', Validators.required),
+      passwordcurrent: new FormControl('', Validators.required),
       passwordnew: new FormControl('', Validators.required),
       passwordconfirm: new FormControl('', Validators.required)
     })
@@ -43,12 +44,12 @@ export class ChangepasswordPage implements OnInit {
     this.passwordModal.dismiss();
   }
   onSubmit() {
-    // const cp = this.formSubmit.value.passwordcurrent;
+     const cp = this.formSubmit.value.passwordcurrent;
     const pn = this.formSubmit.value.passwordnew;
     const pc = this.formSubmit.value.passwordconfirm;
     if(pn.length < 6){
         this.checkpn = true;
-        this.messagepn = 'Min password is 6'
+        this.messagepn = 'Min password is 6.'
     }
     else if(pn !=  pc) {
       this.check = true;
@@ -58,19 +59,25 @@ export class ChangepasswordPage implements OnInit {
     else {
       this.check = false;
       const datapasing: IDataNoti = {
-        title: 'DONATE SUCCESSFUL!',
+        title: 'SUCCESSFUL!',
         image: 'Change Password successful!',
-        routerLink: '/main/chabad'
+        routerLink: '/main'
       }
       var ps = {
-        "password": pc
+        "current_password": cp,
+        "new_password": pn,
+        "new_password_confirmation": pc
       }
       this.loadService.present()
-      this.dismissModal() 
+      this.dismissModal()
       this.authService.resetPassword(ps).subscribe(data=> {
         this.pageNotiService.setdataStatusNoti(datapasing);
         this.router.navigateByUrl('/page-noti');
         this.loadService.dismiss();
+      },
+      (data)=> {
+        this.loadService.dismiss();
+        this.toastService.present('Xảy ra lỗi, vui lòng thử lại sau !', 'top', 2000);
       })
     }
    

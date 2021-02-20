@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { IonSlides } from '@ionic/angular';
+import { IonContent, IonSlides } from '@ionic/angular';
 import { DateTimeService } from 'src/app/@app-core/utils';
 
 @Component({
@@ -10,6 +10,7 @@ import { DateTimeService } from 'src/app/@app-core/utils';
 })
 export class PrayerTimePage implements OnInit {
   @ViewChild('slides', { static: false }) slides: IonSlides;
+  @ViewChild(IonContent) ionContent: IonContent;
 
   slideOptions = {
     initialSlide: 0,
@@ -83,6 +84,10 @@ export class PrayerTimePage implements OnInit {
     this.slides.getActiveIndex().then(index => {
       this.changeDateItem(index);
     })
+  }
+  
+  scrollToTop(value) {
+    this.ionContent.scrollToTop(value);
   }
 
   changeSegment(id) {

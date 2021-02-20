@@ -9,10 +9,10 @@ const routes: Routes = [
     path: '',
     component: MainPage,
     children: [
-      {
-        path: 'chabad',
-        loadChildren: () => import('./chabad/chabad.module').then(m => m.ChabadPageModule)
-      },
+      // {
+      //   path: 'chabad',
+      //   loadChildren: () => import('./chabad/chabad.module').then(m => m.ChabadPageModule)
+      // },
       {
         path: 'people',
         loadChildren: () => import('./people/people.module').then(m => m.PeoplePageModule)
