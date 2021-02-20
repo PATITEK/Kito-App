@@ -6,16 +6,31 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./setting-languages.page.scss'],
 })
 export class SettingLanguagesPage implements OnInit {
-  title = 'Ngôn ngữ'
+  title = 'Ngôn ngữ';
+  public checkeds = 0;
+  public limit = 1;
+  public podecheck = true;
   constructor() { }
 
   ngOnInit() {
   }
 
-  public form = [
-    { val: 'Pepperoni', isChecked: true },
-    { val: 'Sausage', isChecked: false },
-    { val: 'Mushroom', isChecked: false }
+  check(language) {
+    if (!language.isChecked){
+      this.checkeds++;
+      console.log(language.val);
+      localStorage.setItem('language', language.val);
+    } else {
+      this.checkeds--;
+      // console.log(this.checkeds);
+    }
+  }
+
+  languages = [
+    { val: 'Tiếng Việt', isChecked: false },
+    { val: 'English', isChecked: false },
+    { val: 'עִברִית', isChecked: false },
+    { val: '中國人', isChecked: false},
   ];
 
 }

@@ -4,7 +4,7 @@ import { ModalController, PopoverController } from '@ionic/angular';
 import { AccountService, PATTERN } from '../@app-core/http';
 import { PopupComponent } from '../@modular/popup/popup.component';
 import { ModalPasswordComponent } from '../@modular/modal-password/modal-password.component'
-import { LoadingService, ToastService } from '../@app-core/utils';
+import { ImageService, LoadingService, ToastService } from '../@app-core/utils';
 
 @Component({
   selector: 'app-account',
@@ -44,31 +44,35 @@ export class AccountPage implements OnInit {
     private accountService: AccountService,
     private passwordModal: ModalController,
     private loadingService: LoadingService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    public imageService: ImageService
   ) { }
   ngOnInit() {
     this.initForm();
     this.getData();
+   
   }
 
   ionViewWillEnter() {
-    this.accountService.getAccounts().subscribe(data => {
-      if(data.app_user.thumb_image == null) {
-        data.app_user['thumb_image'] = "https://i.imgur.com/edwXSJa.png";
-        this.avatar = data.app_user.thumb_image;
-      }
-      else if( data.app_user.thumb_image.url == null) {
-        data.app_user['thumb_image'] = "https://i.imgur.com/edwXSJa.png";
-        this.avatar = data.app_user.thumb_image;
-      }
-      else {
-        this.avatar =  data.app_user.thumb_image.url;
-      }
-  })
-  }
+  //  this.imageService.getImage();
+   this.accountService.getAccounts().subscribe(data => {
+    if(data.app_user.thumb_image == null) {
+      data.app_user['thumb_image'] = "https://i.imgur.com/edwXSJa.png";
+      this.avatar = data.app_user.thumb_image;
+    }
+    else if( data.app_user.thumb_image.url == null) {
+      data.app_user['thumb_image'] = "https://i.imgur.com/edwXSJa.png";
+      this.avatar = data.app_user.thumb_image;
+    }
+    else {
+      this.avatar =  data.app_user.thumb_image.url;
+    }
+})
+}
 
   initForm() {
     this.form = this.fb.group({
+      avatar:  new FormControl(''),
       full_name: new FormControl('', Validators.required),
       birthday: new FormControl(''),
       phone_number: new FormControl('', Validators.compose([

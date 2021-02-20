@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DonateService, ChabadService,EventsService, IPageEvent, AccountService } from '../@app-core/http';
-import { DateTimeService, LoadingService } from '../@app-core/utils';
+import { DateTimeService, ImageService, LoadingService } from '../@app-core/utils';
 import { ToastController } from '@ionic/angular';
 
 @Component({
@@ -54,7 +54,8 @@ export class PrayPage implements OnInit {
      public chabadService: ChabadService,
      public loadingService: LoadingService,
      private accountService: AccountService,
-     public toastController: ToastController
+     public toastController: ToastController,
+     public imageService: ImageService
   ) {
     this.frmPray = this.formBuilder.group({
       note: new FormControl('', Validators.compose([
@@ -86,6 +87,7 @@ export class PrayPage implements OnInit {
     this.name = localStorage.getItem('fullname')
   }
   ionViewWillEnter() {
+    // this.imageService.getImage();
     this.accountService.getAccounts().subscribe(data => {
       if(data.app_user.thumb_image == null) {
         data.app_user['thumb_image'] = "https://i.imgur.com/edwXSJa.png";
@@ -99,6 +101,7 @@ export class PrayPage implements OnInit {
         this.avatar =  data.app_user.thumb_image.url;
       }
   })
+  
 }
   
   getUrl() {

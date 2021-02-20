@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DonateService, ChabadService, AccountService } from '../@app-core/http';
-import { LoadingService } from '../@app-core/utils';
+import { AccountService, DonateService } from '../@app-core/http';
+import { ImageService, LoadingService } from '../@app-core/utils';
 import { ModalController, ToastController } from '@ionic/angular';
-import { ModalDonateComponent } from '../@modular/modal-donate/modal-donate.component';
 
 
 @Component({
@@ -42,14 +41,15 @@ export class DonatePage implements OnInit {
 
   constructor(
     private router: Router, 
-    private chabadService: ChabadService,
     public formBuilder: FormBuilder,
      private route: ActivatedRoute,
      public donateService: DonateService,
      public loadingService: LoadingService,
      public toastController: ToastController,
-     private accountService: AccountService,
      private modalCtrl: ModalController,
+    private imageService: ImageService,
+    private accountService: AccountService
+
      ) {
     this.frmDonate = this.formBuilder.group({
       amount: new FormControl('', Validators.compose([
@@ -77,6 +77,7 @@ export class DonatePage implements OnInit {
     this.name = localStorage.getItem('fullname')
   }
   ionViewWillEnter() {
+    // this.imageService.getImage();
     this.accountService.getAccounts().subscribe(data => {
       if(data.app_user.thumb_image == null) {
         data.app_user['thumb_image'] = "https://i.imgur.com/edwXSJa.png";
@@ -190,11 +191,7 @@ export class DonatePage implements OnInit {
     });
     e.target.classList.add('active-button');
   }
-   async openModalMenu() {
-    const popover = await this.modalCtrl.create({
-      component: ModalDonateComponent,
-      cssClass: 'modalDonate  ',
-    });
-    return await popover.present();
+   async goToDioceses() {
+    this.router.navigateByUrl('/dioceses')
   }
 }

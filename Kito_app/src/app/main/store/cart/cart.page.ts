@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NavController } from '@ionic/angular';
-import { DateTimeService } from 'src/app/@app-core/utils';
+import { DateTimeService, GeolocationService } from 'src/app/@app-core/utils';
 
 @Component({
   selector: 'app-cart',
@@ -27,15 +27,23 @@ export class CartPage implements OnInit {
   currentPaymentMethodId = 1;
   hasPaymentModal = false;
   paymentSelectElement: any;
+  location = 'Hãy lấy địa chỉ hoặc nhập địa chỉ của bạn';
 
   constructor(
     public dateTimeService: DateTimeService,
     private navCtrl: NavController,
-    private router: Router
+    private router: Router,
+    private geolocationSerivce: GeolocationService
   ) { }
 
   ngOnInit() {
     this.getCart();
+    // this.geolocationSerivce.getCurrentLocation();
+  }
+
+  reTakeLocation() {
+    this.geolocationSerivce.getCurrentLocation();
+    this.location = this.geolocationSerivce.customerLocation.address;
   }
 
   ionViewDidEnter() {

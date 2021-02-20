@@ -34,6 +34,10 @@ export class GeolocationService {
         public PlatForm: Platform,
         ) {}
 
+    ngOnInit() {
+        this.getCurrentLocation();
+    }
+
     //only use this method
     getCurrentLocation() {
         this.PlatForm.ready().then(() => {
@@ -41,12 +45,12 @@ export class GeolocationService {
             this.geolocation.getCurrentPosition().then((resp) => {
                 this.lat = resp.coords.latitude;
                 this.lng = resp.coords.longitude;
-                this.getGeoEncoder(this.lat, this.lng);
-                console.log(this.lat,'  ', this.lng)
+                this.getGeoEncoder(this.lat, this.lng)
+                // console.log(this.lat,'  ', this.lng)
                 this.loadingService.dismiss();
             })
             .catch((err) => {
-                console.log(err);
+                console.error(err);
             })
         })
     }
@@ -54,12 +58,13 @@ export class GeolocationService {
     getGeoEncoder(latitude, longitude) {
         this.nativeGeocoder.reverseGeocode(latitude, longitude, this.geoEncoderOptions)
         .then((result: NativeGeocoderResult[]) => {
-            console.log('result', result)
-            this.customerLocation.address = this.generateAddress(result[result.length-1]);
-            console.log('address: ',this.customerLocation.address);
+            // console.log('result', result)
+            this.customerLocation.address = this.generateAddress(result[0]);
+            localStorage.setItem('location', this.customerLocation.address);
+            console.log(this.customerLocation.address);
         })
         .catch((error: any) => {
-            console.log(error);
+            console.error(error);
         });
     }
 
@@ -75,6 +80,7 @@ export class GeolocationService {
             address += obj[val] + ', ';
         }
         return address.slice(0, -2);
+        // return address;
     }
 
     distanceFromUserToPoint(lat1: number, lng1: number, lat2: number, lng2: number) {

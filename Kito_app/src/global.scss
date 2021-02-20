@@ -183,7 +183,7 @@
     }
 }
 .modalPassword {
-  --height: 370px;
+  --height: 400px;
   --width: 92%;
     .modal-wrapper {
       border-radius: 20px;
@@ -258,9 +258,11 @@
     }
   }
 }
-
-.cover-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+.image_popover_css {
+  // --backdrop-opacity: 1 !important;
+  .popover-content {
+    top: 12vh !important;
+    --min-width: 90%;
+    --min-height: 30%;
+ }
 }

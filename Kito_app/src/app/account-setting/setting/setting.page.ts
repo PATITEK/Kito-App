@@ -19,6 +19,30 @@ export class SettingPage implements OnInit {
   ngOnInit() {
   }
 
+  ionViewWillEnter() {
+    this.items = [
+      {
+        id: 1,
+        title: "Ngôn ngữ",
+        icon: "language",
+        temp: localStorage.getItem('language') || '',
+        routerLink: "setting-languages"
+      },
+      {
+        id: 2,
+        title: "Giáo phận",
+        icon: "",
+        temp: "none",
+      },
+      {
+        id: 3,
+        title: "Giáo xứ",
+        icon: "",
+        temp: "none",
+      },
+    ];
+  }
+
   routerLink(path) {
     console.log(path);
     this.router.navigateByUrl(path);
@@ -29,17 +53,20 @@ export class SettingPage implements OnInit {
       id: 1,
       title: "Ngôn ngữ",
       icon: "language",
+      temp: localStorage.getItem('language') || '',
       routerLink: "setting-languages"
     },
     {
       id: 2,
       title: "Giáo phận",
       icon: "",
+      temp: "none",
     },
     {
       id: 3,
       title: "Giáo xứ",
       icon: "",
+      temp: "none",
     },
   ];
 

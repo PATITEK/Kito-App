@@ -15,26 +15,20 @@ export class PopupComponent implements OnInit {
     private accountService: AccountService,
     private loadingService: LoadingService,
     private toastService: ToastService,
-    public popoverController: PopoverController,) { }
+    public popoverController: PopoverController,
+    ) { }
   ngOnInit() {}
   image_avatar: any;
   image_null: any;
   image_url: any;
   remove_label = '';
-  uploadAvatar() {
-    return this.cameraService.getAvatarUpload(this.image_avatar)
+ uploadAvatar() {
+    this.cameraService.getAvatarUpload(this.image_avatar)
+    this.dismissPopover();
   }
   takeAvatar() {
-    return this.cameraService.getAvatarTake(this.image_avatar);
-  }
-  async presentPopover(ev: any) {
-    const popover = await this.popoverController.create({
-      component: PopupComponent,
-      cssClass: 'my-custom-class',
-      event: ev,
-      translucent: true
-    });
-    return await popover.present();
+    this.cameraService.getAvatarTake(this.image_avatar);
+    this.dismissPopover();
   }
   dismissPopover() {
     this.popoverController.dismiss();
@@ -51,7 +45,7 @@ export class PopupComponent implements OnInit {
     (data:any) => {
     this.loadingService.dismiss();
     this.dismissPopover();
-    this.toastService.present('Ảnh đã cập nhật thành công !', 'top', 2000);
+    this.toastService.present('Xóa ảnh thành công !', 'top', 2000);
     },
     (data:any) => {
       this.loadingService.dismiss();
@@ -61,17 +55,25 @@ export class PopupComponent implements OnInit {
       }
     }
  )
-  
 }
-  async presentImage(ev: any) {
-    const popover = await this.popoverController.create({
+  async presentImage() {
+    const popoverImage = await this.popoverController.create({
       component: PopoverimageComponent,
       cssClass: 'image_popover_css',
-      event: ev,
       translucent: true,
       mode: 'md'
     });
-    return await popover.present();
+    return await popoverImage.present();
+  }
+
+  async dismissPopup() {
+    const popover = await this.popoverController.create({
+      component: PopupComponent,
+      cssClass: 'my-custom-class',
+      translucent: true,
+      mode: 'md',
+    });
+    return await popover.dismiss();
   }
 
 }

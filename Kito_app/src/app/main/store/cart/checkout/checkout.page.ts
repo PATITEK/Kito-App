@@ -11,6 +11,7 @@ import { DateTimeService } from 'src/app/@app-core/utils';
 export class CheckoutPage implements OnInit {
   title = 'Kiểm tra đơn hàng';
   cart = [];
+  location = '';
   shipCost = 5000;
   paymentMethod;
 
@@ -29,6 +30,7 @@ export class CheckoutPage implements OnInit {
 
   getCart() {
     this.cart = JSON.parse(localStorage.getItem('cart')) || [];
+    this.location = localStorage.getItem('location');
   }
 
   calPrice(item) {

@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
-import { LoadingService } from 'src/app/@app-core/utils';
+import { LoadingService, ToastService } from 'src/app/@app-core/utils';
 import { Camera } from '@ionic-native/camera/ngx';
 import { AccountService } from '../http';
+import { PopupComponent } from 'src/app/@modular/popup/popup.component';
+import { PopoverController } from '@ionic/angular';
 
 @Injectable()
 export class CameraService {
@@ -10,8 +12,11 @@ export class CameraService {
         public camera: Camera,
         public loadingService: LoadingService,
         public accountService: AccountService,
-    ) { }
+       public popoverController: PopoverController,
+       public toastService: ToastService
 
+    ) { }
+   
     public getAvatarUpload(image_avatar) {
         this.loadingService.present();
         const options = {
@@ -36,11 +41,15 @@ export class CameraService {
                     this.accountService.updateAvatar({"thumb_image" : {"url": image_avatar.app_user.avatar}}).subscribe(data => {
                     })
                     this.loadingService.dismiss();
+                    this.accountService.getAccounts().subscribe();
+                    this.toastService.present('Cập nhật ảnh thành công !', 'top', 2000);
                 },)
             } else {
             }
-        }).catch(() => {
+        }).catch((err) => {
+            console.error(err)
             this.loadingService.dismiss();
+            this.toastService.present('Xảy ra lỗi, vui lòng thử lại sau !', 'top', 2000);
         })
     }
     public getAvatarTake(image_avatar) {
@@ -68,11 +77,16 @@ export class CameraService {
                     this.accountService.updateAvatar({"thumb_image" : {"url": image_avatar.app_user.avatar}}).subscribe(data => {
                     })
                     this.loadingService.dismiss();
+                    this.accountService.getAccounts().subscribe();
+                    this.toastService.present('Cập nhật ảnh thành công !', 'top', 2000);
                 },)
             } else {
             }
-        }).catch(() => {
+        }).catch((err) => {
+            console.error(err)
             this.loadingService.dismiss();
+            this.toastService.present('Xảy ra lỗi, vui lòng thử lại sau !', 'top', 2000);
+
         })
     }
 

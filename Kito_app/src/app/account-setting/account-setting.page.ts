@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ModalController, PopoverController } from '@ionic/angular';
 import { AccountService } from '../@app-core/http/account/account.service';
+import { ImageService } from '../@app-core/utils';
 import { PopupComponent } from '../@modular/popup/popup.component';
 import { PopuplogoutComponent } from '../@modular/popuplogout/popuplogout.component';
 
@@ -19,13 +20,15 @@ export class AccountSettingPage implements OnInit {
   constructor(
     public modalController: ModalController,
     private popoverController: PopoverController,
-    private accountService: AccountService,
     private router: Router,
+    private accountService: AccountService,
+    private imageService: ImageService
   ) { }
 
   ngOnInit() {
   }
   ionViewWillEnter() {
+    // this.imageService.getImage();
     this.accountService.getAccounts().subscribe(data => {
       if(data.app_user.thumb_image == null) {
         data.app_user['thumb_image'] = "https://i.imgur.com/edwXSJa.png";
@@ -40,12 +43,9 @@ export class AccountSettingPage implements OnInit {
       }
   })
 }
-
   routerLink(path) {
-    // console.log(path);
     this.router.navigateByUrl(path);
   }
-
   async openModalLogOut() {
     this.isOpeningModal = true;
     const modal = await this.modalController.create({
