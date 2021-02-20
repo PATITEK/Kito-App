@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { IonSlides } from '@ionic/angular';
+import { IonContent, IonSlides } from '@ionic/angular';
 
 @Component({
   selector: 'app-catechism',
@@ -8,6 +8,7 @@ import { IonSlides } from '@ionic/angular';
 })
 export class CatechismPage implements OnInit {
   @ViewChild('slides', { static: false }) slides: IonSlides;
+  @ViewChild(IonContent) ionContent: IonContent;
 
   title = 'Giáo lý 1-12';
   menuItems = [
@@ -53,6 +54,10 @@ export class CatechismPage implements OnInit {
         })
       }
     })
+  }
+
+  scrollToTop(value) {
+    this.ionContent.scrollToTop(value);
   }
 
   changeSegment(id) {

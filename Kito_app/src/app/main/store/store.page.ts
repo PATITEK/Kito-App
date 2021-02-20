@@ -29,7 +29,7 @@ export class StorePage implements OnInit {
   constructor(
     public dateTimeService: DateTimeService,
     private router: Router,
-    private modalController: ModalController
+    private modalController: ModalController,
   ) {
     for (let i = 0; i < 10; i++) {
       this.list.push({
