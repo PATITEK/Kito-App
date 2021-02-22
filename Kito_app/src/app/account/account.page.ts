@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ModalController, PopoverController } from '@ionic/angular';
+import { AlertController, ModalController, PopoverController } from '@ionic/angular';
 import { AccountService, PATTERN } from '../@app-core/http';
 import { PopupComponent } from '../@modular/popup/popup.component';
-import { ImageService, LoadingService, ToastService } from '../@app-core/utils';
+import { CameraService, ImageService, LoadingService, ToastService } from '../@app-core/utils';
 import { ChangepasswordPage } from '../changepassword/changepassword.page';
 
 @Component({
@@ -12,6 +12,7 @@ import { ChangepasswordPage } from '../changepassword/changepassword.page';
   styleUrls: ['./account.page.scss'],
 })
 export class AccountPage implements OnInit {
+  image_avatar: any;
   avatar = '';
   title = 'Thông tin cá nhân';
   activatedInput = false;
@@ -45,7 +46,9 @@ export class AccountPage implements OnInit {
     private passwordModal: ModalController,
     private loadingService: LoadingService,
     private toastService: ToastService,
-    public imageService: ImageService
+    public imageService: ImageService,
+    private alertCtrl: AlertController,
+    private cameraService: CameraService
   ) { }
   ngOnInit() {
     this.initForm();
@@ -87,15 +90,54 @@ export class AccountPage implements OnInit {
     });
   }
 
-  async presentPopover(ev: any) {
-    const popover = await this.popoverController.create({
-      component: PopupComponent,
-      cssClass: 'my-custom-class',
-      event: ev,
-      translucent: true,
-      mode: 'md',
+  // async presentPopover(ev: any) {
+  //   const popover = await this.popoverController.create({
+  //     component: PopupComponent,
+  //     cssClass: 'my-custom-class',
+  //     event: ev,
+  //     translucent: true,
+  //     mode: 'md',
+  //   });
+  //   return await popover.present();
+  // }
+
+  async avatarSetting() {
+    let alertAvatarSetting =  await this.alertCtrl.create({
+      message: 'Cài đặt ảnh đại diện',
+      mode: 'ios',
+      buttons: [
+        {
+          text: 'Xem ảnh đại diện',
+          handler: () => {
+            this.cameraService.viewAvatar();
+          }
+        },
+        {
+          text: 'Tải ảnh lên',
+          handler: () => {
+            this.cameraService.getAvatarUpload(this.image_avatar);
+          }
+        },
+        {
+          text: 'Chụp ảnh mới',
+          handler: () => {
+            this.cameraService.getAvatarTake(this.image_avatar);
+          }
+        },
+        {
+          text: 'Xóa ảnh đại diện',
+          handler: () => {
+            this.cameraService.removeAvatar();
+          }
+        },
+        {
+          text: 'Hủy',
+          role: 'destructive',
+        },
+      ]
     });
-    return await popover.present();
+    await alertAvatarSetting.present();
+
   }
 
   async openModalPassword(ev: any) {

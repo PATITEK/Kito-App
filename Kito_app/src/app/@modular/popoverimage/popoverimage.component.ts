@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AccountService } from 'src/app/@app-core/http/account/account.service';
-import { ImageService } from 'src/app/@app-core/utils';
+import { ImageService, LoadingService } from 'src/app/@app-core/utils';
 
 @Component({
   selector: 'app-popoverimage',
@@ -11,7 +11,8 @@ export class PopoverimageComponent implements OnInit {
 
   constructor(
     private imageService: ImageService,
-    private accountService: AccountService
+    private accountService: AccountService,
+    private loadingService: LoadingService
   ) { }
   avatar = '';
   ngOnInit() {
@@ -28,6 +29,7 @@ export class PopoverimageComponent implements OnInit {
       else {
         this.avatar =  data.app_user.thumb_image.url;
       }
+      this.loadingService.dismiss();
   })
   }
   getUrl() {
