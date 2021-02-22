@@ -36,7 +36,7 @@ export const APICONFIG = {
     GET_DETAIL: id => `/app/chabads/${id}`
   },
   EVENTS: {
-    GET: `/app/events`,
+    GET: `/app/calendars`,
     GET_DETAIL: (id) => `/app/events/${id}`,
     JOIN: `/app/attention_logs`,
     CANCEL: `/app/attention_logs/cancel`

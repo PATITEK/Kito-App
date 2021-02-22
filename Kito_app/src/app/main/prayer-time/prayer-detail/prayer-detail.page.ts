@@ -28,8 +28,10 @@ export class PrayerDetailPage implements OnInit {
     this.route.queryParams.subscribe(params => {
       this.dateList = JSON.parse(params['data']).dateList;
       this.dateList.forEach(dateItem => dateItem.day = new Date(dateItem.day));
-
+     
+      
       this.dateItem = JSON.parse(params['data']).dateItem;
+      console.log(this.dateItem);
       this.dateItem.day = new Date(this.dateItem.day)
       
       this.event = JSON.parse(params['data']).event;
