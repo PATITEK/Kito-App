@@ -23,7 +23,7 @@ export class ChangepasswordPage implements OnInit {
     private loadService: LoadingService,
     private passwordModal: ModalController,
     private toastService: ToastService,
-    private authService: AuthService) { 
+    private authService: AuthService,) { 
     this.formSubmit = this.formBuilder.group({
       passwordcurrent: new FormControl('', Validators.required),
       passwordnew: new FormControl('', Validators.required),
@@ -81,6 +81,10 @@ export class ChangepasswordPage implements OnInit {
       })
     }
    
+  }
+
+  async closeModalPassword(ev: any) {
+    this.passwordModal.dismiss();
   }
   
 }

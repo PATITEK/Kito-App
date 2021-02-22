@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ModalController } from '@ionic/angular';
 import { AccountService } from '../@app-core/http/account/account.service';
 import { ImageService, OneSignalService } from '../@app-core/utils';
+import { GoogleMapComponent } from '../@modular/google-map/google-map.component'
 
 @Component({
   selector: 'app-main',
@@ -74,9 +76,11 @@ export class MainPage implements OnInit {
     private router: Router,
     private OneSignalService: OneSignalService,
     private imageService: ImageService,
-    private accountService: AccountService
+    private accountService: AccountService,
+    public modalCtrl: ModalController
   ) { }
   ionViewWillEnter() {
+    this.name = localStorage.getItem('fullname');
     // this.imageService.getImage();
     this.accountService.getAccounts().subscribe(data => {
       if(data.app_user.thumb_image == null) {
@@ -119,5 +123,14 @@ export class MainPage implements OnInit {
 
   goToAccountSetting() {
     this.router.navigateByUrl('account-setting');
+  }
+
+  async openModalGoogleMap() {
+    const modal = await this.modalCtrl.create({
+      component: GoogleMapComponent,
+      cssClass: 'google-map-modal',
+      swipeToClose: true,
+    });
+    modal.present();
   }
 }
