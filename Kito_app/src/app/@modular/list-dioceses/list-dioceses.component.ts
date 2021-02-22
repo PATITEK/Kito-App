@@ -19,7 +19,6 @@ export class ListDiocesesComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log(this.type_data)
   }
   async goToDetail() {
     if (this.flag_parishes_diocese === 'diocese') {
@@ -36,7 +35,7 @@ export class ListDiocesesComponent implements OnInit {
         id: this.data.id,
         type: 'Parishes'
       }
-      this.router.navigate(['parishes'], {
+      this.router.navigate(['donate'], {
         queryParams: {
           data: JSON.stringify(data)
         }

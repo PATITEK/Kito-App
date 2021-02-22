@@ -2,21 +2,22 @@ import { Injectable } from '@angular/core';
 import { LoadingService, ToastService } from 'src/app/@app-core/utils';
 import { Camera } from '@ionic-native/camera/ngx';
 import { AccountService } from '../http';
-import { PopupComponent } from 'src/app/@modular/popup/popup.component';
 import { PopoverController } from '@ionic/angular';
+import { PopoverimageComponent } from '../../@modular/popoverimage/popoverimage.component';
 
 @Injectable()
 export class CameraService {
+
+    image_null: any;
 
     constructor(
         public camera: Camera,
         public loadingService: LoadingService,
         public accountService: AccountService,
-       public popoverController: PopoverController,
-       public toastService: ToastService
+        public popoverController: PopoverController,
+        public toastService: ToastService
 
     ) { }
-   
     public getAvatarUpload(image_avatar) {
         this.loadingService.present();
         const options = {
@@ -38,12 +39,12 @@ export class CameraService {
                             "avatar": data['data'][0]
                         }
                     }
-                    this.accountService.updateAvatar({"thumb_image" : {"url": image_avatar.app_user.avatar}}).subscribe(data => {
+                    this.accountService.updateAvatar({ "thumb_image": { "url": image_avatar.app_user.avatar } }).subscribe(data => {
                     })
                     this.loadingService.dismiss();
                     this.accountService.getAccounts().subscribe();
                     this.toastService.present('Cập nhật ảnh thành công !', 'top', 2000);
-                },)
+                })
             } else {
             }
         }).catch((err) => {
@@ -74,12 +75,12 @@ export class CameraService {
                             "avatar": data['data'][0]
                         }
                     }
-                    this.accountService.updateAvatar({"thumb_image" : {"url": image_avatar.app_user.avatar}}).subscribe(data => {
+                    this.accountService.updateAvatar({ "thumb_image": { "url": image_avatar.app_user.avatar } }).subscribe(data => {
                     })
                     this.loadingService.dismiss();
                     this.accountService.getAccounts().subscribe();
                     this.toastService.present('Cập nhật ảnh thành công !', 'top', 2000);
-                },)
+                })
             } else {
             }
         }).catch((err) => {
@@ -104,5 +105,38 @@ export class CameraService {
             ia[i] = byteString.charCodeAt(i);
         }
         return new Blob([ia], { type: mimeString });
+    }
+
+    async viewAvatar() {
+        this.loadingService.present();
+        const popoverImage = await this.popoverController.create({
+            component: PopoverimageComponent,
+            cssClass: 'image_popover_css',
+            translucent: true,
+            mode: 'md'
+        });
+        return await popoverImage.present();
+    }
+
+    removeAvatar() {
+        this.loadingService.present();
+        console.log('hi');
+        this.image_null = {
+            "thumb_image": {
+                "url": null
+            }
+        }
+        this.accountService.updateAvatar(this.image_null).subscribe(
+            (data: any) => {
+                this.loadingService.dismiss();
+                this.toastService.present('Xóa ảnh thành công !', 'top', 2000);
+            },
+            (data: any) => {
+                this.loadingService.dismiss();
+                if (data.error) {
+                    this.toastService.present('Lỗi rồi !', 'top', 2000);
+                }
+            }
+        )
     }
 }

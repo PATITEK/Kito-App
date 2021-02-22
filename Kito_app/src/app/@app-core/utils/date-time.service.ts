@@ -3,13 +3,13 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class DateTimeService {
   public DAYS = [
-    'Sunday',
     'Monday',
     'Tuesday',
     'Wednesday',
     'Thursday',
     'Friday',
     'Saturday',
+    'Sunday',
   ];
 
   public VIETNAMESE_DAYS = [
