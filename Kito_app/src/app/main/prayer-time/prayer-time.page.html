@@ -11,7 +11,7 @@
     <ion-buttons class="date-list">
       <ion-buttons *ngFor="let dateItem of dateList" class="date-item main-box-shadow active-effect"
         [ngClass]="{'active-date-item': activeDateItemId == dateItem.id}" (click)="changeSegment(dateItem.id)">
-        <span class="date-text">{{ dateTimeService.VIETNAMESE_DAYS[dateItem.day.getDay()].substring(0, 3) }}</span>
+        <span class="date-text">{{ dateTimeService.VIETNAMESE_DAYS[dateItem.day.getDay()].substring(0, 3)}}</span>
         <span>{{ dateItem.day.getDate() }}</span>
         <span *ngIf="dateItem.events.length" class="circle date-item-note"></span>
       </ion-buttons>
@@ -21,6 +21,7 @@
   <ion-slides #slides [options]="slideOptions" (ionSlideDidChange)="changeSegmentSlide()"
     (ionSlideWillChange)="scrollToTop(300)">
     <ion-slide *ngFor="let dateItem of dateList">
+      
       <div class="body-header">
         <ion-label>{{ dateTimeService.getDateString3(dateItem.day) }}</ion-label>
         <ion-label *ngIf="dateItem.events.length" class="item-name">{{ dateItem.name }}</ion-label>

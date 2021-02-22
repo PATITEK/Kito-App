@@ -23,6 +23,6 @@ import { FooterModule } from 'src/app/@modular/footer/footer.module';
     MainItemModule,
     FooterModule
   ],
-  declarations: [TonggiaophanPage,]
+  declarations: [TonggiaophanPage]
 })
 export class TonggiaophanPageModule { }

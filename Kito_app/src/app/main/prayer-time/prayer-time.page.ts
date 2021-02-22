@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { IonContent, IonSlides } from '@ionic/angular';
+import { EventsService, IPageEvent } from 'src/app/@app-core/http';
 import { DateTimeService } from 'src/app/@app-core/utils';
 
 @Component({
@@ -16,7 +17,11 @@ export class PrayerTimePage implements OnInit {
     initialSlide: 0,
     autoHeight: true
   };
-
+  
+  pageResult:IPageEvent={
+    cal_date: ''
+  }
+  dataEvent=[];
   parish = {
     thumbImage: 'assets/img/tonggiaophan/hanoi.svg',
     name: 'Giáo xứ Chánh Tòa Sài Gòn'
@@ -29,12 +34,14 @@ export class PrayerTimePage implements OnInit {
 
   constructor(
     public dateTimeService: DateTimeService,
-    private router: Router
+    private router: Router,
+    private eventService: EventsService
   ) {
-    this.initDateList();
+    
   }
 
   ngOnInit() {
+    this.initDateList();
   }
 
   ionViewWillEnter() {
@@ -50,34 +57,88 @@ export class PrayerTimePage implements OnInit {
     this.parishNameHeight = parishNameElement.offsetHeight;
   }
 
-  initDateList() {
+  async initDateList() {
     const now = new Date();
+    
     for (let i = 0; i < 7; i++) {
+      
       let nextDay = new Date(now);
-      nextDay.setDate(nextDay.getDate() + i);
+      nextDay.setDate(nextDay.getDate()+i);
+      console.log(nextDay);
+      
+      // const randNum = Math.floor(Math.random() * 6);
+      this.pageResult.cal_date=this.getDate(nextDay);
+      await this.eventService.getAll(this.pageResult).subscribe((data: any) => {
+      
 
-      let events = [];
-      const randNum = Math.floor(Math.random() * 6);
-      for (let i = 0; i < randNum; i++) {
-        events.push({
-          name: 'Lễ sáng',
-          time: '5:00',
-          text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur ducimus aliquam deleniti enim architecto optio rerum exercitationem perferendis aperiam aliquid.'
-        })
-      }
-
-      this.dateList.push({
-        id: i,
-        day: nextDay,
-        name: 'Đức Mẹ hồn lìa xác lên trời',
-        events: events
-      })
+        this.dataEvent=data.calendar.events;
+        
+        if(this.dataEvent!=undefined){
+          let events=[];
+          
+          for (let i = 0; i < this.dataEvent.length; i++) {
+            let house=new Date(this.dataEvent[i].start_time);
+            let test=this.formatDate(house)
+            console.log(house);
+            
+            let name="Lễ Sáng"
+            if(house.getUTCHours()>12)
+            {
+              name="Lễ Chiều"
+            }
+            events.push({
+              name: name,
+              time: test,
+              text: this.dataEvent[i].description,
+              id:this.dataEvent[i].id
+            })
+          }
+         
+         
+          this.dateList.push({
+            id: i,
+            day: nextDay,
+            name: this.dataEvent[i].description,
+            events: events
+          })
+        }
+        else{
+          this.dateList.push({
+            id: i,
+            day: nextDay,
+            name: 'Đức Mẹ hồn lìa xác lên trời',
+            events: []
+          })
+        }
+        
+        
+        
+        this.activeDateItemId = this.dateList[0].id;
+        // this.pageResult.total_objects = data.meta.pagination.total_objects || 1;
+      });
+      
+      
+      // console.log(this.dateList);
+      
     }
-    this.activeDateItemId = this.dateList[0].id;
+    
+    console.log(this.dateList);
+    
   }
-
+   formatDate(date) {
+    var hours = date.getUTCHours();
+    var minutes = date.getUTCMinutes();
+    // var ampm = hours >= 12 ? 'pm' : 'am';
+    hours = hours % 12;
+    hours = hours ? hours : 12; // the hour '0' should be '12'
+    minutes = minutes < 10 ? '0'+minutes : minutes;
+    var strTime = hours + ':' + minutes
+    return (strTime);
+  }
   changeDateItem(id) {
-    this.activeDateItemId = id;
+    this.activeDateItemId = id
+  
+    
   }
 
   changeSegmentSlide() {
@@ -91,6 +152,7 @@ export class PrayerTimePage implements OnInit {
   }
 
   changeSegment(id) {
+    
     this.slides.slideTo(id).then(() => this.changeDateItem(id));
   }
 
@@ -106,7 +168,13 @@ export class PrayerTimePage implements OnInit {
       }
     })
   }
+getDate(date){
+var month = date.getUTCMonth() + 1; //months from 1-12
+var day = date.getUTCDate();
+var year = date.getUTCFullYear();
 
+return year + "-" + month + "-" + day;
+}
   paddingTopIonContent() {
     return `calc(60vw + ${this.parishNameHeight}px + 60px + 15px)`
   }
