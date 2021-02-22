@@ -34,14 +34,12 @@ export class GeolocationService {
         public PlatForm: Platform,
         ) {}
 
-    ngOnInit() {
-        this.getCurrentLocation();
-    }
+    ngOnInit() {}
 
     //only use this method
     getCurrentLocation() {
         this.PlatForm.ready().then(() => {
-            this.loadingService.present();
+            this.loadingService.present('Hãy đợi trong giây lát...');
             this.geolocation.getCurrentPosition().then((resp) => {
                 this.lat = resp.coords.latitude;
                 this.lng = resp.coords.longitude;

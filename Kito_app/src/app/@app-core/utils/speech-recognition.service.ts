@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { SpeechRecognition } from '@ionic-native/speech-recognition/ngx';
 import { Platform } from '@ionic/angular';
+import { ToastService } from './toast.service';
 
 @Injectable()
 export class SpeechRecognitionService {
@@ -10,6 +11,7 @@ export class SpeechRecognitionService {
     constructor(
         public speechRecognition: SpeechRecognition,
         public PlatForm: Platform,
+        public toastService: ToastService
       ) { }
 
     checkPermission() {
@@ -32,6 +34,7 @@ export class SpeechRecognitionService {
     startVoiceRecord() {
         this.speechRecognition.startListening().subscribe((matches: Array<string>) => {
           this.voiceResult = matches[0];
+          this.toastService.present('Tìm kiếm: '+this.voiceResult, 'top')
           console.log(this.voiceResult);
         })
     }
