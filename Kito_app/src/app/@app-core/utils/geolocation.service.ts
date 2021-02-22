@@ -63,8 +63,8 @@ export class GeolocationService {
             localStorage.setItem('location', this.customerLocation.address);
             console.log(this.customerLocation.address);
         })
-        .catch((error: any) => {
-            console.error(error);
+        .catch((err: any) => {
+            console.error(err,': because chay tren dien thoai real moi dc =))');
         });
     }
 

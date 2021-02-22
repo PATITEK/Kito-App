@@ -7,9 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SettingLanguagesPage implements OnInit {
   title = 'Ngôn ngữ';
-  public checkeds = 0;
-  public limit = 1;
-  public podecheck = true;
+  checkeds = 0;
+  limit = 1;
+  podecheck = true;
   constructor() { }
 
   ngOnInit() {

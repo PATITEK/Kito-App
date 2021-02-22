@@ -38,7 +38,7 @@ export class CartPage implements OnInit {
 
   ngOnInit() {
     this.getCart();
-    // this.geolocationSerivce.getCurrentLocation();
+    this.geolocationSerivce.getCurrentLocation();
   }
 
   reTakeLocation() {

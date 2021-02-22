@@ -127,7 +127,8 @@ export class AccountPage implements OnInit {
   updateInfo() {
     this.loadingService.present();
     let data = this.form.value;
-    this.accountService.updateProfile(data).subscribe(() => {
+    this.accountService.updateProfile(data).subscribe((data) => {
+      localStorage.setItem('fullname', data.app_user.full_name);
       this.activatedInput = false;
       this.loadingService.dismiss();
       this.toastService.present('Cập nhật thành công !');

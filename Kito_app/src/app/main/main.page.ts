@@ -77,6 +77,7 @@ export class MainPage implements OnInit {
     private accountService: AccountService
   ) { }
   ionViewWillEnter() {
+    this.name = localStorage.getItem('fullname');
     // this.imageService.getImage();
     this.accountService.getAccounts().subscribe(data => {
       if(data.app_user.thumb_image == null) {
