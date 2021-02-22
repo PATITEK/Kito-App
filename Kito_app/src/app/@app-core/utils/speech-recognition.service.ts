@@ -26,7 +26,7 @@ export class SpeechRecognitionService {
                     // console.log('Granted');
                     this.startVoiceRecord();
                 },
-                () => console.error('Denied')
+                () => console.error('Denied, only working on devices')
             )
         })
     }
