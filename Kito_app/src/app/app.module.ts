@@ -34,6 +34,7 @@ import { NativePageTransitions } from '@ionic-native/native-page-transitions/ngx
     CoreModule.forRoot(),
     FormsModule,
     ReactiveFormsModule,
+    
   ],
   providers: [
     StatusBar,

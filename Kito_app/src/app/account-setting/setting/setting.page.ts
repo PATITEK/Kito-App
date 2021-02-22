@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NavController } from '@ionic/angular';
-
 @Component({
   selector: 'app-setting',
   templateUrl: './setting.page.html',
@@ -10,13 +9,34 @@ import { NavController } from '@ionic/angular';
 
 export class SettingPage implements OnInit {
   title = 'Cài đặt'
-
+  items = [];
   constructor(
     private navCtrl: NavController,
     private router: Router
   ) {}
 
   ngOnInit() {
+    this.items = [
+      {
+        id: 1,
+        title: "Ngôn ngữ",
+        icon: "assets/img/setting/language.svg",
+        temp: localStorage.getItem('language') || '',
+        routerLink: "setting-languages"
+      },
+      {
+        id: 2,
+        title: "Giáo phận",
+        icon: "assets/img/setting/archdiocese.svg",
+        temp: "none",
+      },
+      {
+        id: 3,
+        title: "Giáo xứ",
+        icon: "assets/img/setting/parish.svg",
+        temp: "none",
+      },
+    ]
   }
 
   ionViewWillEnter() {
@@ -24,20 +44,20 @@ export class SettingPage implements OnInit {
       {
         id: 1,
         title: "Ngôn ngữ",
-        icon: "language",
+        icon: "assets/img/setting/language.svg",
         temp: localStorage.getItem('language') || '',
         routerLink: "setting-languages"
       },
       {
         id: 2,
         title: "Giáo phận",
-        icon: "",
+        icon: "assets/img/setting/archdiocese.svg",
         temp: "none",
       },
       {
         id: 3,
         title: "Giáo xứ",
-        icon: "",
+        icon: "assets/img/setting/parish.svg",
         temp: "none",
       },
     ];
@@ -47,27 +67,4 @@ export class SettingPage implements OnInit {
     console.log(path);
     this.router.navigateByUrl(path);
   }
-
-  items = [
-    {
-      id: 1,
-      title: "Ngôn ngữ",
-      icon: "language",
-      temp: localStorage.getItem('language') || '',
-      routerLink: "setting-languages"
-    },
-    {
-      id: 2,
-      title: "Giáo phận",
-      icon: "",
-      temp: "none",
-    },
-    {
-      id: 3,
-      title: "Giáo xứ",
-      icon: "",
-      temp: "none",
-    },
-  ];
-
 }

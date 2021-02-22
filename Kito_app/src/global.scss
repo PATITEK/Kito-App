@@ -28,7 +28,7 @@
   transition: 0.15s;
   
   &:active {
-    transform: scale(0.95);
+    transform: scale(0.90);
     // filter: brightness(90%);
   }
 }
@@ -265,4 +265,21 @@
     --min-width: 90%;
     --min-height: 30%;
  }
+}
+
+.google-map-modal {
+  --height: 90%;
+
+  .modal-wrapper {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+
+    .ion-page {
+      justify-content: flex-start;
+    }
+  }
 }

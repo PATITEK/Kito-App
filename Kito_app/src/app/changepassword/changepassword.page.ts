@@ -82,5 +82,9 @@ export class ChangepasswordPage implements OnInit {
     }
    
   }
+
+  async closeModalPassword(ev: any) {
+    this.passwordModal.dismiss();
+  }
   
 }

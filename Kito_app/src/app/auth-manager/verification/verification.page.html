@@ -3,9 +3,8 @@
   <div class="drop-back"></div>
   <ion-back-button icon="chevron-back-outline" text="" class="back-btn"></ion-back-button>
   <ion-buttons class="top-block">
-    <h1 class="title">Verification</h1>
-    <p class="desc">Nhập vào mã xác minh vừa được gửi tới
-      email của bạn</p>
+    <h1 class="title">Xác thực</h1>
+    <p class="desc">Nhập vào mã xác minh vừa được gửi tới email của bạn</p>
     <img src="assets/icon/forget-password.svg">
   </ion-buttons>
   <ion-buttons class="bottom-block">
@@ -21,7 +20,7 @@
         <input id="code6" class="input-tel" (keyup)="keytab($event,'code5', 'code6', 'code6')" type="number" formControlName="code6">
       </ion-label>
       <!-- [ngClass]="{'visibility': wrongCode}" -->
-      <p class="wrong-code" (click)="resendCode()">Gửi lại mã</p>
+      <p class="wrong-code active-effect" (click)="resendCode()">Gửi lại mã</p>
       <ion-buttons class="get-code-container">
         <span class="get-code-label active-effect">Resend code ?</span>
         <ion-icon name="chevron-forward-outline" class="get-code-icon active-effect" (click)="confirmCode()" ></ion-icon>

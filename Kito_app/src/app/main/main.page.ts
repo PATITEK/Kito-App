@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../@app-core/http';
+import { ModalController } from '@ionic/angular';
 import { AccountService } from '../@app-core/http/account/account.service';
 import { ImageService, OneSignalService } from '../@app-core/utils';
+import { GoogleMapComponent } from '../@modular/google-map/google-map.component'
 
 @Component({
   selector: 'app-main',
@@ -12,7 +14,6 @@ import { ImageService, OneSignalService } from '../@app-core/utils';
 export class MainPage implements OnInit {
   name = '';
   avatar = '';
-  previousUrl = '';
   menu = [
     {
       name: '(Tổng) Giáo phận',
@@ -76,9 +77,11 @@ export class MainPage implements OnInit {
     private OneSignalService: OneSignalService,
     private imageService: ImageService,
     private accountService: AccountService,
-    private authService: AuthService
+    private authService: AuthService,
+    public modalCtrl: ModalController
   ) { }
   ionViewWillEnter() {
+    this.name = localStorage.getItem('fullname');
     // this.imageService.getImage();
     this.accountService.getAccounts().subscribe(data => {
       if(data.app_user.thumb_image == null) {
@@ -105,7 +108,19 @@ export class MainPage implements OnInit {
   } 
 
   goToDetail(item) {
-    this.router.navigateByUrl(item.desUrl);
+    if(item.desUrl == 'donate') {
+      const data = {
+        type: 'donate'
+      }
+      this.authService.sendData(data)
+    }
+    else if(item.desUrl == 'pray') {
+      const data = {
+        type: 'pray'
+      }
+      this.authService.sendData(data)
+    }
+     this.router.navigateByUrl(item.desUrl);
   }
 
   goToNewsDetail(item) {
@@ -122,5 +137,14 @@ export class MainPage implements OnInit {
 
   goToAccountSetting() {
     this.router.navigateByUrl('account-setting');
+  }
+
+  async openModalGoogleMap() {
+    const modal = await this.modalCtrl.create({
+      component: GoogleMapComponent,
+      cssClass: 'google-map-modal',
+      swipeToClose: true,
+    });
+    modal.present();
   }
 }
