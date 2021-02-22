@@ -10,7 +10,7 @@ import { IDataNoti, PageNotiService } from 'src/app/@modular/page-noti/page-noti
   styleUrls: ['./new-password.page.scss'],
 })
 export class NewPasswordPage implements OnInit {
-  passwordValue = '444';
+  passwordValue = '359';
   confirmedPasswordValue = '';
   
   invalidPassword = '';
@@ -41,16 +41,16 @@ export class NewPasswordPage implements OnInit {
   checkValidPassword(name: string, value: string) {
     if (value == '') {
       this.loadingService.dismiss();
-      return `${name} can't not be empty`;
+      return `${name} không được trống`;
     }
     if (value.length < 6) {
       this.loadingService.dismiss();
-      return `${name} can't not be less than 6 letters`;
+      return `${name} không được ít hơn 6 ký tự`;
     }
     if (name == 'Confirmed password') {
       this.loadingService.dismiss();
       if (this.passwordValue != this.confirmedPasswordValue) {
-        return 'Confirmed password not match with password';
+        return 'Xác nhận mật khẩu không trùng khớp';
       }
     }
     return '';
@@ -67,16 +67,14 @@ export class NewPasswordPage implements OnInit {
     this.invalidConfirmedPassword = this.checkValidPassword('Confirmed password', this.confirmedPasswordValue);
     if (this.invalidPassword == '' && this.invalidConfirmedPassword == '') {
       let dataSubmit = {
-        "app_user": {
-            "password":  this.passwordValue,
-            "password_confirmation": this.confirmedPasswordValue
-        }
-    }
-      this.loadingService.dismiss();
+        "new_password":  this.passwordValue,
+        "new_password_confirmation": this.confirmedPasswordValue
+      }
       this.authService.newPassword(dataSubmit).subscribe((data) => {
         console.log(data);
         this.pageNotiService.setdataStatusNoti(datapasing);
         this.router.navigateByUrl('/page-noti');
+        this.loadingService.dismiss();
       })
     }    
   }
