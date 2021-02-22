@@ -23,7 +23,7 @@ export class ChangepasswordPage implements OnInit {
     private loadService: LoadingService,
     private passwordModal: ModalController,
     private toastService: ToastService,
-    private authService: AuthService,) { 
+    private authService: AuthService) { 
     this.formSubmit = this.formBuilder.group({
       passwordcurrent: new FormControl('', Validators.required),
       passwordnew: new FormControl('', Validators.required),
@@ -49,7 +49,7 @@ export class ChangepasswordPage implements OnInit {
     const pc = this.formSubmit.value.passwordconfirm;
     if(pn.length < 6){
         this.checkpn = true;
-        this.messagepn = 'Min password is 6'
+        this.messagepn = 'Min password is 6.'
     }
     else if(pn !=  pc) {
       this.check = true;

@@ -107,6 +107,7 @@ export class StorePage implements OnInit {
     modal.onWillDismiss().then(data => {
       if (data.role == 'ok') {
         item.amount = data.data;
+        console.log(item.amount)
         this.getCart();
       }
     })

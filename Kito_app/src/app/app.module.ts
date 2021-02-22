@@ -32,7 +32,7 @@ import { NativePageTransitions } from '@ionic-native/native-page-transitions/ngx
     IonicModule.forRoot(), 
     AppRoutingModule,
     CoreModule.forRoot(),
-    FormsModule, 
+    FormsModule,
     ReactiveFormsModule,
     
   ],

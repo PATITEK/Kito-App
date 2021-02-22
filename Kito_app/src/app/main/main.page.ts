@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from '../@app-core/http';
 import { ModalController } from '@ionic/angular';
 import { AccountService } from '../@app-core/http/account/account.service';
 import { ImageService, OneSignalService } from '../@app-core/utils';
@@ -13,7 +14,7 @@ import { GoogleMapComponent } from '../@modular/google-map/google-map.component'
 export class MainPage implements OnInit {
   name = '';
   avatar = '';
-
+  previousUrl = '';
   menu = [
     {
       name: '(Tổng) Giáo phận',
@@ -77,6 +78,7 @@ export class MainPage implements OnInit {
     private OneSignalService: OneSignalService,
     private imageService: ImageService,
     private accountService: AccountService,
+    private authService: AuthService,
     public modalCtrl: ModalController
   ) { }
   ionViewWillEnter() {
@@ -100,6 +102,7 @@ export class MainPage implements OnInit {
   ngOnInit() {
     this.OneSignalService.startOneSignal();
     this.name = localStorage.getItem('fullname');
+   
   }
   routerLink(path) {
     this.router.navigateByUrl(path);

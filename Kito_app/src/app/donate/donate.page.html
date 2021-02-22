@@ -5,18 +5,17 @@
 <ion-content class="ion-padding">
   <form [formGroup] ="frmDonate" (ngSubmit)="onSubmit()" >
     <ion-item-group class="wrapper">
-
-  
-  <ion-item-group class="title">
-    <span class="header__name">Tổng Giáo phận Sài Gòn</span>
+    <ion-item-group class="title">
+    <span class="header__name">{{name_diocese}}</span>
     <ion-item-group class="header__group-address">
       <img src="assets/img/address.svg" alt="">
       <span class="header__address">
-        1 Công xã Paris, P. Bến Nghé, Quận 1, TP.HCM
+        {{address}}
       </span>
     </ion-item-group>
-      <img src="assets/img/bgdonate.jpg" alt="" class="image">
-      <ion-item-group class="header__group-address">
+    <!-- <img src="{{img}}" alt="" class="image"> -->
+      <div [style.background]="getUrl()"  class="bg"></div>
+      <ion-item-group class="header__group-address mr-top">
         <img src="assets/img/user_img.svg" alt="">
         <span class="header__title-user">
           Linh mục Ignatiô Hồ Văn Xuân

@@ -72,6 +72,11 @@ const routes: Routes = [
     loadChildren: () => import('./@modular/news-detail/news-detail.module').then( m => m.NewsDetailPageModule),
     canActivate: [AuthGuard],
   },
+  {
+    path: 'parishes',
+    loadChildren: () => import('./parishes/parishes.module').then( m => m.ParishesPageModule),
+    canActivate: [AuthGuard],
+  },
   { path: '', redirectTo: '/main', pathMatch: 'full' },
   { path: '**'  , redirectTo: 'main' },
 ];

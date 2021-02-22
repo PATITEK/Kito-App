@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AccountService, DonateService } from '../@app-core/http';
+import { AccountService, AuthService, DonateService, IPageRequest } from '../@app-core/http';
 import { ImageService, LoadingService } from '../@app-core/utils';
 import { ModalController, ToastController } from '@ionic/angular';
+import { DioceseService } from '../@app-core/http/diocese';
 
 
 @Component({
@@ -15,30 +16,38 @@ export class DonatePage implements OnInit {
   public tab = 'pray'
   isHidden = false;
   isChoose = false;
+  source_id: any;
   source_type: any;
   required_mess  = false;
   message_purpose = "";
   required_purpose = false;
   message = "";
-  source_id: any;
-  frmDonate: FormGroup;
+  img;
+  name_diocese;
+  address;
   email = '';
   name;
-  avatar='';
+  avatar = '';
+  id_diocese: Number;
+  data;
+  frmDonate: FormGroup;
+  previousUrl;
   error_messages = {
     'amount': [
       { 
         type: 'require', message: 'This field must have a value!'
        }
     ],
-  
   }
   dataParams;
   chabad = {
     name: '',
     thumb_image: ''
   }
-
+  pageResult:IPageRequest = {
+    page: 1,
+    per_page: 100,
+  }
   constructor(
     private router: Router, 
     public formBuilder: FormBuilder,
@@ -46,38 +55,59 @@ export class DonatePage implements OnInit {
      public donateService: DonateService,
      public loadingService: LoadingService,
      public toastController: ToastController,
-     private modalCtrl: ModalController,
     private imageService: ImageService,
-    private accountService: AccountService
-
+    private accountService: AccountService,
+    private diocesesService: DioceseService,
      ) {
     this.frmDonate = this.formBuilder.group({
       amount: new FormControl('', Validators.compose([
         Validators.required,
       ])),
       note: new FormControl('', Validators.compose([
-        //Validators.required,
       ])),
    });
   }
   ngOnInit() {
-    // this.loadingService.present()
-    // this.route.queryParams.subscribe(params => {
-    //   this.dataParams = JSON.parse(params['data']);
-    //   this.chabadService.getDetail(this.dataParams.chabad.id).subscribe(data => {
-    //         this.chabad = data.chabad
-    //         this.loadingService.dismiss()
-    //   })
-    // })
-    // this.loadingService.present()
-    // this.accountService.getAccounts().subscribe(data => {
-    //   this.email = data.app_user.email;
-    //   this.loadingService.dismiss();
-    // });
-    this.name = localStorage.getItem('fullname')
+    this.loadingService.present()
+    this.name = localStorage.getItem('fullname');
   }
   ionViewWillEnter() {
-    // this.imageService.getImage();
+    this.route.queryParams.subscribe(params => {
+          this.data =  JSON.parse(params['data']);
+    })
+  if(this.data) {
+      this.source_id = this.data.id;
+      this.source_type = this.data.type;
+      console.log('TH: 2',this.source_id, this.source_type);
+  }
+  else {
+    this.source_id = localStorage.getItem('parish_id');
+    this.source_type = 'Parishes';
+    console.log('TH: 1',this.source_id, this.source_type);
+
+  }
+    this.id_diocese = parseInt(localStorage.getItem('diocese_id'));
+    this.diocesesService.getAll(this.pageResult).subscribe((data: any) => {
+      data.dioceses.forEach(i => {
+       if(i.id == this.id_diocese){
+         this.address = i.address;
+         this.name_diocese = i.name;
+         if(i.thumb_image == null ) {
+           this.loadingService.dismiss();
+           this.img = 'https://i.imgur.com/UKNky29.jpg'
+         }
+         else if( i.thumb_image.url == null) {
+          this.loadingService.dismiss();
+          this.img = 'https://i.imgur.com/UKNky29.jpg'
+         }
+         else {
+          this.loadingService.dismiss();
+           this.img = i.thumb_image.url;
+         }
+       }
+      });
+    });
+    
     this.accountService.getAccounts().subscribe(data => {
       if(data.app_user.thumb_image == null) {
         data.app_user['thumb_image'] = "https://i.imgur.com/edwXSJa.png";
@@ -90,43 +120,24 @@ export class DonatePage implements OnInit {
       else {
         this.avatar =  data.app_user.thumb_image.url;
       }
-  })
-}
-  async presentToast(message) {
-    const toast = await this.toastController.create({
-      message: message,
-      duration: 1500
-    });
-    toast.present();
+  })}
+  getUrl() {
+    if(!this.img) {
+      return `url("https://i.imgur.com/UKNky29.jpg")`
+    }
+    else  return `url(${this.img})`
   }
-  // getUrl() {
-  //   return `url(${this.chabad.thumb_image})`
-  // }
-    getUrl() {
-    return `url(assets/img/19.jpg)`
-  }
-  
+ 
   onSubmit() {
     this.loadingService.present();
-    // const sourceId = this.dataParams.event ? this.dataParams.event.id : this.dataParams.chabad.id;
-    // var result = {
-    //   "donation" : {
-    //     "email": this.email,
-    //     "token": localStorage.getItem('Authorization'),
-    //     "amount": this.frmDonate.get('amount').value,
-    //     "note": this.frmDonate.get('note').value,
-    //     "source_type": this.dataParams.type,
-    //     "source_id": sourceId
-    //   }
-    // }
     var donate = {
       "donation" : {
         "email": localStorage.getItem('email'),
         "token": "",
         "amount": this.frmDonate.get('amount').value,
         "note": this.frmDonate.get('note').value,
-        "source_type": "Parishes",
-        "source_id": localStorage.getItem('parish_id')
+        "source_type": this.source_type,
+        "source_id": this.source_id
       }
     }
     if (this.frmDonate.get('amount').dirty || this.frmDonate.get('amount').touched ) {
@@ -163,7 +174,7 @@ export class DonatePage implements OnInit {
       this.required_purpose = false;
       this.loadingService.dismiss();
     }
-
+    console.log(donate);
     this.router.navigate(['paymentmethods'], {
       queryParams: {
         data: JSON.stringify(donate)
@@ -191,7 +202,9 @@ export class DonatePage implements OnInit {
     });
     e.target.classList.add('active-button');
   }
-   async goToDioceses() {
+    async goToDioceses() {
     this.router.navigateByUrl('/dioceses')
   }
+
+ 
 }
