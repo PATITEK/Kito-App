@@ -18,11 +18,7 @@ export class DiocesesPage implements OnInit {
   data: any = [];
   canDiocese = true;
   id;
-  type: any;
-  dataParam : {
-    id: any;
-    type: any;
-  };
+  type;
   pageResult:IPageRequest = {
     page: 1,
     per_page: 5,
@@ -32,7 +28,6 @@ export class DiocesesPage implements OnInit {
     page: 1,
     per_page: 100
   }
-  previousData;
   constructor(
     private modalCtrl: ModalController,
     private diocesesService: DioceseService,
@@ -43,12 +38,9 @@ export class DiocesesPage implements OnInit {
     ) { }
     ngOnInit() { 
     this.loadingService.present();
-      // this.route.queryParams.subscribe(params => {
-      //   this.dataParam =  JSON.parse(params['data']);
-      //   this.pageParish.diocese_id = this.dataParam.id;
-      //   this.type = this.dataParam.type;
-      //   console.log(this.type);
-      // })
+     this.authService.receiveData.subscribe(data => {
+       this.type = data.type;
+     })
       this.getAll();
     }
   getAll(){

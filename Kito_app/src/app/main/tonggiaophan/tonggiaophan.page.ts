@@ -37,11 +37,4 @@ export class TonggiaophanPage implements OnInit {
     ) { }
 
   ngOnInit() { }
-  // async openModalMenu() {
-  //   const popover = await this.modalCtrl.create({
-  //     component: ModalDonateComponent,
-  //     cssClass: 'modalDonate  ',
-  //   });
-  //   return await popover.present();
-  // }
 }

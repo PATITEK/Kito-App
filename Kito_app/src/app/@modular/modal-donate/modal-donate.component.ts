@@ -17,35 +17,42 @@ export class ModalDonateComponent implements OnInit {
     ) { 
     }
     @Input() diocese_id: any;
+    @Input() type: any;
     ngOnInit() {
   }
   async closeModal() {
     await this.modalCtrl.dismiss();
   }
-  gotoDonate() {
-    this.closeModal();
+  gotoDestination() {
     const data = {
       id: this.diocese_id,
-      type: 'Diocese'
+      source_type: 'Diocese',
+      type: this.type
     }
-    this.router.navigate(['donate'], {
-      queryParams: {
-        data: JSON.stringify(data)
-      }
-    })
+    this.closeModal();
+    if(this.type == 'donate') {
+      this.router.navigate(['donate'], {
+        queryParams: {
+          data: JSON.stringify(data)
+        }
+      })
+    }
+    else if(this.type == 'pray'){
+      this.router.navigate(['pray'], {
+        queryParams: {
+          data: JSON.stringify(data)
+        }
+      })
+    }
   }
   goToParishes() {
     const data = {
       id: this.diocese_id,
-      type: 'Parishes'
+      source_type: 'Parishes',
+      type: this.type
     }
     this.authService.sendData(data)
     this.router.navigateByUrl('/parishes')
-    // this.router.navigate(['dioceses'], {
-    //   queryParams: {
-    //     data: JSON.stringify(data)
-    //   }
-    // })
     this.closeModal();
   }
 }
