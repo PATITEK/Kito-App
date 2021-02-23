@@ -28,7 +28,7 @@
   transition: 0.15s;
   
   &:active {
-    transform: scale(0.90);
+    transform: scale(0.95);
     // filter: brightness(90%);
   }
 }
@@ -250,8 +250,9 @@
 
 .add-store-modal {
   --height: 330px;
-
+  
   .modal-wrapper {
+    overflow: visible;
     position: absolute;
     bottom: 0;
     left: 0;
@@ -261,6 +262,8 @@
 
     .ion-page {
       justify-content: flex-start;
+      overflow: visible;
+      padding-top: 10px;
     }
   }
 }
@@ -275,6 +278,10 @@
 
 .google-map-modal {
   --height: 90%;
+
+  sc-ion-modal-ios {
+    display: none;
+  }
 
   .modal-wrapper {
     position: absolute;
