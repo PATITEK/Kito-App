@@ -1,19 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { ModalAddStoreComponent } from './modal-add-store.component';
+import { AddStoreComponent } from './add-store.component';
 
-describe('ModalAddStoreComponent', () => {
-  let component: ModalAddStoreComponent;
-  let fixture: ComponentFixture<ModalAddStoreComponent>;
+describe('AddStoreComponent', () => {
+  let component: AddStoreComponent;
+  let fixture: ComponentFixture<AddStoreComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ModalAddStoreComponent ],
+      declarations: [ AddStoreComponent ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(ModalAddStoreComponent);
+    fixture = TestBed.createComponent(AddStoreComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

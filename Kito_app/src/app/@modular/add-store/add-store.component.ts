@@ -1,23 +1,24 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 import { DateTimeService } from 'src/app/@app-core/utils';
 
 @Component({
-  selector: 'app-modal-add-store',
-  templateUrl: './modal-add-store.component.html',
-  styleUrls: ['./modal-add-store.component.scss'],
+  selector: 'app-add-store',
+  templateUrl: './add-store.component.html',
+  styleUrls: ['./add-store.component.scss'],
 })
-export class ModalAddStoreComponent implements OnInit {
+export class AddStoreComponent implements OnInit {
   @Input() item: any;
   amount = 1;
   cart = [];
   constructor(
     public dateTimeService: DateTimeService,
-    private modalController: ModalController
+    private modalController: ModalController,
+    private router: Router
   ) { }
 
   ngOnInit() {
-    console.log(this.item)
     this.getCart();
   }
   decreaseAmount() {
@@ -61,5 +62,15 @@ export class ModalAddStoreComponent implements OnInit {
 
     this.setCart();
     this.modalController.dismiss(this.amount, 'ok');
+  }
+
+  calTotalItem() {
+    const total = this.cart.reduce((acc, item) => acc + item.amount, 0);
+    return total <= 999 ? total : 999;
+  }
+
+  goToCart() {
+    this.modalController.dismiss();
+    this.router.navigateByUrl('main/store/cart');
   }
 }
