@@ -21,7 +21,6 @@ import { MenuModule } from 'src/app/@modular/menu/menu.module';
     IonicModule,
     ParishNewsPageRoutingModule,
     HeaderModule,
-    FooterModule,
     MenuModule
   ],
   declarations: [ParishNewsPage, MainSlideComponent]
