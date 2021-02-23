@@ -93,17 +93,6 @@ export class AccountPage implements OnInit {
     });
   }
 
-  // async presentPopover(ev: any) {
-  //   const popover = await this.popoverController.create({
-  //     component: PopupComponent,
-  //     cssClass: 'my-custom-class',
-  //     event: ev,
-  //     translucent: true,
-  //     mode: 'md',
-  //   });
-  //   return await popover.present();
-  // }
-
   async avatarSetting() {
     let alertAvatarSetting =  await this.alertCtrl.create({
       message: 'Cài đặt ảnh đại diện',
@@ -120,9 +109,6 @@ export class AccountPage implements OnInit {
           handler: () => {
             
             this.cameraService.getAvatarUpload(this.image_avatar);
-            // this.avatar=localStorage.getItem('avatar_tam');
-            // console.log(this.avatar);
-            
           }
         },
         {

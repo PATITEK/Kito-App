@@ -39,8 +39,6 @@ export class CameraService {
                             "avatar": data['data'][0]
                         }
                     }
-                    // localStorage.setItem('avatar_tam',image_avatar.app_user.avatar)
-                    
                     this.accountService.updateAvatar({ "thumb_image": { "url": image_avatar.app_user.avatar } }).subscribe(data => {
                     })
                     this.loadingService.dismiss();
