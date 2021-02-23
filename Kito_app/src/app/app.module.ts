@@ -22,6 +22,7 @@ import { OneSignal } from '@ionic-native/onesignal/ngx';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { NativeGeocoder, NativeGeocoderOptions, NativeGeocoderResult } from '@ionic-native/native-geocoder/ngx';
 import { NativePageTransitions } from '@ionic-native/native-page-transitions/ngx';
+import { GoogleMaps } from '@ionic-native/google-maps';
 // import { IonicSwipeAllModule } from 'ionic-swipe-all';
 
 @NgModule({
@@ -54,7 +55,8 @@ import { NativePageTransitions } from '@ionic-native/native-page-transitions/ngx
     Geolocation,
     GeolocationService,
     NativeGeocoder,
-    NativePageTransitions
+    NativePageTransitions,
+    GoogleMaps
   ],
   bootstrap: [AppComponent]
 })

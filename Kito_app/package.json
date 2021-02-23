@@ -21,8 +21,9 @@
     "@angular/router": "~10.0.0",
     "@ionic-native/audio-management": "^5.31.1",
     "@ionic-native/camera": "^5.31.1",
-    "@ionic-native/core": "^5.0.0",
+    "@ionic-native/core": "^5.31.1",
     "@ionic-native/geolocation": "^5.31.1",
+    "@ionic-native/google-maps": "^5.5.0",
     "@ionic-native/native-geocoder": "^5.31.1",
     "@ionic-native/native-page-transitions": "^5.31.1",
     "@ionic-native/onesignal": "^5.31.1",
@@ -56,6 +57,7 @@
     "cordova-plugin-camera": "^5.0.1",
     "cordova-plugin-device": "^2.0.2",
     "cordova-plugin-geolocation": "^4.1.0",
+    "cordova-plugin-googlemaps": "^2.7.1",
     "cordova-plugin-ionic-keyboard": "^2.2.0",
     "cordova-plugin-ionic-webview": "^4.2.1",
     "cordova-plugin-nativegeocoder": "^3.4.1",
@@ -99,7 +101,8 @@
       "clovelced-plugin-audiomanagement": {},
       "onesignal-cordova-plugin": {},
       "cordova-plugin-nativegeocoder": {},
-      "com.telerik.plugins.nativepagetransitions": {}
+      "com.telerik.plugins.nativepagetransitions": {},
+      "cordova-plugin-googlemaps": {}
     },
     "platforms": [
       "android",

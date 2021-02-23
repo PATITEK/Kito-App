@@ -78,7 +78,11 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   { path: '', redirectTo: '/main', pathMatch: 'full' },
-  { path: '**'  , redirectTo: 'main' },
+  { path: '**'  , redirectTo: 'main' },  {
+    path: 'map',
+    loadChildren: () => import('./@modular/map/map.module').then( m => m.MapPageModule)
+  },
+
 ];
 @NgModule({
   imports: [
