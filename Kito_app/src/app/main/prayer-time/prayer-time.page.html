@@ -33,7 +33,7 @@
         <div *ngFor="let event of dateItem.events" class="event active-effect"
           (click)="goToEventDetail(dateItem, event)">
           <ion-label class="event-name">{{ event.name }}</ion-label>
-          <ion-label class="event-time">{{ dateTimeService.getTimeString(dateItem.date) }}</ion-label>
+          <ion-label class="event-time">{{ dateTimeService.getTimeString(event.start_time) }}</ion-label>
           <ion-buttons class="ion-align-items-end ion-justify-content-between">
             <ion-text class="three-dots-2 event-text">{{ event.description }}</ion-text>
             <img src="assets/icon/three-dots-gray.svg" class="three-dots-icon">
