@@ -1,24 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController, Platform } from '@ionic/angular';
+import { Platform } from '@ionic/angular';
 import { GeolocationService, LoadingService } from 'src/app/@app-core/utils';
 import { ViewChild, ElementRef } from '@angular/core';
-// import { GoogleMaps, GoogleMap, GoogleMapsEvent, GoogleMapOptions, CameraPosition, MarkerOptions, Marker, Environment } from '@ionic-native/google-maps';
-
-declare var google: any;
-
-
 @Component({
   selector: 'app-map',
   templateUrl: './map.page.html',
   styleUrls: ['./map.page.scss'],
 })
 export class MapPage implements OnInit {
-  map: any;
   location = new google.maps.LatLng(10.810327, 106.668205);
 
   @ViewChild('map', {read: ElementRef, static: false}) mapRef: ElementRef;
   constructor(
-    private ModalCrtl: ModalController,
     public platform: Platform,
     private loadingService: LoadingService,
     private GeolocationService: GeolocationService
@@ -34,6 +27,7 @@ export class MapPage implements OnInit {
 
   ngAfterViewInit() {
     // this.showMap();
+    this.initMap();
   }
 
   
@@ -55,4 +49,13 @@ export class MapPage implements OnInit {
   //   }
   //   this.map = new google.maps.Map(this.mapRef.nativeElement, options);
   // }
+  map: google.maps.Map;
+  center: google.maps.LatLngLiteral = {lat: 30, lng: -110};
+
+  initMap(): void {
+    this.map = new google.maps.Map(document.getElementById("map") as HTMLElement, {
+      center: this.center,
+      zoom: 8
+    });
+  }
 }
