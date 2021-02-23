@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -9,10 +10,12 @@ import { Component, Input, OnInit } from '@angular/core';
 export class HeaderComponent implements OnInit {
   @Input() title: string;
   
-  constructor(
+  constructor( public router: Router 
    
   ) { }
 
   ngOnInit() {}
- 
+  gotoMain() {
+    this.router.navigateByUrl('/main')
+  }
 }

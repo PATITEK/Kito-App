@@ -43,7 +43,10 @@ const routes: Routes = [
     path: 'store',
     loadChildren: () => import('./store/store.module').then( m => m.StorePageModule)
   },
-
+  {
+    path: 'news',
+    loadChildren: () => import('./news/news.module').then( m => m.NewsPageModule)
+  },
   {
     path: '',
     redirectTo: '',

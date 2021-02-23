@@ -24,7 +24,7 @@ export class MainPage implements OnInit {
     {
       name: 'Tin tức giáo xứ',
       thumbImage: 'assets/img/menu/tintuc.svg',
-      desUrl: 'main/tonggiaophan',
+      desUrl: 'main/news',
     },
     {
       name: 'Chi tiết giờ lễ',
@@ -103,10 +103,6 @@ export class MainPage implements OnInit {
     this.name = localStorage.getItem('fullname');
    
   }
-  routerLink(path) {
-    this.router.navigateByUrl(path);
-  } 
-
   goToDetail(item) {
     if(item.desUrl == 'donate') {
       const data = {
