@@ -78,9 +78,15 @@ export class PrayerTimePage implements OnInit {
     for (let i = 0; i < 7; i++) {
       this.pageReq.cal_date = this.dateTimeService.getDateString2(this.dateList[i].date);
       this.eventsService.getAll(this.pageReq).subscribe(data => {
+        console.log(data);
         if (this.dateTimeService.isEmptyObject(data.calendar)) {
           return;
         }
+        data.calendar.events.forEach(event => {
+          event.start_time = new Date(event.start_time);
+          event.name = event.start_time.getHours() >= 12 ? 'Lễ tối' : 'Lễ sáng';
+        });
+        this.dateList[i].name = data.calendar.name;
         this.dateList[i].date = new Date(data.calendar.date);
         this.dateList[i].color = data.calendar.shirt_color.color_code;
         this.dateList[i].events = data.calendar.events;
