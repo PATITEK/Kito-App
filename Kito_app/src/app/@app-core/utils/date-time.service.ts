@@ -50,23 +50,32 @@ export class DateTimeService {
   constructor() { }
 
   // Thursday, 03 January 2021
-  public getDateString(day) {
-    return `${this.DAYS[day.getDay()]}, ${day.getDate()} ${this.MONTHS[day.getMonth()]} ${day.getFullYear()}`;
+  public getDateString(date: Date) {
+    return `${this.DAYS[date.getDay()]}, ${date.getDate()} ${this.MONTHS[date.getMonth()]} ${date.getFullYear()}`;
   }
 
   // 2021-01-01
-  public getDateString2(day) {
-    return `${day.getFullYear()}-${day.getMonth() + 1}-${day.getDate()}`;
+  public getDateString2(date: Date) {
+    return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
   }
 
   // Thursday, 03 January 2021
-  public getDateString3(day) {
-    return `${this.VIETNAMESE_DAYS_2[day.getDay()]} - ${day.getDate()}.${day.getMonth()}.${day.getFullYear()}`;
+  public getDateString3(date: Date) {
+    return `${this.VIETNAMESE_DAYS_2[date.getDay()]} - ${date.getDate()}.${date.getMonth()}.${date.getFullYear()}`;
+  }
+
+  // 5:00
+  public getTimeString(date: Date) {
+    return `${date.getHours()}:${date.getMinutes()}`;
   }
 
   public numberWithCommas(str) {
     let parts = str.toString().split(".");
     parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ".");
     return parts.join(",");
+  }
+
+  public isEmptyObject(obj) {
+    return obj && Object.keys(obj).length === 0 && obj.constructor === Object;
   }
 }
