@@ -18,7 +18,6 @@ export class ListDiocesesComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log(this.type)
   }
   async goToDetail() {
     if (this.flag_parishes_diocese === 'diocese') {

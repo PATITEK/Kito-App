@@ -11,9 +11,9 @@
     <ion-buttons class="date-list">
       <ion-buttons *ngFor="let dateItem of dateList" class="date-item main-box-shadow active-effect"
         [ngClass]="{'active-date-item': activeDateItemId == dateItem.id}" (click)="changeSegment(dateItem.id)">
-        <span class="date-text">{{ dateTimeService.VIETNAMESE_DAYS[dateItem.day.getDay()].substring(0, 3)}}</span>
-        <span>{{ dateItem.day.getDate() }}</span>
-        <span *ngIf="dateItem.events.length" class="circle date-item-note"></span>
+        <span class="date-text">{{ dateTimeService.VIETNAMESE_DAYS[dateItem.date.getDay()].substring(0, 3)}}</span>
+        <span>{{ dateItem.date.getDate() }}</span>
+        <span *ngIf="dateItem.events.length" class="circle date-item-note" [style.background]="dateItem.color"></span>
       </ion-buttons>
     </ion-buttons>
   </div>
@@ -21,9 +21,9 @@
   <ion-slides #slides [options]="slideOptions" (ionSlideDidChange)="changeSegmentSlide()"
     (ionSlideWillChange)="scrollToTop(300)">
     <ion-slide *ngFor="let dateItem of dateList">
-      
+
       <div class="body-header">
-        <ion-label>{{ dateTimeService.getDateString3(dateItem.day) }}</ion-label>
+        <ion-label>{{ dateTimeService.getDateString3(dateItem.date) }}</ion-label>
         <ion-label *ngIf="dateItem.events.length" class="item-name">{{ dateItem.name }}</ion-label>
       </div>
 
@@ -33,9 +33,9 @@
         <div *ngFor="let event of dateItem.events" class="event active-effect"
           (click)="goToEventDetail(dateItem, event)">
           <ion-label class="event-name">{{ event.name }}</ion-label>
-          <ion-label class="event-time">{{ event.time }}</ion-label>
-          <ion-buttons class="ion-align-items-end">
-            <ion-text class="three-dots-2 event-text">{{ event.text }}</ion-text>
+          <ion-label class="event-time">{{ dateTimeService.getTimeString(dateItem.date) }}</ion-label>
+          <ion-buttons class="ion-align-items-end ion-justify-content-between">
+            <ion-text class="three-dots-2 event-text">{{ event.description }}</ion-text>
             <img src="assets/icon/three-dots-gray.svg" class="three-dots-icon">
           </ion-buttons>
         </div>

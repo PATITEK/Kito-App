@@ -3,37 +3,41 @@
     <img class="cover-img" src="assets/img/giamphan.jpg">
   </div>
 
+  <div class="avatar-box active-effect" (click)="goToAccountSetting()">
+    <ion-avatar class="avatar">
+        <img [src] ="avatar" alt="" *ngIf="avatar">
+        <img src="assets/img/avatar.png" alt=""*ngIf="!avatar">
+        <ion-spinner *ngIf="!avatar" class="absolute-center" name="lines"></ion-spinner>
+    </ion-avatar>
+    <span class="avatar-name">{{name}}</span>
+  </div>
   <div class="ion-text-right ion-margin-bottom">
-    <div class="avatar-box active-effect" (click)="goToAccountSetting()">
-      <ion-avatar class="avatar">
-          <img [src] ="avatar" alt="" *ngIf="avatar">
-          <img src="assets/img/avatar.png" alt=""*ngIf="!avatar">
-          <ion-spinner *ngIf="!avatar" class="absolute-center" name="lines"></ion-spinner>
-      </ion-avatar>
-      <span class="avatar-name">{{name}}</span>
-    </div>
   </div>
 
-  <ion-buttons class="menu">
-    <div class="item-container" [ngClass]="{'item-container--full-width': item.fullWidth}" *ngFor="let item of menu">
-      <div class="item active-effect" (click)="goToDetail(item)">
-        <ion-buttons class="img-container">
-          <img class="img" [src]="item.thumbImage" alt="">
-        </ion-buttons>
-        <span class="name">{{ item.name }}</span>
+  <div class="body-wrapper">
+    <div class="body">
+      <ion-buttons class="menu">
+        <div class="item-container" [ngClass]="{'item-container--full-width': item.fullWidth}" *ngFor="let item of menu">
+          <div class="item active-effect" (click)="goToDetail(item)">
+            <ion-buttons class="img-container">
+              <img class="img" [src]="item.thumbImage" alt="">
+            </ion-buttons>
+            <span class="name">{{ item.name }}</span>
+          </div>
+        </div>
+      </ion-buttons>
+    
+      <div class="news">
+        <span class="news__title">Tin tức Vatican</span>
+        <ion-row class="news__content">
+          <ion-col class="main-news active-effect" size="8" *ngFor="let item of news" (click)="goToNewsDetail(item)">
+            <img class="item-img" [src]="item.thumbImage">
+            <ion-buttons class="text-box">
+              <p class="item-title three-dots-2">{{ item.title }}</p>
+            </ion-buttons>
+          </ion-col>
+        </ion-row>
       </div>
     </div>
-  </ion-buttons>
-
-  <div class="news">
-    <span class="news__title">Tin tức Vatican</span>
-    <ion-row class="news__content">
-      <ion-col class="main-news active-effect" size="8" *ngFor="let item of news" (click)="goToNewsDetail(item)">
-        <img class="item-img" [src]="item.thumbImage">
-        <ion-buttons class="text-box">
-          <p class="item-title three-dots-2">{{ item.title }}</p>
-        </ion-buttons>
-      </ion-col>
-    </ion-row>
   </div>
 </ion-content>
