@@ -55,6 +55,9 @@ export class AccountPage implements OnInit {
     this.getData();
    
   }
+  ngDoCheck(){
+    this.ionViewWillEnter();
+  }
 
   ionViewWillEnter() {
   //  this.imageService.getImage();
@@ -115,7 +118,11 @@ export class AccountPage implements OnInit {
         {
           text: 'Tải ảnh lên',
           handler: () => {
+            
             this.cameraService.getAvatarUpload(this.image_avatar);
+            // this.avatar=localStorage.getItem('avatar_tam');
+            // console.log(this.avatar);
+            
           }
         },
         {
