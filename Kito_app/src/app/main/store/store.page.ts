@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 import { DateTimeService } from 'src/app/@app-core/utils';
-import { ModalAddStoreComponent } from 'src/app/@modular/modal-add-store/modal-add-store.component';
+import { AddStoreComponent } from 'src/app/@modular/add-store/add-store.component';
 
 @Component({
   selector: 'app-store',
@@ -95,7 +95,7 @@ export class StorePage implements OnInit {
 
   async openAddModal(item) {
     const modal = await this.modalController.create({
-      component: ModalAddStoreComponent,
+      component: AddStoreComponent,
       cssClass: 'add-store-modal',
       swipeToClose: true,
       componentProps: {
