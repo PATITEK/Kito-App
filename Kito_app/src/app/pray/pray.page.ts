@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DonateService, ChabadService,EventsService, IPageEvent, AccountService, IPageRequest } from '../@app-core/http';
+import { DonateService, ChabadService,EventsService, IPageEvent, AccountService, IPageRequest, AuthService } from '../@app-core/http';
 import { DateTimeService, ImageService, LoadingService } from '../@app-core/utils';
 import { ToastController } from '@ionic/angular';
 import { DioceseService } from '../@app-core/http/diocese';
@@ -36,7 +36,7 @@ export class PrayPage implements OnInit {
   avatar: any;
   img;
   name_diocese;
-  id_diocese: Number;
+  id_diocese;
   address;
   chabad = {
     name: ' ',
@@ -48,7 +48,8 @@ export class PrayPage implements OnInit {
   pageResult:IPageRequest = {
     page: 1,
     per_page: 100,
-  }
+  };
+  type;
   constructor(
     public formBuilder: FormBuilder,
      private route: ActivatedRoute,
@@ -60,6 +61,7 @@ export class PrayPage implements OnInit {
      public toastController: ToastController,
      public imageService: ImageService,
      private diocesesService: DioceseService,
+     private authService: AuthService
   ) {
     this.frmPray = this.formBuilder.group({
       note: new FormControl('', Validators.compose([
@@ -76,16 +78,10 @@ export class PrayPage implements OnInit {
     toast.present();
   }
   ngOnInit() {
-    //   this.route.queryParams.subscribe(params => {
-    //   this.dataParams = JSON.parse(params['data']);
-    //   this.chabadService.getDetail(this.dataParams.chabad.id).subscribe(data => {
-    //         this.chabad = data.chabad;
-    //         this.loadingService.dismiss();
-    //   });
-    // })
-    //this.dataParams.chabad.id = 6;
-    //this.getDataEvents();
-    this.name = localStorage.getItem('fullname')
+    this.name = localStorage.getItem('fullname');
+    this.authService.receiveData.subscribe(data => {
+      this.type = data;
+    })
   }
   getUrl() {
     if(!this.img) {
@@ -94,6 +90,7 @@ export class PrayPage implements OnInit {
     else  return `url(${this.img})`
   }
   ionViewWillEnter() {
+    this.id_diocese = localStorage.getItem('diocese_id');
     this.diocesesService.getAll(this.pageResult).subscribe((data: any) => {
       data.dioceses.forEach(i => {
        if(i.id == this.id_diocese){
@@ -182,6 +179,10 @@ export class PrayPage implements OnInit {
     }
   }
   async goToDioceses() {
+    const data = {
+      type: this.type.type
+    }
+    this.authService.sendData(data)
     this.router.navigateByUrl('/dioceses')
   }
 }

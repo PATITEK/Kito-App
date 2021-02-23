@@ -4,7 +4,7 @@
   <!-- <ion-label class="ion-text-center">CHỌN GIÁO PHẬN</ion-label> -->
   <ion-list>
     <app-list-dioceses *ngFor="let item of data" [data] = "item" [flag_parishes_diocese]="'parishes'"
-    [flag_donate_pray]="'donate'"
+   [type] ="type"
     ></app-list-dioceses>
   </ion-list>
 </ion-content>

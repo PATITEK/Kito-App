@@ -11,8 +11,7 @@ import { ModalDonateComponent } from '../modal-donate/modal-donate.component';
 export class ListDiocesesComponent implements OnInit {
   @Input() data: any;
   @Input() flag_parishes_diocese: string;
-  @Input() flag_donate_pray: string;
-  @Input() type_data;
+  @Input() type;
   constructor(
     private modalCtrl: ModalController,
     public router: Router
@@ -26,14 +25,14 @@ export class ListDiocesesComponent implements OnInit {
         component: ModalDonateComponent,
         swipeToClose: true,
         cssClass: 'modalDonate',
-        componentProps: { diocese_id: this.data.id }
+        componentProps: { diocese_id: this.data.id, type: this.type }
       });
       return await popover.present();
     }
     else {
       const data = {
         id: this.data.id,
-        type: 'Parishes'
+        source_type: 'Parishes'
       }
       this.router.navigate(['donate'], {
         queryParams: {

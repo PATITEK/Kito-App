@@ -14,7 +14,6 @@ import { GoogleMapComponent } from '../@modular/google-map/google-map.component'
 export class MainPage implements OnInit {
   name = '';
   avatar = '';
-  previousUrl = '';
   menu = [
     {
       name: '(Tổng) Giáo phận',
@@ -109,7 +108,19 @@ export class MainPage implements OnInit {
   } 
 
   goToDetail(item) {
-    this.router.navigateByUrl(item.desUrl);
+    if(item.desUrl == 'donate') {
+      const data = {
+        type: 'donate'
+      }
+      this.authService.sendData(data)
+    }
+    else if(item.desUrl == 'pray') {
+      const data = {
+        type: 'pray'
+      }
+      this.authService.sendData(data)
+    }
+     this.router.navigateByUrl(item.desUrl);
   }
 
   goToNewsDetail(item) {

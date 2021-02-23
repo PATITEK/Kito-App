@@ -23,11 +23,15 @@ export class ParishesPage implements OnInit {
     per_page: 100
   }
   data;
+  type : {
+    type: any
+  };
   title = 'Chọn giáo xứ'
   ngOnInit() {
     this.loadingService.present()
     this.authService.receiveData.subscribe(data =>  {
       this.pageParish.diocese_id = data.id;
+      this.type = data.type
     })
     this.parishesService.getAll(this.pageParish).subscribe((data: any) => {
       this.loadingService.dismiss()
