@@ -28,6 +28,8 @@ export class GeolocationService {
         address: "null"
     };
 
+    center: google.maps.LatLngLiteral = {lat: 10.847849, lng: 106.786323};
+
     constructor(public geolocation: Geolocation,
         public nativeGeocoder: NativeGeocoder,
         public loadingService: LoadingService,
@@ -43,6 +45,8 @@ export class GeolocationService {
             this.geolocation.getCurrentPosition().then((resp) => {
                 this.lat = resp.coords.latitude;
                 this.lng = resp.coords.longitude;
+                this.center.lat = resp.coords.latitude;
+                this.center.lng = resp.coords.longitude;
                 this.getGeoEncoder(this.lat, this.lng)
                 // console.log(this.lat,'  ', this.lng)
                 this.loadingService.dismiss();

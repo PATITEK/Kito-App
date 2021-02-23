@@ -2,13 +2,50 @@ import { Component, OnInit } from '@angular/core';
 import { Platform } from '@ionic/angular';
 import { GeolocationService, LoadingService } from 'src/app/@app-core/utils';
 import { ViewChild, ElementRef } from '@angular/core';
+import { threadId } from 'worker_threads';
 @Component({
   selector: 'app-map',
   templateUrl: './map.page.html',
   styleUrls: ['./map.page.scss'],
 })
 export class MapPage implements OnInit {
-  location = new google.maps.LatLng(10.810327, 106.668205);
+  map: google.maps.Map;
+  center: google.maps.LatLngLiteral = {lat: 10.847849, lng: 106.786323};
+
+  labels = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+  locations = [
+    { lat: -31.56391, lng: 147.154312 },
+    { lat: -33.718234, lng: 150.363181 },
+    { lat: -33.727111, lng: 150.371124 },
+    { lat: -33.848588, lng: 151.209834 },
+    { lat: -33.851702, lng: 151.216968 },
+    { lat: -34.671264, lng: 150.863657 },
+    { lat: -35.304724, lng: 148.662905 },
+    { lat: -36.817685, lng: 175.699196 },
+    { lat: -36.828611, lng: 175.790222 },
+    { lat: -37.75, lng: 145.116667 },
+    { lat: -37.759859, lng: 145.128708 },
+    { lat: -37.765015, lng: 145.133858 },
+    { lat: -37.770104, lng: 145.143299 },
+    { lat: -37.7737, lng: 145.145187 },
+    { lat: -37.774785, lng: 145.137978 },
+    { lat: -37.819616, lng: 144.968119 },
+    { lat: -38.330766, lng: 144.695692 },
+    { lat: -39.927193, lng: 175.053218 },
+    { lat: -41.330162, lng: 174.865694 },
+    { lat: -42.734358, lng: 147.439506 },
+    { lat: -42.734358, lng: 147.501315 },
+    { lat: -42.735258, lng: 147.438 },
+    { lat: -43.999792, lng: 170.463352 },
+  ];
+
+  markers = this.locations.map((location, i) => {
+    return new google.maps.Marker({
+      position: location,
+      label: this.labels[i % this.labels.length],
+    });
+  });
 
   @ViewChild('map', {read: ElementRef, static: false}) mapRef: ElementRef;
   constructor(
@@ -19,43 +56,27 @@ export class MapPage implements OnInit {
 
   GetYourLocation() {
     this.GeolocationService.getCurrentLocation();
+    this.center = this.GeolocationService.center;
+    this.initMap(this.center, 15);
   }
 
   ngOnInit(){
     this.GeolocationService.getCurrentLocation();
   }
 
-  ngAfterViewInit() {
-    // this.showMap();
-    this.initMap();
+  ionViewDidEnter() {
+    this.center = this.GeolocationService.center;
+    this.initMap(this.center, 15);
   }
 
+  ngAfterViewInit() {
+  }
   
-  
-
-  // ionViewDidEnter() {
-  //   this.showMap();
-  // }
-
-  // showMap(location?) {
-  //   Environment.setEnv({
-  //     'API_KEY_FOR_BROWSER_RELEASE': 'AIzaSyBH-sWHs1mfptQLcfd-UgRWwExsVQ45vAk',
-  //     'API_KEY_FOR_BROWSER_DEBUG': 'AIzaSyBH-sWHs1mfptQLcfd-UgRWwExsVQ45vAk'
-  //   });
-  //   const options = {
-  //     center: this.location || location,
-  //     zoom: 16,
-  //     // disableDefaultUI: true,
-  //   }
-  //   this.map = new google.maps.Map(this.mapRef.nativeElement, options);
-  // }
-  map: google.maps.Map;
-  center: google.maps.LatLngLiteral = {lat: 30, lng: -110};
-
-  initMap(): void {
+  initMap(center, zoomlv): void {
     this.map = new google.maps.Map(document.getElementById("map") as HTMLElement, {
-      center: this.center,
-      zoom: 8
+      center: this.center || center,
+      zoom: zoomlv,
+      disableDefaultUI: true,
     });
   }
 }
