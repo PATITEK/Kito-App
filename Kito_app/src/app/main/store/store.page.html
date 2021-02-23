@@ -3,12 +3,7 @@
 </ion-header>
 
 <ion-content (click)="onCheckClickOutsideHeaderIcon($event)">
-  <app-search-bar-nav class="nav-bar-custom"></app-search-bar-nav>
-
-  <div class="cart active-effect" (click)="goToCart()">
-    <img src="assets/icon/cart.svg" class="cart-icon">
-    <span *ngIf="cart.length" class="cart-amount">{{ calTotalItem() }}</span>
-  </div>
+  <app-search-bar-nav></app-search-bar-nav>
 
   <div class="segment-container">
     <ion-buttons class="segment">
@@ -56,5 +51,14 @@
         </ion-buttons>
       </div>
     </ion-buttons>
+  </div>
+
+  <div class="cart-wrapper">
+    <div class="cart" (click)="goToCart()">
+      <ion-buttons class="cart-inner main-box-shadow">
+        <img src="assets/icon/cart.svg" class="cart-icon">
+        <ion-buttons *ngIf="cart.length" class="cart-amount">{{ calTotalItem() }}</ion-buttons>
+      </ion-buttons>
+    </div>
   </div>
 </ion-content>

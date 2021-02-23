@@ -8,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class NewsPage implements OnInit {
 
   constructor() { }
+  tabNew = true;
   title = 'Tin tức giáo xứ';
   news = [
     {
@@ -29,6 +30,17 @@ export class NewsPage implements OnInit {
   ]
   ngOnInit() {
   }
+  changeTabs() {
+    if (this.tabNew) {
+      this.tabNew = false;
+    }
+    else {
+      this.tabNew = true;
+    }
+  }
+  counter(i: number) {
+    return new Array(i);
+  }
   // getUrl() {
   //   if (!this.img) {
   //     return `url("https://i.imgur.com/UKNky29.jpg")`
@@ -36,6 +48,6 @@ export class NewsPage implements OnInit {
   //   else return `url(${this.img})`
   // }
   getUrl() {
-   return `url("https://i.imgur.com/UKNky29.jpg")`
+    return `url("https://i.imgur.com/UKNky29.jpg")`
   }
 }

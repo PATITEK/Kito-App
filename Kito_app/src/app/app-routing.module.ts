@@ -77,9 +77,12 @@ const routes: Routes = [
     loadChildren: () => import('./parishes/parishes.module').then( m => m.ParishesPageModule),
     canActivate: [AuthGuard],
   },
+  {
+    path: 'map',
+    loadChildren: () => import('./@modular/map/map.module').then( m => m.MapPageModule)
+  },
   { path: '', redirectTo: '/main', pathMatch: 'full' },
   { path: '**'  , redirectTo: 'main' },
-
 
 ];
 @NgModule({

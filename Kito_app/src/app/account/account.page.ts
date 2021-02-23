@@ -55,6 +55,9 @@ export class AccountPage implements OnInit {
     this.getData();
    
   }
+  ngDoCheck(){
+    this.ionViewWillEnter();
+  }
 
   ionViewWillEnter() {
   //  this.imageService.getImage();
@@ -90,17 +93,6 @@ export class AccountPage implements OnInit {
     });
   }
 
-  // async presentPopover(ev: any) {
-  //   const popover = await this.popoverController.create({
-  //     component: PopupComponent,
-  //     cssClass: 'my-custom-class',
-  //     event: ev,
-  //     translucent: true,
-  //     mode: 'md',
-  //   });
-  //   return await popover.present();
-  // }
-
   async avatarSetting() {
     let alertAvatarSetting =  await this.alertCtrl.create({
       message: 'Cài đặt ảnh đại diện',
@@ -115,6 +107,7 @@ export class AccountPage implements OnInit {
         {
           text: 'Tải ảnh lên',
           handler: () => {
+            
             this.cameraService.getAvatarUpload(this.image_avatar);
           }
         },

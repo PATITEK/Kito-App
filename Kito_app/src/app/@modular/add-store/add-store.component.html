@@ -1,3 +1,10 @@
+<div class="cart" (click)="goToCart()">
+  <ion-buttons class="cart-inner main-box-shadow">
+    <img src="assets/icon/cart.svg" class="cart-icon">
+    <ion-buttons class="cart-amount">{{ calTotalItem() }}</ion-buttons>
+  </ion-buttons>
+</div>
+
 <ion-buttons class="header">
   Thêm hàng
   <ion-icon name="close-outline" class="active-effect" (click)="dismiss()"></ion-icon>

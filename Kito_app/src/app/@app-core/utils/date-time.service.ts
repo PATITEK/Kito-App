@@ -3,33 +3,33 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class DateTimeService {
   public DAYS = [
+    'Sunday',
     'Monday',
     'Tuesday',
     'Wednesday',
     'Thursday',
     'Friday',
     'Saturday',
-    'Sunday',
   ];
 
   public VIETNAMESE_DAYS = [
+    'CN',
     'Hai',
     'Ba',
     'Tư',
     'Năm',
     'Sáu',
     'Bảy',
-    'CN'
   ];
 
   public VIETNAMESE_DAYS_2 = [
+    'Chủ nhật',
     'Thứ hai',
     'Thứ ba',
     'Thứ tư',
     'Thứ năm',
     'Thứ sáu',
     'Thứ bảy',
-    'Chủ nhật'
   ];
 
   public MONTHS = [
@@ -66,7 +66,8 @@ export class DateTimeService {
 
   // 5:00
   public getTimeString(date: Date) {
-    return `${date.getHours()}:${date.getMinutes()}`;
+    const minutes = date.getMinutes() < 10 ? `0${date.getMinutes()}` : date.getMinutes();
+    return `${date.getHours()}:${minutes}`;
   }
 
   public numberWithCommas(str) {

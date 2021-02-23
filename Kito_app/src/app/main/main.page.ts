@@ -4,7 +4,7 @@ import { AuthService } from '../@app-core/http';
 import { ModalController } from '@ionic/angular';
 import { AccountService } from '../@app-core/http/account/account.service';
 import { ImageService, OneSignalService } from '../@app-core/utils';
-import { GoogleMapComponent } from '../@modular/google-map/google-map.component'
+import { MapPage } from '../@modular/map/map.page'
 
 @Component({
   selector: 'app-main',
@@ -137,7 +137,7 @@ export class MainPage implements OnInit {
 
   async openModalGoogleMap() {
     const modal = await this.modalCtrl.create({
-      component: GoogleMapComponent,
+      component: MapPage,
       cssClass: 'google-map-modal',
       swipeToClose: true,
     });
