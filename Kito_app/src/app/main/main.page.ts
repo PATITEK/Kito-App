@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../@app-core/http';
+import { ModalController } from '@ionic/angular';
 import { AccountService } from '../@app-core/http/account/account.service';
-import { GeolocationService, ImageService, OneSignalService } from '../@app-core/utils';
+import { ImageService, OneSignalService } from '../@app-core/utils';
+import { MapPage } from '../@modular/map/map.page'
 
 @Component({
   selector: 'app-main',
@@ -76,7 +78,7 @@ export class MainPage implements OnInit {
     private imageService: ImageService,
     private accountService: AccountService,
     private authService: AuthService,
-    private geolocationService: GeolocationService
+    public modalCtrl: ModalController
   ) { }
   ionViewWillEnter() {
     this.name = localStorage.getItem('fullname');
@@ -133,7 +135,12 @@ export class MainPage implements OnInit {
     this.router.navigateByUrl('account-setting');
   }
 
-  test() {
-    this.geolocationService.openModalGoogleMap();
+  async openModalGoogleMap() {
+    const modal = await this.modalCtrl.create({
+      component: MapPage,
+      cssClass: 'google-map-modal',
+      swipeToClose: true,
+    });
+    modal.present();
   }
 }

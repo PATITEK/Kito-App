@@ -43,7 +43,7 @@ export class MapPage implements OnInit {
       for(let i = 1; i<=totalDioceses; i++) {
         this.pageRequestParishes.diocese_id += 1;
         this.parishesService.getAll(this.pageRequestParishes).subscribe(data=> {
-          console.log(data)
+          // console.log(data)
           this.markers = data.parishes;
           this.addMarkersToMap(this.markers);
         })
