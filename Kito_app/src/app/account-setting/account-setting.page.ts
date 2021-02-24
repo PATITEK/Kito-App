@@ -27,6 +27,7 @@ export class AccountSettingPage implements OnInit {
 
   ngOnInit() {
   }
+  
   ionViewWillEnter() {
     // this.imageService.getImage();
     this.accountService.getAccounts().subscribe(data => {

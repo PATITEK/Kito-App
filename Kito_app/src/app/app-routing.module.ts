@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './@app-core/auth-guard.service';
-import {} from './changepassword/changepassword.module'
-import {SlideComponent} from './@modular/slide/slide.component';
+import { } from './changepassword/changepassword.module'
+import { SlideComponent } from './@modular/slide/slide.component';
 
 const routes: Routes = [
   {
@@ -12,27 +12,27 @@ const routes: Routes = [
   {
     path: 'main',
     loadChildren: () => import('./main/main.module').then(m => m.MainPageModule),
-     canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
   },
   {
     path: 'donate',
     loadChildren: () => import('./donate/donate.module').then(m => m.DonatePageModule),
-     canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
   },
   {
     path: 'payment',
-    loadChildren: () => import('./payment/payment.module').then( m => m.PaymentPageModule),
+    loadChildren: () => import('./payment/payment.module').then(m => m.PaymentPageModule),
     canActivate: [AuthGuard],
   },
   {
     path: 'paymentmethods',
-    loadChildren: () => import('./paymentmethods/paymentmethods.module').then( m => m.PaymentmethodsPageModule),
+    loadChildren: () => import('./paymentmethods/paymentmethods.module').then(m => m.PaymentmethodsPageModule),
     canActivate: [AuthGuard],
   },
   {
     path: 'pray',
     loadChildren: () => import('./pray/pray.module').then(m => m.PrayPageModule),
-     canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
   },
   {
     path: 'page-noti',
@@ -41,7 +41,7 @@ const routes: Routes = [
   },
   {
     path: 'changepassword',
-    loadChildren: () => import('./changepassword/changepassword.module').then( m => m.ChangepasswordPageModule),
+    loadChildren: () => import('./changepassword/changepassword.module').then(m => m.ChangepasswordPageModule),
     canActivate: [AuthGuard],
   },
   {
@@ -54,35 +54,40 @@ const routes: Routes = [
   },
   {
     path: 'slide',
-    loadChildren: () => import('./@modular/slide/slide.module').then( m => m.SlideModule),
+    loadChildren: () => import('./@modular/slide/slide.module').then(m => m.SlideModule),
     canActivate: [AuthGuard],
   },
   {
     path: 'modal-detail-order',
-    loadChildren: () => import('./@modular/modal-detail-order/modal-detail-order.module').then( m => m.ModalDetailOrderPageModule),
+    loadChildren: () => import('./@modular/modal-detail-order/modal-detail-order.module').then(m => m.ModalDetailOrderPageModule),
     canActivate: [AuthGuard],
   },
   {
     path: 'dioceses',
-    loadChildren: () => import('./dioceses/dioceses.module').then( m => m.DiocesesPageModule),
+    loadChildren: () => import('./dioceses/dioceses.module').then(m => m.DiocesesPageModule),
     canActivate: [AuthGuard],
   },
   {
     path: 'news-detail',
-    loadChildren: () => import('./@modular/news-detail/news-detail.module').then( m => m.NewsDetailPageModule),
+    loadChildren: () => import('./@modular/news-detail/news-detail.module').then(m => m.NewsDetailPageModule),
     canActivate: [AuthGuard],
   },
   {
     path: 'parishes',
-    loadChildren: () => import('./parishes/parishes.module').then( m => m.ParishesPageModule),
+    loadChildren: () => import('./parishes/parishes.module').then(m => m.ParishesPageModule),
     canActivate: [AuthGuard],
   },
   {
     path: 'map',
-    loadChildren: () => import('./@modular/map/map.module').then( m => m.MapPageModule)
+    loadChildren: () => import('./@modular/map/map.module').then(m => m.MapPageModule)
+  },
+  {
+    path: 'statistic',
+    loadChildren: () => import('./statistic/statistic.module').then(m => m.StatisticPageModule)
   },
   { path: '', redirectTo: '/main', pathMatch: 'full' },
-  { path: '**'  , redirectTo: 'main' },
+  { path: '**', redirectTo: 'main' },
+
 
 ];
 @NgModule({

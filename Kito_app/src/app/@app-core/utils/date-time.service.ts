@@ -79,4 +79,8 @@ export class DateTimeService {
   public isEmptyObject(obj) {
     return obj && Object.keys(obj).length === 0 && obj.constructor === Object;
   }
+
+  public daysInMonth (month, year) {
+    return new Date(year, month, 0).getDate();
+}
 }
