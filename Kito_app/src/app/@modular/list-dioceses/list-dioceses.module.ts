@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ListDiocesesComponent } from './list-dioceses.component';
 import { ListDiocesesRoutingModule } from './list-dioceses-routing.module';
+import { IonicModule } from '@ionic/angular';
 
 
 
@@ -9,7 +10,8 @@ import { ListDiocesesRoutingModule } from './list-dioceses-routing.module';
   declarations: [ListDiocesesComponent],
   imports: [
     CommonModule,
-    ListDiocesesRoutingModule
+    ListDiocesesRoutingModule,
+    IonicModule
   ],
   exports: [
     ListDiocesesComponent

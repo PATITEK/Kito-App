@@ -8,10 +8,8 @@ import { ParishNewsPageRoutingModule } from './parish-news-routing.module';
 
 import { ParishNewsPage } from './parish-news.page';
 import { HeaderModule } from 'src/app/@modular/header/header.module';
-import { MainSlideModule } from 'src/app/@modular/main-slide/main-slide.module';
-import { MainSlideComponent } from 'src/app/@modular/main-slide/main-slide.component';
-import { MenuComponent } from 'src/app/@modular/menu/menu.component';
 import { MenuModule } from 'src/app/@modular/menu/menu.module';
+import { MainSlideModule } from 'src/app/@modular/main-slide/main-slide.module';
 
 @NgModule({
   imports: [
@@ -20,8 +18,9 @@ import { MenuModule } from 'src/app/@modular/menu/menu.module';
     IonicModule,
     ParishNewsPageRoutingModule,
     HeaderModule,
-    MenuModule
+    MenuModule,
+    MainSlideModule
   ],
-  declarations: [ParishNewsPage, MainSlideComponent]
+  declarations: [ParishNewsPage]
 })
 export class ParishNewsPageModule {}

@@ -8,8 +8,6 @@ import { SettingLanguagesPageRoutingModule } from './setting-languages-routing.m
 
 import { SettingLanguagesPage } from './setting-languages.page';
 import { HeaderModule } from 'src/app/@modular/header/header.module';
-import { SearchBarNavComponent } from 'src/app/@modular/search-bar-nav/search-bar-nav.component';
-import { HeaderComponent } from 'src/app/@modular/header/header.component';
 
 @NgModule({
   imports: [
@@ -21,7 +19,6 @@ import { HeaderComponent } from 'src/app/@modular/header/header.component';
   ],
   declarations: [
     SettingLanguagesPage,
-    SearchBarNavComponent,
   ]
 })
 export class SettingLanguagesPageModule {}

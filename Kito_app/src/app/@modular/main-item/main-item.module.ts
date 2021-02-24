@@ -1,8 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-import { MainItemRoutingModule } from './main-item-routing.module';
 import { MainItemComponent } from './main-item.component';
+import { IonicModule } from '@ionic/angular';
 
 
 
@@ -10,7 +9,7 @@ import { MainItemComponent } from './main-item.component';
   declarations: [MainItemComponent],
   imports: [
     CommonModule,
-    MainItemRoutingModule
+    IonicModule
   ],
   exports: [
     MainItemComponent
