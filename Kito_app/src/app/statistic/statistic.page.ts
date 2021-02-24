@@ -50,10 +50,6 @@ export class StatisticPage implements OnInit {
     this.initData();
   }
 
-  ionViewDidEnter() {
-    this.slides.lockSwipes(true);
-  }
-
   initData() {
     this.years.forEach(year => {
       let months = [];
@@ -107,20 +103,17 @@ export class StatisticPage implements OnInit {
     this.selectedMonthId = id;
   }
 
-  // changeSegmentSlide() {
-  //   this.slides.getActiveIndex().then(index => {
-  //     this.changeSlide(index);
-  //   })
-  // }
-
   toggleHasYearOptions(value) {
     this.hasYearOptions = value;
+  }
+
+  disableSwipe() {
+    this.slides.lockSwipes(true);
   }
 
   changeYear(year) {
     event.stopPropagation();
     if (this.selectedYear != year.number) {
-
       this.selectedYear = year.number;
       this.selectedMonthId = 0;
     }

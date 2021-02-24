@@ -9,7 +9,8 @@
         <span class="selected-year">Năm {{ selectedYear }}</span>
         <div class="triangle"></div>
         <div class="year-options" *ngIf="hasYearOptions">
-          <div class="year-option" [ngClass]="{'selected-year-option': year.number == selectedYear}" *ngFor="let year of years" (click)="changeYear(year)">{{ year.number }}</div>
+          <div class="year-option" [ngClass]="{'selected-year-option': year.number == selectedYear}"
+            *ngFor="let year of years" (click)="changeYear(year)">{{ year.number }}</div>
         </div>
       </ion-buttons>
     </div>
@@ -28,7 +29,8 @@
 
   <div class="body">
     <ng-container *ngFor="let year of years">
-      <ion-slides *ngIf="selectedYear == year.number" #slides [options]="slideOptions" (ionSlideWillChange)="scrollToTop(300)">
+      <ion-slides *ngIf="selectedYear == year.number" #slides [options]="slideOptions"
+        (ionSlideWillChange)="scrollToTop(300)" (ionSlidesDidLoad)="disableSwipe()">
         <ion-slide *ngFor="let month of year.months">
           <div class="top-box">
             <ion-buttons class="top-box-header">
