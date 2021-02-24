@@ -14,8 +14,8 @@ interface Location {
 
 export class GeolocationService {
 
-    lat: any = 0;
-    lng: any = 0;
+    // lat: any = 0;
+    // lng: any = 0;
 
     geoEncoderOptions: NativeGeocoderOptions = {
         useLocale: true,
@@ -28,7 +28,7 @@ export class GeolocationService {
         address: "null"
     };
 
-    center: google.maps.LatLngLiteral = {lat: 10.847849, lng: 106.786323};
+    centerService: google.maps.LatLngLiteral = {lat: 10.847949, lng: 106.786794};
 
     constructor(public geolocation: Geolocation,
         public nativeGeocoder: NativeGeocoder,
@@ -43,11 +43,11 @@ export class GeolocationService {
         this.PlatForm.ready().then(() => {
             this.loadingService.present('Hãy đợi trong giây lát...');
             this.geolocation.getCurrentPosition().then((resp) => {
-                this.lat = resp.coords.latitude;
-                this.lng = resp.coords.longitude;
-                this.center.lat = resp.coords.latitude;
-                this.center.lng = resp.coords.longitude;
-                this.getGeoEncoder(this.lat, this.lng)
+                // this.lat = resp.coords.latitude;
+                // this.lng = resp.coords.longitude;
+                this.centerService.lat = resp.coords.latitude;
+                this.centerService.lng = resp.coords.longitude;
+                this.getGeoEncoder(this.centerService.lat, this.centerService.lng);
                 // console.log(this.lat,'  ', this.lng)
                 this.loadingService.dismiss();
             })
@@ -97,28 +97,4 @@ export class GeolocationService {
         const d = R * c;
         return Math.round(d/1000);
     }
-
-    // loadMap() {
-    //     Environment.setEnv({
-    //       'API_KEY_FOR_BROWSER_RELEASE': 'AIzaSyBH-sWHs1mfptQLcfd-UgRWwExsVQ45vAk',
-    //       'API_KEY_FOR_BROWSER_DEBUG': 'AIzaSyBH-sWHs1mfptQLcfd-UgRWwExsVQ45vAk'
-    //     });
-    //     this.map.moveCamera({
-    //       target: {
-    //         lat: this.customerLocation.lat,
-    //         lng: this.customerLocation.lng
-    //       },
-    //       zoom: 18,
-    //       tilt: 30,
-    //     })
-    //     this.map.clear()
-    //     this.map.addMarkerSync({
-    //       icon: 'blue',
-    //       animation: 'DROP',
-    //       position: {
-    //         lat: this.customerLocation.lat,
-    //         lng: this.customerLocation.lng
-    //       }
-    //     })
-    // }
 }
