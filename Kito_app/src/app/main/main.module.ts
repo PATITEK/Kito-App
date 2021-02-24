@@ -7,15 +7,13 @@ import { IonicModule } from '@ionic/angular';
 import { MainPageRoutingModule } from './main-routing.module';
 
 import { MainPage } from './main.page';
-import { FooterModule } from '../@modular/footer/footer.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    MainPageRoutingModule,
-    FooterModule
+    MainPageRoutingModule
   ],
   declarations: [MainPage]
 })

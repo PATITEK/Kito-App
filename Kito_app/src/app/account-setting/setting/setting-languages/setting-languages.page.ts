@@ -6,31 +6,26 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./setting-languages.page.scss'],
 })
 export class SettingLanguagesPage implements OnInit {
-  headerCustom = {title: 'Ngôn ngữ'};
-  checkeds = 0;
-  limit = 1;
-  podecheck = true;
+  headerCustom = { title: 'Ngôn ngữ' };
+  languages = [
+    { name: 'Tiếng Việt', id: 0 },
+    { name: 'English', id: 1 },
+    { name: 'עִברִית', id: 2 },
+    { name: '中國人', id: 3 },
+  ];
+  selectedLanguage = { name: 'Việt Nam', id: 0 };
+
   constructor() { }
 
   ngOnInit() {
+    this.getLanguage();
   }
 
-  check(language) {
-    if (!language.isChecked){
-      this.checkeds++;
-      console.log(language.val);
-      localStorage.setItem('language', language.val);
-    } else {
-      this.checkeds--;
-      // console.log(this.checkeds);
-    }
+  getLanguage() {
+    this.selectedLanguage = JSON.parse(localStorage.getItem('language')) || { name: 'Việt Nam', id: 0 };
   }
 
-  languages = [
-    { val: 'Tiếng Việt', isChecked: false },
-    { val: 'English', isChecked: false },
-    { val: 'עִברִית', isChecked: false },
-    { val: '中國人', isChecked: false},
-  ];
-
+  setLanguage(language) {
+    localStorage.setItem('language', JSON.stringify(language));
+  }
 }

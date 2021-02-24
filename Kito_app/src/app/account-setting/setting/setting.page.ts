@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { NavController } from '@ionic/angular';
 @Component({
   selector: 'app-setting',
   templateUrl: './setting.page.html',
@@ -8,63 +6,40 @@ import { NavController } from '@ionic/angular';
 })
 
 export class SettingPage implements OnInit {
-  headerCustom = {title: 'Cài đặt'};
+  headerCustom = { title: 'Cài đặt' };
   items = [];
-  constructor(
-    private navCtrl: NavController,
-    private router: Router
-  ) {}
 
-  ngOnInit() {
-    this.items = [
-      {
-        id: 1,
-        title: "Ngôn ngữ",
-        icon: "assets/img/setting/language.svg",
-        temp: localStorage.getItem('language') || '',
-        routerLink: "setting-languages"
-      },
-      {
-        id: 2,
-        title: "Giáo phận",
-        icon: "assets/img/setting/archdiocese.svg",
-        temp: "none",
-      },
-      {
-        id: 3,
-        title: "Giáo xứ",
-        icon: "assets/img/setting/parish.svg",
-        temp: "none",
-      },
-    ]
-  }
+  constructor() { }
+
+  ngOnInit() {}
 
   ionViewWillEnter() {
+    this.initData();
+  }
+
+  initData() {
     this.items = [
       {
         id: 1,
         title: "Ngôn ngữ",
         icon: "assets/img/setting/language.svg",
-        temp: localStorage.getItem('language') || '',
-        routerLink: "setting-languages"
+        content: JSON.parse(localStorage.getItem('language')).name || '',
+        routerLink: '/account-setting/setting/setting-languages'
       },
       {
         id: 2,
         title: "Giáo phận",
         icon: "assets/img/setting/archdiocese.svg",
-        temp: "none",
+        content: '',
+        routerLink: 'account-setting/setting'
       },
       {
         id: 3,
         title: "Giáo xứ",
         icon: "assets/img/setting/parish.svg",
-        temp: "none",
+        content: '',
+        routerLink: '/account-setting/setting'
       },
     ];
-  }
-
-  routerLink(path) {
-    console.log(path);
-    this.router.navigateByUrl(path);
   }
 }

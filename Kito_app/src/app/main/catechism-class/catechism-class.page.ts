@@ -19,6 +19,11 @@ export class CatechismClassPage implements OnInit {
       name: 'Giáo lý hôn nhân',
       thumbImage: 'assets/img/catechism-menu-2.svg',
       desUrl: 'main/catechism-class/catechism-marriage'
+    },
+    {
+      name: 'Đố vui giáo lý',
+      thumbImage: 'assets/img/catechism-menu-3.svg',
+      desUrl: 'main/catechism-class'
     }
   ]
 

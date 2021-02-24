@@ -61,16 +61,19 @@ export class CatechismPage implements OnInit {
   }
 
   changeSegment(id) {
-    this.slides.slideTo(id).then(() => this.changeSlide(id));
+    this.slides.lockSwipes(false).then(() => {
+      this.slides.slideTo(id).then(() => {
+        this.changeSlide(id);
+        this.slides.lockSwipes(true);
+      });
+    })
   }
 
   changeSlide(id) {
     this.currentMenuItemId = id;
   }
 
-  changeSegmentSlide() {
-    this.slides.getActiveIndex().then(index => {
-      this.changeSlide(index);
-    })
+  disableSwipe() {
+    this.slides.lockSwipes(true);
   }
 }
