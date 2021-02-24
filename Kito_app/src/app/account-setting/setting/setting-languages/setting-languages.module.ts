@@ -22,7 +22,6 @@ import { HeaderComponent } from 'src/app/@modular/header/header.component';
   declarations: [
     SettingLanguagesPage,
     SearchBarNavComponent,
-    HeaderComponent
   ]
 })
 export class SettingLanguagesPageModule {}
