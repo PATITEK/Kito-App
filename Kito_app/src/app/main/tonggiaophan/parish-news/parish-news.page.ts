@@ -6,6 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./parish-news.page.scss'],
 })
 export class ParishNewsPage implements OnInit {
+  headerCustom = {}
+
   list = [
     {
       heading: 'Tin tức TÒA THÁNH VATICAN',
