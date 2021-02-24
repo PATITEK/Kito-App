@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Platform } from '@ionic/angular';
 import { GeolocationService, LoadingService } from 'src/app/@app-core/utils';
 import { ViewChild, ElementRef } from '@angular/core';
-import { threadId } from 'worker_threads';
 @Component({
   selector: 'app-map',
   templateUrl: './map.page.html',
@@ -10,42 +9,18 @@ import { threadId } from 'worker_threads';
 })
 export class MapPage implements OnInit {
   map: google.maps.Map;
-  center: google.maps.LatLngLiteral = {lat: 10.847849, lng: 106.786323};
+
+  center: google.maps.LatLngLiteral = this.GeolocationService.centerService;
 
   labels = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
-  locations = [
-    { lat: -31.56391, lng: 147.154312 },
-    { lat: -33.718234, lng: 150.363181 },
-    { lat: -33.727111, lng: 150.371124 },
-    { lat: -33.848588, lng: 151.209834 },
-    { lat: -33.851702, lng: 151.216968 },
-    { lat: -34.671264, lng: 150.863657 },
-    { lat: -35.304724, lng: 148.662905 },
-    { lat: -36.817685, lng: 175.699196 },
-    { lat: -36.828611, lng: 175.790222 },
-    { lat: -37.75, lng: 145.116667 },
-    { lat: -37.759859, lng: 145.128708 },
-    { lat: -37.765015, lng: 145.133858 },
-    { lat: -37.770104, lng: 145.143299 },
-    { lat: -37.7737, lng: 145.145187 },
-    { lat: -37.774785, lng: 145.137978 },
-    { lat: -37.819616, lng: 144.968119 },
-    { lat: -38.330766, lng: 144.695692 },
-    { lat: -39.927193, lng: 175.053218 },
-    { lat: -41.330162, lng: 174.865694 },
-    { lat: -42.734358, lng: 147.439506 },
-    { lat: -42.734358, lng: 147.501315 },
-    { lat: -42.735258, lng: 147.438 },
-    { lat: -43.999792, lng: 170.463352 },
-  ];
+  infoWindows: any = []
 
-  markers = this.locations.map((location, i) => {
-    return new google.maps.Marker({
-      position: location,
-      label: this.labels[i % this.labels.length],
-    });
-  });
+  markers: any = [
+    { lat: 12.704942, lng: 108.062434, title: 'nha tho 0', address: '12 duong 1, tp 1, tinh 3' },
+    { lat: 12.704515, lng: 108.062371, title: 'nha tho 1', address: '22 duong 2, tp 2, tinh 3' },
+    { lat: 12.703859, lng: 108.063553, title: 'nha tho 2', address: '32 duong 3, tp 2, tinh 3' },
+  ];
 
   @ViewChild('map', {read: ElementRef, static: false}) mapRef: ElementRef;
   constructor(
@@ -54,29 +29,75 @@ export class MapPage implements OnInit {
     private GeolocationService: GeolocationService
   ) { }
 
-  GetYourLocation() {
-    this.GeolocationService.getCurrentLocation();
-    this.center = this.GeolocationService.center;
-    this.initMap(this.center, 15);
-  }
-
   ngOnInit(){
     this.GeolocationService.getCurrentLocation();
   }
 
   ionViewDidEnter() {
-    this.center = this.GeolocationService.center;
-    this.initMap(this.center, 15);
+    this.center = this.GeolocationService.centerService;
+    this.initMap(this.center);
   }
 
   ngAfterViewInit() {
   }
+
+  getYourLocation() {
+    this.GeolocationService.getCurrentLocation();
+    this.center = this.GeolocationService.centerService;
+    this.initMap(this.center);
+  }
   
-  initMap(center, zoomlv): void {
+  initMap(center): void {
     this.map = new google.maps.Map(document.getElementById("map") as HTMLElement, {
       center: this.center || center,
-      zoom: zoomlv,
+      zoom: 15,
       disableDefaultUI: true,
     });
+    this.addMarkersToMap(this.markers);
+  }
+
+  addMarkersToMap(markers) {
+    for (let marker of markers) {
+      // console.log(marker.lat)
+      let position = new google.maps.LatLng(marker.lat, marker.lng);
+      let mapMarker = new google.maps.Marker({
+        position: position,
+        title: marker.title,
+      });
+      let mapMarkerPosition = {
+        lat: marker.lat,
+        lng: marker.lng,
+        address: marker.address,
+      }
+
+      mapMarker.setMap(this.map);
+      this.addInfoWindowToMarker(mapMarker, mapMarkerPosition);
+    }
+  }
+
+  addInfoWindowToMarker(marker, mapMarkerPosition) {
+    let infoWindowContent = '<div>' +
+                              '<h3>' + marker.title + '</h3>' +
+                              '<h5>' + mapMarkerPosition.address + '</h5>' +
+                              '<p>Latitude: ' + mapMarkerPosition.lat + '</p>' +
+                              '<p>Longitude: ' + mapMarkerPosition.lng + '</p>' +
+                              '<ion-button style="--background: #F6C33E ">'+ 'Chỉ đường tới đây' +'</ion-button>'
+                            '</div>';
+
+    let infoWindow = new google.maps.InfoWindow({
+      content: infoWindowContent,
+    });
+
+    marker.addListener('click', () => {
+      this.closeAllInfoWindows();
+      infoWindow.open(this.map, marker);
+    });
+    this.infoWindows.push(infoWindow);
+  }
+
+  closeAllInfoWindows() {
+    for(let window of this.infoWindows) {
+      window.close();
+    }
   }
 }
