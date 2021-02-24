@@ -14,7 +14,7 @@ import { ChangepasswordPage } from '../changepassword/changepassword.page';
 export class AccountPage implements OnInit {
   image_avatar: any;
   avatar = '';
-  title = 'Thông tin cá nhân';
+  headerCustom = {title: 'Thông tin cá nhân'};
   activatedInput = false;
   loadedData = false;
   form: FormGroup;

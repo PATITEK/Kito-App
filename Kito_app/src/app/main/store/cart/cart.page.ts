@@ -9,7 +9,7 @@ import { DateTimeService, GeolocationService } from 'src/app/@app-core/utils';
   styleUrls: ['./cart.page.scss'],
 })
 export class CartPage implements OnInit {
-  title = 'Giỏ hàng';
+  headerCustom = {title: 'Giỏ hàng'};
   cart = [];
   shipCost = 5000;
   paymentMethods = [

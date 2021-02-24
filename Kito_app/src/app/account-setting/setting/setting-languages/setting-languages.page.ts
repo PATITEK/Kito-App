@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./setting-languages.page.scss'],
 })
 export class SettingLanguagesPage implements OnInit {
-  title = 'Ngôn ngữ';
+  headerCustom = {title: 'Ngôn ngữ'};
   checkeds = 0;
   limit = 1;
   podecheck = true;

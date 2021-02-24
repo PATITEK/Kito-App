@@ -8,7 +8,7 @@ import { NavController } from '@ionic/angular';
 })
 
 export class SettingPage implements OnInit {
-  title = 'Cài đặt'
+  headerCustom = {title: 'Cài đặt'};
   items = [];
   constructor(
     private navCtrl: NavController,

@@ -10,7 +10,7 @@ export class CatechismPage implements OnInit {
   @ViewChild('slides', { static: false }) slides: IonSlides;
   @ViewChild(IonContent) ionContent: IonContent;
 
-  title = 'Giáo lý 1-12';
+  headerCustom = {title: 'Giáo lý 1-12'};
   menuItems = [
     {
       id: 0,

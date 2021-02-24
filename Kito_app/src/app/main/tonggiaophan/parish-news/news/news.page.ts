@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./news.page.scss'],
 })
 export class NewsPage implements OnInit {
-  title = 'Thông tin';
+  headerCustom = {title: 'Thông tin'};
 
   news = [
     {

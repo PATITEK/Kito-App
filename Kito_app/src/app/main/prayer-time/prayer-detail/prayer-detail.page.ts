@@ -10,7 +10,7 @@ import { DateTimeService } from 'src/app/@app-core/utils';
   styleUrls: ['./prayer-detail.page.scss'],
 })
 export class PrayerDetailPage implements OnInit {
-  title = 'Chi tiết Bài đọc';
+  headerCustom = {title: 'Chi tiết bài đọc'};
   dateList = [];
   dateItem: any;
   event = {

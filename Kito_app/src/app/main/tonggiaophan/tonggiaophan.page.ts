@@ -8,7 +8,7 @@ import { ModalDonateComponent } from 'src/app/@modular/modal-donate/modal-donate
   styleUrls: ['./tonggiaophan.page.scss'],
 })
 export class TonggiaophanPage implements OnInit {
-  title = '(Tổng) Giáo phận';
+  headerCustom = {title: '(Tổng) Giáo phận'};
   list = [
     {
       thumbImage: 'assets/img/tonggiaophan/vatican.svg',

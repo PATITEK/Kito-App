@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
-  @Input() title: string;
+  @Input() headerCustom: {background?: String, title: String};
   
   constructor( public router: Router 
    
