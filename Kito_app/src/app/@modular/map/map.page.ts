@@ -17,10 +17,37 @@ export class MapPage implements OnInit {
   infoWindows: any = []
 
   markers: any = [
-    { lat: 12.704942, lng: 108.062434, title: 'nha tho 0', address: '12 duong 1, tp 1, tinh 3' },
-    { lat: 12.704515, lng: 108.062371, title: 'nha tho 1', address: '22 duong 2, tp 2, tinh 3' },
-    { lat: 12.703859, lng: 108.063553, title: 'nha tho 2', address: '32 duong 3, tp 2, tinh 3' },
-  ];
+    {
+        id: 1,
+        name: "Nhà thờ Thủ Đức",
+        address: "51 Võ Văn Ngân, Linh Chiểu, Thủ Đức, Thành phố Hồ Chí Minh",
+        priest_name: "Giuse Huỳnh Thanh Phương",
+        thumb_image: {
+            url: "https://hdgmvietnam.com/admin/upload/image/tong-giao-phan-ha-noi-thu-muc-vu-nam-hiep-thong-2021.jpg"
+        },
+        location: { lat: 12.704942, lng: 108.062434 }
+    },
+    {
+      id: 1,
+      name: "Nhà thờ Thủ Đức",
+      address: "51 Võ Văn Ngân, Linh Chiểu, Thủ Đức, Thành phố Hồ Chí Minh",
+      priest_name: "Giuse Huỳnh Thanh Phương",
+      thumb_image: {
+          "url": "https://hdgmvietnam.com/admin/upload/image/tong-giao-phan-ha-noi-thu-muc-vu-nam-hiep-thong-2021.jpg"
+      },
+      location: { lat: 12.704515, lng: 108.062371 }
+    },
+    {
+      id: 1,
+      name: "Nhà thờ Thủ Đức",
+      address: "51 Võ Văn Ngân, Linh Chiểu, Thủ Đức, Thành phố Hồ Chí Minh",
+      priest_name: "Giuse Huỳnh Thanh Phương",
+      thumb_image: {
+          "url": "https://hdgmvietnam.com/admin/upload/image/tong-giao-phan-ha-noi-thu-muc-vu-nam-hiep-thong-2021.jpg"
+      },
+      location: { lat: 12.703859, lng: 108.063553 }
+    }
+  ]
 
   @ViewChild('map', {read: ElementRef, static: false}) mapRef: ElementRef;
   constructor(
@@ -51,39 +78,39 @@ export class MapPage implements OnInit {
     this.map = new google.maps.Map(document.getElementById("map") as HTMLElement, {
       center: this.center || center,
       zoom: 15,
-      disableDefaultUI: true,
+      // disableDefaultUI: true,
     });
     this.addMarkersToMap(this.markers);
   }
 
   addMarkersToMap(markers) {
     for (let marker of markers) {
-      // console.log(marker.lat)
-      let position = new google.maps.LatLng(marker.lat, marker.lng);
+      let position = new google.maps.LatLng(marker.location.lat, marker.location.lng);
       let mapMarker = new google.maps.Marker({
         position: position,
-        title: marker.title,
+        title: marker.name,
       });
-      let mapMarkerPosition = {
-        lat: marker.lat,
-        lng: marker.lng,
+      let mapMarkerInfo = {
+        lat: marker.location.lat,
+        lng: marker.location.lng,
         address: marker.address,
+        thumb_image: marker.thumb_image.url,
       }
 
       mapMarker.setMap(this.map);
-      this.addInfoWindowToMarker(mapMarker, mapMarkerPosition);
+      this.addInfoWindowToMarker(mapMarker, mapMarkerInfo);
     }
   }
 
-  addInfoWindowToMarker(marker, mapMarkerPosition) {
-    let infoWindowContent = '<div>' +
-                              '<h3>' + marker.title + '</h3>' +
-                              '<h5>' + mapMarkerPosition.address + '</h5>' +
-                              '<p>Latitude: ' + mapMarkerPosition.lat + '</p>' +
-                              '<p>Longitude: ' + mapMarkerPosition.lng + '</p>' +
-                              '<ion-button style="--background: #F6C33E ">'+ 'Chỉ đường tới đây' +'</ion-button>'
+  addInfoWindowToMarker(marker, mapMarkerInfo) {
+    let infoWindowContent = '<div *ngIf=" markers.length != null ">' +
+                              '<h3 style=" display: block; text-align: center; ">' + marker.title + '</h3>' +
+                              '<img style=" height: 100px; width: 100%; display: block; border-radius: 12px; " src='+ mapMarkerInfo.thumb_image +'>' +
+                              '<h5>' + mapMarkerInfo.address + '</h5>' +
+                              '<p>Latitude: ' + mapMarkerInfo.lat + '</p>' +
+                              '<p>Longitude: ' + mapMarkerInfo.lng + '</p>' +
+                              '<ion-button id="navigate" style=" --background: #F6C33E; --border-radius: 10px; display: block; ">'+ 'Chỉ đường tới đây' +'</ion-button>'
                             '</div>';
-
     let infoWindow = new google.maps.InfoWindow({
       content: infoWindowContent,
     });
@@ -91,6 +118,14 @@ export class MapPage implements OnInit {
     marker.addListener('click', () => {
       this.closeAllInfoWindows();
       infoWindow.open(this.map, marker);
+
+      google.maps.event.addListenerOnce(infoWindow, 'domready', () => {
+        document.getElementById('navigate').addEventListener('click', () => {
+          // code to navigate using google maps app
+          window.open('https://www.google.com/maps/dir/?api=1&destination=' + mapMarkerInfo.lat + ',' + mapMarkerInfo.lng);
+        });
+      });
+
     });
     this.infoWindows.push(infoWindow);
   }

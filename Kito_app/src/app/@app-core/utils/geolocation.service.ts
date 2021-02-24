@@ -52,6 +52,7 @@ export class GeolocationService {
                 this.loadingService.dismiss();
             })
             .catch((err) => {
+                this.loadingService.dismiss();
                 console.error(err);
             })
         })
