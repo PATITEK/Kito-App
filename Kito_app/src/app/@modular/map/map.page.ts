@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Platform } from '@ionic/angular';
-import { GeolocationService, LoadingService } from 'src/app/@app-core/utils';
-import { ViewChild, ElementRef } from '@angular/core';
+import { GeolocationService } from 'src/app/@app-core/utils';
+import { ParishesService } from 'src/app/@app-core/http/parishes';
+import { IPageParishes } from 'src/app/@app-core/http/parishes/parishes.DTO';
 @Component({
   selector: 'app-map',
   templateUrl: './map.page.html',
@@ -16,48 +17,30 @@ export class MapPage implements OnInit {
 
   infoWindows: any = []
 
-  markers: any = [
-    {
-        id: 1,
-        name: "Nhà thờ Thủ Đức",
-        address: "51 Võ Văn Ngân, Linh Chiểu, Thủ Đức, Thành phố Hồ Chí Minh",
-        priest_name: "Giuse Huỳnh Thanh Phương",
-        thumb_image: {
-            url: "https://hdgmvietnam.com/admin/upload/image/tong-giao-phan-ha-noi-thu-muc-vu-nam-hiep-thong-2021.jpg"
-        },
-        location: { lat: 12.704942, lng: 108.062434 }
-    },
-    {
-      id: 1,
-      name: "Nhà thờ Thủ Đức",
-      address: "51 Võ Văn Ngân, Linh Chiểu, Thủ Đức, Thành phố Hồ Chí Minh",
-      priest_name: "Giuse Huỳnh Thanh Phương",
-      thumb_image: {
-          "url": "https://hdgmvietnam.com/admin/upload/image/tong-giao-phan-ha-noi-thu-muc-vu-nam-hiep-thong-2021.jpg"
-      },
-      location: { lat: 12.704515, lng: 108.062371 }
-    },
-    {
-      id: 1,
-      name: "Nhà thờ Thủ Đức",
-      address: "51 Võ Văn Ngân, Linh Chiểu, Thủ Đức, Thành phố Hồ Chí Minh",
-      priest_name: "Giuse Huỳnh Thanh Phương",
-      thumb_image: {
-          "url": "https://hdgmvietnam.com/admin/upload/image/tong-giao-phan-ha-noi-thu-muc-vu-nam-hiep-thong-2021.jpg"
-      },
-      location: { lat: 12.703859, lng: 108.063553 }
-    }
-  ]
+  id_diocese = 1;
+
+  pageRequestParishes: IPageParishes = {
+    diocese_id: this.id_diocese,
+    page: 1,
+    per_page: 359000,
+  }
+
+  markers: any = []
 
   @ViewChild('map', {read: ElementRef, static: false}) mapRef: ElementRef;
   constructor(
     public platform: Platform,
-    private loadingService: LoadingService,
-    private GeolocationService: GeolocationService
+    private GeolocationService: GeolocationService,
+    private parishes: ParishesService
   ) { }
 
   ngOnInit(){
     this.GeolocationService.getCurrentLocation();
+    this.parishes.getAll(this.pageRequestParishes).subscribe(data=> {
+      this.markers = data.parishes;
+      console.log('parish', this.markers)
+      this.addMarkersToMap(this.markers);
+    })
   }
 
   ionViewDidEnter() {
@@ -85,14 +68,15 @@ export class MapPage implements OnInit {
 
   addMarkersToMap(markers) {
     for (let marker of markers) {
-      let position = new google.maps.LatLng(marker.location.lat, marker.location.lng);
+      let position = new google.maps.LatLng(marker.location.lat, marker.location.long);
       let mapMarker = new google.maps.Marker({
         position: position,
         title: marker.name,
       });
       let mapMarkerInfo = {
         lat: marker.location.lat,
-        lng: marker.location.lng,
+        lng: marker.location.long,
+        name: marker.priest_name,
         address: marker.address,
         thumb_image: marker.thumb_image.url,
       }
@@ -106,6 +90,7 @@ export class MapPage implements OnInit {
     let infoWindowContent = '<div *ngIf=" markers.length != null ">' +
                               '<h3 style=" display: block; text-align: center; ">' + marker.title + '</h3>' +
                               '<img style=" height: 100px; width: 100%; display: block; border-radius: 12px; " src='+ mapMarkerInfo.thumb_image +'>' +
+                              '<h5 style=" display: block; text-align: center; ">' + mapMarkerInfo.name + '</h5>' +
                               '<h5>' + mapMarkerInfo.address + '</h5>' +
                               '<p>Latitude: ' + mapMarkerInfo.lat + '</p>' +
                               '<p>Longitude: ' + mapMarkerInfo.lng + '</p>' +
