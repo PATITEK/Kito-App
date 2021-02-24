@@ -14,7 +14,7 @@
     </ion-buttons>
   </div>
 
-  <ion-slides #slides [options]="slideOptions" (ionSlideDidChange)="changeSegmentSlide()" (ionSlideWillChange)="scrollToTop(300)">
+  <ion-slides #slides [options]="slideOptions" (ionSlideWillChange)="scrollToTop(300)" (ionSlidesDidLoad)="disableSwipe()">
     <ion-slide *ngFor="let menuItem of menuItems">
       <ion-buttons class="list">
         <div *ngFor="let item of menuItem.list" class="item active-effect">
