@@ -3,9 +3,7 @@ ion-content {
     --padding-left: 16px;
     --background: #fff;
 }
-.header {
-    background: #E5E5E5 !important;
-}
+
 .news {
     padding: 16px;
     background: #E5E5E5;
@@ -98,7 +96,7 @@ ion-content {
     .bg {
         background-repeat: no-repeat !important;
         background-size: cover !important;
-        border-radius: 20px;
+        // border-radius: 20px;
         height: 216px !important;
         margin-bottom: 14px;
       }

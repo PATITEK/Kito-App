@@ -50,6 +50,7 @@ export class PrayPage implements OnInit {
     per_page: 100,
   };
   type;
+  title = 'Xin lễ'
   constructor(
     public formBuilder: FormBuilder,
      private route: ActivatedRoute,

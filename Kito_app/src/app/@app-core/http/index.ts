@@ -10,4 +10,5 @@ export * from './history';
 export * from './food';
 export * from './donate';
 export * from './order'
+export * from './vatican';
 

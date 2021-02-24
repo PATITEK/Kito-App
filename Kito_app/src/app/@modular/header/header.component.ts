@@ -9,12 +9,14 @@ import { Router } from '@angular/router';
 })
 export class HeaderComponent implements OnInit {
   @Input() title: string;
-  
+  @Input() bg_header: any;
   constructor( public router: Router 
    
   ) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
+
   gotoMain() {
     this.router.navigateByUrl('/main')
   }

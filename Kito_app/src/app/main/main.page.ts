@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '../@app-core/http';
-import { ModalController } from '@ionic/angular';
+import { AuthService, IPageRequest, VaticanService } from '../@app-core/http';
+import { IonInfiniteScroll, ModalController } from '@ionic/angular';
 import { AccountService } from '../@app-core/http/account/account.service';
 import { ImageService, OneSignalService } from '../@app-core/utils';
 import { MapPage } from '../@modular/map/map.page'
@@ -12,6 +12,7 @@ import { MapPage } from '../@modular/map/map.page'
   styleUrls: ['./main.page.scss'],
 })
 export class MainPage implements OnInit {
+  @ViewChild(IonInfiniteScroll) infinityScroll: IonInfiniteScroll;
   name = '';
   avatar = '';
   menu = [
@@ -78,45 +79,105 @@ export class MainPage implements OnInit {
     private imageService: ImageService,
     private accountService: AccountService,
     private authService: AuthService,
-    public modalCtrl: ModalController
+    public modalCtrl: ModalController,
+    public vaticanService: VaticanService
   ) { }
+  request: IPageRequest = {
+    page: 1,
+    per_page: 100
+  }
+  data;
   ionViewWillEnter() {
     this.name = localStorage.getItem('fullname');
     // this.imageService.getImage();
     this.accountService.getAccounts().subscribe(data => {
-      if(data.app_user.thumb_image == null) {
+      if (data.app_user.thumb_image == null) {
         data.app_user['thumb_image'] = "https://i.imgur.com/edwXSJa.png";
         this.avatar = data.app_user.thumb_image;
       }
-      else if( data.app_user.thumb_image.url == null) {
+      else if (data.app_user.thumb_image.url == null) {
         data.app_user['thumb_image'] = "https://i.imgur.com/edwXSJa.png";
         this.avatar = data.app_user.thumb_image;
       }
       else {
-        this.avatar =  data.app_user.thumb_image.url;
+        this.avatar = data.app_user.thumb_image.url;
       }
-  })
-}
+    })
+
+  }
+
 
   ngOnInit() {
     this.OneSignalService.startOneSignal();
     this.name = localStorage.getItem('fullname');
-   
+    this.getListVatican();
   }
+  getListVatican() {
+    this.vaticanService.getAll(this.request).subscribe(data => {
+        this.data = data.vatican_news;
+        console.log(this.data);
+        // if(this.data) {}
+    })
+  }
+
+  // length = 0;
+  // const list = document.getElementById('list');
+  // const infiniteScroll = document.getElementById('infinite-scroll');
+
+  // infiniteScroll.addEventListener('ionInfinite', async function () {
+  //   if (length < this.data.length) {
+  //     console.log('Loading data...');
+  //     await wait(500);
+  //     this.infinityScroll.complete();
+  //     appendItems(3);
+  //     console.log('Done');
+  //   } else {
+  //     console.log('No More Data');
+  //     this.infinityScroll.disabled = true;
+  //   }
+  // });
+
+  // function appendItems(number) {
+  //   console.log('length is', length);
+  //   const originalLength = length;
+  //   for (var i = 0; i < number; i++) {
+  //     const el = document.createElement('ion-item');
+  //     el.innerHTML = `
+  //       <ion-avatar slot="start">
+  //         <img src="${this.thumbImage}">
+  //       </ion-avatar>
+  //       <ion-label>
+  //         ${this.data.title}
+  //       </ion-label>
+  //     `;
+  //     list.appendChild(el);
+  //     length++;
+  //   }
+  // }
+
+  // function wait(time) {
+  //   return new Promise(resolve => {
+  //     setTimeout(() => {
+  //     }, time);
+  //   });
+  // }
+
+  // appendItems(20);
+
   goToDetail(item) {
-    if(item.desUrl == 'donate') {
+    if (item.desUrl == 'donate') {
       const data = {
         type: 'donate'
       }
       this.authService.sendData(data)
     }
-    else if(item.desUrl == 'pray') {
+    else if (item.desUrl == 'pray') {
       const data = {
         type: 'pray'
       }
       this.authService.sendData(data)
     }
-     this.router.navigateByUrl(item.desUrl);
+    this.router.navigateByUrl(item.desUrl);
   }
 
   goToNewsDetail(item) {
