@@ -3,6 +3,8 @@ import { Platform } from '@ionic/angular';
 import { GeolocationService } from 'src/app/@app-core/utils';
 import { ParishesService } from 'src/app/@app-core/http/parishes';
 import { IPageParishes } from 'src/app/@app-core/http/parishes/parishes.DTO';
+import { DioceseService } from 'src/app/@app-core/http/diocese';
+import { IPageRequest } from 'src/app/@app-core/http/global/global.DTO';
 @Component({
   selector: 'app-map',
   templateUrl: './map.page.html',
@@ -13,16 +15,14 @@ export class MapPage implements OnInit {
 
   center: google.maps.LatLngLiteral = this.GeolocationService.centerService;
 
-  labels = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-
-  infoWindows: any = []
-
-  id_diocese = 1;
+  infoWindows: any = [];
 
   pageRequestParishes: IPageParishes = {
-    diocese_id: this.id_diocese,
-    page: 1,
-    per_page: 359000,
+    diocese_id: 0,
+  }
+
+  pageRequestDioceses: IPageRequest = {
+
   }
 
   markers: any = []
@@ -31,16 +31,28 @@ export class MapPage implements OnInit {
   constructor(
     public platform: Platform,
     private GeolocationService: GeolocationService,
-    private parishes: ParishesService
+    private parishesService: ParishesService,
+    private diocesesService: DioceseService,
+    private geolocationService: GeolocationService,
   ) { }
 
   ngOnInit(){
     this.GeolocationService.getCurrentLocation();
-    this.parishes.getAll(this.pageRequestParishes).subscribe(data=> {
-      this.markers = data.parishes;
-      console.log('parish', this.markers)
-      this.addMarkersToMap(this.markers);
+    this.diocesesService.getAll(this.pageRequestDioceses).subscribe(data => {
+      let totalDioceses = data.meta.pagination.per_page;
+      for(let i = 1; i<=totalDioceses; i++) {
+        this.pageRequestParishes.diocese_id += 1;
+        this.parishesService.getAll(this.pageRequestParishes).subscribe(data=> {
+          console.log(data)
+          this.markers = data.parishes;
+          this.addMarkersToMap(this.markers);
+        })
+      }
     })
+  }
+
+  ionViewWillEnter() {
+    this.addMarkersToMap(this.markers);
   }
 
   ionViewDidEnter() {
@@ -68,6 +80,7 @@ export class MapPage implements OnInit {
 
   addMarkersToMap(markers) {
     for (let marker of markers) {
+      let distance = this.geolocationService.distanceFromUserToPoint(this.center.lat, this.center.lng, marker.location.lat, marker.location.long);
       let position = new google.maps.LatLng(marker.location.lat, marker.location.long);
       let mapMarker = new google.maps.Marker({
         position: position,
@@ -79,6 +92,7 @@ export class MapPage implements OnInit {
         name: marker.priest_name,
         address: marker.address,
         thumb_image: marker.thumb_image.url,
+        distance: distance,
       }
 
       mapMarker.setMap(this.map);
@@ -92,6 +106,7 @@ export class MapPage implements OnInit {
                               '<img style=" height: 100px; width: 100%; display: block; border-radius: 12px; " src='+ mapMarkerInfo.thumb_image +'>' +
                               '<h5 style=" display: block; text-align: center; ">' + mapMarkerInfo.name + '</h5>' +
                               '<h5>' + mapMarkerInfo.address + '</h5>' +
+                              '<p>Khoảng cách ước tính: ' + mapMarkerInfo.distance + ' km</p>' +
                               '<p>Latitude: ' + mapMarkerInfo.lat + '</p>' +
                               '<p>Longitude: ' + mapMarkerInfo.lng + '</p>' +
                               '<ion-button id="navigate" style=" --background: #F6C33E; --border-radius: 10px; display: block; ">'+ 'Chỉ đường tới đây' +'</ion-button>'
@@ -106,7 +121,6 @@ export class MapPage implements OnInit {
 
       google.maps.event.addListenerOnce(infoWindow, 'domready', () => {
         document.getElementById('navigate').addEventListener('click', () => {
-          // code to navigate using google maps app
           window.open('https://www.google.com/maps/dir/?api=1&destination=' + mapMarkerInfo.lat + ',' + mapMarkerInfo.lng);
         });
       });
