@@ -26,7 +26,7 @@
 
   <ion-item-group class="event-list-container" [ngClass]="{ 'display-none': currentSegmentValue != 'service' }">
     <ion-list class="event-list">
-      <ion-item-group *ngFor="let event of data.services.array" class="event" (click)="openEventDetailModal(event)">
+      <ion-item-group *ngFor="let event of data.services.array" class="event">
         <ion-buttons class="ion-align-items-start ion-justify-content-between">
           <h3 class="event-name">{{ event.name }}</h3>
           <img class="triangle" src="assets/icon/triangle.svg">
@@ -46,7 +46,7 @@
 
   <ion-item-group class="event-list-container" [ngClass]="{ 'display-none': currentSegmentValue != 'event' }">
     <ion-list class="event-list">
-      <ion-item-group *ngFor="let event of data.events.array" class="event" (click)="openEventDetailModal(event)">
+      <ion-item-group *ngFor="let event of data.events.array" class="event">
         <ion-buttons class="ion-align-items-start ion-justify-content-between">
           <h3 class="event-name">{{ event.name }}</h3>
           <img class="triangle" src="assets/icon/triangle.svg">
