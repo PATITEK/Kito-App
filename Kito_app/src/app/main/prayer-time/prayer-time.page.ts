@@ -78,7 +78,6 @@ export class PrayerTimePage implements OnInit {
     for (let i = 0; i < 7; i++) {
       this.pageReq.cal_date = this.dateTimeService.getDateString2(this.dateList[i].date);
       this.eventsService.getAll(this.pageReq).subscribe(data => {
-        console.log(data);
         if (this.dateTimeService.isEmptyObject(data.calendar)) {
           return;
         }

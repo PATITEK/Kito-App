@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { NavController } from '@ionic/angular';
 import { DateTimeService, GeolocationService } from 'src/app/@app-core/utils';
 
 @Component({
@@ -31,7 +30,6 @@ export class CartPage implements OnInit {
 
   constructor(
     public dateTimeService: DateTimeService,
-    private navCtrl: NavController,
     private router: Router,
     private geolocationSerivce: GeolocationService
   ) { }
@@ -90,8 +88,6 @@ export class CartPage implements OnInit {
   }
 
   goBackToStore() {
-    // this.navCtrl.back();
-    console.log('object');
     this.router.navigateByUrl('main/store');
   }
 
