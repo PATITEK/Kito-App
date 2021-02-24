@@ -12,7 +12,7 @@ import { PopuplogoutComponent } from '../@modular/popuplogout/popuplogout.compon
   styleUrls: ['./account-setting.page.scss'],
 })
 export class AccountSettingPage implements OnInit {
-  title = 'Thiết lập tài khoản';
+  headerCustom = {title: 'Thiết lập tài khoản'};
   isOpeningModal = false;
   name = localStorage.getItem('fullname') || '';
   avatar = '';

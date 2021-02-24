@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./catechism-marriage.page.scss'],
 })
 export class CatechismMarriagePage implements OnInit {
-  title = 'Giáo lý hôn nhân';
+  headerCustom = {title: 'Giáo lý hôn nhân'};
   list = [];
 
   constructor() { }

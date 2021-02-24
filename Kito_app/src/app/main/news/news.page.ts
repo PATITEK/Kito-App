@@ -8,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class NewsPage implements OnInit {
 
   constructor() { }
-  title = 'Tin tức giáo xứ';
+  headerCustom = {title: 'Tin tức giáo xứ'};
   news = [
     {
       title: 'ĐTC Phanxicô cử hành Thánh lễ Ngày Đời sống Thánh hiến',

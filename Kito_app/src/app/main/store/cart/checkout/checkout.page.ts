@@ -9,7 +9,7 @@ import { DateTimeService } from 'src/app/@app-core/utils';
   styleUrls: ['./checkout.page.scss'],
 })
 export class CheckoutPage implements OnInit {
-  title = 'Kiểm tra đơn hàng';
+  headerCustom = {title: 'Kiểm tra đơn hàng'};
   cart = [];
   location = '';
   shipCost = 5000;
