@@ -23,7 +23,7 @@ export class SettingPage implements OnInit {
         id: 1,
         title: "Ngôn ngữ",
         icon: "assets/img/setting/language.svg",
-        content: localStorage.getItem('language') || '',
+        content: JSON.parse(localStorage.getItem('language')).name || '',
         routerLink: '/account-setting/setting/setting-languages'
       },
       {

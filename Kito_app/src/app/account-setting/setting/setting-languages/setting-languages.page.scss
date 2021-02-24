@@ -1,23 +1,23 @@
-ion-header {
-    margin-bottom: 150px;
+ion-content {
+  --padding-top: calc(80px + 45px);
+  --background: #fff;
 }
 
-ion-content {
-    .main-checkbox {
-        ion-label {
-            color: #828282;
-        }
-        ion-checkbox {
-            --background-checked: #F6C33E;
-            --border-color-checked: #F6C33E;
-        }
-    }
-    .add-language {
-        ion-label {
-            color: #424242;
-        }
-        ion-icon {
-            margin-right: 10px;
-        }
-    }
+.item {
+	&::part(native) {
+		padding-left: 0;
+	}
+
+	.label {
+		font-size: 18px;
+		color: #828282;
+	}
+
+	.label-bold {
+		color: #424242;
+	}
+}
+
+ion-radio {
+	--color-checked: #F6C33E;
 }
