@@ -90,6 +90,11 @@ const routes: Routes = [
     path: 'statistic',
     loadChildren: () => import('./statistic/statistic.module').then(m => m.StatisticPageModule)
   },
+  {
+    path: 'questionares',
+    loadChildren: () => import('./questionares/questionares.module').then( m => m.QuestionaresPageModule),
+    canActivate: [AuthGuard],
+  },
   { path: '', redirectTo: '/main', pathMatch: 'full' },
   { path: '**', redirectTo: 'main' },
 ];

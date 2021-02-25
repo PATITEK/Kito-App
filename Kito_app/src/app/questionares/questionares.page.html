@@ -1,0 +1,16 @@
+<ion-header>
+  <app-header [headerCustom]="headerCustom"></app-header>
+</ion-header>
+
+<ion-content>
+  <ion-img class="main-img" src="../../assets/questionares/main_img.svg"></ion-img>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-button Fill="round" (click)="goToChooseQuestionType(question.type)" class="active-effect" *ngFor="let question of questions">{{question.name}}</ion-button>
+        <ion-button Fill="round" (click)="rule()" class="active-effect">Luật chơi</ion-button>
+        <ion-button Fill="round" (click)="back()" class="active-effect">Thoát</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

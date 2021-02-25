@@ -23,7 +23,7 @@ export class CatechismClassPage implements OnInit {
     {
       name: 'Đố vui giáo lý',
       thumbImage: 'assets/img/catechism-menu-3.svg',
-      desUrl: 'main/catechism-class'
+      desUrl: '/questionares'
     }
   ]
 

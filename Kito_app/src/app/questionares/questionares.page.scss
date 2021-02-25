@@ -1,0 +1,26 @@
+ion-content {
+    .main-img {
+        margin-top: 100px !important;
+        width: 65%;
+        height: auto;
+        margin: auto;
+        display: block;
+    }
+
+    ion-grid {
+        ion-row {
+            ion-col {
+                ion-button {
+                    margin: auto;
+                    display: block;
+                    --background: #FAFAFA;
+                    --color: #424242;
+                    width: 80%;
+                    margin-top: 40px;
+                    font-size: 17px;
+                    font-weight: 400;
+                }
+            }
+        }
+    }
+}
