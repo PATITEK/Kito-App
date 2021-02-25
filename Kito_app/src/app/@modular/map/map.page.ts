@@ -38,19 +38,10 @@ export class MapPage implements OnInit {
 
   ngOnInit() {
     this.GeolocationService.getCurrentLocation();
-    this.diocesesService.getAll(this.pageRequestDioceses).subscribe(data => {
-      let totalDioceses = data.meta.pagination.per_page;
-      for (let i = 1; i <= totalDioceses; i++) {
-        this.pageRequestParishes.diocese_id += 1;
-        this.parishesService.getAll(this.pageRequestParishes).subscribe(data => {
-          this.markers = data.parishes;
-          this.addMarkersToMap(this.markers);
-        })
-      }
-    })
+    this.addDataMarkerToMap();
   }
 
-  ionViewDidEnter() {
+  ionViewWillEnter() {
     this.center = this.GeolocationService.centerService;
     this.initMap();
   }
@@ -64,17 +55,17 @@ export class MapPage implements OnInit {
       zoom: 15,
       disableDefaultUI: true,
     });
-    this.addMarkersToMap(this.markers);
   }
 
   getCurrentLocation() {
     this.GeolocationService.getCurrentLocation();
     this.center = this.GeolocationService.centerService;
     this.initMap();
-    this.getCurrenMarker();
+    this.addCurrenMarker();
+    this.addDataMarkerToMap();
   }
 
-  getCurrenMarker() {
+  addCurrenMarker() {
     let currentMarker = new google.maps.Marker({
       position: new google.maps.LatLng(this.center.lat, this.center.lng),
       label: 'Vị trí của bạn, kéo thả để thay đổi',
@@ -92,23 +83,38 @@ export class MapPage implements OnInit {
     });
   }
 
+  addDataMarkerToMap() {
+    console.log('datamarkers')
+    this.diocesesService.getAll(this.pageRequestDioceses).subscribe(data => {
+      const totalDioceses = data.meta.pagination.per_page;
+      for (let i = 1; i <= totalDioceses; i++) {
+        this.pageRequestParishes.diocese_id += 1;
+        this.parishesService.getAll(this.pageRequestParishes).subscribe(data => {
+          this.markers = data.parishes;
+          this.addMarkersToMap(this.markers);
+        })
+      }
+      this.pageRequestParishes.diocese_id = 0;
+    })
+  }
+
   addMarkersToMap(markers) {
     for (let marker of markers) {
       let distance = this.geolocationService.distanceFromUserToPoint(this.center.lat, this.center.lng, marker.location.lat, marker.location.long);
       let position = new google.maps.LatLng(marker.location.lat, marker.location.long);
       let mapMarker = new google.maps.Marker({
         position: position,
-        title: marker.name,
         label: marker.name,
         icon: 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png',
       });
       let mapMarkerInfo = {
+        name: marker.name,
+        url: marker.thumb_image.url,
+        priest_name: marker.priest_name,
+        address: marker.address,
+        distance: distance,
         lat: marker.location.lat,
         lng: marker.location.long,
-        name: marker.priest_name,
-        address: marker.address,
-        thumb_image: marker.thumb_image.url,
-        distance: distance,
       }
 
       mapMarker.setMap(this.map);
@@ -117,16 +123,17 @@ export class MapPage implements OnInit {
   }
 
   async addInfoWindowToMarker(marker, mapMarkerInfo) {
-    let infoWindowContent = '<div *ngIf=" markers.length != null ">' +
-      '<h3 style=" display: block; text-align: center; ">' + marker.title + '</h3>' +
-      '<img style=" height: 100px; width: 100%; display: block; border-radius: 12px; " src=' + mapMarkerInfo.thumb_image + '>' +
-      '<h5 style=" display: block; text-align: center; ">' + mapMarkerInfo.name + '</h5>' +
-      '<h5>' + mapMarkerInfo.address + '</h5>' +
-      '<p>Khoảng cách ước tính: ' + mapMarkerInfo.distance + ' km</p>' +
-      '<p>Latitude: ' + mapMarkerInfo.lat + '</p>' +
-      '<p>Longitude: ' + mapMarkerInfo.lng + '</p>' +
-      '<ion-button id="navigate" style=" --background: #F6C33E; --border-radius: 10px; display: block; ">' + 'Chỉ đường tới đây' + '</ion-button>'
-    '</div>';
+    let infoWindowContent =
+      '<div *ngIf=" markers.length != null ">' +
+        '<h3 style=" display: block; text-align: center; ">' + mapMarkerInfo.name + '</h3>' +
+        '<img style=" height: 100px; width: 100%; display: block; border-radius: 12px; " src=' + mapMarkerInfo.url + '>' +
+        '<h5 style=" display: block; text-align: center; ">' + mapMarkerInfo.priest_name + '</h5>' +
+        '<h5>' + mapMarkerInfo.address + '</h5>' +
+        '<p>Khoảng cách ước tính: ' + mapMarkerInfo.distance + ' km</p>' +
+        '<p>Latitude: ' + mapMarkerInfo.lat + '</p>' +
+        '<p>Longitude: ' + mapMarkerInfo.lng + '</p>' +
+        '<ion-button id="navigate" style=" --background: #F6C33E; --border-radius: 10px; display: block; ">' + 'Chỉ đường tới đây' + '</ion-button>'
+      '</div>';
     let infoWindow = new google.maps.InfoWindow({
       content: infoWindowContent,
     });
