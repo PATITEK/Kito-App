@@ -16,21 +16,9 @@ export class PopoverimageComponent implements OnInit {
   ) { }
   avatar = '';
   ngOnInit() {
+    this.loadingService.dismiss();
     // this.imageService.getImage();
-    this.accountService.getAccounts().subscribe(data => {
-      if(data.app_user.thumb_image == null) {
-        data.app_user['thumb_image'] = "https://i.imgur.com/edwXSJa.png";
-        this.avatar = data.app_user.thumb_image;
-      }
-      else if( data.app_user.thumb_image.url == null) {
-        data.app_user['thumb_image'] = "https://i.imgur.com/edwXSJa.png";
-        this.avatar = data.app_user.thumb_image;
-      }
-      else {
-        this.avatar =  data.app_user.thumb_image.url;
-      }
-      this.loadingService.dismiss();
-  })
+    this.avatar = localStorage.getItem('avatar');
   }
   getUrl() {
     return `url(${this.avatar})`

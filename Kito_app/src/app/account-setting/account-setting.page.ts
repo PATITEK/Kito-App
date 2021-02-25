@@ -62,19 +62,7 @@ export class AccountSettingPage implements OnInit {
 
   ionViewWillEnter() {
     // this.imageService.getImage();
-    this.accountService.getAccounts().subscribe(data => {
-      if (data.app_user.thumb_image == null) {
-        data.app_user['thumb_image'] = "https://i.imgur.com/edwXSJa.png";
-        this.avatar = data.app_user.thumb_image;
-      }
-      else if (data.app_user.thumb_image.url == null) {
-        data.app_user['thumb_image'] = "https://i.imgur.com/edwXSJa.png";
-        this.avatar = data.app_user.thumb_image;
-      }
-      else {
-        this.avatar = data.app_user.thumb_image.url;
-      }
-    })
+    this.avatar = localStorage.getItem('avatar')
   }
   routerLink(path) {
     this.router.navigateByUrl(path);
