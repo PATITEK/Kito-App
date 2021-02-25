@@ -9,7 +9,7 @@
       <ion-col>
         <ion-button Fill="round" (click)="goToChooseQuestionType(question.type)" class="active-effect" *ngFor="let question of questions">{{question.name}}</ion-button>
         <ion-button Fill="round" (click)="rule()" class="active-effect">Luật chơi</ion-button>
-        <ion-button Fill="round" (click)="back()" class="active-effect">Thoát</ion-button>
+        <ion-button Fill="round" (click)="quit()" class="active-effect">Thoát</ion-button>
       </ion-col>
     </ion-row>
   </ion-grid>

@@ -10,8 +10,8 @@ export class QuestionaresPage implements OnInit {
   headerCustom = { title: 'ĐỐ VUI GIÁO LÝ' };
 
   questions = [
-    {name: 'Chơi theo chủ đề', type: 'topic'},
-    {name: 'Chơi theo cấp độ', type: 'level'},
+    {name: 'Chơi theo chủ đề', type: 'Chủ đề'},
+    {name: 'Chơi theo cấp độ', type: 'Cấp độ'},
   ]
   constructor(
     private router: Router,
@@ -20,9 +20,17 @@ export class QuestionaresPage implements OnInit {
   ngOnInit() {
   }
 
+  ionViewWillEnter() {
+    localStorage.removeItem('questionType');
+  }
+
   goToChooseQuestionType(type) {
-    this.router.navigate(['questionares/choose-question'])
-    localStorage.setItem('type', type);
+    this.router.navigate(['questionares/choose-question']);
+    localStorage.setItem('questionType', type);
+  }
+
+  quit() {
+    this.router.navigate(['main']);
   }
 
 }
