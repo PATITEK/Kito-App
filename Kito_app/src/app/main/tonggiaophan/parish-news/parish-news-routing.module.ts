@@ -7,9 +7,6 @@ const routes: Routes = [
   {
     path: '',
     component: ParishNewsPage
-  },  {
-    path: 'news',
-    loadChildren: () => import('./news/news.module').then( m => m.NewsPageModule)
   },
   {
     path: 'stories',

@@ -2,7 +2,7 @@
   padding: 20px 0 10px;
 
   // &:not(:last-child) {
-  border-bottom: 1px solid #eee;
+  // border-bottom: 1px solid #eee;
   // }
 }
 
@@ -10,12 +10,11 @@
   margin-bottom: 6px;
   color: #424242;
   font-size: 18px;
-  font-weight: 700;
   text-align: center;
 }
 
 ion-slides {
-  height: 70vw;
+  height: calc(50vw + 35px);
   --bullet-background-active: #f7c951;
   --bullet-background: #757575;
 

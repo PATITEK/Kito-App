@@ -1,6 +1,6 @@
-import { NgModule, ModuleWithProviders, InjectionToken, ErrorHandler } from '@angular/core';
+import { NgModule, ModuleWithProviders, ErrorHandler } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AuthService, AccountService, GlobalService, ChabadService, EventsService, MatchUsersService, FoodService, OrderService} from './http';
+import { AuthService, AccountService, GlobalService, ChabadService, EventsService, MatchUsersService, FoodService, OrderService, VaticanService } from './http';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { IntercepterService } from './http-interceptor';
 import { API_URL } from './http/@http-config';
@@ -10,12 +10,13 @@ import { GlobalErrorHandler } from './GlobalErrorHandler';
 import { ConnectivityService } from './utils/connectivity.service';
 import { DateTimeService, LoadingService, ToastService } from './utils';
 import { HistoryService } from './http/history';
+import { DioceseService } from './http/diocese';
 
 @NgModule({
   declarations: [],
   imports: [
     CommonModule,
-    HttpClientModule, 
+    HttpClientModule,
   ]
 })
 export class CoreModule {
@@ -39,7 +40,9 @@ export class CoreModule {
         HistoryService,
         FoodService,
         ToastService,
-        OrderService
+        OrderService,
+        DioceseService,
+        VaticanService
       ]
     };
   }

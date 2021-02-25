@@ -8,6 +8,7 @@ import { SettingLanguagesPageRoutingModule } from './setting-languages-routing.m
 
 import { SettingLanguagesPage } from './setting-languages.page';
 import { HeaderModule } from 'src/app/@modular/header/header.module';
+import { SearchBarNavModule } from 'src/app/@modular/search-bar-nav/search-bar-nav.module';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { HeaderModule } from 'src/app/@modular/header/header.module';
     FormsModule,
     IonicModule,
     SettingLanguagesPageRoutingModule,
-    HeaderModule
+    HeaderModule,
+    SearchBarNavModule
   ],
   declarations: [
     SettingLanguagesPage,

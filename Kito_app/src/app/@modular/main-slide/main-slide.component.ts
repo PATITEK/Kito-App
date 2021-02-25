@@ -24,7 +24,14 @@ export class MainSlideComponent implements OnInit {
   ngOnInit() {}
 
   seeMore() {
-    this.router.navigateByUrl(this.data.desUrl);
+    const data = {
+      type: this.data.type
+    }
+    this.router.navigate(['/news'], {
+      queryParams: {
+        data: JSON.stringify(data)
+      }
+    })
   }
 
   goToItemDetail(item) {

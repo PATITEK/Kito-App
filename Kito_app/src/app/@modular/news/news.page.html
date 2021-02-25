@@ -5,15 +5,15 @@
 <ion-content>
   <app-search-bar-nav></app-search-bar-nav>
 
-  <div class="main-news" (click)="goToNewsDetail(news[0])">
-    <img class="item-img" [src]="news[0].thumbImage">
+  <div *ngIf="news.length" class="main-news" (click)="goToNewsDetail(news[0])">
+    <img class="item-img" [src]="news[0].thumb_images[0].url">
 
     <ion-buttons class="text-box">
       <p class="item-title three-dots-2">{{ news[0].title }}</p>
       <ion-buttons class="right-box text">
         <ion-buttons>
           <ion-icon name="eye"></ion-icon>
-          <ion-label>{{ news[0].watchedUsers }}</ion-label>
+          <ion-label>{{ news[0].views }}</ion-label>
         </ion-buttons>
         <ion-buttons class="time-box">
           <ion-icon name="time"></ion-icon>
@@ -27,7 +27,7 @@
     <ng-container *ngFor="let item of news; let index = i;">
       <ion-buttons *ngIf="index != 0" class="sub-news-item" (click)="goToNewsDetail(item)">
         <div class="img-container">
-          <img [src]="item.thumbImage">
+          <img [src]="item.thumb_images[0].url">
         </div>
 
         <ion-buttons class="content-box">
@@ -39,7 +39,7 @@
             </ion-buttons>
             <ion-buttons>
               <ion-icon name="eye"></ion-icon>
-              <ion-label>{{ item.watchedUsers }}</ion-label>
+              <ion-label>{{ item.views }}</ion-label>
             </ion-buttons>
           </ion-buttons>
         </ion-buttons>

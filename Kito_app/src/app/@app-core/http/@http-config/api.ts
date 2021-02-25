@@ -26,7 +26,8 @@ export const APICONFIG = {
     CONTACT_ADMIN: `/app/interact_email/submit`
   },
   DIOCESE: {
-    GET: `/app/dioceses`
+    GET: `/app/dioceses`,
+    GET_DETAIL: id => `/app/dioceses/${id}`
   },
   PARISHES: {
     GET:`/app/parishes`
@@ -59,6 +60,10 @@ export const APICONFIG = {
     GET: (id) => `/app/orders/${id}`,
     CREATE: `/app/orders`,
     DELETE: (id) => `/app/orders/${id}`,
-  }
+  },
+  VATICAN: {
+    GET: `/app/vatican_news`,
+    GET_DETAIL: id => `/app/vatican_news/${id}`
+  },
 };
 
