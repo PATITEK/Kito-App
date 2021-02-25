@@ -21,8 +21,20 @@ export class TonggiaophanPage implements OnInit {
     private diocesesService: DioceseService,
   ) { }
   ngOnInit() {
+    // this.loadingService.present();
     this.diocesesService.getAll(this.pageRequest).subscribe(data => {
-      this.dioceses = data.dioceses;
+      data.dioceses.forEach(diocese => {
+        let hasNull = false;
+        for (let i in diocese) {
+          if (diocese[i] === null) {
+            hasNull = true;
+            console.log('null', diocese);
+            break;
+          }
+        }
+        !hasNull && this.dioceses.push(diocese);
+      })
+      // this.loadingService.dismiss();
     })
   }
   

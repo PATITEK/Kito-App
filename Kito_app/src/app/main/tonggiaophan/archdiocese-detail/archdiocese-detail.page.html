@@ -4,13 +4,13 @@
 
 <ion-content class="ion-padding">
   <ion-list>
-    <div class="item">
-      <div class="title">Thông tin tổng giáo phận</div>
+    <div class="item" (click)="goToDiocese()">
+      <div class="title">{{ title }}</div>
       <div class="img-box main-box-shadow">
         <img class="cover-img" [src]="archdiocese.thumb_image.url">
       </div>
     </div>
-    <div class="item">
+    <div class="item" (click)="goToParishes()">
       <div class="title">Thông tin các giáo xứ</div>
       <div class="img-box main-box-shadow">
         <img class="cover-img" [src]="archdiocese.thumb_image.url">

@@ -22,9 +22,10 @@ export class MainItemComponent implements OnInit {
         break;
       case 'archdiocese':
         const data = {
-          archdiocese : {
+          diocese : {
             id: this.data.id,
-            name: this.data.name
+            name: this.data.name,
+            type: this.data.diocese_type
           }
         }
         this.router.navigate(['/main/tonggiaophan/archdiocese-detail'], {
@@ -34,7 +35,18 @@ export class MainItemComponent implements OnInit {
         })
         break;
       case 'diocese':
-        this.router.navigateByUrl('main/tonggiaophan/archdiocese-detail');
+        const data1 = {
+          diocese : {
+            id: this.data.id,
+            name: this.data.name,
+            type: this.data.diocese_type
+          }
+        }
+        this.router.navigate(['/main/tonggiaophan/archdiocese-detail'], {
+          queryParams: {
+            data: JSON.stringify(data1)
+          }
+        })
         break;
     }
   }
