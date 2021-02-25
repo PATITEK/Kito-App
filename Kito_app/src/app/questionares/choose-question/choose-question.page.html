@@ -1,0 +1,14 @@
+<ion-header>
+  <app-header [headerCustom]="headerCustom"></app-header>
+</ion-header>
+
+<ion-content>
+  <ion-img class="background-img" src="../../assets/questionares/background.svg"></ion-img>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-button *ngFor="let question of questions">{{ question.name }}</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

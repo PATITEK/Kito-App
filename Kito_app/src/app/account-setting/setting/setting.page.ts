@@ -8,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class SettingPage implements OnInit {
   headerCustom = { title: 'Cài đặt' };
   items = [];
+  language = { name:"Tiếng Việt", id: 0}
 
   constructor() { }
 
@@ -18,6 +19,9 @@ export class SettingPage implements OnInit {
   }
 
   initData() {
+    if(localStorage.getItem('language') == null) {
+      localStorage.setItem('language', JSON.stringify(this.language))
+    }
     this.items = [
       {
         id: 1,

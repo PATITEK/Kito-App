@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DioceseService } from 'src/app/@app-core/http/diocese';
 import { IPageRequest } from 'src/app/@app-core/http/global/global.DTO';
-import { LoadingService } from 'src/app/@app-core/utils';
 
 @Component({
   selector: 'app-tonggiaophan',
@@ -20,14 +19,11 @@ export class TonggiaophanPage implements OnInit {
 
   constructor(
     private diocesesService: DioceseService,
-    private loadingService: LoadingService,
   ) { }
-
   ngOnInit() {
-    this.loadingService.present();
     this.diocesesService.getAll(this.pageRequest).subscribe(data => {
       this.dioceses = data.dioceses;
-      this.loadingService.dismiss();
     })
   }
+  
 }
