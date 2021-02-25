@@ -73,6 +73,11 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
+    path: 'information',
+    loadChildren: () => import('./@modular/information/information.module').then( m => m.InformationPageModule),
+    canActivate: [AuthGuard],
+  },
+  {
     path: 'news-detail',
     loadChildren: () => import('./@modular/news-detail/news-detail.module').then(m => m.NewsDetailPageModule),
     canActivate: [AuthGuard],

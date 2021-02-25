@@ -8,11 +8,6 @@ const routes: Routes = [
     path: '',
     component: ParishNewsPage
   },
-  {
-    path: 'stories',
-    loadChildren: () => import('./stories/stories.module').then( m => m.StoriesPageModule)
-  }
-
 ];
 
 @NgModule({

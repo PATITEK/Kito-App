@@ -12,4 +12,5 @@ export * from './donate';
 export * from './order';
 export * from './diocese';
 export * from './vatican';
-
+export * from './pope';
+export * from './parishes';

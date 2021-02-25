@@ -40,10 +40,10 @@ export class NewsPage implements OnInit {
   getData() {
     this.route.queryParams.subscribe(params => {
       const dataPrams = JSON.parse(params['data']);
-      switch (dataPrams.type) {
+      switch (dataPrams.type.detail) {
         case 'vatican':
           this.vaticanService.getAll(this.pageRequest).subscribe(data => {
-            data.vatican_news.forEach(v => v.type = { general: 'news', detail: 'vatican' });
+            data.vatican_news.forEach(v => v.type = dataPrams.type);
             this.news = data.vatican_news;
           })
           break;
