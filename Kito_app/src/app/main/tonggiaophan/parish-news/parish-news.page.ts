@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { IPageRequest, VaticanService } from 'src/app/@app-core/http';
+import { PopeService } from 'src/app/@app-core/http/pope';
 
 @Component({
   selector: 'app-parish-news',
@@ -12,14 +13,13 @@ export class ParishNewsPage implements OnInit {
   list = [
     {
       heading: 'Tin tức tòa thánh Vatican',
-      desUrl: 'main/tonggiaophan/parish-news/news',
       items: [],
-      type: 'vatican'
+      type: { general: 'news', detail: 'vatican' }
     },
     {
       heading: 'Tiểu sử các Đức Giáo Hoàng',
-      desUrl: 'main/tonggiaophan/parish-news/stories',
-      items: []
+      items: [],
+      type: { general: 'story', detail: 'pope' }
     }
   ]
   pageRequest: IPageRequest = {
@@ -28,7 +28,8 @@ export class ParishNewsPage implements OnInit {
   }
 
   constructor(
-    private vaticanService: VaticanService
+    private vaticanService: VaticanService,
+    private popeService: PopeService
   ) { }
 
   ngOnInit() {
@@ -37,12 +38,20 @@ export class ParishNewsPage implements OnInit {
 
   getVatican() {
     this.vaticanService.getAll(this.pageRequest).subscribe(data => {
-      data.vatican_news.forEach(v => v.type = { general: 'news', detail: 'vatican' });
+      data.vatican_news.forEach(v => v.type = this.list[0].type);
       this.list[0].items = data.vatican_news;
+    })
+  }
+
+  getPope() {
+    this.popeService.getAll(this.pageRequest).subscribe(data => {
+      data.pope_infos.forEach(v => v.type = this.list[1].type);
+      this.list[1].items = data.pope_infos;
     })
   }
 
   getData() {
     this.getVatican();
+    this.getPope();
   }
 }

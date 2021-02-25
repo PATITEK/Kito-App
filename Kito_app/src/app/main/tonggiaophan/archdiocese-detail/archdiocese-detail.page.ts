@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DioceseService } from 'src/app/@app-core/http/diocese';
 
 @Component({
@@ -17,6 +17,7 @@ export class ArchdioceseDetailPage implements OnInit {
       url: ''
     }
   }
+  title = '';
 
   list = [
     {
@@ -84,6 +85,7 @@ export class ArchdioceseDetailPage implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private diocesesService: DioceseService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -98,9 +100,40 @@ export class ArchdioceseDetailPage implements OnInit {
 
   getData() {
     this.route.queryParams.subscribe(params => {
-      const archdiocese = JSON.parse(params['data']).archdiocese;
-      this.headerCustom.title = archdiocese.name;
-      this.getArchdiocese(archdiocese.id);
+      const dataParams = JSON.parse(params['data']);
+      this.title = dataParams.diocese.type == 'diocese' ? 'Thông tin giáo phận' : 'Thông tin tổng giáo phận';
+      this.headerCustom.title = dataParams.diocese.name;
+      this.getArchdiocese(dataParams.diocese.id);
     }).unsubscribe();
+  }
+
+  goToDiocese() {
+    const data = {
+      id: this.archdiocese.id,
+      type: {
+        general: 'info',
+        detail: 'diocese'
+      }
+    }
+    this.router.navigate(['/news-detail'], {
+      queryParams: {
+        data: JSON.stringify(data)
+      }
+    })
+  }
+
+  goToParishes() {
+    const data = {
+      id: this.archdiocese.id,
+      type: {
+        general: 'info',
+        detail: 'parish'
+      }
+    }
+    this.router.navigate(['/information'], {
+      queryParams: {
+        data: JSON.stringify(data)
+      }
+    })
   }
 }

@@ -11,6 +11,7 @@ import { ConnectivityService } from './utils/connectivity.service';
 import { DateTimeService, LoadingService, ToastService } from './utils';
 import { HistoryService } from './http/history';
 import { DioceseService } from './http/diocese';
+import { PopeService } from './http/pope';
 
 @NgModule({
   declarations: [],
@@ -42,7 +43,8 @@ export class CoreModule {
         ToastService,
         OrderService,
         DioceseService,
-        VaticanService
+        VaticanService,
+        PopeService
       ]
     };
   }

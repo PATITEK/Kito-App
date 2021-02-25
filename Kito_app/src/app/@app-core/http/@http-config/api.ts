@@ -30,7 +30,8 @@ export const APICONFIG = {
     GET_DETAIL: id => `/app/dioceses/${id}`
   },
   PARISHES: {
-    GET:`/app/parishes`
+    GET:`/app/parishes`,
+    GET_DETAIL: id => `/app/parishes/${id}`
   },
   CHABAD: {
     GET: `/app/chabads`,
@@ -64,6 +65,10 @@ export const APICONFIG = {
   VATICAN: {
     GET: `/app/vatican_news`,
     GET_DETAIL: id => `/app/vatican_news/${id}`
+  },
+  POPE: {
+    GET: `/app/pope_infos`,
+    GET_DETAIL: id => `/app/pope_infos/${id}`
   },
 };
 

@@ -11,6 +11,7 @@ import { IPageParishes } from './parishes.DTO';
 export class ParishesService {
 
   constructor(private http: HttpClient) { }
+
   public getAll(request: IPageParishes) {
     return this.http.get<any>(`${APICONFIG.PARISHES.GET}?${(requestQuery(request))}`).pipe(
       map((result) => {
@@ -19,6 +20,16 @@ export class ParishesService {
       catchError((errorRes: any) => {
         throw errorRes.error;
       }));
+  }
 
+  public getDetail(id) {
+    return this.http.get<any>(`${APICONFIG.PARISHES.GET_DETAIL(id)}`).pipe(
+      map(result => {
+        return result;
+      }),
+      catchError(errorRes => {
+        throw errorRes.error;
+      })
+    );
   }
 }
