@@ -92,6 +92,7 @@ export class GeolocationService {
     }
 
     public async openModalGoogleMap() {
+        this.loadingService.present();
         const modal = await this.modalCtrl.create({
             component: MapPage,
             cssClass: 'google-map-modal',
