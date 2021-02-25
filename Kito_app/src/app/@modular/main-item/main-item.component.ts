@@ -13,9 +13,29 @@ export class MainItemComponent implements OnInit {
     private router: Router
   ) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   goToDetail() {
-    this.router.navigate(['main/tonggiaophan/parish-news']);
+    switch (this.data.diocese_type) {
+      case 'vatican':
+        this.router.navigateByUrl('main/tonggiaophan/parish-news');
+        break;
+      case 'archdiocese':
+        const data = {
+          archdiocese : {
+            id: this.data.id,
+            name: this.data.name
+          }
+        }
+        this.router.navigate(['/main/tonggiaophan/archdiocese-detail'], {
+          queryParams: {
+            data: JSON.stringify(data)
+          }
+        })
+        break;
+      case 'diocese':
+        this.router.navigateByUrl('main/tonggiaophan/archdiocese-detail');
+        break;
+    }
   }
 }

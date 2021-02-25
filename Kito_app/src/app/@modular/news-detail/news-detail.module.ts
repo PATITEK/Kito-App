@@ -7,22 +7,20 @@ import { IonicModule } from '@ionic/angular';
 import { NewsDetailPageRoutingModule } from './news-detail-routing.module';
 
 import { NewsDetailPage } from './news-detail.page';
-import { SearchBarNavComponent } from '../search-bar-nav/search-bar-nav.component';
-import { HeaderComponent } from '../header/header.component';
-import { MainItemComponent } from '../main-item/main-item.component';
+import { HeaderModule } from '../header/header.module';
+import { SearchBarNavModule } from '../search-bar-nav/search-bar-nav.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    NewsDetailPageRoutingModule
+    NewsDetailPageRoutingModule,
+    HeaderModule,
+    SearchBarNavModule
   ],
   declarations: [
     NewsDetailPage,
-    SearchBarNavComponent,
-    HeaderComponent,
-    MainItemComponent
   ]
 })
 export class NewsDetailPageModule { }

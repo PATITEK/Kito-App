@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { IPageRequest, VaticanService } from 'src/app/@app-core/http';
 
 @Component({
   selector: 'app-parish-news',
@@ -10,70 +11,38 @@ export class ParishNewsPage implements OnInit {
 
   list = [
     {
-      heading: 'Tin tức TÒA THÁNH VATICAN',
+      heading: 'Tin tức tòa thánh Vatican',
       desUrl: 'main/tonggiaophan/parish-news/news',
-      items: [
-        {
-          id: "1",
-          type: 'News',
-          title: 'ĐTC Phanxicô cử hành Thánh lễ Ngày Đời sống Thánh hiến',
-          thumbImage: 'assets/img/parish-item.svg'
-        },
-        {
-          id: "2",
-          type: 'News',
-          title: 'ĐTC Phanxicô cử hành Thánh lễ Ngày Đời sống Thánh hiến',
-          thumbImage: 'assets/img/parish-item.svg'
-        },
-        {
-          id: "3",
-          type: 'News',
-          title: 'ĐTC Phanxicô cử hành Thánh lễ Ngày Đời sống Thánh hiến',
-          thumbImage: 'assets/img/parish-item.svg'
-        },
-        {
-          id: "4",
-          type: 'News',
-          title: 'ĐTC Phanxicô cử hành Thánh lễ Ngày Đời sống Thánh hiến',
-          thumbImage: 'assets/img/parish-item.svg'
-        },
-      ]
+      items: [],
+      type: 'vatican'
     },
     {
-      heading: 'Tiểu sử các ĐỨC GIÁO HOÀNG',
+      heading: 'Tiểu sử các Đức Giáo Hoàng',
       desUrl: 'main/tonggiaophan/parish-news/stories',
-      items: [
-        {
-          id: "1",
-          type: 'Story',
-          title: 'Giáo hoàng Phanxicô - Đương kim giáo hoàng',
-          thumbImage: 'assets/img/pope.svg'
-        },
-        {
-          id: "2",
-          type: 'Story',
-          title: 'Giáo hoàng Phanxicô - Đương kim giáo hoàng',
-          thumbImage: 'assets/img/pope.svg'
-        },
-        {
-          id: "3",
-          type: 'Story',
-          title: 'Giáo hoàng Phanxicô - Đương kim giáo hoàng',
-          thumbImage: 'assets/img/pope.svg'
-        },
-        {
-          id: "4",
-          type: 'Story',
-          title: 'Giáo hoàng Phanxicô - Đương kim giáo hoàng',
-          thumbImage: 'assets/img/pope.svg'
-        },
-      ]
+      items: []
     }
   ]
+  pageRequest: IPageRequest = {
+    page: 1,
+    per_page: 4
+  }
 
-  constructor() { }
+  constructor(
+    private vaticanService: VaticanService
+  ) { }
 
   ngOnInit() {
-   
-   }
+    this.getData();
+  }
+
+  getVatican() {
+    this.vaticanService.getAll(this.pageRequest).subscribe(data => {
+      data.vatican_news.forEach(v => v.type = { general: 'news', detail: 'vatican' });
+      this.list[0].items = data.vatican_news;
+    })
+  }
+
+  getData() {
+    this.getVatican();
+  }
 }

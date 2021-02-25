@@ -4,9 +4,9 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { ParishNewsPageRoutingModule } from './parish-news-routing.module';
+import { ArchdioceseDetailPageRoutingModule } from './archdiocese-detail-routing.module';
 
-import { ParishNewsPage } from './parish-news.page';
+import { ArchdioceseDetailPage } from './archdiocese-detail.page';
 import { HeaderModule } from 'src/app/@modular/header/header.module';
 import { MainSlideModule } from 'src/app/@modular/main-slide/main-slide.module';
 
@@ -15,10 +15,10 @@ import { MainSlideModule } from 'src/app/@modular/main-slide/main-slide.module';
     CommonModule,
     FormsModule,
     IonicModule,
-    ParishNewsPageRoutingModule,
+    ArchdioceseDetailPageRoutingModule,
     HeaderModule,
     MainSlideModule
   ],
-  declarations: [ParishNewsPage]
+  declarations: [ArchdioceseDetailPage]
 })
-export class ParishNewsPageModule {}
+export class ArchdioceseDetailPageModule {}

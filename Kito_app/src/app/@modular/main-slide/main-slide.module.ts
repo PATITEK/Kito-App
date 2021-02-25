@@ -2,17 +2,18 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { MainSlideRoutingModule } from './main-slide-routing.module';
-import { MainItemComponent } from '../main-item/main-item.component';
-
+import { MainSlideComponent } from './main-slide.component';
+import { IonicModule } from '@ionic/angular';
 
 @NgModule({
-  declarations: [MainItemComponent],
+  declarations: [MainSlideComponent],
   imports: [
     CommonModule,
-    MainSlideRoutingModule
+    MainSlideRoutingModule,
+    IonicModule
   ],
   exports: [
-    MainItemComponent
+    MainSlideComponent
   ]
 })
 export class MainSlideModule { }

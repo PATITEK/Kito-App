@@ -6,14 +6,7 @@
   <app-search-bar-nav></app-search-bar-nav>
 
   <ion-label class="main-title">{{ data.title }}</ion-label>
-  <div class="img-container">
-    <img [src]="data.thumbImage">
-  </div>
+  <img [src]="data.thumb_images[0].url">
 
-  <ion-list class="list">
-    <div *ngFor="let item of data.content" class="item">
-      <ion-label class="item-title">{{ item.title }}</ion-label>
-      <p class="item-text">{{ item.text }}</p>
-    </div>
-  </ion-list>
+  <p class="text">{{ data.content }}</p>
 </ion-content>

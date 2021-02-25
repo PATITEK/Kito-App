@@ -9,5 +9,7 @@ export * from './match-users';
 export * from './history';
 export * from './food';
 export * from './donate';
-export * from './order'
+export * from './order';
+export * from './diocese';
+export * from './vatican';
 

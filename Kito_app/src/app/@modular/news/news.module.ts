@@ -7,8 +7,8 @@ import { IonicModule } from '@ionic/angular';
 import { NewsPageRoutingModule } from './news-routing.module';
 
 import { NewsPage } from './news.page';
-import { HeaderModule } from 'src/app/@modular/header/header.module';
-import { SearchBarNavModule } from 'src/app/@modular/search-bar-nav/search-bar-nav.module';
+import { HeaderModule } from '../header/header.module';
+import { SearchBarNavModule } from '../search-bar-nav/search-bar-nav.module';
 
 @NgModule({
   imports: [
@@ -19,6 +19,6 @@ import { SearchBarNavModule } from 'src/app/@modular/search-bar-nav/search-bar-n
     HeaderModule,
     SearchBarNavModule,
   ],
-  declarations: [ NewsPage ]
+  declarations: [NewsPage]
 })
-export class NewsPageModule { }
+export class NewsPageModule {}

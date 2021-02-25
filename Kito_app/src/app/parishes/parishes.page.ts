@@ -10,6 +10,7 @@ import { LoadingService } from '../@app-core/utils';
   styleUrls: ['./parishes.page.scss'],
 })
 export class ParishesPage implements OnInit {
+  headerCustom = {};
 
   constructor(
     public parishesService: ParishesService,
@@ -26,7 +27,6 @@ export class ParishesPage implements OnInit {
   type : {
     type: any
   };
-  title = 'Chọn giáo xứ'
   ngOnInit() {
     this.loadingService.present()
     this.authService.receiveData.subscribe(data =>  {
