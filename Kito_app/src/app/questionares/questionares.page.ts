@@ -22,6 +22,7 @@ export class QuestionaresPage implements OnInit {
 
   ionViewWillEnter() {
     localStorage.removeItem('questionType');
+    localStorage.removeItem('questionTypeName');
   }
 
   goToChooseQuestionType(type) {

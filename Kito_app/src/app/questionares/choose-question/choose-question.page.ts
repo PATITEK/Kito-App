@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { threadId } from 'worker_threads';
 
 @Component({
   selector: 'app-choose-question',
@@ -11,6 +10,8 @@ export class ChooseQuestionPage implements OnInit {
   headerCustom = { title: '' };
 
   questions = [];
+
+  questioneType = localStorage.getItem('questionType');
 
   constructor(
     private router: Router,
@@ -48,7 +49,7 @@ export class ChooseQuestionPage implements OnInit {
   }
 
   goToQuestion(name) {
-    console.log(name)
+    localStorage.setItem('questionTypeName', this.questioneType + ' ' + name);
     this.router.navigate(['questionares/question'])
   }
 

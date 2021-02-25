@@ -1,18 +1,18 @@
 <ion-header class="ion-no-border">
   <ion-buttons class="header-option">
-    <ion-icon size="large" mode="ios" name="list-circle-outline" class="active-effect"></ion-icon>
+    <ion-icon size="large" mode="ios" name="list-circle-outline" class="active-effect" (click)="questionSetting()"></ion-icon>
     <ion-icon *ngIf="musicType == true" size="large" name="volume-high" class="active-effect" (click)="setMusicType()"></ion-icon>
     <ion-icon *ngIf="musicType == false" size="large" name="volume-mute" class="active-effect" (click)="setMusicType()"></ion-icon>
   </ion-buttons>
   <ion-buttons class="header-notify">
     <ion-buttons class="heart" lines="none">
       <ion-icon size="large" name="heart-circle-outline"></ion-icon>
-      <ion-label>3</ion-label>
+      <ion-label>{{ heart }}</ion-label>
     </ion-buttons>
     <ion-buttons class="middle" lines="none">
       <ion-col>
         <ion-row>
-          <ion-label class="question-type">Chủ đề Kinh Thánh</ion-label>
+          <ion-label class="question-type">{{ questioneType }}</ion-label>
         </ion-row>
         <ion-label class="question-counter">{{ questionCounter+1 }}/10 câu</ion-label>
     </ion-col>

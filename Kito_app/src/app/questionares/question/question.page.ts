@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
 import { BehaviorSubject } from 'rxjs';
 
 @Component({
@@ -8,12 +10,18 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class QuestionPage implements OnInit {
   musicType = true;
+
+  questioneType = '';
+  heart = 3;
+
   questionCounter = 0;
+  choosedId = '';
+  answerKey = '';
+
   time: BehaviorSubject<string> = new BehaviorSubject('00:00');
   timer: number;
   forTimer: any;
-  choosedId = '';
-  answerKey = '';
+  
   questions = {
     questions: [
       {
@@ -58,12 +66,51 @@ export class QuestionPage implements OnInit {
     ]
   }
 
-  
-
-  constructor() { }
+  constructor(
+    private alertCtrl: AlertController,
+    private router: Router
+  ) { }
 
   ngOnInit() {
     this.startTimer(120);
+    this.checkQuestionType();
+  }
+
+  async questionSetting() {
+    let alertQuestionSetting = await this.alertCtrl.create({
+      message: 'Lựa chọn',
+      mode: 'ios',
+      buttons: [
+        {
+          text: 'Tiếp tục',
+        },
+        {
+          text: 'Quay lại',
+          handler: () => {
+            localStorage.removeItem('questionTypeName');
+            this.router.navigate(['questionares/choose-question']);
+          }
+        },
+        {
+          text: 'Thoát',
+          role: 'destructive',
+          handler: () => {
+            localStorage.removeItem('questionType');
+            localStorage.removeItem('questionTypeName');
+            this.router.navigate(['main']);
+          }
+        },
+      ]
+    });
+    await alertQuestionSetting.present();
+  }
+
+  checkQuestionType() {
+    this.questioneType = localStorage.getItem('questionTypeName');
+    if(localStorage.getItem('questionType') == 'Chủ đề') {
+    }
+    else if(localStorage.getItem('questionType') == 'Cấp độ') {
+    }
   }
 
   setMusicType() {
@@ -73,7 +120,6 @@ export class QuestionPage implements OnInit {
     else {
       this.musicType = true;
     }
-    console.log(this.musicType)
   }
 
   startTimer(duration: number) {
