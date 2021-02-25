@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '../@app-core/http';
+import { AuthService, IPageRequest, VaticanService } from '../@app-core/http';
 import { ModalController } from '@ionic/angular';
 import { AccountService } from '../@app-core/http/account/account.service';
 import { GeolocationService, ImageService, OneSignalService } from '../@app-core/utils';
@@ -52,24 +52,11 @@ export class MainPage implements OnInit {
     },
   ]
 
-  news = [
-    {
-      title: 'ĐTC Phanxicô cử hành Thánh lễ Ngày Đời sống Thánh hiến',
-      thumbImage: 'assets/img/bgnew.jpg'
-    },
-    {
-      title: 'ĐTC Phanxicô cử hành Thánh lễ Ngày Đời sống Thánh hiến',
-      thumbImage: 'assets/img/bgnew.jpg'
-    },
-    {
-      title: 'ĐTC Phanxicô cử hành Thánh lễ Ngày Đời sống Thánh hiến',
-      thumbImage: 'assets/img/bgnew.jpg'
-    },
-    {
-      title: 'ĐTC Phanxicô cử hành Thánh lễ Ngày Đời sống Thánh hiến',
-      thumbImage: 'assets/img/bgnew.jpg'
-    },
-  ]
+  news = [];
+  pageRequestVatican: IPageRequest = {
+    page: 1,
+    per_page: 10
+  }
 
   constructor(
     private router: Router,
@@ -78,8 +65,10 @@ export class MainPage implements OnInit {
     private accountService: AccountService,
     private authService: AuthService,
     public modalCtrl: ModalController,
-    private geolocationService: GeolocationService
+    private geolocationService: GeolocationService,
+    private vaticanService: VaticanService
   ) { }
+
   ionViewWillEnter() {
     this.name = localStorage.getItem('fullname');
     // this.imageService.getImage();
@@ -104,8 +93,15 @@ export class MainPage implements OnInit {
   ngOnInit() {
     this.OneSignalService.startOneSignal();
     this.name = localStorage.getItem('fullname');
-
+    this.getVatican();
   }
+
+  getVatican() {
+    this.vaticanService.getAll(this.pageRequestVatican).subscribe(data => {
+      this.news = data.vatican_news;
+    })
+  }
+
   goToDetail(item) {
     if (item.desUrl == 'donate') {
       const data = {
@@ -125,7 +121,10 @@ export class MainPage implements OnInit {
   goToNewsDetail(item) {
     const data = {
       id: item.id,
-      type: 'News'
+      type: {
+        general: 'news',
+        detail: 'vatican'
+      }
     }
     this.router.navigate(['/news-detail'], {
       queryParams: {
