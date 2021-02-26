@@ -1,0 +1,84 @@
+ion-content{
+    .calendar{
+        
+        height: 300px;
+        
+    }
+    .title-calendar{
+        width: 100%;
+        height: 50px;
+        margin-top: 55px;
+        position: relative;
+        
+        .titleMonth{
+     
+            color: #424242;
+            top: 100px;
+            text-align: center;
+            text-transform: uppercase;
+            margin: 0;
+            line-height: 50px;
+        }
+        .icon-filler{
+            position: absolute;
+            right: 10px;
+            top: 0;
+            bottom: 0;
+            margin: auto;
+            color: #424242;
+        }
+        .button-slide{
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          margin: auto;
+            width: 20px;
+            height: 20px;
+           
+        }
+        .button-left{
+           left: 60px;
+           @media screen and (max-height: 569px) {
+            left: 45px;
+          }
+        }
+        .button-right{
+            right: 45px;
+            
+    }
+    
+    }
+    .calendar-month{
+        width: 100vw;
+        height: 100%;
+       
+        .content-main{
+            width: 100%;
+            height: 500px;
+            position: absolute;
+            background: blue;
+            overflow: scroll;
+        }
+        
+    }
+}
+
+.text-color{
+    color: green!important;
+}
+:host::ng-deep .monthview-selected{
+    background: red!important;
+}
+:host::ng-deep .monthview-primary-with-event{
+    background:transparent!important;
+    color: #DE0093!important;
+}
+:host ::ng-deep .list-ios{
+    display: none!important;
+}
+.event-detail-container{
+    display: none!important;
+}
+:host ::ng-deep .monthview-container{
+    height: auto!important;
+}

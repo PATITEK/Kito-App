@@ -46,9 +46,24 @@ export class MainPage implements OnInit {
       desUrl: 'pray',
     },
     {
+      name: 'Lịch Công giáo',
+      thumbImage: 'assets/img/menu/lichconggiao.svg',
+      desUrl: 'main/calendar',
+    },
+    {
       name: 'Cửa hàng',
       thumbImage: 'assets/img/menu/cuahang.svg',
       desUrl: 'main/store',
+    },
+    {
+      name: 'Nhạc Thánh Ca',
+      thumbImage: 'assets/img/menu/thanhca.svg',
+      desUrl: 'main/news',
+    },
+    {
+      name: 'Video bài giảng',
+      thumbImage: 'assets/img/menu/baigiang.svg',
+      desUrl: 'main/news',
     },
   ]
 

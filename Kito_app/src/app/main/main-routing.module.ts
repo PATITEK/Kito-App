@@ -30,10 +30,19 @@ const routes: Routes = [
     loadChildren: () => import('./news/news.module').then( m => m.NewsPageModule)
   },
   {
+    path: 'calendars',
+    loadChildren: () => import('./calendar/calendar.module').then( m => m.CalendarPageModule)
+  },
+  {
     path: '',
     redirectTo: '',
     pathMatch: 'full'
   },
+  {
+    path: 'calendar',
+    loadChildren: () => import('./calendar/calendar.module').then( m => m.CalendarPageModule)
+  },
+
 
 ];
 
