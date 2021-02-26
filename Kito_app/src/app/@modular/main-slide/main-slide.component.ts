@@ -25,7 +25,8 @@ export class MainSlideComponent implements OnInit {
 
   seeMore() {
     const data = {
-      type: this.data.type
+      type: this.data.type,
+      id: this.data.id ? this.data.id : null
     }
     switch (this.data.type.general) {
       case 'news':

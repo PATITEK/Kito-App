@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { DioceseService, ParishesService, VaticanService } from 'src/app/@app-core/http';
+import { BishopService, DioceseNewsService, DioceseService, ParishesService, VaticanService } from 'src/app/@app-core/http';
 import { PopeService } from 'src/app/@app-core/http/pope';
 
 @Component({
@@ -12,6 +12,7 @@ export class NewsDetailPage implements OnInit {
   headerCustom = { title: '' };
   data = {
     title: '',
+    name: '',
     thumb_images: [{ url: '' }],
     thumb_image: { url: '' },
     content: ''
@@ -22,7 +23,9 @@ export class NewsDetailPage implements OnInit {
     private vaticanService: VaticanService,
     private popeService: PopeService,
     private dioceseService: DioceseService,
-    private parishService: ParishesService
+    private parishService: ParishesService,
+    private dioceseNewsService: DioceseNewsService,
+    private bishopService: BishopService
   ) { }
 
   ngOnInit() {
@@ -60,6 +63,16 @@ export class NewsDetailPage implements OnInit {
         case 'parish':
           this.parishService.getDetail(dataParams.id).subscribe(data => {
             this.data = data.parish;
+          })
+          break;
+        case 'dioceseNews':
+          this.dioceseNewsService.getDetail(dataParams.id).subscribe(data => {
+            this.data = data.diocese_news;
+          })
+          break;
+        case 'bishop':
+          this.bishopService.getDetail(dataParams.id).subscribe(data => {
+            this.data = data.bishop_info;
           })
           break;
       }
