@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-choose-question',
@@ -10,7 +11,11 @@ export class ChooseQuestionPage implements OnInit {
 
   questions = [];
 
-  constructor() { }
+  questioneType = localStorage.getItem('questionType');
+
+  constructor(
+    private router: Router,
+  ) { }
 
   ngOnInit() {
     this.setUpQuestion();
@@ -21,7 +26,7 @@ export class ChooseQuestionPage implements OnInit {
   }
 
   setUpQuestion() {
-    if(localStorage.getItem('type') == 'topic') {
+    if(localStorage.getItem('questionType') == 'Chủ đề') {
       this.headerCustom.title = 'CHỌN CHỦ ĐỀ';
       this.questions = [
         {name: 'Lời chúa'},
@@ -31,7 +36,7 @@ export class ChooseQuestionPage implements OnInit {
         {name: 'Kinh Thánh'},
       ]
     }
-    else if(localStorage.getItem('type') == 'level') {
+    else if(localStorage.getItem('questionType') == 'Cấp độ') {
       this.headerCustom.title = 'CHỌN CẤP ĐỘ';
       this.questions = [
         {name: 'Khai tâm'},
@@ -41,6 +46,11 @@ export class ChooseQuestionPage implements OnInit {
         {name: 'Hôn nhân'},
       ]
     }
+  }
+
+  goToQuestion(name) {
+    localStorage.setItem('questionTypeName', this.questioneType + ' ' + name);
+    this.router.navigate(['questionares/question'])
   }
 
 }

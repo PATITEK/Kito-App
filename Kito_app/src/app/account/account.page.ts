@@ -117,7 +117,6 @@ export class AccountPage implements OnInit {
       ]
     });
     await alertAvatarSetting.present();
-
   }
 
   async openModalPassword(ev: any) {

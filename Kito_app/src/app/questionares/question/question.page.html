@@ -1,0 +1,65 @@
+<ion-header class="ion-no-border">
+  <ion-buttons class="header-option">
+    <ion-icon size="large" mode="ios" name="list-circle-outline" class="active-effect" (click)="questionSetting()"></ion-icon>
+    <ion-icon *ngIf="musicType == true" size="large" name="volume-high" class="active-effect" (click)="setMusicType()"></ion-icon>
+    <ion-icon *ngIf="musicType == false" size="large" name="volume-mute" class="active-effect" (click)="setMusicType()"></ion-icon>
+  </ion-buttons>
+  <ion-buttons class="header-notify">
+    <ion-buttons class="heart" lines="none">
+      <ion-icon size="large" name="heart-circle-outline"></ion-icon>
+      <ion-label>{{ heart }}</ion-label>
+    </ion-buttons>
+    <ion-buttons class="middle" lines="none">
+      <ion-col>
+        <ion-row>
+          <ion-label class="question-type">{{ questionTypeName }}</ion-label>
+        </ion-row>
+        <ion-label class="question-counter">{{ questionCounter+1 }}/10 câu</ion-label>
+    </ion-col>
+    </ion-buttons>
+    <ion-icon class="rule active-effect" size="large" name="help-circle-outline"></ion-icon>
+  </ion-buttons>
+  <ion-buttons class="time">
+    <ion-icon name="hourglass-outline"></ion-icon>
+    <ion-label>{{ time | async }}</ion-label>
+  </ion-buttons>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-buttons class="question-cover">
+    <ion-label class="question">{{ questions.questions[questionCounter].question }}</ion-label>
+  </ion-buttons>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-button class="answer active-effect" id="answer" shape="round" Fill="outline"
+        (click)="btnActivate($event)" 
+        (click) = "checkIfAnswerChoosed(questions.questions[questionCounter].answer.a)"
+        (click) = "getKeyToCheckRight(questions.questions[questionCounter].answer, choosedId)">{{ questions.questions[questionCounter].answer.a }}
+        </ion-button>
+
+        <ion-button class="answer active-effect" id="answer" shape="round" Fill="outline"
+        (click)="btnActivate($event)" 
+        (click) = "checkIfAnswerChoosed(questions.questions[questionCounter].answer.b)"
+        (click) = "getKeyToCheckRight(questions.questions[questionCounter].answer, choosedId)">{{ questions.questions[questionCounter].answer.b }}
+        </ion-button>
+
+        <ion-button class="answer active-effect" id="answer" shape="round" Fill="outline"
+        (click)="btnActivate($event)" 
+        (click) = "checkIfAnswerChoosed(questions.questions[questionCounter].answer.c)"
+        (click) = "getKeyToCheckRight(questions.questions[questionCounter].answer, choosedId)">{{ questions.questions[questionCounter].answer.c }}
+        </ion-button>
+
+        <ion-button class="answer active-effect" id="answer" shape="round" Fill="outline"
+        (click)="btnActivate($event)" 
+        (click) = "checkIfAnswerChoosed(questions.questions[questionCounter].answer.d)"
+        (click) = "getKeyToCheckRight(questions.questions[questionCounter].answer, choosedId)">{{ questions.questions[questionCounter].answer.d }}
+        </ion-button>
+
+        <ion-button class="confirm-btn active-effect" id="confirm" [disabled]="choosedId==''"
+        (click)="btnConfirm()" (click)="btnActivate($event)">Đồng ý</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

@@ -3,11 +3,11 @@
 </ion-header>
 
 <ion-content>
-  <ion-img class="background-img" src="../../assets/questionares/background.svg"></ion-img>
+  <ion-img class="background-img" src="../../assets/img/questionares/background.svg"></ion-img>
   <ion-grid>
     <ion-row>
       <ion-col>
-        <ion-button *ngFor="let question of questions">{{ question.name }}</ion-button>
+        <ion-button Fill="round" class="active-effect" *ngFor="let question of questions" (click)="goToQuestion(question.name)">{{ question.name }}</ion-button>
       </ion-col>
     </ion-row>
   </ion-grid>
