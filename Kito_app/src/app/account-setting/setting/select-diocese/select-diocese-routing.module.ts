@@ -1,18 +1,17 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { SettingLanguagesPage } from './setting-languages.page';
+import { SelectDiocesePage } from './select-diocese.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: SettingLanguagesPage
-  },
-  
+    component: SelectDiocesePage
+  }
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class SettingLanguagesPageRoutingModule {}
+export class SelectDiocesePageRoutingModule {}
