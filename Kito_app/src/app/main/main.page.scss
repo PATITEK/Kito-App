@@ -65,6 +65,9 @@ ion-content {
       width: 120px;
       margin: 8px;
       text-align: center;
+      background: linear-gradient(180deg, #F3F3F3 0%, rgba(243, 243, 243, 0));
+      border-radius: 30px;
+      border: 2px solid #f8f8f8;
 
       @media screen and (max-width: 410px) {
         width: 90px;
@@ -93,7 +96,7 @@ ion-content {
 
       .item {
         margin: 8px auto;
-        width: 160px;
+        width: 130px;
       }
     }
   }

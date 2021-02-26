@@ -1,0 +1,41 @@
+<ion-header>
+  <app-header [headerCustom]="headerCustom"></app-header>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <!-- <ion-calendar [(ngModel)]="dateRange" #calander #ctrl="ngModel"
+  (monthChange)='monthChange()'
+  [options]="optionsRange"
+  [type]="type"
+  [format]="'YYYY-MM'">
+</ion-calendar> -->
+<ion-item-group class="title-calendar">
+  <h3 class="titleMonth">{{viewTitle}}</h3>
+  <img  class="icon-filler" src="assets/icon/filler.svg">
+  <ion-icon class="button-slide button-left" (click)="PrewMonth()" name="chevron-back-outline"></ion-icon>
+  <ion-icon class="button-slide button-right" (click)="nextMonth()" name="chevron-forward-outline"></ion-icon>
+  
+</ion-item-group>
+
+  <calendar
+  #calander 
+  [eventSource]="eventSource" 
+  locale="vi"
+  formatDayHeader="EE"
+  [calendarMode]="calendar.mode" 
+  [currentDate]="calendar.currentDate"
+  (onCurrentDateChanged)="onCurrentDateChanged($event)" 
+  (onRangeChanged)="reloadSource(startTime, endTime)"
+  (onEventSelected)="onEventSelected($event)" 
+  (onTitleChanged)="onViewTitleChanged($event)"
+  (onTimeSelected)="onTimeSelected($event)" 
+
+  step="15" class="calendar">
+
+  </calendar>
+<!-- <ion-item-group class="calendar-month">
+    <div class="content-main">
+
+    </div>
+</ion-item-group> -->
+</ion-content>

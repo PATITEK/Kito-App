@@ -22,8 +22,9 @@ import { OneSignal } from '@ionic-native/onesignal/ngx';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { NativeGeocoder, NativeGeocoderOptions, NativeGeocoderResult } from '@ionic-native/native-geocoder/ngx';
 import { NativePageTransitions } from '@ionic-native/native-page-transitions/ngx';
+import { CalendarModule } from 'ion2-calendar';
 // import { IonicSwipeAllModule } from 'ionic-swipe-all';
-
+import { NgCalendarModule  } from 'ionic2-calendar';
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -33,7 +34,9 @@ import { NativePageTransitions } from '@ionic-native/native-page-transitions/ngx
     AppRoutingModule,
     CoreModule.forRoot(),
     FormsModule,
+    CalendarModule,
     ReactiveFormsModule,
+    NgCalendarModule
     
   ],
   providers: [
