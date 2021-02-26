@@ -11,7 +11,7 @@ import { BehaviorSubject } from 'rxjs';
 export class QuestionPage implements OnInit {
   musicType = true;
 
-  questioneType = '';
+  questionTypeName = '';
   heart = 3;
 
   questionCounter = 0;
@@ -85,11 +85,24 @@ export class QuestionPage implements OnInit {
           text: 'Tiếp tục',
         },
         {
-          text: 'Quay lại',
+          text: 'Thoát',
+          role: 'destructive',
           handler: () => {
-            localStorage.removeItem('questionTypeName');
-            this.router.navigate(['questionares/choose-question']);
+            this.questionQuit();
           }
+        },
+      ]
+    });
+    await alertQuestionSetting.present();
+  }
+
+  async questionQuit() {
+    let alertQuestionSetting = await this.alertCtrl.create({
+      message: 'Bạn có muốn thoát?',
+      mode: 'ios',
+      buttons: [
+        {
+          text: 'Hủy',
         },
         {
           text: 'Thoát',
@@ -106,7 +119,7 @@ export class QuestionPage implements OnInit {
   }
 
   checkQuestionType() {
-    this.questioneType = localStorage.getItem('questionTypeName');
+    this.questionTypeName = localStorage.getItem('questionTypeName');
     if(localStorage.getItem('questionType') == 'Chủ đề') {
     }
     else if(localStorage.getItem('questionType') == 'Cấp độ') {
