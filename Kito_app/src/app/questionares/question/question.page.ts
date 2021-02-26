@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AlertController } from '@ionic/angular';
+import { AlertController, ModalController } from '@ionic/angular';
 import { BehaviorSubject } from 'rxjs';
+import { CompleteQuestionPage } from '../complete-question/complete-question.page';
 
 @Component({
   selector: 'app-question',
@@ -13,67 +14,46 @@ export class QuestionPage implements OnInit {
 
   questionTypeName = '';
   heart = 3;
+  score = 0
 
   questionCounter = 0;
-  choosedId = '';
+  answerValue = '';
   answerKey = '';
 
   time: BehaviorSubject<string> = new BehaviorSubject('00:00');
   timer: number;
   forTimer: any;
-  
+
   questions = {
-    questions: [
-      {
+    questions: []
+  }
+
+  constructor(
+    private alertCtrl: AlertController,
+    private router: Router,
+    private modalController: ModalController,
+  ) { }
+
+  ngOnInit() {
+    localStorage.setItem('score', '0')
+    this.startTimer(120);
+    this.checkQuestionType();
+    for(let i = 1; i<=12; i++) {
+      this.questions.questions.push({
         id: 1729,
         question_topic_id: 33,
         answer: {
           a: " Thợ mộc",
           b: "Thợ mỏ",
           c: " Thợ làm than",
-          d: " Cả B & C"
+          d: i + 1,
         },
-        question: "cau 1",
+        question: "cau " + i + ": 1 + " + i + " = ?",
         img_url: null,
-        level: 1
-      },
-      {
-        id: 1729,
-        question_topic_id: 33,
-        answer: {
-          a: " Thợ mộc 2",
-          b: "Thợ mỏ",
-          c: " Thợ làm than",
-          d: " Cả B & C"
-        },
-        question: "cau 2",
-        img_url: null,
-        level: 1
-      },
-      {
-        id: 1729,
-        question_topic_id: 33,
-        answer: {
-          a: " Thợ mộc 3",
-          b: "Thợ mỏ",
-          c: " Thợ làm than",
-          d: " Cả B & C"
-        },
-        question: "cau 3",
-        img_url: null,
-        level: 1
-      },
-    ]
-  }
-
-  constructor(
-    private alertCtrl: AlertController,
-    private router: Router
-  ) { }
-
-  ngOnInit() {
-    this.startTimer(120);
-    this.checkQuestionType();
+        level: 1,
+        right: 'd',
+      })
+    }
   }
 
   async questionSetting() {
@@ -83,6 +63,12 @@ export class QuestionPage implements OnInit {
       buttons: [
         {
           text: 'Tiếp tục',
+        },
+        {
+          text: 'Quay lại',
+          handler: () => {
+            this.router.navigate(['questionares/choose-question']);
+          }
         },
         {
           text: 'Thoát',
@@ -110,7 +96,7 @@ export class QuestionPage implements OnInit {
           handler: () => {
             localStorage.removeItem('questionType');
             localStorage.removeItem('questionTypeName');
-            this.router.navigate(['main']);
+            this.router.navigate(['questionares']);
           }
         },
       ]
@@ -120,9 +106,9 @@ export class QuestionPage implements OnInit {
 
   checkQuestionType() {
     this.questionTypeName = localStorage.getItem('questionTypeName');
-    if(localStorage.getItem('questionType') == 'Chủ đề') {
+    if (localStorage.getItem('questionType') == 'Chủ đề') {
     }
-    else if(localStorage.getItem('questionType') == 'Cấp độ') {
+    else if (localStorage.getItem('questionType') == 'Cấp độ') {
     }
   }
 
@@ -137,10 +123,10 @@ export class QuestionPage implements OnInit {
 
   startTimer(duration: number) {
     this.timer = duration;
-    this.forTimer =  setInterval( () => {
+    this.forTimer = setInterval(() => {
       this.updateTimeValue();
     }, 1000);
-    
+
   }
   stopTimer() {
     clearInterval(this.forTimer);
@@ -160,8 +146,7 @@ export class QuestionPage implements OnInit {
 
     if (this.timer == -1) {
       this.stopTimer();
-      // this.timeOver();
-      // this.openModalLose();
+      this.openCompleteQuestion();
     }
   }
 
@@ -173,18 +158,34 @@ export class QuestionPage implements OnInit {
     e.target.classList.add('active-button');
   }
 
-  checkIfAnswerChoosed(item) {
-    this.choosedId = item;
+  checkAnswerValue(item) {
+    this.answerValue = item;
   }
 
-  getKeyToCheckRight(object, value) {
+  checkAnswerKey(object, value) {
     this.answerKey = Object.keys(object).find(key => object[key] === value);
   }
 
   btnConfirm() {
-    this.choosedId = '';
-    this.questionCounter += 1;
+    this.answerValue = '';
+    this.questionCounter++;
+    if (this.answerKey == this.questions.questions[this.questionCounter].right) {
+      this.score++;
+      localStorage.setItem('score', JSON.stringify(this.score));
+    } else {
+      this.heart--;
+    }
+    if (this.questionCounter >= 10 || this.heart == 0 || this.score == 10) {
+      this.openCompleteQuestion();
+    }
+  }
+
+  async openCompleteQuestion() {
+    const modal = await this.modalController.create({
+      component: CompleteQuestionPage,
+      cssClass: 'my-custom-class',
+      swipeToClose: false,
+    });
+    await modal.present();
   }
 }
-
-

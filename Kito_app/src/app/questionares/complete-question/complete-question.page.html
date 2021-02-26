@@ -1,10 +1,9 @@
 <ion-content>
-  <ion-img class="main-img" src="../../assets/img/questionares/success.svg"></ion-img>
-  <ion-label class="main-title">HOÀN THÀNH XUẤT SẮC !</ion-label>
+  <ion-img class="main-img" src="{{ imgUrl }}"></ion-img>
+  <ion-label class="main-title">{{ title }}</ion-label>
   <ion-buttons class="cup-and-scores">
     <ion-icon name="trophy"></ion-icon>
-    <ion-label>10/10 </ion-label>
+    <ion-label>{{ score }}/10 </ion-label>
   </ion-buttons>
-  <ion-button Fill="round" class="active-effect">Chơi tiếp</ion-button>
-  <ion-button Fill="round" class="active-effect">Thoát</ion-button>
+  <ion-button (click)="closeCompleteQuestion()" Fill="round" class="active-effect" *ngFor="let button of buttons" routerLink="{{ button.routerLink }}">{{ button.name }}</ion-button>
 </ion-content>
