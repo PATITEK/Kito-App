@@ -19,9 +19,12 @@
     </ion-buttons>
     <ion-icon class="rule active-effect" size="large" name="help-circle-outline"></ion-icon>
   </ion-buttons>
-  <ion-buttons class="time">
-    <ion-icon name="hourglass-outline"></ion-icon>
-    <ion-label>{{ time | async }}</ion-label>
+  <ion-buttons class="time-and-score">
+    <ion-label>Điểm: {{score}}</ion-label>
+    <ion-buttons>
+      <ion-icon name="hourglass-outline"></ion-icon>
+      <ion-label>{{ time | async }}</ion-label>
+    </ion-buttons>
   </ion-buttons>
 </ion-header>
 
@@ -35,29 +38,29 @@
       <ion-col>
         <ion-button class="answer active-effect" id="answer" shape="round" Fill="outline"
         (click)="btnActivate($event)" 
-        (click) = "checkIfAnswerChoosed(questions.questions[questionCounter].answer.a)"
-        (click) = "getKeyToCheckRight(questions.questions[questionCounter].answer, choosedId)">{{ questions.questions[questionCounter].answer.a }}
+        (click) = "checkAnswerValue(questions.questions[questionCounter].answer.a)"
+        (click) = "checkAnswerKey(questions.questions[questionCounter].answer, answerValue)">{{ questions.questions[questionCounter].answer.a }}
         </ion-button>
 
         <ion-button class="answer active-effect" id="answer" shape="round" Fill="outline"
         (click)="btnActivate($event)" 
-        (click) = "checkIfAnswerChoosed(questions.questions[questionCounter].answer.b)"
-        (click) = "getKeyToCheckRight(questions.questions[questionCounter].answer, choosedId)">{{ questions.questions[questionCounter].answer.b }}
+        (click) = "checkAnswerValue(questions.questions[questionCounter].answer.b)"
+        (click) = "checkAnswerKey(questions.questions[questionCounter].answer, answerValue)">{{ questions.questions[questionCounter].answer.b }}
         </ion-button>
 
         <ion-button class="answer active-effect" id="answer" shape="round" Fill="outline"
         (click)="btnActivate($event)" 
-        (click) = "checkIfAnswerChoosed(questions.questions[questionCounter].answer.c)"
-        (click) = "getKeyToCheckRight(questions.questions[questionCounter].answer, choosedId)">{{ questions.questions[questionCounter].answer.c }}
+        (click) = "checkAnswerValue(questions.questions[questionCounter].answer.c)"
+        (click) = "checkAnswerKey(questions.questions[questionCounter].answer, answerValue)">{{ questions.questions[questionCounter].answer.c }}
         </ion-button>
 
         <ion-button class="answer active-effect" id="answer" shape="round" Fill="outline"
         (click)="btnActivate($event)" 
-        (click) = "checkIfAnswerChoosed(questions.questions[questionCounter].answer.d)"
-        (click) = "getKeyToCheckRight(questions.questions[questionCounter].answer, choosedId)">{{ questions.questions[questionCounter].answer.d }}
+        (click) = "checkAnswerValue(questions.questions[questionCounter].answer.d)"
+        (click) = "checkAnswerKey(questions.questions[questionCounter].answer, answerValue)">{{ questions.questions[questionCounter].answer.d }}
         </ion-button>
 
-        <ion-button class="confirm-btn active-effect" id="confirm" [disabled]="choosedId==''"
+        <ion-button class="confirm-btn active-effect" id="confirm" [disabled]="answerValue==''"
         (click)="btnConfirm()" (click)="btnActivate($event)">Đồng ý</ion-button>
       </ion-col>
     </ion-row>

@@ -1,4 +1,5 @@
 ion-header {
+    background-color: #fff;
     margin-top: 15px;
     padding: 15px;
     .header-option {
@@ -45,8 +46,8 @@ ion-header {
             color: #CC9D3E;
         }
     }
-    .time {
-        justify-content: flex-end;
+    .time-and-score {
+        justify-content: space-between;
         color: #CC9D3E;
         font-size: 18px;
         padding: 20px 10px 0 0;

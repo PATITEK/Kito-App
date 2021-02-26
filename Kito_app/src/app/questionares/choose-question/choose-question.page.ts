@@ -46,6 +46,7 @@ export class ChooseQuestionPage implements OnInit {
         {name: 'Hôn nhân'},
       ]
     }
+    localStorage.removeItem('questionTypeName');
   }
 
   goToQuestion(name) {

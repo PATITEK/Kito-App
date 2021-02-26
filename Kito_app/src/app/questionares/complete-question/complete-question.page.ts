@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-complete-question',
@@ -9,8 +10,18 @@ export class CompleteQuestionPage implements OnInit {
   score = 0;
   imgUrl = '';
   title = '';
+  buttons = [
+    {
+      name: 'Chơi tiếp',
+      routerLink: 'questionares',
+    },
+    {
+      name: 'Thoát',
+      routerLink: 'main'
+    }
+  ]
 
-  constructor() { }
+  constructor( private modalCtrl: ModalController ) { }
 
   ngOnInit() {
     this.initImgTitle();
@@ -26,6 +37,10 @@ export class CompleteQuestionPage implements OnInit {
       this.title = 'HÃY CỐ GẮNG HƠN !';
     }
     localStorage.removeItem('score')
+  }
+
+  async closeCompleteQuestion() {
+    await this.modalCtrl.dismiss();
   }
 
 }

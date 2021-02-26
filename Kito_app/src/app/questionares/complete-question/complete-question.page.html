@@ -5,6 +5,5 @@
     <ion-icon name="trophy"></ion-icon>
     <ion-label>{{ score }}/10 </ion-label>
   </ion-buttons>
-  <ion-button Fill="round" class="active-effect">Chơi tiếp</ion-button>
-  <ion-button Fill="round" class="active-effect">Thoát</ion-button>
+  <ion-button (click)="closeCompleteQuestion()" Fill="round" class="active-effect" *ngFor="let button of buttons" routerLink="{{ button.routerLink }}">{{ button.name }}</ion-button>
 </ion-content>
