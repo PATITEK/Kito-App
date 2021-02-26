@@ -1,5 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { IonContent, IonSlides } from '@ionic/angular';
 import { EventsService, IPageEvent } from 'src/app/@app-core/http';
 import { DateTimeService } from 'src/app/@app-core/utils';
@@ -12,6 +12,7 @@ import { DateTimeService } from 'src/app/@app-core/utils';
 export class PrayerTimePage implements OnInit {
   @ViewChild('slides', { static: false }) slides: IonSlides;
   @ViewChild(IonContent) ionContent: IonContent;
+  @ViewChild('fixed', { static: false }) fixedEl: ElementRef;
 
   slideOptions = {
     initialSlide: 0,
@@ -22,20 +23,22 @@ export class PrayerTimePage implements OnInit {
     cal_date: ''
   }
 
-  parish = {
+  diocese = {
     thumbImage: 'assets/img/tonggiaophan/hanoi.svg',
-    name: 'Giáo xứ Chánh Tòa Sài Gòn'
+    name: 'Giáo xứ Chánh Tòa Sài Gòn',
+    address: '1 Công xã Paris, P. Bến Nghé, Quận 1, TP.HCM'
   }
 
   dateList = [];
   activeDateItemId;
 
-  parishNameHeight = 0;
+  fixedElHeight = 0;
 
   constructor(
     public dateTimeService: DateTimeService,
     private router: Router,
-    private eventsService: EventsService
+    private eventsService: EventsService,
+    private route: ActivatedRoute,
   ) { }
 
   ngOnInit() {
@@ -49,11 +52,16 @@ export class PrayerTimePage implements OnInit {
       this.changeSegment(dateItemId);
       localStorage.removeItem('dateItemId');
     }
+
+    const parishId = localStorage.getItem('tempParishId');
+    if (parishId) {
+      console.log(parishId);
+    }
+    localStorage.removeItem('tempParishId');
   }
 
   ionViewDidEnter() {
-    const parishNameElement: any = document.querySelector('.parish-name');
-    this.parishNameHeight = parishNameElement.offsetHeight;
+    this.fixedEl && (this.fixedElHeight = this.fixedEl.nativeElement.offsetHeight);
   }
 
   initDateList() {
@@ -125,6 +133,10 @@ export class PrayerTimePage implements OnInit {
   }
 
   paddingTopIonContent() {
-    return `calc(60vw + ${this.parishNameHeight}px + 60px + 15px)`
+    return this.fixedElHeight + 'px';
+  }
+
+  seeMore() {
+    this.router.navigateByUrl('main/prayer-time/select-diocese');
   }
 }
