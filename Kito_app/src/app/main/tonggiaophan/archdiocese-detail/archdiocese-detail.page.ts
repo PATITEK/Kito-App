@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { BishopService, DioceseNewsService } from 'src/app/@app-core/http';
 import { DioceseService } from 'src/app/@app-core/http/diocese';
+import { IPageParishes } from 'src/app/@app-core/http/parishes/parishes.DTO';
 
 @Component({
   selector: 'app-archdiocese-detail',
@@ -18,74 +20,32 @@ export class ArchdioceseDetailPage implements OnInit {
     }
   }
   title = '';
-
   list = [
     {
-      heading: 'Tin tức tổng giáo phận',
-      desUrl: 'main/tonggiaophan/parish-news/news',
-      items: [
-        {
-          id: "1",
-          type: 'News',
-          title: 'ĐTC Phanxicô cử hành Thánh lễ Ngày Đời sống Thánh hiến',
-          thumbImage: 'assets/img/parish-item.svg'
-        },
-        {
-          id: "2",
-          type: 'News',
-          title: 'ĐTC Phanxicô cử hành Thánh lễ Ngày Đời sống Thánh hiến',
-          thumbImage: 'assets/img/parish-item.svg'
-        },
-        {
-          id: "3",
-          type: 'News',
-          title: 'ĐTC Phanxicô cử hành Thánh lễ Ngày Đời sống Thánh hiến',
-          thumbImage: 'assets/img/parish-item.svg'
-        },
-        {
-          id: "4",
-          type: 'News',
-          title: 'ĐTC Phanxicô cử hành Thánh lễ Ngày Đời sống Thánh hiến',
-          thumbImage: 'assets/img/parish-item.svg'
-        },
-      ]
+      id: '',
+      heading: 'Tin tức ',
+      items: [],
+      type: { general: 'news', detail: 'dioceseNews' }
     },
     {
+      id: '',
       heading: 'Tiểu sử các Đức Giám Mục',
-      desUrl: 'main/tonggiaophan/parish-news/stories',
-      items: [
-        {
-          id: "1",
-          type: 'Story',
-          title: 'Giáo hoàng Phanxicô - Đương kim giáo hoàng',
-          thumbImage: 'assets/img/pope.svg'
-        },
-        {
-          id: "2",
-          type: 'Story',
-          title: 'Giáo hoàng Phanxicô - Đương kim giáo hoàng',
-          thumbImage: 'assets/img/pope.svg'
-        },
-        {
-          id: "3",
-          type: 'Story',
-          title: 'Giáo hoàng Phanxicô - Đương kim giáo hoàng',
-          thumbImage: 'assets/img/pope.svg'
-        },
-        {
-          id: "4",
-          type: 'Story',
-          title: 'Giáo hoàng Phanxicô - Đương kim giáo hoàng',
-          thumbImage: 'assets/img/pope.svg'
-        },
-      ]
+      items: [],
+      type: { general: 'story', detail: 'bishop' }
     }
   ]
+  pageRequest: IPageParishes = {
+    page: 1,
+    per_page: 4,
+    diocese_id: ''
+  }
 
   constructor(
     private route: ActivatedRoute,
     private diocesesService: DioceseService,
-    private router: Router
+    private router: Router,
+    private dioceseNewsService: DioceseNewsService,
+    private bishopService: BishopService
   ) { }
 
   ngOnInit() {
@@ -98,12 +58,35 @@ export class ArchdioceseDetailPage implements OnInit {
     })
   }
 
+  getDioceseNews() {
+    this.dioceseNewsService.getAll(this.pageRequest).subscribe(data => {
+      data.diocese_news.forEach(d => {
+        d.type = { general: 'news', detail: 'dioceseNews' };
+      });
+      this.list[0].items = data.diocese_news;
+    })
+  }
+
+  getBishops() {
+    this.bishopService.getAll(this.pageRequest).subscribe(data => {
+      data.bishop_infos.forEach(d => {
+        d.type = { general: 'story', detail: 'bishop' };
+      });
+      this.list[1].items = data.bishop_infos;
+    })
+  }
+
   getData() {
     this.route.queryParams.subscribe(params => {
       const dataParams = JSON.parse(params['data']);
-      this.title = dataParams.diocese.type == 'diocese' ? 'Thông tin giáo phận' : 'Thông tin tổng giáo phận';
+      this.title = dataParams.diocese.type == 'diocese' ? 'giáo phận' : 'tổng giáo phận';
+      this.list[0].heading += this.title;
       this.headerCustom.title = dataParams.diocese.name;
+      this.pageRequest.diocese_id = dataParams.diocese.id;
+      this.list.forEach(item => item.id = dataParams.diocese.id);
       this.getArchdiocese(dataParams.diocese.id);
+      this.getDioceseNews();
+      this.getBishops();
     }).unsubscribe();
   }
 
