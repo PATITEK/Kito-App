@@ -27,7 +27,13 @@ export class CompleteQuestionPage implements OnInit {
     this.initImgTitle();
   }
 
+  ionViewWillLeave() {
+    localStorage.removeItem('score');
+  }
+
   initImgTitle() {
+    localStorage.removeItem('questionType');
+    localStorage.removeItem('questionTypeName');
     this.score = parseInt(localStorage.getItem('score'));
     if ( this.score == 10) {
       this.imgUrl = '../../assets/img/questionares/success.svg';
@@ -36,7 +42,6 @@ export class CompleteQuestionPage implements OnInit {
       this.imgUrl = '../../assets/img/questionares/try-more.svg'
       this.title = 'HÃY CỐ GẮNG HƠN !';
     }
-    localStorage.removeItem('score')
   }
 
   async closeCompleteQuestion() {

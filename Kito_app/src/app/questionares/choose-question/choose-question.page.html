@@ -7,7 +7,7 @@
   <ion-grid>
     <ion-row>
       <ion-col>
-        <ion-button Fill="round" class="active-effect" *ngFor="let question of questions" (click)="goToQuestion(question.name)">{{ question.name }}</ion-button>
+        <ion-button mode="ios" Fill="round" class="active-effect" *ngFor="let question of questions" (click)="goToQuestion(question.name)">{{ question.name }}</ion-button>
       </ion-col>
     </ion-row>
   </ion-grid>
