@@ -11,7 +11,11 @@ const routes: Routes = [
   {
     path: 'setting-languages',
     loadChildren: () => import('./setting-languages/setting-languages.module').then( m => m.SettingLanguagesPageModule)
-  }
+  },
+  {
+    path: 'select-diocese',
+    loadChildren: () => import('./select-diocese/select-diocese.module').then( m => m.SelectDiocesePageModule),
+  },
 ];
 
 @NgModule({
