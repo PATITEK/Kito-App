@@ -20,7 +20,7 @@ ion-content {
         transform: translateX(-50%);
         border: 2px solid #CC9D3E;
         background-color: #F6C33E;
-        filter: drop-shadow(0px 2px 2px #595959);
+        filter: drop-shadow(0px 1px 1px #595959);
         color: #ffffff;
         border-radius: 10px;
         text-align: center;
@@ -40,7 +40,7 @@ ion-content {
         font-size: 18px;
         width: 80%;
         --background: #FAFAFA;
-        filter: drop-shadow(0px 2px 2px #595959);
+        filter: drop-shadow(0px 1px 1px #595959);
         margin-bottom: 20px;
     }
 }

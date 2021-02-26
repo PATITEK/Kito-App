@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AlertController } from '@ionic/angular';
+import { AlertController, ModalController } from '@ionic/angular';
 import { BehaviorSubject } from 'rxjs';
+import { CompleteQuestionPage } from '../complete-question/complete-question.page';
 
 @Component({
   selector: 'app-question',
@@ -13,6 +14,7 @@ export class QuestionPage implements OnInit {
 
   questionTypeName = '';
   heart = 3;
+  score = 0
 
   questionCounter = 0;
   choosedId = '';
@@ -63,12 +65,104 @@ export class QuestionPage implements OnInit {
         img_url: null,
         level: 1
       },
+      {
+        id: 1729,
+        question_topic_id: 33,
+        answer: {
+          a: " Thợ mộc",
+          b: "Thợ mỏ",
+          c: " Thợ làm than",
+          d: " Cả B & C"
+        },
+        question: "cau 4",
+        img_url: null,
+        level: 1
+      },
+      {
+        id: 1729,
+        question_topic_id: 33,
+        answer: {
+          a: " Thợ mộc",
+          b: "Thợ mỏ",
+          c: " Thợ làm than",
+          d: " Cả B & C"
+        },
+        question: "cau 5",
+        img_url: null,
+        level: 1
+      },
+      {
+        id: 1729,
+        question_topic_id: 33,
+        answer: {
+          a: " Thợ mộc",
+          b: "Thợ mỏ",
+          c: " Thợ làm than",
+          d: " Cả B & C"
+        },
+        question: "cau 6",
+        img_url: null,
+        level: 1
+      },
+      {
+        id: 1729,
+        question_topic_id: 33,
+        answer: {
+          a: " Thợ mộc",
+          b: "Thợ mỏ",
+          c: " Thợ làm than",
+          d: " Cả B & C"
+        },
+        question: "cau 7",
+        img_url: null,
+        level: 1
+      },
+      {
+        id: 1729,
+        question_topic_id: 33,
+        answer: {
+          a: " Thợ mộc",
+          b: "Thợ mỏ",
+          c: " Thợ làm than",
+          d: " Cả B & C"
+        },
+        question: "cau 8",
+        img_url: null,
+        level: 1
+      },
+      {
+        id: 1729,
+        question_topic_id: 33,
+        answer: {
+          a: " Thợ mộc",
+          b: "Thợ mỏ",
+          c: " Thợ làm than",
+          d: " Cả B & C"
+        },
+        question: "cau 9",
+        img_url: null,
+        level: 1
+      },
+      {
+        id: 1729,
+        question_topic_id: 33,
+        answer: {
+          a: " Thợ mộc",
+          b: "Thợ mỏ",
+          c: " Thợ làm than",
+          d: " Cả B & C"
+        },
+        question: "cau 10",
+        img_url: null,
+        level: 1
+      },
     ]
   }
 
   constructor(
     private alertCtrl: AlertController,
-    private router: Router
+    private router: Router,
+    private modalController: ModalController,
   ) { }
 
   ngOnInit() {
@@ -181,9 +275,30 @@ export class QuestionPage implements OnInit {
     this.answerKey = Object.keys(object).find(key => object[key] === value);
   }
 
+  btnAnswer(item, object, value) {
+    this.choosedId = item;
+  }
+
   btnConfirm() {
     this.choosedId = '';
     this.questionCounter += 1;
+
+    this.score += 1;
+    localStorage.setItem('score', JSON.stringify(this.score));
+
+    if(this.questionCounter == 2 || this.heart == 0 || this.timer == -1) {
+      this.stopTimer();
+      this.openCompleteQuestion();
+    }
+  }
+
+  async openCompleteQuestion() {
+    const modal = await this.modalController.create({
+      component: CompleteQuestionPage,
+      cssClass: 'my-custom-class',
+      swipeToClose: false,
+    });
+    await modal.present();
   }
 }
 
