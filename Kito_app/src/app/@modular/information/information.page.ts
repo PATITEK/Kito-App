@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { IPageRequest, ParishesService, PopeService } from 'src/app/@app-core/http';
+import { BishopService, IPageRequest, ParishesService, PopeService } from 'src/app/@app-core/http';
 import { IPageParishes } from 'src/app/@app-core/http/parishes/parishes.DTO';
 
 @Component({
@@ -25,7 +25,8 @@ export class InformationPage implements OnInit {
     private route: ActivatedRoute,
     private popeService: PopeService,
     private router: Router,
-    private parishService: ParishesService
+    private parishService: ParishesService,
+    private bishopService: BishopService
   ) { }
 
   ngOnInit() {
@@ -47,10 +48,20 @@ export class InformationPage implements OnInit {
 
       if (dataParams.id) {
         this.pageRequestParish.diocese_id = dataParams.id;
-        this.parishService.getAll(this.pageRequestParish).subscribe(data => {
-          data.parishes.forEach(v => v.type = dataParams.type);
-          this.list = data.parishes;
-        })
+        switch (dataParams.type.detail) {
+          case 'parish':
+            this.parishService.getAll(this.pageRequestParish).subscribe(data => {
+              data.parishes.forEach(v => v.type = dataParams.type);
+              this.list = data.parishes;
+            })
+            break;
+          case 'bishop':
+            this.bishopService.getAll(this.pageRequestParish).subscribe(data => {
+              data.bishop_infos.forEach(v => v.type = dataParams.type);
+              this.list = data.bishop_infos;
+            })
+            break;
+        }
       } else {
         switch (dataParams.type.detail) {
           case 'pope':

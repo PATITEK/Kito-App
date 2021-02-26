@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { IPageRequest, VaticanService } from 'src/app/@app-core/http';
+import { DioceseNewsService, IPageRequest, VaticanService } from 'src/app/@app-core/http';
+import { IPageParishes } from 'src/app/@app-core/http/parishes/parishes.DTO';
 
 @Component({
   selector: 'app-news',
@@ -10,15 +11,21 @@ import { IPageRequest, VaticanService } from 'src/app/@app-core/http';
 export class NewsPage implements OnInit {
   headerCustom = { title: 'Tin tức' };
   news = [];
-  pageRequest: IPageRequest = {
+  pageRequestVatican: IPageRequest = {
     page: 1,
     per_page: 10
+  }
+  pageRequestDioceseNews: IPageParishes = {
+    page: 1,
+    per_page: 10,
+    diocese_id: ''
   }
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private vaticanService: VaticanService
+    private vaticanService: VaticanService,
+    private dioceseNewsService: DioceseNewsService
   ) { }
 
   ngOnInit() {
@@ -40,13 +47,25 @@ export class NewsPage implements OnInit {
   getData() {
     this.route.queryParams.subscribe(params => {
       const dataPrams = JSON.parse(params['data']);
-      switch (dataPrams.type.detail) {
-        case 'vatican':
-          this.vaticanService.getAll(this.pageRequest).subscribe(data => {
-            data.vatican_news.forEach(v => v.type = dataPrams.type);
-            this.news = data.vatican_news;
-          })
-          break;
+      if (dataPrams.id) {
+        this.pageRequestDioceseNews.diocese_id = dataPrams.id;
+        switch (dataPrams.type.detail) {
+          case 'dioceseNews':
+            this.dioceseNewsService.getAll(this.pageRequestDioceseNews).subscribe(data => {
+              data.diocese_news.forEach(v => v.type = dataPrams.type);
+              this.news = data.diocese_news;
+            })
+            break;
+        }
+      } else {
+        switch (dataPrams.type.detail) {
+          case 'vatican':
+            this.vaticanService.getAll(this.pageRequestVatican).subscribe(data => {
+              data.vatican_news.forEach(v => v.type = dataPrams.type);
+              this.news = data.vatican_news;
+            })
+            break;
+        }
       }
     }).unsubscribe();
   }
