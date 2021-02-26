@@ -74,5 +74,10 @@ export const APICONFIG = {
     GET: `/app/diocese_news`,
     GET_DETAIL: id => `/app/diocese_news/${id}`
   },
+  STORE : {
+    GET_ALL_CATEGORIES: `/app/categories`,
+    GET_ALL_PRODUCTS: `/app/products`,
+    GET_DETAIL_PRODUCT: id => `/app/products/${id}`
+  }
 };
 

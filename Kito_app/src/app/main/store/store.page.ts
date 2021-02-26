@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { ModalController } from '@ionic/angular';
+import { IonContent, IonInfiniteScroll, ModalController } from '@ionic/angular';
+import { IPageProduct, IPageRequest, StoreService } from 'src/app/@app-core/http';
 import { DateTimeService } from 'src/app/@app-core/utils';
 import { AddStoreComponent } from 'src/app/@modular/add-store/add-store.component';
 
@@ -10,40 +11,35 @@ import { AddStoreComponent } from 'src/app/@modular/add-store/add-store.componen
   styleUrls: ['./store.page.scss'],
 })
 export class StorePage implements OnInit {
+  @ViewChild(IonContent) ionContent: IonContent;
+  @ViewChild('infiniteScroll') infinityScroll: IonInfiniteScroll;
+
   headerCustom = {title: 'Cửa hàng'};
   list = [];
   cart = [];
   hasSetting = false;
   headerIconElement: any;
-  recommendedItems = [
-    { id: 0, name: 'Mặt dây' },
-    { id: 1, name: 'Vòng tay' },
-    { id: 2, name: 'Tượng' },
-    { id: 3, name: 'Dây chuyền' },
-    { id: 4, name: 'Mặt dây' },
-    { id: 5, name: 'Mặt dây' },
-    { id: 6, name: 'Mặt dây' },
-  ];
-  currentRecommendedItemId = this.recommendedItems[0].id || '';
+  categories = [];
+  currentCategoryId = null;
+  pageRequestCategories: IPageRequest = {
+    page: 1,
+    per_page: 10
+  }
+  pageRequestProducts: IPageProduct = {
+    page: 1,
+    per_page: 10,
+    category_id: null
+  }
 
   constructor(
     public dateTimeService: DateTimeService,
     private router: Router,
     private modalController: ModalController,
-  ) {
-    for (let i = 0; i < 10; i++) {
-      this.list.push({
-        id: i,
-        thumbImage: 'assets/img/item-store.svg',
-        name: 'Mặt thánh giá inox',
-        price: 50000,
-        unitPrice: 'đ',
-        amount: 0
-      });
-    }
-  }
+    private storeService: StoreService
+  ) { }
 
   ngOnInit() {
+    this.getCategories();
   }
 
   ionViewWillEnter() {
@@ -56,6 +52,27 @@ export class StorePage implements OnInit {
 
   ionViewDidEnter() {
     this.headerIconElement = document.getElementById('header-icon');
+  }
+
+  getProducts(func?) {
+    this.pageRequestProducts.category_id = this.currentCategoryId;
+    this.storeService.getAllProducts(this.pageRequestProducts).subscribe(data => {
+      data.products.forEach(product => {
+        product.unit_price = 'đ';
+        product.amount = 0;
+      })
+      this.list = this.list.concat(data.products);
+
+      func && func();
+    })
+  }
+
+  getCategories() {
+    this.storeService.getAllCategories(this.pageRequestCategories).subscribe(data => {
+      this.categories = data.categories;
+      this.currentCategoryId = this.categories[0].id;
+      this.getProducts();
+    })
   }
 
   resetAmount() {
@@ -89,8 +106,15 @@ export class StorePage implements OnInit {
     this.router.navigateByUrl('main/store/cart');
   }
 
-  changeRecommendedItem(recommendedItem) {
-    this.currentRecommendedItemId = recommendedItem.id;
+  changeCategory(category) {
+    if (this.currentCategoryId != category.id) {
+      this.currentCategoryId = category.id;
+      this.list = [];
+      this.infinityScroll.disabled = false;
+      this.ionContent.scrollToTop(0).then(() => {
+        this.getProducts();
+      })
+    }
   }
 
   async openAddModal(item) {
@@ -107,7 +131,6 @@ export class StorePage implements OnInit {
     modal.onWillDismiss().then(data => {
       if (data.role == 'ok') {
         item.amount = data.data;
-        console.log(item.amount)
         this.getCart();
       }
     })
@@ -138,5 +161,22 @@ export class StorePage implements OnInit {
       }
     }
     this.setCart();
+  }
+
+  sortDescendingByPrice() {
+    this.list.sort((a, b) => b.price - a.price);
+  }
+
+  sortAscendingByPrice() {
+    this.list.sort((a, b) => a.price - b.price);
+  }
+
+  loadMoreProducts(event) {
+    this.getProducts(() => {
+      event.target.complete();
+      if (this.list.length >= 20) {
+        event.target.disabled = true;
+      }
+    })
   }
 }

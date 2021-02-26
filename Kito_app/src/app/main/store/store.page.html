@@ -7,9 +7,9 @@
 
   <div class="segment-container">
     <ion-buttons class="segment">
-      <div class="segment__item" [ngClass]="{'segment__item--selected': currentRecommendedItemId == recommendedItem.id}"
-        *ngFor="let recommendedItem of recommendedItems" (click)="changeRecommendedItem(recommendedItem)">
-        {{ recommendedItem.name }}
+      <div class="segment__item" [ngClass]="{'segment__item--selected': currentCategoryId == category.id}"
+        *ngFor="let category of categories" (click)="changeCategory(category)">
+        {{ category.name }}
       </div>
     </ion-buttons>
   </div>
@@ -20,8 +20,8 @@
         (click)="toggleHasSetting(true)">
 
       <div *ngIf="hasSetting" class="setting main-box-shadow">
-        <div class="setting-item">Giá cao > thấp</div>
-        <div class="setting-item">Giá thấp > cao</div>
+        <div class="setting-item" (click)="sortDescendingByPrice()">Giá cao > thấp</div>
+        <div class="setting-item" (click)="sortAscendingByPrice()">Giá thấp > cao</div>
         <div class="setting-item">Hàng mới nhất</div>
         <div class="setting-item">Bán chạy nhất</div>
       </div>
@@ -30,11 +30,11 @@
     <ion-buttons class="list">
       <div *ngFor="let col of list" class="col main-box-shadow">
         <div class="img-container">
-          <img [src]="col.thumbImage" class="img">
+          <img [src]="col.thumb_images[0].url" class="img">
         </div>
         <div class="text-box">
           <ion-label class="name three-dots-2">{{ col.name }}</ion-label>
-          <ion-label class="price">{{ dateTimeService.numberWithCommas(col.price) }} {{ col.unitPrice}}</ion-label>
+          <ion-label class="price">{{ dateTimeService.numberWithCommas(col.price) }} {{ col.unit_price}}</ion-label>
         </div>
 
         <div *ngIf="col.amount <= 0" class="add-btn">
@@ -51,6 +51,10 @@
         </ion-buttons>
       </div>
     </ion-buttons>
+
+    <ion-infinite-scroll #infiniteScroll (ionInfinite)="loadMoreProducts($event)">
+      <ion-infinite-scroll-content loadingSpinner="lines"></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
   </div>
 
   <div class="cart-wrapper">

@@ -12,23 +12,23 @@
 
 <ion-buttons class="body">
   <div class="img-container">
-    <img [src]="item.thumbImage">
+    <img [src]="item.thumb_images[0].url">
   </div>
 
   <div class="content-box">
-    <div class="name">{{ item.name }}</div>
-    <div class="price">{{ dateTimeService.numberWithCommas(item.price) }} {{ item.unitPrice}}</div>
+    <div class="name">{{ item.description }}</div>
+    <div class="price">{{ dateTimeService.numberWithCommas(item.price) }} {{ item.unit_price}}</div>
   </div>
 </ion-buttons>
 
 <ion-buttons class="footer">
   <ion-buttons class="modifier-box">
-    <span class="label">Số lương: </span>
+    <span class="label">Số lượng: </span>
     <ion-buttons class="modifier">
-      <ion-buttons class="modifier-btn modifier-btn-decrease active-effect" (click)="decreaseAmount(item)">-
+      <ion-buttons class="modifier-btn modifier-btn-decrease active-effect" (click)="decreaseAmount()">-
       </ion-buttons>
       <span class="counter">{{ amount }}</span>
-      <ion-buttons class="modifier-btn modifier-btn-increase active-effect" (click)="increaseAmount(item)">+
+      <ion-buttons class="modifier-btn modifier-btn-increase active-effect" (click)="increaseAmount()">+
       </ion-buttons>
     </ion-buttons>
   </ion-buttons>
