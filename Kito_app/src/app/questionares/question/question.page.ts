@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController, ModalController } from '@ionic/angular';
 import { BehaviorSubject } from 'rxjs';
+import { ToastService } from 'src/app/@app-core/utils';
 import { CompleteQuestionPage } from '../complete-question/complete-question.page';
 
 @Component({
@@ -32,6 +33,7 @@ export class QuestionPage implements OnInit {
     private alertCtrl: AlertController,
     private router: Router,
     private modalController: ModalController,
+    private toastService: ToastService,
   ) { }
 
   ngOnInit() {
@@ -147,6 +149,7 @@ export class QuestionPage implements OnInit {
     if (this.timer == -1) {
       this.stopTimer();
       this.openCompleteQuestion();
+      this.toastService.present('Hết giờ rồi!', 'top', 1000, 'danger');
     }
   }
 
@@ -172,8 +175,10 @@ export class QuestionPage implements OnInit {
     if (this.answerKey == this.questions.questions[this.questionCounter].right) {
       this.score++;
       localStorage.setItem('score', JSON.stringify(this.score));
+      this.toastService.present('Đúng rồi!', 'top', 1000, 'warning');
     } else {
       this.heart--;
+      this.toastService.present('Sai rồi!', 'top', 1000, 'danger');
     }
     if (this.questionCounter >= 10 || this.heart == 0 || this.score == 10) {
       this.openCompleteQuestion();
