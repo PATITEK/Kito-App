@@ -16,3 +16,4 @@ export * from './pope';
 export * from './parishes';
 export * from './diocese-news';
 export * from './bishop';
+export * from './store';

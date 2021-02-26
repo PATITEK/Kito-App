@@ -2,6 +2,10 @@ ion-content {
   --padding-top: calc(80px + 45px + 30px);
 }
 
+ion-infinite-scroll {
+  background: #f5f5f5;
+}
+
 .cart-wrapper {
   position: fixed;
   z-index: 10;
