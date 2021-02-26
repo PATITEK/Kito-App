@@ -33,6 +33,10 @@ ion-content {
   border-bottom-left-radius: 30px;
   border-bottom-right-radius: 30px;
 
+  @media screen and (max-height: 568px) {
+    height: 50vw;
+  }
+
   img {
     width: 100%;
     height: 100%;
