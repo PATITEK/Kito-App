@@ -1,4 +1,6 @@
 ion-content{
+    --overflow: hidden;
+    padding: 0;
     .calendar{
         
         height: 300px;
@@ -51,6 +53,7 @@ ion-content{
     .calendar-month{
         width: 100vw;
         height: 100%;
+        background: red;
        
         .content-main{
             width: 100%;
@@ -63,22 +66,17 @@ ion-content{
     }
 }
 
-.text-color{
-    color: green!important;
-}
-:host::ng-deep .monthview-selected{
-    background: red!important;
-}
-:host::ng-deep .monthview-primary-with-event{
-    background:transparent!important;
-    color: #DE0093!important;
-}
+
+// :host::ng-deep .monthview-selected{
+//     background: red!important;
+// }
+// :host::ng-deep .monthview-primary-with-event{
+//     background:transparent!important;
+//     color: #DE0093!important;
+// }
 :host ::ng-deep .list-ios{
     display: none!important;
 }
 .event-detail-container{
     display: none!important;
-}
-:host ::ng-deep .monthview-container{
-    height: auto!important;
 }
