@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DonateService, ChabadService, EventsService, IPageEvent, AccountService, IPageRequest, AuthService } from '../@app-core/http';
+import { DonateService, EventsService, IPageEvent, AccountService, IPageRequest, AuthService } from '../@app-core/http';
 import { DateTimeService, ImageService, LoadingService } from '../@app-core/utils';
 import { ToastController } from '@ionic/angular';
 import { DioceseService } from '../@app-core/http/diocese';
@@ -55,7 +55,6 @@ export class PrayPage implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     public donateService: DonateService,
-    public chabadService: ChabadService,
     public loadingService: LoadingService,
     private accountService: AccountService,
     public toastController: ToastController,
