@@ -17,7 +17,7 @@ export class CompleteQuestionPage implements OnInit {
     },
     {
       name: 'Thoát',
-      routerLink: 'main'
+      routerLink: 'main/catechism-class'
     }
   ]
 

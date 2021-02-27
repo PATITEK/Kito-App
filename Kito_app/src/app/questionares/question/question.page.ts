@@ -25,9 +25,13 @@ export class QuestionPage implements OnInit {
   timer: number;
   forTimer: any;
 
-  questions = {
-    questions: []
-  }
+  questions = { questions: [] };
+
+  soundtrack1 = new Audio();
+  right = new Audio();
+  wrong = new Audio();
+  win = new Audio();
+  lose = new Audio();
 
   constructor(
     private alertCtrl: AlertController,
@@ -37,10 +41,12 @@ export class QuestionPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    localStorage.setItem('score', '0')
+    this.loadAudio();
+    this.soundtrack1.play();
+    localStorage.setItem('score', '0');
     this.startTimer(120);
     this.checkQuestionType();
-    for(let i = 1; i<=12; i++) {
+    for (let i = 1; i <= 12; i++) {
       this.questions.questions.push({
         id: 1729,
         question_topic_id: 33,
@@ -56,6 +62,10 @@ export class QuestionPage implements OnInit {
         right: 'd',
       })
     }
+  }
+
+  ionViewWillLeave() {
+    this.stopTimer();
   }
 
   async questionSetting() {
@@ -98,7 +108,7 @@ export class QuestionPage implements OnInit {
           handler: () => {
             localStorage.removeItem('questionType');
             localStorage.removeItem('questionTypeName');
-            this.router.navigate(['questionares']);
+            this.router.navigate(['main/catechism-class']);
           }
         },
       ]
@@ -116,22 +126,29 @@ export class QuestionPage implements OnInit {
 
   setMusicType() {
     if (this.musicType == true) {
+      this.soundtrack1.pause();
       this.musicType = false;
     }
     else {
+      this.soundtrack1.play();
       this.musicType = true;
     }
   }
 
-  startTimer(duration: number) {
+  loadAudio() {
+    this.soundtrack1.src = '../../assets/img/questionares/audios/soundtrack1.mp3'; this.soundtrack1.load();
+    this.right.src = '../../assets/img/questionares/audios/right.mp3'; this.right.load();
+    this.wrong.src = '../../assets/img/questionares/audios/wrong.mp3'; this.wrong.load();
+    this.win.src = '../../assets/img/questionares/audios/win.mp3'; this.win.load();
+    this.lose.src = '../../assets/img/questionares/audios/lose.mp3'; this.lose.load();
+  }
+
+  startTimer(duration) {
     this.timer = duration;
     this.forTimer = setInterval(() => {
       this.updateTimeValue();
     }, 1000);
 
-  }
-  stopTimer() {
-    clearInterval(this.forTimer);
   }
 
   updateTimeValue() {
@@ -146,11 +163,17 @@ export class QuestionPage implements OnInit {
 
     --this.timer;
 
-    if (this.timer == -1) {
+    if (this.timer == 0) {
+      this.lose.play();
       this.stopTimer();
       this.openCompleteQuestion();
-      this.toastService.present('Hết giờ rồi!', 'top', 1000, 'danger');
+      this.toastService.present('Hết giờ rồi!', 'bottom', 1000, 'danger');
     }
+  }
+
+  stopTimer() {
+    clearInterval(this.forTimer);
+    this.soundtrack1.pause();
   }
 
   btnActivate(e) {
@@ -175,13 +198,20 @@ export class QuestionPage implements OnInit {
     if (this.answerKey == this.questions.questions[this.questionCounter].right) {
       this.score++;
       localStorage.setItem('score', JSON.stringify(this.score));
-      this.toastService.present('Đúng rồi!', 'top', 1000, 'warning');
+      this.toastService.present('Đúng rồi!', 'bottom', 1000, 'warning');
+      this.right.play();
     } else {
       this.heart--;
-      this.toastService.present('Sai rồi!', 'top', 1000, 'danger');
+      this.toastService.present('Sai rồi!', 'bottom', 1000, 'danger');
+      this.wrong.play();
     }
     if (this.questionCounter >= 10 || this.heart == 0 || this.score == 10) {
       this.openCompleteQuestion();
+      this.stopTimer();
+      this.soundtrack1.pause();
+      if(this.score == 10) {
+        this.win.play();
+      } else this.lose.play();
     }
   }
 
@@ -194,3 +224,34 @@ export class QuestionPage implements OnInit {
     await modal.present();
   }
 }
+
+// playAudio(audio, src) {
+  //   audio = new Audio();
+  //   audio.src = src;
+  //   audio.load();
+  //   audio.play();
+  // }
+
+  // pauseAudio(audio) {
+  //   audio.pause()
+  // }
+
+
+
+  // loadAudio(audios) {
+  //   for(let audio of audios) {
+  //     audio.name = new Audio();
+  //     audio.name.src = audio.src;
+  //     audio.name.load();
+  //     console.log(audio.name)
+  //     console.log(audio.name,'   ',audio.name.src)
+  //   }
+  // }
+
+  // playAudio(audioName, audios) {
+  //   for(let audio of audios) {
+  //     if (audio.name == audioName.name) {
+  //       audioName.play();
+  //     }
+  //   }
+  // }
