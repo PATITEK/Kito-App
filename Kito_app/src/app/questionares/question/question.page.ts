@@ -56,7 +56,7 @@ export class QuestionPage implements OnInit {
           c: " Thợ làm than",
           d: i + 1,
         },
-        question: "cau " + i + ": 1 + " + i + " = ?",
+        question: " 1 + " + i + " = ?",
         img_url: null,
         level: 1,
         right: 'd',
@@ -64,7 +64,7 @@ export class QuestionPage implements OnInit {
     }
   }
 
-  ionViewWillLeave() {
+  ionViewDidLeave() {
     this.stopTimer();
   }
 
