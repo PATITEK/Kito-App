@@ -78,6 +78,13 @@ export const APICONFIG = {
     GET_ALL_CATEGORIES: `/app/categories`,
     GET_ALL_PRODUCTS: `/app/products`,
     GET_DETAIL_PRODUCT: id => `/app/products/${id}`
+  },
+  QUESTIONARES: {
+    GET_TOPIC: ``,
+    GET_LEVEL:``,
+    GET_QUES_TOPIC: topic => `/${topic}`,
+    GET_QUES_LEVEL: level => `/${level}`,
+    CHECK_ANSWER: answerKey => `/${answerKey}`,
   }
 };
 

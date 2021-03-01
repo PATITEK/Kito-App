@@ -31,7 +31,7 @@ export class QuestionaresPage implements OnInit {
   }
 
   quit() {
-    this.router.navigate(['main']);
+    this.router.navigate(['main/catechism-class']);
   }
 
 }

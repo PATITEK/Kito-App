@@ -10,6 +10,8 @@ export class CompleteQuestionPage implements OnInit {
   score = 0;
   imgUrl = '';
   title = '';
+  win = new Audio();
+  lose = new Audio();
   buttons = [
     {
       name: 'Chơi tiếp',
@@ -17,18 +19,21 @@ export class CompleteQuestionPage implements OnInit {
     },
     {
       name: 'Thoát',
-      routerLink: 'main'
+      routerLink: 'main/catechism-class'
     }
   ]
 
   constructor( private modalCtrl: ModalController ) { }
 
   ngOnInit() {
+    this.loadAudios();
+    this.lose.play();
     this.initImgTitle();
   }
 
   ionViewWillLeave() {
     localStorage.removeItem('score');
+    this.pauseAudios();
   }
 
   initImgTitle() {
@@ -38,10 +43,22 @@ export class CompleteQuestionPage implements OnInit {
     if ( this.score == 10) {
       this.imgUrl = '../../assets/img/questionares/success.svg';
       this.title = 'HOÀN THÀNH XUẤT SẮC !';
+      this.win.play();
+      this.lose.pause();
     } else {
       this.imgUrl = '../../assets/img/questionares/try-more.svg'
       this.title = 'HÃY CỐ GẮNG HƠN !';
     }
+  }
+
+  loadAudios() {
+    this.win.src = "../../assets/img/questionares/audios/win.mp3"; this.win.load();
+    this.lose.src = "../../assets/img/questionares/audios/lose.mp3"; this.lose.load();
+  }
+
+  pauseAudios() {
+    this.win.pause();
+    this.lose.pause();
   }
 
   async closeCompleteQuestion() {

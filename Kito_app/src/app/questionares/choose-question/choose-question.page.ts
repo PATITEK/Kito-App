@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { QuestionaresService } from 'src/app/@app-core/http';
 
 @Component({
   selector: 'app-choose-question',
@@ -15,6 +16,7 @@ export class ChooseQuestionPage implements OnInit {
 
   constructor(
     private router: Router,
+    private questionaresService: QuestionaresService
   ) { }
 
   ngOnInit() {
