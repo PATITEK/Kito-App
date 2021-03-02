@@ -117,8 +117,8 @@ export class QuestionPage implements OnInit {
 
   checkQuestionType() {
     this.questionTypeName = localStorage.getItem("questionTypeName");
-    if (localStorage.getItem("questionType") == "Chủ đề") {
-    } else if (localStorage.getItem("questionType") == "Cấp độ") {
+    if (localStorage.getItem("questionType") == "topic") {
+    } else if (localStorage.getItem("questionType") == "level") {
     }
   }
 
@@ -214,32 +214,3 @@ export class QuestionPage implements OnInit {
     await modal.present();
   }
 }
-
-// playAudio(audio, src) {
-//   audio = new Audio();
-//   audio.src = src;
-//   audio.load();
-//   audio.play();
-// }
-
-// pauseAudio(audio) {
-//   audio.pause()
-// }
-
-// loadAudio(audios) {
-//   for(let audio of audios) {
-//     audio.name = new Audio();
-//     audio.name.src = audio.src;
-//     audio.name.load();
-//     console.log(audio.name)
-//     console.log(audio.name,'   ',audio.name.src)
-//   }
-// }
-
-// playAudio(audioName, audios) {
-//   for(let audio of audios) {
-//     if (audio.name == audioName.name) {
-//       audioName.play();
-//     }
-//   }
-// }

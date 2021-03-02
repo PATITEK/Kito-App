@@ -28,7 +28,7 @@ export class CompleteQuestionPage implements OnInit {
   ngOnInit() {
     this.loadAudios();
     this.lose.play();
-    this.initImgTitle();
+    this.init();
   }
 
   ionViewWillLeave() {
@@ -36,7 +36,7 @@ export class CompleteQuestionPage implements OnInit {
     this.pauseAudios();
   }
 
-  initImgTitle() {
+  init() {
     localStorage.removeItem('questionType');
     localStorage.removeItem('questionTypeName');
     this.score = parseInt(localStorage.getItem('score'));
