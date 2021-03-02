@@ -1,0 +1,33 @@
+<ion-content>
+<div class="calendar-main">
+  <div class="title-calendar">
+    <p>Tháng {{currentMonth}} . {{currentYear}}</p>
+    <img class="icon-filler" src="assets/icon/filler.svg">
+    <ion-icon class="button-slide button-left" (click)="PrewMonth()" name="chevron-back-outline"></ion-icon>
+    <ion-icon class="button-slide button-right" (click)="nextMonth()" name="chevron-forward-outline"></ion-icon> 
+  </div>
+  <div class="calendar-content">
+    <div class="days-of-weeks">
+      <ion-buttons class="list-days-week">
+        <span class="day-week" *ngFor="let item of dayWeeks">
+            {{item.valueView}}
+        </span>
+      </ion-buttons>
+      
+    </div>
+    <div class="days-of-month">
+        <ion-buttons class="list-days">
+          <div (click)="gotoDetail()" class="days" *ngFor="let days of dayOfMonth">
+            <span *ngIf="days!=0" class="duong-lich">
+              {{days}}
+            </span>
+            <span *ngIf="days!=0" class="am-lich">
+              {{days}}
+            </span>
+          </div>
+        </ion-buttons>
+    </div>
+  </div>
+
+</div>
+</ion-content>
