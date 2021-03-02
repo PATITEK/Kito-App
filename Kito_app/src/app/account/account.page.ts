@@ -55,7 +55,7 @@ export class AccountPage implements OnInit {
 
   }
   ngDoCheck() {
-    this.ionViewWillEnter();
+    this.avatar = localStorage.getItem('avatar')
   }
 
   ionViewWillEnter() {
