@@ -80,7 +80,6 @@ export class MainPage implements OnInit {
     private accountService: AccountService,
     private authService: AuthService,
     public modalCtrl: ModalController,
-    private geolocationService: GeolocationService,
     private vaticanService: VaticanService
   ) { }
 
@@ -151,9 +150,4 @@ export class MainPage implements OnInit {
   goToAccountSetting() {
     this.router.navigateByUrl('account-setting');
   }
-
-  openModalGoogleMap() {
-    this.geolocationService.openModalGoogleMap();
-  }
-
 }

@@ -71,7 +71,6 @@ export class NewPasswordPage implements OnInit {
         "new_password_confirmation": this.confirmedPasswordValue
       }
       this.authService.newPassword(dataSubmit).subscribe((data) => {
-        console.log(data);
         this.pageNotiService.setdataStatusNoti(datapasing);
         this.router.navigateByUrl('/page-noti');
         this.loadingService.dismiss();

@@ -84,7 +84,6 @@ export class MapPage implements OnInit {
   }
 
   addDataMarkerToMap() {
-    console.log('datamarkers')
     this.diocesesService.getAll(this.pageRequestDioceses).subscribe(data => {
       const totalDioceses = data.meta.pagination.per_page;
       for (let i = 1; i <= totalDioceses; i++) {

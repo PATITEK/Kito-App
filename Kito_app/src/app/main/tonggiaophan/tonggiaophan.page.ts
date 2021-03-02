@@ -28,7 +28,6 @@ export class TonggiaophanPage implements OnInit {
         for (let i in diocese) {
           if (diocese[i] === null) {
             hasNull = true;
-            console.log('null', diocese);
             break;
           }
         }
