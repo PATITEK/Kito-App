@@ -23,7 +23,7 @@
     <ion-label>Điểm: {{score}}</ion-label>
     <ion-buttons>
       <ion-icon name="hourglass-outline"></ion-icon>
-      <ion-label>{{ time | async }}</ion-label>
+      <ion-label>{{ timer }}s</ion-label>
     </ion-buttons>
   </ion-buttons>
 </ion-header>
@@ -36,31 +36,31 @@
   <ion-grid>
     <ion-row>
       <ion-col>
-        <ion-button class="answer active-effect" id="answer" shape="round" Fill="outline"
+        <ion-button mode="ios" class="answer active-effect" id="answer" shape="round" Fill="outline"
         (click)="btnActivate($event)" 
         (click) = "checkAnswerValue(questions.questions[questionCounter].answer.a)"
         (click) = "checkAnswerKey(questions.questions[questionCounter].answer, answerValue)">{{ questions.questions[questionCounter].answer.a }}
         </ion-button>
 
-        <ion-button class="answer active-effect" id="answer" shape="round" Fill="outline"
+        <ion-button mode="ios" class="answer active-effect" id="answer" shape="round" Fill="outline"
         (click)="btnActivate($event)" 
         (click) = "checkAnswerValue(questions.questions[questionCounter].answer.b)"
         (click) = "checkAnswerKey(questions.questions[questionCounter].answer, answerValue)">{{ questions.questions[questionCounter].answer.b }}
         </ion-button>
 
-        <ion-button class="answer active-effect" id="answer" shape="round" Fill="outline"
+        <ion-button mode="ios" class="answer active-effect" id="answer" shape="round" Fill="outline"
         (click)="btnActivate($event)" 
         (click) = "checkAnswerValue(questions.questions[questionCounter].answer.c)"
         (click) = "checkAnswerKey(questions.questions[questionCounter].answer, answerValue)">{{ questions.questions[questionCounter].answer.c }}
         </ion-button>
 
-        <ion-button class="answer active-effect" id="answer" shape="round" Fill="outline"
+        <ion-button mode="ios" class="answer active-effect" id="answer" shape="round" Fill="outline"
         (click)="btnActivate($event)" 
         (click) = "checkAnswerValue(questions.questions[questionCounter].answer.d)"
         (click) = "checkAnswerKey(questions.questions[questionCounter].answer, answerValue)">{{ questions.questions[questionCounter].answer.d }}
         </ion-button>
 
-        <ion-button class="confirm-btn active-effect" id="confirm" [disabled]="answerValue==''"
+        <ion-button mode="ios" class="confirm-btn active-effect" id="confirm" [disabled]="answerValue==''"
         (click)="btnConfirm()" (click)="btnActivate($event)">Đồng ý</ion-button>
       </ion-col>
     </ion-row>

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { QuestionaresService } from 'src/app/@app-core/http';
 
 @Component({
   selector: 'app-choose-question',
@@ -11,10 +12,11 @@ export class ChooseQuestionPage implements OnInit {
 
   questions = [];
 
-  questioneType = localStorage.getItem('questionType');
+  questionType = '';
 
   constructor(
     private router: Router,
+    private questionaresService: QuestionaresService
   ) { }
 
   ngOnInit() {
@@ -26,7 +28,8 @@ export class ChooseQuestionPage implements OnInit {
   }
 
   setUpQuestion() {
-    if(localStorage.getItem('questionType') == 'Chủ đề') {
+    if(localStorage.getItem('questionType') == 'topic') {
+      this.questionType = 'Chủ đề'
       this.headerCustom.title = 'CHỌN CHỦ ĐỀ';
       this.questions = [
         {name: 'Lời chúa'},
@@ -36,7 +39,8 @@ export class ChooseQuestionPage implements OnInit {
         {name: 'Kinh Thánh'},
       ]
     }
-    else if(localStorage.getItem('questionType') == 'Cấp độ') {
+    else if(localStorage.getItem('questionType') == 'level') {
+      this.questionType = 'Cấp độ'
       this.headerCustom.title = 'CHỌN CẤP ĐỘ';
       this.questions = [
         {name: 'Khai tâm'},
@@ -47,11 +51,15 @@ export class ChooseQuestionPage implements OnInit {
       ]
     }
     localStorage.removeItem('questionTypeName');
+    if(localStorage.getItem('score')) {
+      localStorage.removeItem('score');
+    }
   }
 
   goToQuestion(name) {
-    localStorage.setItem('questionTypeName', this.questioneType + ' ' + name);
-    this.router.navigate(['questionares/question'])
+    localStorage.setItem('questionTypeName', this.questionType + ' ' + name);
+    localStorage.removeItem('questionType');
+    this.router.navigate(['questionares/question']);
   }
 
 }

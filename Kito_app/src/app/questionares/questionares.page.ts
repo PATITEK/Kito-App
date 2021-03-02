@@ -10,8 +10,8 @@ export class QuestionaresPage implements OnInit {
   headerCustom = { title: 'ĐỐ VUI GIÁO LÝ' };
 
   questions = [
-    {name: 'Chơi theo chủ đề', type: 'Chủ đề'},
-    {name: 'Chơi theo cấp độ', type: 'Cấp độ'},
+    {name: 'Chơi theo chủ đề', type: 'topic'},
+    {name: 'Chơi theo cấp độ', type: 'level'},
   ]
   constructor(
     private router: Router,
@@ -31,7 +31,7 @@ export class QuestionaresPage implements OnInit {
   }
 
   quit() {
-    this.router.navigate(['main']);
+    this.router.navigate(['main/catechism-class']);
   }
 
 }

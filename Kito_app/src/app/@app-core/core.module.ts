@@ -1,6 +1,6 @@
 import { NgModule, ModuleWithProviders, ErrorHandler } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AuthService, AccountService, GlobalService, ChabadService, EventsService, MatchUsersService, FoodService, OrderService, VaticanService } from './http';
+import { AuthService, AccountService, GlobalService, EventsService, MatchUsersService, FoodService, OrderService, VaticanService } from './http';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { IntercepterService } from './http-interceptor';
 import { API_URL } from './http/@http-config';
@@ -34,7 +34,6 @@ export class CoreModule {
         EventsService,
         GlobalService,
         ConnectivityService,
-        ChabadService,
         LoadingService,
         DateTimeService,
         MatchUsersService,
