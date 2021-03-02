@@ -1,0 +1,103 @@
+ion-content {
+    --padding-top: 65px;
+    .main-calendar {
+        // background-image: url("../../../../assets/img/calendar/calendar-date.jpg");
+        width: 100vw;
+        height: 400px;
+        position: relative;
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+        .backdrop {
+            background: #ffffff;
+            opacity: 0.8;
+            width: 100%;
+            height: 100%;
+        }
+        .content-calendar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            .title-date {
+                height: 50px;
+                background: #f6c33e;
+                text-align: center;
+                line-height: 50px;
+                p {
+                    color: #ffffff;
+                    font-size: 18px;
+                    font-weight: 700;
+                    margin: 15px 0;
+                }
+            }
+            .text-date {
+                // display: flex;
+                // justify-content: center;
+                // align-items: center;
+                font-size: 170px;
+                text-align: center;
+
+                span {
+                    color: #525252;
+                    -webkit-text-stroke: 3px #ffffff;
+                    text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+                    font-weight: 600;
+                }
+            }
+            .name-ceremony {
+                // position: absolute;
+                // bottom: 0;
+                // left: 0;
+                // right: 0;
+                // margin: auto;
+                text-align: center;
+                p {
+                    font-weight: 500;
+                    font-size: 16px;
+                    font-style: normal;
+                    min-height: 30px;
+                }
+            }
+        }
+    }
+    .lunner-calendar {
+        width: 256px;
+        height: 150px;
+        border: 4px solid #474744;
+        box-sizing: border-box;
+        border-radius: 20px;
+        margin: 20px auto;
+
+        .text-date-lunner {
+            text-align: center;
+            font-size: 36px;
+            font-weight: 400;
+            color: #696969;
+            margin: 0;
+        }
+        .text-year-lunner {
+            font-size: 18px;
+        }
+        .wrap {
+            height: 1px;
+            width: 170px;
+            background: #c4c4c4;
+            margin: auto;
+        }
+    }
+    .text-day-weekend {
+        color: #cc9d3e;
+        font-size: 24px;
+        font-weight: 500;
+        text-transform: uppercase;
+        text-align: center;
+        margin: 20px 0 0;
+    }
+    .word-of-god {
+        font-size: 18px;
+        font-weight: 400;
+        text-align: center;
+    }
+}

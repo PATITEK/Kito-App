@@ -1,19 +1,19 @@
-ion-content{
+ion-content {
+    --padding-top: 80px;
     --overflow: hidden;
-    padding: 0;
-    .calendar{
-        
-        height: 300px;
-        
+    @media screen and (max-height: 569px) {
+        --overflow: scroll;
     }
-    .title-calendar{
+    .calendar {
+        height: 410px;
+    }
+    .title-calendar {
         width: 100%;
         height: 50px;
-        margin-top: 55px;
+        // margin-top: 55px;
         position: relative;
-        
-        .titleMonth{
-     
+
+        .titleMonth {
             color: #424242;
             top: 100px;
             text-align: center;
@@ -21,7 +21,7 @@ ion-content{
             margin: 0;
             line-height: 50px;
         }
-        .icon-filler{
+        .icon-filler {
             position: absolute;
             right: 10px;
             top: 0;
@@ -29,43 +29,79 @@ ion-content{
             margin: auto;
             color: #424242;
         }
-        .button-slide{
-          position: absolute;
-          top: 0;
-          bottom: 0;
-          margin: auto;
+        .button-slide {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            margin: auto;
             width: 20px;
             height: 20px;
-           
         }
-        .button-left{
-           left: 60px;
-           @media screen and (max-height: 569px) {
-            left: 45px;
-          }
+        .button-left {
+            left: 60px;
+            @media screen and (max-height: 569px) {
+                left: 45px;
+            }
         }
-        .button-right{
+        .button-right {
             right: 45px;
-            
+        }
     }
-    
+    .calendar {
+        overflow: hidden;
     }
-    .calendar-month{
+    .calendar-month {
         width: 100vw;
-        height: 100%;
-        background: red;
-       
-        .content-main{
+        height: 380px;
+
+        background-image: url("../../../assets/img/calendar/giadinhthanhgia.jpg");
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+        position: relative;
+        opacity: 0.6;
+
+        .backdop-calendar-month {
+            background: #ffffff;
+            opacity: 0.8;
             width: 100%;
-            height: 500px;
-            position: absolute;
-            background: blue;
+            height: 100%;
             overflow: scroll;
         }
-        
+        .solemnity {
+            position: absolute;
+            top: 0;
+            left: 0;
+            .title-solemnity {
+                text-transform: uppercase;
+                font-size: 18px;
+                color: #cc9d3e;
+                padding: 15px;
+                padding-bottom: 0;
+                margin: 0;
+            }
+            .list-solemnity {
+                padding-left: 15px;
+                p {
+                    margin: 0;
+                    font-size: 16px;
+                    color: #424242;
+                    font-weight: 600;
+                }
+                .solemnity-item {
+                    display: flex;
+                    margin-top: 20px;
+
+                    .solemnity-date {
+                    }
+                    .solemnity-text {
+                        padding-left: 20px;
+                    }
+                }
+            }
+        }
     }
 }
-
 
 // :host::ng-deep .monthview-selected{
 //     background: red!important;
@@ -74,9 +110,9 @@ ion-content{
 //     background:transparent!important;
 //     color: #DE0093!important;
 // }
-:host ::ng-deep .list-ios{
-    display: none!important;
+:host ::ng-deep .list-ios {
+    display: none !important;
 }
-.event-detail-container{
-    display: none!important;
+.event-detail-container {
+    display: none !important;
 }
