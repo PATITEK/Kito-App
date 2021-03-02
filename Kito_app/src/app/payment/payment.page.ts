@@ -49,7 +49,6 @@ export class PaymentPage implements OnInit {
       image: 'Change Password successful!',
       routerLink: '/main/chabad'
     }
-    console.log(this.data)
     this.pageNotiService.setdataStatusNoti(datapasing);
     this.router.navigateByUrl('/page-noti');
     this.loadingService.dismiss()

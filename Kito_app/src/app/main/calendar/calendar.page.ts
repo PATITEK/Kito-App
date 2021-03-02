@@ -78,7 +78,6 @@ Title:string;
 nextMonth(){
     this.myCalendar.slideNext();
     this.eventSource=this.createRandomEvents();
-    console.log(this.eventSource);
     
 }
 PrewMonth(){
@@ -88,7 +87,6 @@ PrewMonth(){
 //     this.myCalendar.slideNext();
 // }
   onEventSelected(event) {
-      console.log('Event selected:' + event.startTime + '-' + event.endTime + ',' + event.title);
   }
 
   changeMode(mode) {
@@ -156,7 +154,6 @@ PrewMonth(){
   }
 
   onRangeChanged(ev) {
-      console.log('range changed: startTime: ' + ev.startTime + ', endTime: ' + ev.endTime);
   }
 
   markDisabled = (date:Date) => {

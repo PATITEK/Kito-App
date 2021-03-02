@@ -85,12 +85,10 @@ export class DonatePage implements OnInit {
     if (this.data) {
       this.source_id = this.data.id;
       this.source_type = this.data.source_type;
-      console.log('rơi vào trường hợp 2: ', this.source_id, this.source_type);
     }
     else {
       this.source_id = localStorage.getItem('parish_id');
       this.source_type = 'Parishes';
-      console.log('rơi vào trường hợp 1: ', this.source_id, this.source_type);
 
     }
     this.id_diocese = parseInt(localStorage.getItem('diocese_id'));
@@ -169,7 +167,6 @@ export class DonatePage implements OnInit {
       this.required_purpose = false;
       this.loadingService.dismiss();
     }
-    console.log(donate);
     this.router.navigate(['paymentmethods'], {
       queryParams: {
         data: JSON.stringify(donate)

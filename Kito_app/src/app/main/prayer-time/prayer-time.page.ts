@@ -55,7 +55,6 @@ export class PrayerTimePage implements OnInit {
 
     const parishId = localStorage.getItem('tempParishId');
     if (parishId) {
-      console.log(parishId);
     }
     localStorage.removeItem('tempParishId');
   }

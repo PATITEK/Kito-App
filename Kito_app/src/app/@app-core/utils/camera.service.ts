@@ -70,7 +70,6 @@ export class CameraService {
                 let formData = new FormData;
                 formData.append('files[]', image);
                 this.accountService.uploadPhoto(formData).subscribe((data) => {
-                    console.log(data)
                     image_avatar = {
                         "app_user": {
                             "avatar": data['data'][0]
@@ -122,7 +121,6 @@ export class CameraService {
 
     removeAvatar() {
         this.loadingService.present();
-        console.log('hi');
         this.image_null = {
             "thumb_image": {
                 "url": null

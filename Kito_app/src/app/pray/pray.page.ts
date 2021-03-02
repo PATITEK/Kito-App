@@ -148,10 +148,8 @@ export class PrayPage implements OnInit {
         "source_id": localStorage.getItem('parish_id')
       }
     }
-    console.log(result);
     if (amount.value == "") {
       this.donateService.donateLog(result).subscribe((data) => {
-        console.log(data);
         this.presentToast('Pray successfully!');
       })
     }

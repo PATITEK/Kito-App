@@ -35,7 +35,6 @@ export class PopupComponent implements OnInit {
   }
   removeAvatar() {
     this.loadingService.present();
-    console.log('hi');
     this.image_null = {
       "thumb_image": {
           "url": null
