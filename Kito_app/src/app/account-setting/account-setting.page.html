@@ -1,5 +1,5 @@
 <ion-header>
-  <app-header [title]="title"></app-header>
+  <app-header [headerCustom]="headerCustom"></app-header>
 </ion-header>
 
 <ion-content>
@@ -7,40 +7,56 @@
     <div class="user">
       <div class="user-img-container">
         <ion-avatar class="user-img main-box-shadow">
-          <img [src] ="avatar" alt="" *ngIf="avatar">
-          <img src="assets/img/avatar.png" alt=""*ngIf="!avatar">
+          <img [src]="avatar" alt="" *ngIf="avatar">
+          <img src="assets/img/avatar.png" alt="" *ngIf="!avatar">
           <ion-spinner *ngIf="!avatar" class="absolute-center" name="lines"></ion-spinner>
         </ion-avatar>
-        <!-- <img src="assets/img/edit2.svg" class="icon-edit" (click)="presentPopover()"> -->
       </div>
       <ion-label class="user-name three-dots-2">{{ name }}</ion-label>
     </div>
 
     <ion-list class="settings">
-      <ion-buttons (click)="routerLink('/account')">
-        <ion-label>Thông tin cá nhân</ion-label>
+      <ion-buttons class="setting" routerLink="/account">
+        <div class="img-container">
+          <img src="assets/icon/user.svg">
+        </div>
+        <ion-label class="title">Thông tin cá nhân</ion-label>
       </ion-buttons>
-      <ion-buttons (click)="routerLink('/paymentmethods')">
-        <ion-label>Phương thức thanh toán</ion-label>
+      <ion-buttons class="setting" routerLink="/statistic">
+        <div class="img-container">
+          <img src="assets/icon/statistic.svg">
+        </div>
+        <ion-label class="title">Thống kê</ion-label>
       </ion-buttons>
-      <!-- <ion-buttons routerLink="/history">
-        <ion-label>Your event</ion-label>
+      <ion-buttons class="setting" routerLink="/paymentmethods">
+        <div class="img-container">
+          <img src="assets/icon/wallet.svg">
+        </div>
+        <ion-label class="title">Phương thức thanh toán</ion-label>
       </ion-buttons>
-      <ion-buttons routerLink="/account-setting/orders-history">
-        <ion-label>Your orders</ion-label>
-      </ion-buttons> -->
-      <ion-buttons (click)="routerLink('/account-setting/setting')">
-        <ion-label >Cài đặt</ion-label>
+      <ion-buttons class="setting" routerLink="/account-setting/setting">
+        <div class="img-container">
+          <img src="assets/icon/setting-account.svg">
+        </div>
+        <ion-label class="title">Cài đặt</ion-label>
       </ion-buttons>
-      <ion-buttons>
-        <ion-label>Giới thiệu</ion-label>
+      <ion-buttons class="setting">
+        <div class="img-container">
+          <img src="assets/icon/warning.svg">
+        </div>
+        <ion-label class="title">Giới thiệu</ion-label>
       </ion-buttons>
-      <ion-buttons>
-        <ion-label>Trợ giúp</ion-label>
+      <ion-buttons class="setting">
+        <div class="img-container">
+          <img src="assets/icon/help.svg">
+        </div>
+        <ion-label class="title">Trợ giúp</ion-label>
       </ion-buttons>
-      <ion-buttons (click)="openModalLogOut()">
-        <ion-label>Đăng xuất</ion-label>
-        <img [ngClass]="{ 'display-none': isOpeningModal }" src="assets/img/logout.svg" alt="" class="img_logout">
+      <ion-buttons class="setting" (click)="openModalLogOut()">
+        <div class="img-container">
+          <img src="assets/icon/log-out.svg">
+        </div>
+        <ion-label class="title">Đăng xuất</ion-label>
       </ion-buttons>
     </ion-list>
   </div>

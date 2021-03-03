@@ -8,7 +8,7 @@ import { ModalMenuComponent } from 'src/app/@modular/modal-menu/modal-menu.compo
   styleUrls: ['./stories.page.scss'],
 })
 export class StoriesPage implements OnInit {
-  title = 'Tiểu sử'
+  headerCustom = {title: 'Tiểu sử'};
 
   constructor(
     private router: Router,

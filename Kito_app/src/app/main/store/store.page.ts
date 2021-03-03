@@ -10,7 +10,7 @@ import { AddStoreComponent } from 'src/app/@modular/add-store/add-store.componen
   styleUrls: ['./store.page.scss'],
 })
 export class StorePage implements OnInit {
-  title = 'Cửa hàng';
+  headerCustom = {title: 'Cửa hàng'};
   list = [];
   cart = [];
   hasSetting = false;

@@ -7,7 +7,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./news-detail.page.scss'],
 })
 export class NewsDetailPage implements OnInit {
-  title: string = '';
+  headerCustom = {title: ''};
   data = {
     title: 'Giáo xứ Đức Mẹ Hằng Cứu Giúp ',
     thumbImage: 'assets/img/parish-item.svg',
@@ -30,7 +30,7 @@ export class NewsDetailPage implements OnInit {
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
       const dataParams = JSON.parse(params['data']);
-      this.title = dataParams.type == 'News' ? 'Thông tin' : 'Tiểu sử';
+      this.headerCustom.title = dataParams.type == 'News' ? 'Thông tin' : 'Tiểu sử';
     })
   }
 

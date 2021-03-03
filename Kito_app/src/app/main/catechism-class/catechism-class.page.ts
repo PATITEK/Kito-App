@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./catechism-class.page.scss'],
 })
 export class CatechismClassPage implements OnInit {
-  title = 'Lớp học giáo lý'
+  headerCustom = {title: 'Lớp học giáo lý'};
 
   catechismList = [
     {
@@ -19,6 +19,11 @@ export class CatechismClassPage implements OnInit {
       name: 'Giáo lý hôn nhân',
       thumbImage: 'assets/img/catechism-menu-2.svg',
       desUrl: 'main/catechism-class/catechism-marriage'
+    },
+    {
+      name: 'Đố vui giáo lý',
+      thumbImage: 'assets/img/catechism-menu-3.svg',
+      desUrl: 'main/catechism-class'
     }
   ]
 

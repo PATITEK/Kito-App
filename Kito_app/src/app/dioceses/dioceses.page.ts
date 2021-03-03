@@ -14,7 +14,7 @@ import { ModalDonateComponent } from '../@modular/modal-donate/modal-donate.comp
   styleUrls: ['./dioceses.page.scss'],
 })
 export class DiocesesPage implements OnInit {
-  title = 'Chọn giáo phận';
+  headerCustom = {title: 'Chọn giáo phận'};
   data: any = [];
   canDiocese = true;
   id;

@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { IonContent, IonInfiniteScroll, ModalController } from '@ionic/angular';
 import { HistoryService } from '../@app-core/http';
-import { DetailEventPage } from '../@modular/detail-event/detail-event.page';
 
 @Component({
   selector: 'app-history',
@@ -97,22 +96,6 @@ export class HistoryPage implements OnInit {
     this.getDataEvents(() => {
       event.target.complete();
     })
-  }
-
-  async openEventDetailModal(event) {
-    const modal = await this.modalController.create({
-      component: DetailEventPage,
-      cssClass: 'event-detail-modal',
-      swipeToClose: true,
-      componentProps: {
-        data: {
-          event: {
-            id: event.id
-          }
-        }
-      }
-    });
-    await modal.present();
   }
 
   doRefresh(event) {

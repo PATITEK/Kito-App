@@ -12,10 +12,42 @@ import { PopuplogoutComponent } from '../@modular/popuplogout/popuplogout.compon
   styleUrls: ['./account-setting.page.scss'],
 })
 export class AccountSettingPage implements OnInit {
-  title = 'Thiết lập tài khoản';
-  isOpeningModal = false;
+  headerCustom = { title: 'Thiết lập tài khoản' };
   name = localStorage.getItem('fullname') || '';
   avatar = '';
+
+  list = [
+    {
+      name: 'Thông tin cá nhân',
+      ionUrl: 'assets/icon/user.svg',
+      desUrl: 'account'
+    },
+    {
+      name: 'Thống kê',
+      ionUrl: 'assets/icon/statistic.svg',
+      desUrl: 'statistic'
+    },
+    {
+      name: 'Phương thức thanh toán',
+      ionUrl: 'assets/icon/wallet.svg',
+      desUrl: 'paymentmethods'
+    },
+    {
+      name: 'Cài đặt',
+      ionUrl: 'assets/icon/setting.svg',
+      desUrl: 'account-setting/setting'
+    },
+    {
+      name: 'Giới thiệu',
+      ionUrl: 'assets/icon/user.svg',
+      desUrl: 'account'
+    },
+    {
+      name: 'Thông tin cá nhân',
+      ionUrl: 'assets/icon/user.svg',
+      desUrl: 'account'
+    },
+  ]
 
   constructor(
     public modalController: ModalController,
@@ -27,35 +59,33 @@ export class AccountSettingPage implements OnInit {
 
   ngOnInit() {
   }
+
   ionViewWillEnter() {
     // this.imageService.getImage();
     this.accountService.getAccounts().subscribe(data => {
-      if(data.app_user.thumb_image == null) {
+      if (data.app_user.thumb_image == null) {
         data.app_user['thumb_image'] = "https://i.imgur.com/edwXSJa.png";
         this.avatar = data.app_user.thumb_image;
       }
-      else if( data.app_user.thumb_image.url == null) {
+      else if (data.app_user.thumb_image.url == null) {
         data.app_user['thumb_image'] = "https://i.imgur.com/edwXSJa.png";
         this.avatar = data.app_user.thumb_image;
       }
       else {
-        this.avatar =  data.app_user.thumb_image.url;
+        this.avatar = data.app_user.thumb_image.url;
       }
-  })
-}
+    })
+  }
   routerLink(path) {
     this.router.navigateByUrl(path);
   }
   async openModalLogOut() {
-    this.isOpeningModal = true;
     const modal = await this.modalController.create({
       component: PopuplogoutComponent,
       swipeToClose: true,
       cssClass: 'modal__logout',
     });
     await modal.present();
-
-    modal.onWillDismiss().then(() => this.isOpeningModal = false);
   }
 
   async presentPopover(ev: any) {

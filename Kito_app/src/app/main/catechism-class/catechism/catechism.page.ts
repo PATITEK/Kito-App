@@ -10,7 +10,7 @@ export class CatechismPage implements OnInit {
   @ViewChild('slides', { static: false }) slides: IonSlides;
   @ViewChild(IonContent) ionContent: IonContent;
 
-  title = 'Giáo lý 1-12';
+  headerCustom = {title: 'Giáo lý 1-12'};
   menuItems = [
     {
       id: 0,
@@ -61,16 +61,19 @@ export class CatechismPage implements OnInit {
   }
 
   changeSegment(id) {
-    this.slides.slideTo(id).then(() => this.changeSlide(id));
+    this.slides.lockSwipes(false).then(() => {
+      this.slides.slideTo(id).then(() => {
+        this.changeSlide(id);
+        this.slides.lockSwipes(true);
+      });
+    })
   }
 
   changeSlide(id) {
     this.currentMenuItemId = id;
   }
 
-  changeSegmentSlide() {
-    this.slides.getActiveIndex().then(index => {
-      this.changeSlide(index);
-    })
+  disableSwipe() {
+    this.slides.lockSwipes(true);
   }
 }

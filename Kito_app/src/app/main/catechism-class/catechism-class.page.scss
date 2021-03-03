@@ -1,32 +1,24 @@
 ion-content {
-  --padding-top: 150px;
-  overflow-x: hidden;
+  --padding-top: 80px;
 }
 
-.catechism-list {
-  max-width: 80vw;
-  min-width: 300px;
-  margin: 0 auto;
-  padding-bottom: 30px;
+.catechism {
+  text-align: center;
+  margin: 16px 16px 30px;
+  border-radius: 40px;
+  padding: 18px;
+  margin-bottom: 30px;
   
-  .catechism {
-    text-align: center;
+  .catechism-name {
+    justify-content: center;
+    color: #002D63;
+    font-size: 18px;
+    margin-bottom: 10px;
 
-    &:not(:last-child) {
-      margin-bottom: 80px;
-    }
-    
-    .catechism-name {
-      justify-content: center;
+    ion-icon {
       color: #002D63;
-      font-size: 18px;
-      margin-bottom: 10px;
-
-      ion-icon {
-        color: #002D63;
-        font-size: 24px;
-        margin-left: 17px;
-      }
+      font-size: 24px;
+      margin-left: 17px;
     }
   }
 }

@@ -8,15 +8,13 @@ import { Router } from '@angular/router';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
-  @Input() title: string;
-  @Input() bg_header: any;
+  @Input() headerCustom: {title?: String, background?: String};
+  
   constructor( public router: Router 
    
   ) { }
 
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
   gotoMain() {
     this.router.navigateByUrl('/main')
   }

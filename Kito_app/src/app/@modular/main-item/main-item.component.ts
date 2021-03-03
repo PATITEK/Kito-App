@@ -16,7 +16,6 @@ export class MainItemComponent implements OnInit {
   ngOnInit() {}
 
   goToDetail() {
-    this.router.navigate([this.data.desUrl]);
-    
+    this.router.navigate(['main/tonggiaophan/parish-news']);
   }
 }
