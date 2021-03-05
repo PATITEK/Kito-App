@@ -10,11 +10,13 @@ export class ToastService {
     public toastController: ToastController
   ) { }
 
-  async present(message, position = 'top', duration = 1000) {
+  async present(message, position = 'top', duration = 1000, color = '') {
     const toast = await this.toastController.create({
+      mode: 'ios',
       message: message,
       duration: duration,
-      position: position == 'top' ? 'top' : 'bottom'
+      position: position == 'top' ? 'top' : 'bottom',
+      color: color
     });
     toast.present();
   }

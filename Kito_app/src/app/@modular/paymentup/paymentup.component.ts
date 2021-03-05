@@ -78,7 +78,6 @@ export class PaymentupComponent implements OnInit {
           errorElement.textContent = result.error.message;
         } else {
           this.data.donation.token = result.source.id;
-          console.log(result.source)
           this.router.navigate(['/payment'], {
             queryParams: {
               data: JSON.stringify(this.data)

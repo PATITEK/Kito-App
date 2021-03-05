@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { AlertController, ModalController, PopoverController } from '@ionic/angular';
 import { AccountService, PATTERN } from '../@app-core/http';
-import { PopupComponent } from '../@modular/popup/popup.component';
 import { CameraService, ImageService, LoadingService, ToastService } from '../@app-core/utils';
 import { ChangepasswordPage } from '../changepassword/changepassword.page';
 
@@ -14,7 +13,7 @@ import { ChangepasswordPage } from '../changepassword/changepassword.page';
 export class AccountPage implements OnInit {
   image_avatar: any;
   avatar = '';
-  headerCustom = {title: 'Thông tin cá nhân'};
+  headerCustom = { title: 'Thông tin cá nhân' };
   activatedInput = false;
   loadedData = false;
   form: FormGroup;
@@ -53,32 +52,20 @@ export class AccountPage implements OnInit {
   ngOnInit() {
     this.initForm();
     this.getData();
-   
+
   }
-  ngDoCheck(){
-    this.ionViewWillEnter();
+  ngDoCheck() {
+    this.avatar = localStorage.getItem('avatar')
   }
 
   ionViewWillEnter() {
-  //  this.imageService.getImage();
-   this.accountService.getAccounts().subscribe(data => {
-    if(data.app_user.thumb_image == null) {
-      data.app_user['thumb_image'] = "https://i.imgur.com/edwXSJa.png";
-      this.avatar = data.app_user.thumb_image;
-    }
-    else if( data.app_user.thumb_image.url == null) {
-      data.app_user['thumb_image'] = "https://i.imgur.com/edwXSJa.png";
-      this.avatar = data.app_user.thumb_image;
-    }
-    else {
-      this.avatar =  data.app_user.thumb_image.url;
-    }
-})
-}
+    //  this.imageService.getImage();
+    this.avatar = localStorage.getItem('avatar')
+  }
 
   initForm() {
     this.form = this.fb.group({
-      avatar:  new FormControl(''),
+      avatar: new FormControl(''),
       full_name: new FormControl('', Validators.required),
       birthday: new FormControl(''),
       phone_number: new FormControl('', Validators.compose([
@@ -94,7 +81,7 @@ export class AccountPage implements OnInit {
   }
 
   async avatarSetting() {
-    let alertAvatarSetting =  await this.alertCtrl.create({
+    let alertAvatarSetting = await this.alertCtrl.create({
       message: 'Cài đặt ảnh đại diện',
       mode: 'ios',
       buttons: [
@@ -107,7 +94,7 @@ export class AccountPage implements OnInit {
         {
           text: 'Tải ảnh lên',
           handler: () => {
-            
+
             this.cameraService.getAvatarUpload(this.image_avatar);
           }
         },
@@ -130,7 +117,6 @@ export class AccountPage implements OnInit {
       ]
     });
     await alertAvatarSetting.present();
-
   }
 
   async openModalPassword(ev: any) {
@@ -140,7 +126,7 @@ export class AccountPage implements OnInit {
     });
     return await popover.present();
   }
-  
+
   activateInput() {
     this.activatedInput = true;
     this.lastForm = this.form.value;

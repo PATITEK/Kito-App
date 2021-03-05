@@ -1,0 +1,46 @@
+<ion-header>
+  <app-header [headerCustom]="headerCustom"></app-header>
+</ion-header>
+
+<ion-content>
+  <!-- <ion-calendar [(ngModel)]="dateRange" #calander #ctrl="ngModel"
+  (monthChange)='monthChange()'
+  [options]="optionsRange"
+  [type]="type"
+  [format]="'YYYY-MM'">
+</ion-calendar> -->
+  
+  <ion-item-group class="calendar">
+    <!-- <calendar #calander [eventSource]="eventSource" locale="vi" formatDayHeader="EE" [calendarMode]="calendar.mode"
+      [currentDate]="calendar.currentDate" (onCurrentDateChanged)="onCurrentDateChanged($event)"
+      (onRangeChanged)="reloadSource(startTime, endTime)" (onEventSelected)="onEventSelected($event)"
+      (onTitleChanged)="onViewTitleChanged($event)" (onTimeSelected)="onTimeSelected($event)" step="15"
+      >
+
+    </calendar> -->
+    <app-calendar-demo></app-calendar-demo>
+  </ion-item-group>
+
+  <ion-item-group class="calendar-month">
+    <div class="backdop-calendar-month">
+
+    </div>
+    <div class="solemnity">
+      <h3 class="title-solemnity">Lễ trọng trong tháng</h3>
+      <ion-item-group class="list-solemnity">
+        <div class="solemnity-item">
+          <p class="solemnity-date">07.03.2021</p>
+          <p class="solemnity-text">Chúa Nhật thứ III Mùa Chay</p>
+        </div>
+        <div class="solemnity-item">
+          <p class="solemnity-date">07.03.2021</p>
+          <p class="solemnity-text">Chúa Nhật thứ III Mùa Chay</p>
+        </div>
+        <div class="solemnity-item">
+          <p class="solemnity-date">07.03.2021</p>
+          <p class="solemnity-text">Chúa Nhật thứ III Mùa Chay</p>
+        </div>
+      </ion-item-group>
+    </div>
+</ion-item-group>
+</ion-content>

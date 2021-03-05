@@ -11,7 +11,11 @@ const routes: Routes = [
   {
     path: 'parish-news',
     loadChildren: () => import('./parish-news/parish-news.module').then(m => m.ParishNewsPageModule)
+  },  {
+    path: 'archdiocese-detail',
+    loadChildren: () => import('./archdiocese-detail/archdiocese-detail.module').then( m => m.ArchdioceseDetailPageModule)
   },
+
 ];
 
 @NgModule({

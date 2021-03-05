@@ -68,6 +68,16 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
+    path: 'news',
+    loadChildren: () => import('./@modular/news/news.module').then( m => m.NewsPageModule),
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'information',
+    loadChildren: () => import('./@modular/information/information.module').then( m => m.InformationPageModule),
+    canActivate: [AuthGuard],
+  },
+  {
     path: 'news-detail',
     loadChildren: () => import('./@modular/news-detail/news-detail.module').then(m => m.NewsDetailPageModule),
     canActivate: [AuthGuard],
@@ -85,9 +95,13 @@ const routes: Routes = [
     path: 'statistic',
     loadChildren: () => import('./statistic/statistic.module').then(m => m.StatisticPageModule)
   },
+  {
+    path: 'questionares',
+    loadChildren: () => import('./questionares/questionares.module').then( m => m.QuestionaresPageModule),
+    canActivate: [AuthGuard],
+  },
   { path: '', redirectTo: '/main', pathMatch: 'full' },
   { path: '**', redirectTo: 'main' },
-
 
 ];
 @NgModule({

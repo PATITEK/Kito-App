@@ -1,0 +1,9 @@
+<ion-content>
+  <ion-img class="main-img" src="{{ imgUrl }}"></ion-img>
+  <ion-label class="main-title">{{ title }}</ion-label>
+  <ion-buttons class="cup-and-scores">
+    <ion-icon name="trophy"></ion-icon>
+    <ion-label>{{ score }}/10 </ion-label>
+  </ion-buttons>
+  <ion-button mode="ios" (click)="closeCompleteQuestion()" Fill="round" class="active-effect" *ngFor="let button of buttons" routerLink="{{ button.routerLink }}">{{ button.name }}</ion-button>
+</ion-content>

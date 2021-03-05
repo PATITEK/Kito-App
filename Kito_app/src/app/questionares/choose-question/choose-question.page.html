@@ -1,0 +1,14 @@
+<ion-header>
+  <app-header [headerCustom]="headerCustom"></app-header>
+</ion-header>
+
+<ion-content>
+  <ion-img class="background-img" src="../../assets/img/questionares/background.svg"></ion-img>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-button mode="ios" Fill="round" class="active-effect" *ngFor="let question of questions" (click)="goToQuestion(question.name)">{{ question.name }}</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

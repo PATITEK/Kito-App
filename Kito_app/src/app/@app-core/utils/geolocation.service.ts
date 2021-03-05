@@ -58,7 +58,6 @@ export class GeolocationService {
             .then((result: NativeGeocoderResult[]) => {
                 this.customerLocation.address = this.generateAddress(result[0]);
                 localStorage.setItem('location', this.customerLocation.address);
-                console.log(this.customerLocation.address);
             })
             .catch((err: any) => {
                 console.error(err, ': because chay tren dien thoai real moi dc =))');
@@ -92,6 +91,7 @@ export class GeolocationService {
     }
 
     public async openModalGoogleMap() {
+        this.loadingService.present();
         const modal = await this.modalCtrl.create({
             component: MapPage,
             cssClass: 'google-map-modal',

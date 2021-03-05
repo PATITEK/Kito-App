@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ModalController, PopoverController } from '@ionic/angular';
 import { AccountService } from '../@app-core/http/account/account.service';
-import { ImageService } from '../@app-core/utils';
+import { GeolocationService, ImageService } from '../@app-core/utils';
 import { PopupComponent } from '../@modular/popup/popup.component';
 import { PopuplogoutComponent } from '../@modular/popuplogout/popuplogout.component';
 
@@ -54,7 +54,8 @@ export class AccountSettingPage implements OnInit {
     private popoverController: PopoverController,
     private router: Router,
     private accountService: AccountService,
-    private imageService: ImageService
+    private imageService: ImageService,
+    private geolocationService: GeolocationService,
   ) { }
 
   ngOnInit() {
@@ -62,19 +63,7 @@ export class AccountSettingPage implements OnInit {
 
   ionViewWillEnter() {
     // this.imageService.getImage();
-    this.accountService.getAccounts().subscribe(data => {
-      if (data.app_user.thumb_image == null) {
-        data.app_user['thumb_image'] = "https://i.imgur.com/edwXSJa.png";
-        this.avatar = data.app_user.thumb_image;
-      }
-      else if (data.app_user.thumb_image.url == null) {
-        data.app_user['thumb_image'] = "https://i.imgur.com/edwXSJa.png";
-        this.avatar = data.app_user.thumb_image;
-      }
-      else {
-        this.avatar = data.app_user.thumb_image.url;
-      }
-    })
+    this.avatar = localStorage.getItem('avatar')
   }
   routerLink(path) {
     this.router.navigateByUrl(path);
@@ -97,5 +86,9 @@ export class AccountSettingPage implements OnInit {
       mode: 'md',
     });
     return await popover.present();
+  }
+
+  openModalGoogleMap() {
+    this.geolocationService.openModalGoogleMap();
   }
 }

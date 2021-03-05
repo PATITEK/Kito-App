@@ -39,6 +39,7 @@ export class CameraService {
                             "avatar": data['data'][0]
                         }
                     }
+                    localStorage.setItem('avatar', image_avatar.app_user.avatar)
                     this.accountService.updateAvatar({ "thumb_image": { "url": image_avatar.app_user.avatar } }).subscribe(data => {
                     })
                     this.loadingService.dismiss();
@@ -69,12 +70,12 @@ export class CameraService {
                 let formData = new FormData;
                 formData.append('files[]', image);
                 this.accountService.uploadPhoto(formData).subscribe((data) => {
-                    console.log(data)
                     image_avatar = {
                         "app_user": {
                             "avatar": data['data'][0]
                         }
                     }
+                    localStorage.setItem('avatar', image_avatar.app_user.avatar)
                     this.accountService.updateAvatar({ "thumb_image": { "url": image_avatar.app_user.avatar } }).subscribe(data => {
                     })
                     this.loadingService.dismiss();
@@ -120,7 +121,6 @@ export class CameraService {
 
     removeAvatar() {
         this.loadingService.present();
-        console.log('hi');
         this.image_null = {
             "thumb_image": {
                 "url": null

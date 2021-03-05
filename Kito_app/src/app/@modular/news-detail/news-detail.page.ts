@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { BishopService, DioceseNewsService, DioceseService, ParishesService, VaticanService } from 'src/app/@app-core/http';
+import { PopeService } from 'src/app/@app-core/http/pope';
 
 @Component({
   selector: 'app-news-detail',
@@ -7,32 +9,73 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./news-detail.page.scss'],
 })
 export class NewsDetailPage implements OnInit {
-  headerCustom = {title: ''};
+  headerCustom = { title: '' };
   data = {
-    title: 'Giáo xứ Đức Mẹ Hằng Cứu Giúp ',
-    thumbImage: 'assets/img/parish-item.svg',
-    content: [
-      {
-        title: 'Bối cảnh lịch sử 1',
-        text: 'Giáo xứ ĐMHCG được thành lập vào năm 1963, đến nay (2013) vừa tròn 50 năm, và được kể là một Giáo xứ non trẻ so với các Giáo xứ kỳ cựu của Giáo phận Sài Gòn, nhất là hai trong các giáo xứ mẹ: Giáo xứ Chợ Đũi, thành lập năm 1859 (cách nay 154 năm) và Giáo xứ Tân Định, thành lập năm 1860 (cách nay 153 năm). Giáo xứ ĐMHCG được giao cho Dòng Chúa Cứu Thế coi sóc. Vì thế, linh mục chánh xứ là một linh mục Dòng Chúa Cứu Thế do Bề trên Dòng cử ra và được Tòa Tổng Giám mục chấp thuận. Giáo xứ ĐMHCG được thành lập vào năm 1963, đến nay (2013) vừa tròn 50 năm, và được kể là một Giáo xứ non trẻ so với các Giáo xứ kỳ cựu của Giáo phận Sài Gòn, nhất là hai trong các giáo xứ mẹ: Giáo xứ Chợ Đũi, thành lập năm 1859 (cách nay 154 năm) và Giáo xứ Tân Định, thành lập năm 1860 (cách nay 153 năm). Giáo xứ ĐMHCG được giao cho Dòng Chúa Cứu Thế coi sóc. Vì thế, linh mục chánh xứ là một linh mục Dòng Chúa Cứu Thế do Bề trên Dòng cử ra và được Tòa Tổng Giám mục chấp thuận'
-      },
-      {
-        title: 'Bối cảnh lịch sử 2',
-        text: 'Giáo xứ ĐMHCG được thành lập vào năm 1963, đến nay (2013) vừa tròn 50 năm, và được kể là một Giáo xứ non trẻ so với các Giáo xứ kỳ cựu của Giáo phận Sài Gòn, nhất là hai trong các giáo xứ mẹ: Giáo xứ Chợ Đũi, thành lập năm 1859 (cách nay 154 năm) và Giáo xứ Tân Định, thành lập năm 1860 (cách nay 153 năm). Giáo xứ ĐMHCG được giao cho Dòng Chúa Cứu Thế coi sóc. Vì thế, linh mục chánh xứ là một linh mục Dòng Chúa Cứu Thế do Bề trên Dòng cử ra và được Tòa Tổng Giám mục chấp thuận. Giáo xứ ĐMHCG được thành lập vào năm 1963, đến nay (2013) vừa tròn 50 năm, và được kể là một Giáo xứ non trẻ so với các Giáo xứ kỳ cựu của Giáo phận Sài Gòn, nhất là hai trong các giáo xứ mẹ: Giáo xứ Chợ Đũi, thành lập năm 1859 (cách nay 154 năm) và Giáo xứ Tân Định, thành lập năm 1860 (cách nay 153 năm). Giáo xứ ĐMHCG được giao cho Dòng Chúa Cứu Thế coi sóc. Vì thế, linh mục chánh xứ là một linh mục Dòng Chúa Cứu Thế do Bề trên Dòng cử ra và được Tòa Tổng Giám mục chấp thuận'
-      }
-    ]
+    title: '',
+    name: '',
+    thumb_images: [{ url: '' }],
+    thumb_image: { url: '' },
+    content: ''
   }
 
   constructor(
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private vaticanService: VaticanService,
+    private popeService: PopeService,
+    private dioceseService: DioceseService,
+    private parishService: ParishesService,
+    private dioceseNewsService: DioceseNewsService,
+    private bishopService: BishopService
   ) { }
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
       const dataParams = JSON.parse(params['data']);
-      this.headerCustom.title = dataParams.type == 'News' ? 'Thông tin' : 'Tiểu sử';
+
+      switch (dataParams.type.general) {
+        case 'news':
+          this.headerCustom.title = 'Tin tức';
+          break;
+        case 'info':
+          this.headerCustom.title = 'Thông tin';
+          break;
+        case 'story':
+          this.headerCustom.title = 'Tiểu sử';
+          break;
+      }
+
+      switch (dataParams.type.detail) {
+        case 'vatican':
+          this.vaticanService.getDetail(dataParams.id).subscribe(data => {
+            this.data = data.vatican_news;
+          })
+          break;
+        case 'pope':
+          this.popeService.getDetail(dataParams.id).subscribe(data => {
+            this.data = data.pope_info;
+          })
+          break;
+        case 'diocese':
+          this.dioceseService.getDetail(dataParams.id).subscribe(data => {
+            this.data = data.diocese;
+          })
+          break;
+        case 'parish':
+          this.parishService.getDetail(dataParams.id).subscribe(data => {
+            this.data = data.parish;
+          })
+          break;
+        case 'dioceseNews':
+          this.dioceseNewsService.getDetail(dataParams.id).subscribe(data => {
+            this.data = data.diocese_news;
+          })
+          break;
+        case 'bishop':
+          this.bishopService.getDetail(dataParams.id).subscribe(data => {
+            this.data = data.bishop_info;
+          })
+          break;
+      }
     })
   }
-
-
 }

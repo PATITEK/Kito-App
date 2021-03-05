@@ -6,7 +6,7 @@
   <ion-slides pager="true" [options]="slideOptions">
     <ion-slide *ngFor="let item of data.items" class="item">
       <div class="item-inner main-box-shadow" (click)="goToItemDetail(item)">
-        <img class="item-img" [src]="item.thumbImage">
+        <img class="item-img" [src]="item.thumb_image ? item.thumb_image.url : item.thumb_images[0].url">
         <div class="item-title-container">
           <p class="item-title three-dots-2">{{ item.title }}</p>
         </div>

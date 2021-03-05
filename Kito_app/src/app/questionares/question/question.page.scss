@@ -1,0 +1,101 @@
+ion-header {
+    background-color: #fff;
+    margin-top: 15px;
+    padding: 15px;
+    .header-option {
+        ion-icon {
+            margin-right: 5px;
+            color: #828282;
+        }
+    }
+    .header-notify {
+        justify-content: space-between;
+        padding: 15px 10px 0px 10px;
+        .heart {
+            ion-icon {
+                color: #F23131;
+            }
+            ion-label {
+                font-weight: normal;
+                font-size: 20px;
+                color: #CC9D3E;
+            }
+        }
+        .middle {
+            border: 2px solid #CC9D3E;
+            box-sizing: border-box;
+            border-radius: 10px;
+            ion-col {
+                ion-row {
+                    margin-bottom: 5px;
+                    .question-type {
+                        color: #424242;
+                        font-weight: 500;
+                        font-size: 18px;
+                        border-bottom: 2px solid #CC9D3E;
+                    }
+                }
+                .question-counter {
+                    color: #424242;
+                    font-size: 18px;
+                    margin-left: 25%;
+                }
+            }
+        }
+        .rule {
+            color: #CC9D3E;
+        }
+    }
+    .time-and-score {
+        justify-content: space-between;
+        color: #CC9D3E;
+        font-size: 18px;
+        padding: 20px 10px 0 0;
+    }
+}
+
+ion-content {
+    .question-cover {
+        .question {
+            width: 100%;
+            font-size: 19px;
+            float: left;
+            color: #ffffff;
+            background-color: #F6C33E;
+            border-radius: 15px;
+            padding: 15px 25px 25px 25px;
+        }
+    }
+    
+    ion-grid {
+        margin-top: 20px;
+        ion-row {
+            ion-col {
+                ion-button {
+                    --border-color: #CC9D3E;
+                    width: 100%;
+                    font-weight: 400;
+                    margin-top: 10px;
+                    border-radius: 20px;
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                    word-break: keep-all;
+                    font-size: 14px;
+                    --background-activated: none;
+                }
+                .answer {
+                    color: #CC9D3E;
+                }
+                .confirm-btn {
+                    margin-top: 25px;
+                    --background: #F6C33E;
+                    color: #ffffff;
+                }
+                .active-button {
+                    --background: #F6C33E;
+                    color: #ffffff;
+                }
+            }
+        }
+    }
+}

@@ -29,10 +29,12 @@ export const APICONFIG = {
     GET: `/app/vatican_news`,
   },
   DIOCESE: {
-    GET: `/app/dioceses`
+    GET: `/app/dioceses`,
+    GET_DETAIL: id => `/app/dioceses/${id}`
   },
   PARISHES: {
-    GET:`/app/parishes`
+    GET:`/app/parishes`,
+    GET_DETAIL: id => `/app/parishes/${id}`
   },
   CHABAD: {
     GET: `/app/chabads`,
@@ -62,6 +64,34 @@ export const APICONFIG = {
     GET: (id) => `/app/orders/${id}`,
     CREATE: `/app/orders`,
     DELETE: (id) => `/app/orders/${id}`,
+  },
+  VATICAN: {
+    GET: `/app/vatican_news`,
+    GET_DETAIL: id => `/app/vatican_news/${id}`
+  },
+  POPE: {
+    GET: `/app/pope_infos`,
+    GET_DETAIL: id => `/app/pope_infos/${id}`
+  },
+  BISHOP: {
+    GET: `/app/bishop_infos`,
+    GET_DETAIL: id => `/app/bishop_infos/${id}`
+  },
+  DIOCESE_NEWS: {
+    GET: `/app/diocese_news`,
+    GET_DETAIL: id => `/app/diocese_news/${id}`
+  },
+  STORE : {
+    GET_ALL_CATEGORIES: `/app/categories`,
+    GET_ALL_PRODUCTS: `/app/products`,
+    GET_DETAIL_PRODUCT: id => `/app/products/${id}`
+  },
+  QUESTIONARES: {
+    GET_TOPIC: ``,
+    GET_LEVEL:``,
+    GET_QUES_TOPIC: topic => `/${topic}`,
+    GET_QUES_LEVEL: level => `/${level}`,
+    CHECK_ANSWER: answerKey => `/${answerKey}`,
   }
 };
 

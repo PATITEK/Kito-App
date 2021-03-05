@@ -1,7 +1,6 @@
 <app-header [headerCustom]="headerCustom"></app-header>
 <ion-content class="ion-padding">
-  <app-search-bar-nav>{{search}}</app-search-bar-nav>
-  <!-- <ion-label class="ion-text-center">CHỌN GIÁO PHẬN</ion-label> -->
+  <app-search-bar-nav></app-search-bar-nav>
   <ion-list>
     <app-list-dioceses *ngFor="let item of data" [data] = "item" [flag_parishes_diocese]="'parishes'"
    [type] ="type"

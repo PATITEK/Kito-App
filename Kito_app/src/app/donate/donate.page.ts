@@ -86,12 +86,10 @@ export class DonatePage implements OnInit {
     if (this.data) {
       this.source_id = this.data.id;
       this.source_type = this.data.source_type;
-      console.log('rơi vào trường hợp 2: ', this.source_id, this.source_type);
     }
     else {
       this.source_id = localStorage.getItem('parish_id');
       this.source_type = 'Parishes';
-      console.log('rơi vào trường hợp 1: ', this.source_id, this.source_type);
 
     }
     this.id_diocese = parseInt(localStorage.getItem('diocese_id'));
@@ -115,20 +113,7 @@ export class DonatePage implements OnInit {
         }
       });
     });
-
-    this.accountService.getAccounts().subscribe(data => {
-      if (data.app_user.thumb_image == null) {
-        data.app_user['thumb_image'] = "https://i.imgur.com/edwXSJa.png";
-        this.avatar = data.app_user.thumb_image;
-      }
-      else if (data.app_user.thumb_image.url == null) {
-        data.app_user['thumb_image'] = "https://i.imgur.com/edwXSJa.png";
-        this.avatar = data.app_user.thumb_image;
-      }
-      else {
-        this.avatar = data.app_user.thumb_image.url;
-      }
-    })
+    this.avatar = localStorage.getItem('avatar');
   }
   getUrl() {
     if (!this.img) {
@@ -183,7 +168,6 @@ export class DonatePage implements OnInit {
       this.required_purpose = false;
       this.loadingService.dismiss();
     }
-    console.log(donate);
     this.router.navigate(['paymentmethods'], {
       queryParams: {
         data: JSON.stringify(donate)

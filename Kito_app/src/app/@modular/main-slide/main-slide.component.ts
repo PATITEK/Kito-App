@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 })
 export class MainSlideComponent implements OnInit {
   @Input() data: any;
-  
+
   slideOptions = {
     initialSlide: 0,
     loop: true,
@@ -21,10 +21,30 @@ export class MainSlideComponent implements OnInit {
     private router: Router
   ) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   seeMore() {
-    this.router.navigateByUrl(this.data.desUrl);
+    const data = {
+      type: this.data.type,
+      id: this.data.id ? this.data.id : null
+    }
+    switch (this.data.type.general) {
+      case 'news':
+        this.router.navigate(['/news'], {
+          queryParams: {
+            data: JSON.stringify(data)
+          }
+        })
+        break;
+      case 'info':
+      case 'story':
+        this.router.navigate(['/information'], {
+          queryParams: {
+            data: JSON.stringify(data)
+          }
+        })
+        break;
+    }
   }
 
   goToItemDetail(item) {

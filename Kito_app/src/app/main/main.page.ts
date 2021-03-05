@@ -3,8 +3,7 @@ import { Router } from '@angular/router';
 import { AuthService, IPageRequest, VaticanService } from '../@app-core/http';
 import { IonInfiniteScroll, ModalController } from '@ionic/angular';
 import { AccountService } from '../@app-core/http/account/account.service';
-import { ImageService, OneSignalService } from '../@app-core/utils';
-import { MapPage } from '../@modular/map/map.page'
+import { GeolocationService, ImageService, OneSignalService } from '../@app-core/utils';
 
 @Component({
   selector: 'app-main',
@@ -48,30 +47,32 @@ export class MainPage implements OnInit {
       desUrl: 'pray',
     },
     {
+      name: 'Lịch Công giáo',
+      thumbImage: 'assets/img/menu/lichconggiao.svg',
+      desUrl: 'main/calendar',
+    },
+    {
       name: 'Cửa hàng',
       thumbImage: 'assets/img/menu/cuahang.svg',
       desUrl: 'main/store',
     },
+    {
+      name: 'Nhạc Thánh Ca',
+      thumbImage: 'assets/img/menu/thanhca.svg',
+      desUrl: 'main/news',
+    },
+    {
+      name: 'Video bài giảng',
+      thumbImage: 'assets/img/menu/baigiang.svg',
+      desUrl: 'main/news',
+    },
   ]
 
-  news = [
-    {
-      title: 'ĐTC Phanxicô cử hành Thánh lễ Ngày Đời sống Thánh hiến',
-      thumbImage: 'assets/img/bgnew.jpg'
-    },
-    {
-      title: 'ĐTC Phanxicô cử hành Thánh lễ Ngày Đời sống Thánh hiến',
-      thumbImage: 'assets/img/bgnew.jpg'
-    },
-    {
-      title: 'ĐTC Phanxicô cử hành Thánh lễ Ngày Đời sống Thánh hiến',
-      thumbImage: 'assets/img/bgnew.jpg'
-    },
-    {
-      title: 'ĐTC Phanxicô cử hành Thánh lễ Ngày Đời sống Thánh hiến',
-      thumbImage: 'assets/img/bgnew.jpg'
-    },
-  ]
+  news = [];
+  pageRequestVatican: IPageRequest = {
+    page: 1,
+    per_page: 10
+  }
 
   constructor(
     private router: Router,
@@ -94,18 +95,19 @@ export class MainPage implements OnInit {
       if (data.app_user.thumb_image == null) {
         data.app_user['thumb_image'] = "https://i.imgur.com/edwXSJa.png";
         this.avatar = data.app_user.thumb_image;
+        localStorage.setItem('avatar', this.avatar);
       }
       else if (data.app_user.thumb_image.url == null) {
         data.app_user['thumb_image'] = "https://i.imgur.com/edwXSJa.png";
         this.avatar = data.app_user.thumb_image;
+        localStorage.setItem('avatar', this.avatar);
       }
       else {
         this.avatar = data.app_user.thumb_image.url;
+        localStorage.setItem('avatar', this.avatar);
       }
     })
-
   }
-
 
   ngOnInit() {
     this.OneSignalService.startOneSignal();
@@ -183,7 +185,10 @@ export class MainPage implements OnInit {
   goToNewsDetail(item) {
     const data = {
       id: item.id,
-      type: 'News'
+      type: {
+        general: 'news',
+        detail: 'vatican'
+      }
     }
     this.router.navigate(['/news-detail'], {
       queryParams: {
@@ -194,14 +199,5 @@ export class MainPage implements OnInit {
 
   goToAccountSetting() {
     this.router.navigateByUrl('account-setting');
-  }
-
-  async openModalGoogleMap() {
-    const modal = await this.modalCtrl.create({
-      component: MapPage,
-      cssClass: 'google-map-modal',
-      swipeToClose: true,
-    });
-    modal.present();
   }
 }

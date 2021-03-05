@@ -1,0 +1,33 @@
+ion-header {
+    margin-bottom: 50px;
+    ion-item {
+      .backbtn {
+          margin-top: 30px;
+      }
+    }
+  }
+  
+  ion-content {
+    .background-img {
+        margin-top: 50px;
+        position: absolute;
+    }
+    ion-grid {
+        margin-top: 100px;
+      ion-row {
+        ion-col {
+          margin: auto;
+          display: block;
+          ion-button {
+            margin-left: 35px;
+            width: 80%;
+            font-size: 17px;
+            font-weight: 700;
+            margin-top: 17px;
+            --background: #FAFAFA;
+            --color: #424242;
+          }
+        }
+      }
+    }
+  }
