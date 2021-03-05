@@ -58,7 +58,7 @@ export class MainPage implements OnInit {
     {
       name: 'Nhạc Thánh Ca',
       thumbImage: 'assets/img/menu/thanhca.svg',
-      desUrl: 'main/news',
+      desUrl: 'main/hymn-music',
     },
     {
       name: 'Video bài giảng',

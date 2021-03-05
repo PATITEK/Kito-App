@@ -1,3 +1,4 @@
+import { LoadingService } from './../../@app-core/utils/loading.service';
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { AlertController, ModalController } from "@ionic/angular";
@@ -35,8 +36,10 @@ export class QuestionPage implements OnInit {
     private alertCtrl: AlertController,
     private router: Router,
     private modalController: ModalController,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private loadingService: LoadingService
   ) {
+    this.loadAudio();
     for (let i = 1; i <= 12; i++) {
       this.questions.questions.push({
         id: 1729,
@@ -53,10 +56,10 @@ export class QuestionPage implements OnInit {
         right: "d",
       });
     }
+    this.loadingService.dismiss();
   }
 
   ngOnInit() {
-    this.loadAudio();
     this.soundtrack1.play();
     localStorage.setItem("score", "0");
     this.startTimer(120);
@@ -86,6 +89,7 @@ export class QuestionPage implements OnInit {
           role: "destructive",
           handler: () => {
             this.questionQuit();
+            localStorage.removeItem('score');
           },
         },
       ],
@@ -133,6 +137,7 @@ export class QuestionPage implements OnInit {
   }
 
   loadAudio() {
+    this.loadingService.present();
     this.soundtrack1.src = "../../assets/img/questionares/audios/soundtrack1.mp3"; this.soundtrack1.load();
     this.right.src = "../../assets/img/questionares/audios/right.mp3"; this.right.load();
     this.wrong.src = "../../assets/img/questionares/audios/wrong.mp3"; this.wrong.load();
