@@ -41,7 +41,11 @@ const routes: Routes = [
   {
     path: 'calendar',
     loadChildren: () => import('./calendar/calendar.module').then( m => m.CalendarPageModule)
+  },  {
+    path: 'hymn-music',
+    loadChildren: () => import('./hymn-music/hymn-music.module').then( m => m.HymnMusicPageModule)
   },
+
 
 
 ];
