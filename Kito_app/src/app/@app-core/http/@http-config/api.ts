@@ -25,9 +25,6 @@ export const APICONFIG = {
     UPDATE_PREMIUM: (id) => `/app/users/request_upgrade`,
     CONTACT_ADMIN: `/app/interact_email/submit`
   },
-  VATICAN: {
-    GET: `/app/vatican_news`,
-  },
   DIOCESE: {
     GET: `/app/dioceses`,
     GET_DETAIL: id => `/app/dioceses/${id}`
