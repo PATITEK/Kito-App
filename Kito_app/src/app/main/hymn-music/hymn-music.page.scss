@@ -32,19 +32,28 @@ ion-content {
 }
 
 ion-footer {
-    .range-cover {
+  ion-toolbar {
+    ion-row {
+      .range-cover {
         height: 30px;
         ion-range {
-            transform: translateY(-25px);
+          transform: translateY(-25px);
         }
-    }
-    .bottom-cover {
-        // margin: auto;
+      }
+      .bottom-cover {
+        padding: 10px;
         .avatar {
-            // transform: translateX(-140%);
+          // transform: translateX(-140%);
+          span {
+            font-size: 15px;
+            color: #424242;
+            margin-left: 5px;
+          }
         }
-        .button {
-            // transform: translateX(40%);
-        }
+        // .button {
+        //   // transform: translateX(40%);
+        // }
+      }
     }
+  }
 }

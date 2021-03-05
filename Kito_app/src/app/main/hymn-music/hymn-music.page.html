@@ -7,6 +7,7 @@
 
   <ion-segment
     (ionChange)="changedSegment($event)"
+    value="all"
     swipeGesture="false"
     mode="ios"
   >
@@ -19,69 +20,142 @@
   </ion-segment>
 
   <ion-buttons
+    [ngClass]="{'display-none': segmentValue != 'all'}"
     id="song-cover"
     class="song-cover"
     *ngFor="let track of playlist"
-    (click)="start(track)"
   >
-    <ion-buttons>
+    <ion-buttons (click)="start(track)">
       <ion-icon
         size="large"
         name="musical-notes-outline"
         style="margin-right: 5px"
         [color]="track == activeTrack ? 'warning' : 'medium' "
       ></ion-icon>
-      <ion-label [color]="track == activeTrack ? 'warning' : 'medium' ">{{track.name}}</ion-label>
+      <ion-label [color]="track == activeTrack ? 'warning' : 'medium' "
+        >{{track.name}}</ion-label
+      >
     </ion-buttons>
 
     <ion-buttons>
-      <ion-label [color]="track == activeTrack ? 'warning' : 'medium' ">{{track.author}}</ion-label>
+      <ion-label
+        [color]="track == activeTrack ? 'warning' : 'medium' "
+        (click)="start(track)"
+        >{{track.author}}</ion-label
+      >
       <ion-icon
+        *ngIf="track.isLike == false"
+        (click)="toggleLike(track,track.isLike)"
         size="large"
         name="heart-outline"
         style="margin-left: 5px"
       ></ion-icon>
-      <!-- <ion-icon size="large" name="heart" style="margin-left: 5px; color: #F23131"></ion-icon> -->
+      <ion-icon
+        *ngIf="track.isLike == true"
+        (click)="toggleLike(track,track.isLike)"
+        size="large"
+        name="heart"
+        style="margin-left: 5px; color: #f23131"
+      ></ion-icon>
     </ion-buttons>
   </ion-buttons>
+
+  <ion-buttons
+    [ngClass]="{'display-none': segmentValue != 'like'}"
+    id="song-cover"
+    class="song-cover"
+    *ngFor="let track of likedPlaylist"
+  >
+    <ion-buttons (click)="start(track)">
+      <ion-icon
+        size="large"
+        name="musical-notes-outline"
+        style="margin-right: 5px"
+        [color]="track == activeTrack ? 'warning' : 'medium' "
+      ></ion-icon>
+      <ion-label [color]="track == activeTrack ? 'warning' : 'medium' "
+        >{{track.name}}</ion-label
+      >
+    </ion-buttons>
+
+    <ion-buttons>
+      <ion-label
+        [color]="track == activeTrack ? 'warning' : 'medium' "
+        (click)="start(track)"
+        >{{track.author}}</ion-label
+      >
+      <ion-icon
+        *ngIf="track.isLike == false"
+        (click)="toggleLike(track.isLike)"
+        size="large"
+        name="heart-outline"
+        style="margin-left: 5px"
+      ></ion-icon>
+      <ion-icon
+        *ngIf="track.isLike == true"
+        (click)="toggleLike(track.isLike)"
+        size="large"
+        name="heart"
+        style="margin-left: 5px; color: #f23131"
+      ></ion-icon>
+    </ion-buttons>
+  </ion-buttons>
+
 </ion-content>
 
 <ion-footer *ngIf="activeTrack">
   <ion-toolbar>
     <ion-row>
       <ion-col size="12" class="range-cover">
-        <ion-range mode="md" #range [(ngModel)]="progress" max="100" color="warning" (touchend)="seek()" (mouseup)="seek()"></ion-range>
+        <ion-range
+          mode="md"
+          #range
+          [(ngModel)]="progress"
+          max="100"
+          color="warning"
+          (touchend)="seek()"
+          (mouseup)="seek()"
+        ></ion-range>
       </ion-col>
 
       <ion-buttons size="12" class="bottom-cover">
-
         <ion-buttons class="avatar">
           <ion-avatar>
-            <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
+            <img
+              src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y"
+            />
           </ion-avatar>
-          <span>{{ activeTrack.name }} <br/>{{ activeTrack.author }}</span>
+          <span>{{ activeTrack.name }} <br />{{ activeTrack.author }}</span>
         </ion-buttons>
 
         <ion-buttons class="button">
           <ion-button fill="clear" (click)="prev()" color="dark">
             <ion-icon slot="icon-only" name="play-skip-back"></ion-icon>
           </ion-button>
-  
-          <ion-button fill="clear" (click)="togglePlayer(false)" *ngIf="!isPlaying" color="dark">
+
+          <ion-button
+            fill="clear"
+            (click)="togglePlayer(false)"
+            *ngIf="!isPlaying"
+            color="dark"
+          >
             <ion-icon slot="icon-only" name="play"></ion-icon>
           </ion-button>
-  
-          <ion-button fill="clear" (click)="togglePlayer(true)" *ngIf="isPlaying" color="dark">
+
+          <ion-button
+            fill="clear"
+            (click)="togglePlayer(true)"
+            *ngIf="isPlaying"
+            color="dark"
+          >
             <ion-icon slot="icon-only" name="pause"></ion-icon>
           </ion-button>
-  
+
           <ion-button fill="clear" (click)="next()" color="dark">
             <ion-icon slot="icon-only" name="play-skip-forward"></ion-icon>
           </ion-button>
         </ion-buttons>
-
       </ion-buttons>
-
     </ion-row>
   </ion-toolbar>
 </ion-footer>

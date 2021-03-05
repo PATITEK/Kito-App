@@ -7,6 +7,7 @@ export interface Track {
   name: string;
   author: string;
   path: string;
+  isLike: boolean;
 }
 
 @Component({
@@ -17,24 +18,41 @@ export interface Track {
 export class HymnMusicPage implements OnInit {
   headerCustom = { title: 'Nhạc Thánh ca' };
   segmentValue = 'all';
-
+  likedPlaylist: Track[] = [];
   playlist: Track[] = [
     {
       name: 'ccccxss',
       author: 'aasxxasxax',
-      path: 'http://res.cloudinary.com/dtj7y1r0l/video/upload/v1458851262/msgSound_x2laav.mp3'
+      path: 'http://res.cloudinary.com/dtj7y1r0l/video/upload/v1458851262/msgSound_x2laav.mp3',
+      isLike: true,
     },
     {
       name: 'kikikik',
       author: 'hghghghg',
-      path: '../../../assets/img/questionares/audios/soundtrack1.mp3'
+      path: '../../../assets/img/questionares/audios/soundtrack1.mp3',
+      isLike: false,
     },
     {
       name: 'sfsfssdaad',
       author: '5w5rwres',
-      path: '../../../assets/img/questionares/audios/soundtrack1.mp3'
+      path: '../../../assets/img/questionares/audios/soundtrack1.mp3',
+      isLike: true,
     }
   ]
+
+  like() {
+    this.likedPlaylist = [];
+    for(let list of this.playlist) {
+      if(list.isLike == true) {
+        this.likedPlaylist.push({
+          name: list.name,
+          author: list.author,
+          path: list.path,
+          isLike: list.isLike
+        })
+      }
+    }
+  }
 
   activeTrack: Track = null;
   player: Howl = null;
@@ -55,6 +73,7 @@ export class HymnMusicPage implements OnInit {
 
   changedSegment(event) {
     this.segmentValue = event.target.value;
+    this.like();
   }
 
   start(track: Track) {
@@ -87,6 +106,15 @@ export class HymnMusicPage implements OnInit {
     } else {
       this.player.play();
     }
+  }
+
+  toggleLike(track, isLike) {
+    if(isLike == true) {
+      track.isLike == false
+    } else {
+      track.isLike == true
+    }
+    console.log(isLike)
   }
 
   next() {
