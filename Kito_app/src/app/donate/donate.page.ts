@@ -51,6 +51,7 @@ export class DonatePage implements OnInit {
   type: {
     type: any
   }
+  title ='Đóng góp';
   constructor(
     private router: Router,
     public formBuilder: FormBuilder,
