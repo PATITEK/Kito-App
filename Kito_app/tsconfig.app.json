@@ -2,8 +2,12 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "./out-tsc/app",
-    "types": ["googlemaps", "howler"]
+    // "types": ["googlemaps", "howler"],
+    "types": ["node"]
   },
+ 
+    // "compilerOptions": {
+    //   "types": ["node"]
   "files": [
     "src/main.ts",
     "src/polyfills.ts"
