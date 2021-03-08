@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { CalendarOptions } from '@fullcalendar/angular';
 @Component({
   selector: 'app-calendar-demo',
   templateUrl: './calendar-demo.component.html',

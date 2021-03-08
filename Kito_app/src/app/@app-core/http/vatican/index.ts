@@ -1,1 +1,1 @@
-export * from './vatican.service';
+export * from './vatican.service'

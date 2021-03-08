@@ -13,7 +13,6 @@
   </div>
   <div class="ion-text-right ion-margin-bottom">
   </div>
-
   <div class="body-wrapper">
     <div class="body">
       <ion-buttons class="menu">
@@ -26,12 +25,11 @@
           </div>
         </div>
       </ion-buttons>
-    
       <div class="news">
         <span class="news__title">Tin tức Vatican</span>
         <ion-row class="news__content">
-          <ion-col class="main-news active-effect" size="8" *ngFor="let item of news" (click)="goToNewsDetail(item)">
-            <img class="item-img" [src]="item.thumb_images[0].url">
+          <ion-col class="main-news active-effect" size="8" *ngFor="let item of data" (click)="goToNewsDetail(item)">
+            <img class="item-img" [src] ="item.thumb_images[0].url">
             <ion-buttons class="text-box">
               <p class="item-title three-dots-2">{{ item.title }}</p>
             </ion-buttons>
