@@ -1,7 +1,4 @@
-<ion-back-button icon="chevron-back-outline" text="" class="back-btn"></ion-back-button>
-<ion-item-group class="header">
-  <ion-label>Đóng góp</ion-label>
-</ion-item-group>
+<app-header  [headerCustom]="headerCustom"></app-header>
 <ion-content class="ion-padding">
   <form [formGroup] ="frmDonate" (ngSubmit)="onSubmit()" >
     <ion-item-group class="wrapper">

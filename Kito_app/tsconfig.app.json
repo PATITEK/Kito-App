@@ -5,6 +5,7 @@
     "types": ["googlemaps", "howler"]
     
   },
+
   "files": [
     "src/main.ts",
     "src/polyfills.ts"

@@ -1,27 +1,11 @@
-.header {
-  height: 80px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 18px;
-  font-weight: 600;
-  background: var(--gray-color);
- ion-label {
-    margin: 0px auto;
-    font-size: 24px;
-    color: var(--title-color);
+
+  .header {
+    background: var(--gray-color) !important;
   }
-}
-.back-btn {
-  height: auto;
-  width: auto;
-  top: 40px!important;
-  color: #C8C8C8;
-  background-color: #E5E5E5;
-}
+
   ion-content {
     --overflow: hidden;
-    --padding-top: 0;
+    --padding-top: 80px;
     --background: var(--gray-color);
     .wrapper {
       overflow: scroll;
@@ -156,6 +140,9 @@
           outline: none;
           background-color: #f5f5f5;
           border: 1px solid #C8C8C8;
+          @media screen and (max-height: 569px) {
+            width: 73%;
+          }
         }
       }
       .group__purpose {
