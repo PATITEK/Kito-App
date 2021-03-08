@@ -51,7 +51,7 @@ export class DonatePage implements OnInit {
   type: {
     type: any
   }
-  title ='Đóng góp';
+  headerCustom = {title: 'Đóng góp', background: '#e5e5e5'};
   constructor(
     private router: Router,
     public formBuilder: FormBuilder,

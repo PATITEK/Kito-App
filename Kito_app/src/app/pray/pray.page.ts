@@ -50,7 +50,8 @@ export class PrayPage implements OnInit {
     per_page: 100,
   };
   type;
-  title = 'Xin lễ'
+  headerCustom = {title: 'Xin lễ', background: '#e5e5e5'};
+
   constructor(
     public formBuilder: FormBuilder,
     private route: ActivatedRoute,
