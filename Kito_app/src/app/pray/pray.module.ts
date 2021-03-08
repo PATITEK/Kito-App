@@ -6,12 +6,14 @@ import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { PrayPageRoutingModule } from './pray-routing.module';
 
 import { PrayPage } from './pray.page';
+import { HeaderModule } from '../@modular/header/header.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
+    HeaderModule,
     ReactiveFormsModule,
     PrayPageRoutingModule
   ],
