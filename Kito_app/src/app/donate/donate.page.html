@@ -1,4 +1,4 @@
-<app-header  [title] = "title"[bg_header]="'#e5e5e5'"></app-header>
+<app-header  [headerCustom]="headerCustom"></app-header>
 <ion-content class="ion-padding">
   <form [formGroup] ="frmDonate" (ngSubmit)="onSubmit()" >
     <ion-item-group class="wrapper">
