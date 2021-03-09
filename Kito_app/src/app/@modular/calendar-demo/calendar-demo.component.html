@@ -1,33 +1,44 @@
 <ion-content>
-<div class="calendar-main">
-  <div class="title-calendar">
-    <p>Tháng {{currentMonth}} . {{currentYear}}</p>
-    <img class="icon-filler" src="assets/icon/filler.svg">
-    <ion-icon class="button-slide button-left" (click)="PrewMonth()" name="chevron-back-outline"></ion-icon>
-    <ion-icon class="button-slide button-right" (click)="nextMonth()" name="chevron-forward-outline"></ion-icon> 
-  </div>
-  <div class="calendar-content">
-    <div class="days-of-weeks">
-      <ion-buttons class="list-days-week">
-        <span class="day-week" *ngFor="let item of dayWeeks">
-            {{item.valueView}}
-        </span>
-      </ion-buttons>
-      
+  <div class="calendar-main">
+    <div class="title-calendar">
+      <p>Tháng {{currentMonth}} . {{currentYear}}</p>
+      <img (click)="toggleFillerClick()" class="icon-filler" src="assets/icon/filler.svg">
+      <div (click)="toggleFillerClick()" class="modal-filter" *ngIf="toggleFiller">
+        <ion-label class="text-filter">Xem theo ngày</ion-label>
+        <ion-label class="text-filter">Xem theo tháng</ion-label>
+      </div>
+      <ion-icon class="button-slide button-left" (click)="PrewMonth()" name="chevron-back-outline"></ion-icon>
+      <ion-icon class="button-slide button-right" (click)="nextMonth()" name="chevron-forward-outline"></ion-icon>
     </div>
-    <div class="days-of-month">
-        <ion-buttons class="list-days">
-          <div (click)="gotoDetail()" class="days" *ngFor="let days of dayOfMonth">
-            <span *ngIf="days!=0" class="duong-lich">
-              {{days}}
-            </span>
-            <span *ngIf="days!=0" class="am-lich">
-              {{days}}
-            </span>
-          </div>
-        </ion-buttons>
-    </div>
-  </div>
+    <ion-slides (ionSlideNextStart)="ionSlideNextEnd()" (ionSlidePrevStart)="ionSlidePrevEnd()" [options]="slideOpts">
 
-</div>
+
+      <ion-slide *ngFor="let n of numSequence(coutnCalendar)">
+        <ion-item-group class="calendar-content">
+          <ion-item-group class="days-of-weeks">
+            <ion-buttons class="list-days-week">
+              <span class="day-week" *ngFor="let item of dayWeeks">
+                {{item.valueView}}
+              </span>
+            </ion-buttons>
+
+          </ion-item-group>
+          <ion-item-group class="days-of-month">
+            <ion-buttons class="list-days">
+              <ion-item-group (click)="gotoDetail(days)" class="days" *ngFor="let days of dayOfMonth">
+                <span *ngIf="days!=0" class="duong-lich">
+                  {{days}}
+                </span>
+                <span *ngIf="days!=0" class="am-lich">
+                  {{days}}
+                </span>
+              </ion-item-group>
+            </ion-buttons>
+          </ion-item-group>
+        </ion-item-group>
+      </ion-slide>
+    </ion-slides>
+
+
+  </div>
 </ion-content>

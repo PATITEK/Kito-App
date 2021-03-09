@@ -16,38 +16,38 @@ export class AccountSettingPage implements OnInit {
   name = localStorage.getItem('fullname') || '';
   avatar = '';
 
-  list = [
-    {
-      name: 'Thông tin cá nhân',
-      ionUrl: 'assets/icon/user.svg',
-      desUrl: 'account'
-    },
-    {
-      name: 'Thống kê',
-      ionUrl: 'assets/icon/statistic.svg',
-      desUrl: 'statistic'
-    },
-    {
-      name: 'Phương thức thanh toán',
-      ionUrl: 'assets/icon/wallet.svg',
-      desUrl: 'paymentmethods'
-    },
-    {
-      name: 'Cài đặt',
-      ionUrl: 'assets/icon/setting.svg',
-      desUrl: 'account-setting/setting'
-    },
-    {
-      name: 'Giới thiệu',
-      ionUrl: 'assets/icon/user.svg',
-      desUrl: 'account'
-    },
-    {
-      name: 'Thông tin cá nhân',
-      ionUrl: 'assets/icon/user.svg',
-      desUrl: 'account'
-    },
-  ]
+  // list = [
+  //   {
+  //     name: 'Thông tin cá nhân',
+  //     ionUrl: 'assets/icon/user.svg',
+  //     desUrl: 'account'
+  //   },
+  //   {
+  //     name: 'Thống kê',
+  //     ionUrl: 'assets/icon/statistic.svg',
+  //     desUrl: 'statistic'
+  //   },
+  //   {
+  //     name: 'Phương thức thanh toán',
+  //     ionUrl: 'assets/icon/wallet.svg',
+  //     desUrl: 'paymentmethods'
+  //   },
+  //   {
+  //     name: 'Cài đặt',
+  //     ionUrl: 'assets/icon/setting.svg',
+  //     desUrl: 'account-setting/setting'
+  //   },
+  //   {
+  //     name: 'Giới thiệu',
+  //     ionUrl: 'assets/icon/user.svg',
+  //     desUrl: 'account-setting/introduce'
+  //   },
+  //   {
+  //     name: 'Thông tin cá nhân',
+  //     ionUrl: 'assets/icon/user.svg',
+  //     desUrl: 'account'
+  //   },
+  // ]
 
   constructor(
     public modalController: ModalController,
