@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { IonSlides } from '@ionic/angular';
 @Component({
   selector: 'app-calendar-demo',
   templateUrl: './calendar-demo.component.html',
@@ -40,24 +41,47 @@ export class CalendarDemoComponent implements OnInit {
 
   ]
   dayOfMonth;
+ coutnCalendar=12;
+ toggleFiller=false;
   today = new Date();
-  currentMonth = this.today.getMonth() + 1;
+  currentMonth = this.today.getMonth();
   currentYear = this.today.getFullYear();
   AmLich=[];
-
+  slides: IonSlides;
+  slideOpts = {
+    
+    initialSlide: this.coutnCalendar+10,
+    speed: 400
+  };
   constructor(
     private route:Router
-  ) { }
-
-  ngOnInit() {
-
-    this.dayOfMonth = this.calendar(this.currentMonth, this.currentYear);
-    ;
+  ) { 
     
+  }
+
+  
+  ngOnInit() {
+    
+    this.dayOfMonth = this.calendar(this.currentMonth, this.currentYear);
+//   
 
   }
-gotoDetail(){
-  this.route.navigateByUrl('main/calendar/detail');
+  numSequence(n: number): Array<number> {
+    return Array(n);
+  } 
+  toggleFillerClick() {
+      this.toggleFiller=!this.toggleFiller;
+  }
+gotoDetail(e){
+  console.log(e);
+  
+  // this.route.navigate(['/main/calendar-detail'], {
+  //   queryParams: {
+  //     data: JSON.stringify(e)
+  //   }
+  // })
+  
+  this.toggleFiller=false;
 }
   // getDaysInMonth(month, year) {
   //   var monthIndex = month - 1; // 0..11 instead of 1..12
@@ -70,6 +94,8 @@ gotoDetail(){
   //   return result;
   // }
   nextMonth() {
+    
+  ;
     if (this.currentMonth == 12) {
       this.currentYear++;
       this.currentMonth = 1
@@ -79,10 +105,20 @@ gotoDetail(){
     }
 
     this.dayOfMonth = this.calendar(this.currentMonth, this.currentYear);
+    // this.slides.update()
 
   }
+  ionSlideNextEnd(){
+    this.nextMonth();
+    this.coutnCalendar++;
+  }
+
+  ionSlidePrevEnd(){
+    this.PrewMonth();
+    this.coutnCalendar++;
+  }
   PrewMonth() {
-    if (this.currentMonth == 1) {
+    if (this.currentMonth == 1) { 
       this.currentYear--;
       this.currentMonth = 13  
     }

@@ -14,6 +14,14 @@ const routes: Routes = [
   },  {
     path: 'setting',
     loadChildren: () => import('./setting/setting.module').then( m => m.SettingPageModule)
+  },
+  {
+    path: 'introduce',
+    loadChildren: () => import('./introduce/introduce.module').then( m => m.IntroducePageModule)
+  },
+  {
+    path: 'support',
+    loadChildren: () => import('./support/support.module').then( m => m.SupportPageModule)
   }
 
  
