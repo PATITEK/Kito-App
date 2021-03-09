@@ -11,6 +11,8 @@ import { IPageRequest } from 'src/app/@app-core/http/global/global.DTO';
   styleUrls: ['./map.page.scss'],
 })
 export class MapPage implements OnInit {
+
+  title = '';
   map: google.maps.Map;
 
   center: google.maps.LatLngLiteral = this.GeolocationService.centerService;
@@ -37,6 +39,8 @@ export class MapPage implements OnInit {
   ) { }
 
   ngOnInit() {
+    let tempTitle = JSON.parse(localStorage.getItem('diocese'))
+    this.title = 'Bản đồ ' + tempTitle.name
     this.GeolocationService.getCurrentLocation();
     this.addDataMarkerToMap();
   }
@@ -84,16 +88,23 @@ export class MapPage implements OnInit {
   }
 
   addDataMarkerToMap() {
-    this.diocesesService.getAll(this.pageRequestDioceses).subscribe(data => {
-      const totalDioceses = data.meta.pagination.per_page;
-      for (let i = 1; i <= totalDioceses; i++) {
-        this.pageRequestParishes.diocese_id += 1;
-        this.parishesService.getAll(this.pageRequestParishes).subscribe(data => {
-          this.markers = data.parishes;
-          this.addMarkersToMap(this.markers);
-        })
-      }
-      this.pageRequestParishes.diocese_id = 0;
+    // this.diocesesService.getAll(this.pageRequestDioceses).subscribe(data => {
+    //   const totalDioceses = data.meta.pagination.per_page;
+    //   for (let i = 1; i <= totalDioceses; i++) {
+    //     this.pageRequestParishes.diocese_id += 1;
+    //     this.parishesService.getAll(this.pageRequestParishes).subscribe(data => {
+    //       this.markers = data.parishes;
+    //       this.addMarkersToMap(this.markers);
+    //     })
+    //   }
+    //   this.pageRequestParishes.diocese_id = 0;
+    // })
+    let tempId = JSON.parse(localStorage.getItem('diocese'))
+    this.pageRequestParishes.diocese_id = tempId.id
+    this.parishesService.getAll(this.pageRequestParishes).subscribe(data => {
+      console.log(data)
+      this.markers = data.parishes;
+      this.addMarkersToMap(this.markers);
     })
   }
 
