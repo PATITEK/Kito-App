@@ -1,7 +1,4 @@
-<ion-back-button icon="chevron-back-outline" text="" class="back-btn"></ion-back-button>
-<ion-item-group class="header">
-  <ion-label>Xin lễ</ion-label>
-</ion-item-group>
+<app-header  [headerCustom]="headerCustom"></app-header>
 <ion-content class="ion-padding">
   <form [formGroup] ="frmPray" (ngSubmit)="onSubmit()" >
     <ion-item-group class="wrapper">
@@ -28,7 +25,7 @@
       <ion-img src="assets/img/pen.svg" class="group__donate-pen--edit"></ion-img>
       <ion-img src="assets/img/dola.svg"></ion-img>
       <input type="number" formControlName ="amount" class="group__donate-amount">
-      <ion-label>VND</ion-label>
+      <ion-label >VND</ion-label>
     </ion-item-group>
     <span class="require" *ngIf="required_mess">
       {{message}}

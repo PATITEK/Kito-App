@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService, IPageRequest, VaticanService } from '../@app-core/http';
-import { ModalController } from '@ionic/angular';
+import { IonInfiniteScroll, ModalController } from '@ionic/angular';
 import { AccountService } from '../@app-core/http/account/account.service';
 import { GeolocationService, ImageService, OneSignalService } from '../@app-core/utils';
 
@@ -11,6 +11,7 @@ import { GeolocationService, ImageService, OneSignalService } from '../@app-core
   styleUrls: ['./main.page.scss'],
 })
 export class MainPage implements OnInit {
+  @ViewChild(IonInfiniteScroll) infinityScroll: IonInfiniteScroll;
   name = '';
   avatar = '';
   menu = [
@@ -80,9 +81,13 @@ export class MainPage implements OnInit {
     private accountService: AccountService,
     private authService: AuthService,
     public modalCtrl: ModalController,
-    private vaticanService: VaticanService
+    public vaticanService: VaticanService
   ) { }
-
+  request: IPageRequest = {
+    page: 1,
+    per_page: 100
+  }
+  data;
   ionViewWillEnter() {
     this.name = localStorage.getItem('fullname');
     // this.imageService.getImage();
@@ -107,14 +112,59 @@ export class MainPage implements OnInit {
   ngOnInit() {
     this.OneSignalService.startOneSignal();
     this.name = localStorage.getItem('fullname');
-    this.getVatican();
+    this.getListVatican();
   }
-
-  getVatican() {
-    this.vaticanService.getAll(this.pageRequestVatican).subscribe(data => {
-      this.news = data.vatican_news;
+  getListVatican() {
+    this.vaticanService.getAll(this.request).subscribe(data => {
+        this.data = data.vatican_news;
+        console.log(this.data);
+        // if(this.data) {}
     })
   }
+
+  // length = 0;
+  // const list = document.getElementById('list');
+  // const infiniteScroll = document.getElementById('infinite-scroll');
+
+  // infiniteScroll.addEventListener('ionInfinite', async function () {
+  //   if (length < this.data.length) {
+  //     console.log('Loading data...');
+  //     await wait(500);
+  //     this.infinityScroll.complete();
+  //     appendItems(3);
+  //     console.log('Done');
+  //   } else {
+  //     console.log('No More Data');
+  //     this.infinityScroll.disabled = true;
+  //   }
+  // });
+
+  // function appendItems(number) {
+  //   console.log('length is', length);
+  //   const originalLength = length;
+  //   for (var i = 0; i < number; i++) {
+  //     const el = document.createElement('ion-item');
+  //     el.innerHTML = `
+  //       <ion-avatar slot="start">
+  //         <img src="${this.thumbImage}">
+  //       </ion-avatar>
+  //       <ion-label>
+  //         ${this.data.title}
+  //       </ion-label>
+  //     `;
+  //     list.appendChild(el);
+  //     length++;
+  //   }
+  // }
+
+  // function wait(time) {
+  //   return new Promise(resolve => {
+  //     setTimeout(() => {
+  //     }, time);
+  //   });
+  // }
+
+  // appendItems(20);
 
   goToDetail(item) {
     if (item.desUrl == 'donate') {
