@@ -67,7 +67,7 @@ ion-content {
   height: calc(100% - 148px);
 
   .setting {
-    border: 1px solid #E0E0E0;
+    border: 1px solid #e0e0e0;
     border-radius: 10px;
     height: 40px;
     margin-bottom: 5px;
@@ -78,13 +78,31 @@ ion-content {
       background: rgb(235, 235, 235);
     }
 
-		&:last-child {
-			margin-bottom: 20px;
-		}
+    &:last-child {
+      margin-bottom: 20px;
+    }
 
-		.img-container {
-			width: 30px;
-		}
+    .img-container {
+      width: 30px;
+
+      div {
+        background-color: #f23131;
+        position: absolute;
+        border-radius: 50%;
+        color: #ffffff;
+        font-size: 13px;
+        width: 15px;
+        margin-left: 7px;
+        margin-top: -7px;
+        z-index: 99;
+        span {
+          margin-left: 4px;
+        }
+      }
+      ion-icon {
+        color: #E0E0E0;
+      }
+    }
 
     .title {
       color: #828282;
