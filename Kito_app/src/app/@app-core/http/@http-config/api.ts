@@ -31,6 +31,7 @@ export const APICONFIG = {
   },
   PARISHES: {
     GET:`/app/parishes`,
+    GETLIST: `app/parishes/all_parishes`,
     GET_DETAIL: id => `/app/parishes/${id}`
   },
   CHABAD: {

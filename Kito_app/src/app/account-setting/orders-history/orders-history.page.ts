@@ -41,6 +41,7 @@ export class OrdersHistoryPage implements OnInit {
     let orders = this.data.orders;
     this.orderService.getAll(orders.pageRequest).subscribe(data => {
       orders.array = orders.array.concat(data.orders);
+      console.log(orders.array)
       this.lastedData = orders.array[orders.array.length - 1];
       // orders.array = orders.array.reverse();
       this.loadingService.dismiss();

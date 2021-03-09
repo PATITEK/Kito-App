@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-news',
@@ -9,24 +10,30 @@ export class NewsPage implements OnInit {
 
   tabNew = true;
   title = 'Tin tức giáo xứ';
-  headerCustom = {title: 'Tin tức giáo xứ'};
-  constructor() { }
+  headerCustom = { title: 'Tin tức giáo xứ', background: '#e5e5e5' };
+  constructor(
+    private router: Router
+  ) { }
   news = [
     {
       title: 'ĐTC Phanxicô cử hành Thánh lễ Ngày Đời sống Thánh hiến',
-      thumbImage: 'assets/img/bgnew.jpg'
+      thumbImage: 'assets/img/bgnew.jpg',
+      id: 1
     },
     {
       title: 'ĐTC Phanxicô cử hành Thánh lễ Ngày Đời sống Thánh hiến',
-      thumbImage: 'assets/img/bgnew.jpg'
+      thumbImage: 'assets/img/bgnew.jpg',
+      id: 2
     },
     {
       title: 'ĐTC Phanxicô cử hành Thánh lễ Ngày Đời sống Thánh hiến',
-      thumbImage: 'assets/img/bgnew.jpg'
+      thumbImage: 'assets/img/bgnew.jpg',
+      id: 3
     },
     {
       title: 'ĐTC Phanxicô cử hành Thánh lễ Ngày Đời sống Thánh hiến',
-      thumbImage: 'assets/img/bgnew.jpg'
+      thumbImage: 'assets/img/bgnew.jpg',
+      id: 4
     },
   ]
   ngOnInit() {
@@ -42,13 +49,27 @@ export class NewsPage implements OnInit {
   counter(i: number) {
     return new Array(i);
   }
-  // getUrl() {
-  //   if (!this.img) {
-  //     return `url("https://i.imgur.com/UKNky29.jpg")`
-  //   }
-  //   else return `url(${this.img})`
-  // }
+  getAllParish() {
+    
+  }
   getUrl() {
     return `url("https://i.imgur.com/UKNky29.jpg")`
+  }
+  goToStoryDetail() {
+
+  }
+
+  goToNewsDetail() {
+    const data = {
+      type: {
+        general: 'news',
+        detail: 'parish',
+      }
+    }
+    this.router.navigate(['/news'], {
+      queryParams: {
+        data: JSON.stringify(data)
+      }
+    })
   }
 }

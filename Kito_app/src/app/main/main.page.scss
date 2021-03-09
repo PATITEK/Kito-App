@@ -26,7 +26,9 @@ ion-content {
   overflow: hidden;
   z-index: -1;
 }
-
+.absolute-center {
+  top: 38%!important
+}
 .avatar-box {
   text-align: center;
   display: inline-block;

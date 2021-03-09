@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService, IPageRequest, VaticanService } from '../@app-core/http';
+import { AuthService, IPageRequest, OrderService, VaticanService } from '../@app-core/http';
 import { IonInfiniteScroll, ModalController } from '@ionic/angular';
 import { AccountService } from '../@app-core/http/account/account.service';
-import { GeolocationService, ImageService, OneSignalService } from '../@app-core/utils';
+import { GeolocationService, ImageService, LoadingService, OneSignalService } from '../@app-core/utils';
 
 @Component({
   selector: 'app-main',
@@ -69,11 +69,6 @@ export class MainPage implements OnInit {
   ]
 
   news = [];
-  pageRequestVatican: IPageRequest = {
-    page: 1,
-    per_page: 10
-  }
-
   constructor(
     private router: Router,
     private OneSignalService: OneSignalService,
@@ -81,16 +76,15 @@ export class MainPage implements OnInit {
     private accountService: AccountService,
     private authService: AuthService,
     public modalCtrl: ModalController,
-    public vaticanService: VaticanService
-  ) { }
-  request: IPageRequest = {
-    page: 1,
-    per_page: 100
-  }
+    public vaticanService: VaticanService,
+    public loadingService: LoadingService
+  ) {
+    this.init();
+   }
   data;
+  lastedData: any;
   ionViewWillEnter() {
     this.name = localStorage.getItem('fullname');
-    // this.imageService.getImage();
     this.accountService.getAccounts().subscribe(data => {
       if (data.app_user.thumb_image == null) {
         data.app_user['thumb_image'] = "https://i.imgur.com/edwXSJa.png";
@@ -114,58 +108,41 @@ export class MainPage implements OnInit {
     this.name = localStorage.getItem('fullname');
     this.getListVatican();
   }
-  getListVatican() {
-    this.vaticanService.getAll(this.request).subscribe(data => {
-        this.data = data.vatican_news;
-        console.log(this.data);
-        // if(this.data) {}
+  init() {
+    this.data = {
+      vatican_news: {
+        pageRequest: {
+          page: 1,
+          per_page: 3,
+        },
+        array: [],
+        loadedData: false
+      },
+    };
+  }
+
+ 
+  getListVatican(func?) {
+    let news = this.data.vatican_news;
+    this.vaticanService.getAll(news.pageRequest).subscribe(data => {
+      console.log(data)
+      news.array = data.vatican_news;
+      console.log(news.array)
+      this.lastedData = news.array[news.array.length - 1];
+      this.loadingService.dismiss();
+      func && func();
+      news.pageRequest.page++;
+      if (data.vatican_news.length >= data.meta.pagination.total_objects) {
+        news.loadedData = true;
+      }
     })
   }
 
-  // length = 0;
-  // const list = document.getElementById('list');
-  // const infiniteScroll = document.getElementById('infinite-scroll');
-
-  // infiniteScroll.addEventListener('ionInfinite', async function () {
-  //   if (length < this.data.length) {
-  //     console.log('Loading data...');
-  //     await wait(500);
-  //     this.infinityScroll.complete();
-  //     appendItems(3);
-  //     console.log('Done');
-  //   } else {
-  //     console.log('No More Data');
-  //     this.infinityScroll.disabled = true;
-  //   }
-  // });
-
-  // function appendItems(number) {
-  //   console.log('length is', length);
-  //   const originalLength = length;
-  //   for (var i = 0; i < number; i++) {
-  //     const el = document.createElement('ion-item');
-  //     el.innerHTML = `
-  //       <ion-avatar slot="start">
-  //         <img src="${this.thumbImage}">
-  //       </ion-avatar>
-  //       <ion-label>
-  //         ${this.data.title}
-  //       </ion-label>
-  //     `;
-  //     list.appendChild(el);
-  //     length++;
-  //   }
-  // }
-
-  // function wait(time) {
-  //   return new Promise(resolve => {
-  //     setTimeout(() => {
-  //     }, time);
-  //   });
-  // }
-
-  // appendItems(20);
-
+  loadMoreDataOrders(event) {
+    this.getListVatican(() => {
+      event.target.complete();
+    })
+ }
   goToDetail(item) {
     if (item.desUrl == 'donate') {
       const data = {
