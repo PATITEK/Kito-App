@@ -102,7 +102,6 @@ export class MapPage implements OnInit {
     let tempId = JSON.parse(localStorage.getItem('diocese'))
     this.pageRequestParishes.diocese_id = tempId.id
     this.parishesService.getAll(this.pageRequestParishes).subscribe(data => {
-      console.log(data)
       this.markers = data.parishes;
       this.addMarkersToMap(this.markers);
     })
