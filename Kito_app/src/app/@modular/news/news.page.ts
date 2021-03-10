@@ -21,8 +21,8 @@ export class NewsPage implements OnInit {
     diocese_id: 1
   }
   pageRequestParish: IPageRequest = {
-      page: 1,
-      per_page: 10,
+    page: 1,
+    per_page: 10,
   }
 
   constructor(
@@ -69,13 +69,10 @@ export class NewsPage implements OnInit {
               data.vatican_news.forEach(v => v.type = dataParams.type);
               this.news = data.vatican_news;
             })
+            break;
           case 'parish':
-            console.log('1')
-            this.parishesService.getAllNotidDioces(this.pageRequestParish).subscribe(data =>{
-              console.log(data)
+            this.parishesService.getAllNotidDioces(this.pageRequestParish).subscribe(data => {
               this.news = data.parishes;
-              console.log(this.news)
-              
             })
             break;
         }
