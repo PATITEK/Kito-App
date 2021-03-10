@@ -5,9 +5,9 @@
   <div class="news">
     <ion-row class="news__content">
       <ion-col class="main-news active-effect" size="8" *ngFor="let item of news" (click)="goToNewsDetail(item)">
-        <img class="item-img" [src]="item.thumbImage">
+        <img class="item-img" [src]="item.thumb_image.url">
         <ion-buttons class="text-box">
-          <p class="item-title three-dots-2">{{ item.title }}</p>
+          <p class="item-title three-dots-2">{{ item.name }}</p>
         </ion-buttons>
       </ion-col>
     </ion-row>
@@ -21,11 +21,10 @@
   </ion-segment-button>
 </ion-segment>
   <ion-item-group class="segement-news ion-padding" *ngIf="tabNew">
-      <ion-label>Giáo xứ Đức Mẹ Hằng Cứu Giúp </ion-label>
+      <ion-label> {{myData.myParish_title}}</ion-label>
       <div [style.background] = "getUrl()" class="bg"></div>
-      <span>Giáo xứ ĐMHCG được thành lập vào năm 1963, 
-        đến nay (2013) vừa tròn 50 năm, và được kể là một Giáo xứ non trẻ so
-        với các Giáo xứ kỳ cựu của Giáo phận Sài Gòn, nhất là hai trong các giáo xứ mẹ: Giáo xứ Chợ Đũi, thành lập năm 1859 (cách nay 154 năm) và Giáo xứ Tân Định, thành lập năm 1860 (cách nay 153 năm).</span>
+      <span [innerHTML] = "myData.myParish_info">
+      </span>
     </ion-item-group >
     <ion-item-group class="home" *ngIf="!tabNew">
       <ion-item-group class="list-item">
