@@ -45,6 +45,10 @@ const routes: Routes = [
     path: 'hymn-music',
     loadChildren: () => import('./hymn-music/hymn-music.module').then( m => m.HymnMusicPageModule)
   },
+  {
+    path: 'hymn-video',
+    loadChildren: () => import('./hymn-video/hymn-video.module').then( m => m.HymnVideoPageModule)
+  },
 
 
 

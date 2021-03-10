@@ -35,6 +35,10 @@ ion-content {
         }
   
         .item-img {
+          background-repeat: no-repeat !important;
+          background-size: cover !important;
+          border-radius: 20px;
+          background-position: center center;
           width: 100%;
           height: 100%;
           object-fit: cover;
@@ -46,13 +50,14 @@ ion-content {
           right: 0;
           bottom: 0;
           background: rgba(#424242, 0.5);
+          height: 42px;
           padding: 10px 5px 5px;
           z-index: 1;
           color: #fff;
           .item-title {
             font-size: 14px;
             font-weight: 500;
-            margin: 0;
+            margin: 0 0 0 13px;
             text-align: left;
           }
         }

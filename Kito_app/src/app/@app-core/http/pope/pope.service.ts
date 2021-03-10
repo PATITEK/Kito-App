@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { map, catchError } from 'rxjs/operators';
 import { IPageRequest, APICONFIG } from '..';
 import { requestQuery } from '../../utils';
+import { IPope } from './pope.DTO';
 
 @Injectable()
 export class PopeService {
@@ -17,6 +18,16 @@ export class PopeService {
         throw errorRes.error;
       })
     );
+  }
+  public getAllByParish(request: IPope) {
+     return this.http.get<any>(`${APICONFIG.POPE.GET}?${(requestQuery(request))}`).pipe(
+       map((result) => {
+         return result;
+       }),
+       catchError((errorRes: any) => {
+         throw errorRes.error;
+       })
+     )
   }
 
   public getDetail(id) {

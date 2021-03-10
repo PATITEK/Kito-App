@@ -64,7 +64,7 @@ export class MainPage implements OnInit {
     {
       name: 'Video bài giảng',
       thumbImage: 'assets/img/menu/baigiang.svg',
-      desUrl: 'main/news',
+      desUrl: 'main/hymn-video',
     },
   ]
 
@@ -121,13 +121,10 @@ export class MainPage implements OnInit {
     };
   }
 
- 
   getListVatican(func?) {
     let news = this.data.vatican_news;
     this.vaticanService.getAll(news.pageRequest).subscribe(data => {
-      console.log(data)
       news.array = data.vatican_news;
-      console.log(news.array)
       this.lastedData = news.array[news.array.length - 1];
       this.loadingService.dismiss();
       func && func();

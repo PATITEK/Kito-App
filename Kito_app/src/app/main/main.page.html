@@ -26,18 +26,18 @@
       </ion-buttons>
       <div class="news">
         <span class="news__title">Tin tức Vatican</span>
-        <ion-row class="news__content"[scrollX]="true" [scrollEvents]="true" (ionScrollStart)="ionScrollStart()">
+        <ion-row class="news__content">
           <ion-col class="main-news active-effect" size="8" *ngFor="let item of data.vatican_news.array" (click)="goToNewsDetail(item)">
             <img class="item-img" [src] ="item.thumb_images[0].url">
             <ion-buttons class="text-box">
               <p class="item-title three-dots-2">{{ item.title }}</p>
             </ion-buttons>
           </ion-col>
-          <ion-infinite-scroll *ngIf="data.vatican_news.array.length != 0 && !data.vatican_news.loadedData" threshold="100px"
+          <ion-infinite-scroll  threshold="100px"
           (ionInfinite)="loadMoreDataOrders($event)">
           <ion-infinite-scroll-content loadingSpinner="lines" loadingText="Loading more data..."></ion-infinite-scroll-content>
         </ion-infinite-scroll>
-
+      <!-- *ngIf="data.vatican_news.array.length != 0 && !data.vatican_news.loadedData" -->
         
         </ion-row>
       </div>

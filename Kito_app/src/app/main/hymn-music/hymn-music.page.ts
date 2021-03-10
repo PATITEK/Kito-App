@@ -85,14 +85,14 @@ export class HymnMusicPage implements OnInit {
       src: [track.path],
       html5: true,
       onplay: () => {
-        console.log('onplay')
+        // console.log('onplay')
         this.isPlaying = true;
         this.activeTrack = track;
         this.updateProgress();
       },
       onend: () => {
         this.next();
-        console.log('onend')
+        // console.log('onend')
       }
     });
     this.player.play();
@@ -114,7 +114,7 @@ export class HymnMusicPage implements OnInit {
     } else {
       track.isLike == true
     }
-    console.log(isLike)
+    // console.log(isLike)
   }
 
   next() {
