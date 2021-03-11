@@ -1,59 +1,136 @@
 ion-content {
-  --padding-top: calc(80px + 45px + 30px);
+  --padding-top: calc(80px + 45px + 52px);
   --padding-start: 6px;
   --padding-end: 6px;
 
   ion-segment {
-    margin: -20px auto;
-    margin-bottom: 20px;
+    padding: 10px 10px;
+    --background: transparent;
+    background: #fff;
+    position: fixed;
+    top: calc(80px + 45px);
+    left: 0;
+    right: 0;
+    z-index: 10;
+    border-radius: 0;
 
     ion-segment-button {
       font-size: 15px;
       --color-checked: var(--white-color);
       --color: #828282;
+      --border-radius: 10px;
 
       &::part(indicator-background) {
         background: #f6c33e;
-      }
-    }
-  }
-
-  .song-cover {
-    padding: 10px;
-    justify-content: space-between;
-
-    ion-buttons {
-      ion-icon {
-        color: #c8c8c8;
-        width: 25px;
+        box-shadow: 0px 5px 8px rgba(189, 189, 189, 0.25);
       }
     }
   }
 }
 
-ion-footer {
-  ion-toolbar {
-    ion-row {
-      .range-cover {
-        height: 30px;
-        ion-range {
-          transform: translateY(-25px);
-        }
+.song-list {
+  .song-cover {
+    padding: 10px;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    ion-icon {
+      color: #c8c8c8;
+      width: 25px;
+    }
+
+    .left-box,
+    .right-box {
+      flex-basis: calc(50% - 5px);
+    }
+
+    .left-box {
+      .song-name {
+        flex: 1;
+        word-break: break-word;
+        color: #424242;
+        font-size: 16px;
       }
-      .bottom-cover {
-        padding: 10px;
-        .avatar {
-          // transform: translateX(-140%);
-          span {
-            font-size: 15px;
-            color: #424242;
-            margin-left: 5px;
-          }
-        }
-        // .button {
-        //   // transform: translateX(40%);
-        // }
+    }
+
+    .right-box {
+      justify-content: flex-end;
+
+      .author {
+        flex: 1;
+        text-align: right;
+        word-break: break-word;
+        color: #828282;
+        font-size: 14px;
       }
     }
   }
+
+  .active-song-cover {
+    background: #f2f2f2;
+
+    .left-box {
+      .song-name {
+        font-weight: 500;
+      }
+    }
+
+    .right-box {
+      .author {
+        font-weight: 500;
+      }
+    }
+  }
+}
+
+.liked {
+  color: #f23131 !important;
+}
+
+.footer-inner {
+  padding: 25px 10px 15px;
+
+  .footer-left {
+    width: calc(100% - 154px);
+
+    .avatar {
+      width: 60px;
+      height: 60px;
+      margin-right: 10px;
+    }
+
+    .active-tract-info {
+      width: calc(100% - 70px);
+      .active-track-name {
+        color: #424242;
+        font-size: 16px;
+        font-weight: 500;
+      }
+
+      .active-track-author {
+        color: #828282;
+        font-size: 14px;
+      }
+    }
+  }
+
+  .footer-right {
+    margin-left: 10px;
+
+    ion-icon {
+      color: #c8c8c8;
+      font-size: 32px;
+      padding: 8px;
+    }
+  }
+}
+
+.range {
+  height: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  --bar-background: #c8c8c8;
+  --bar-background-active: #f6c33e;
 }

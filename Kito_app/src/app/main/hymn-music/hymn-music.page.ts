@@ -1,14 +1,7 @@
-import { LoadingService } from './../../@app-core/utils/loading.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Howl } from 'howler'
 import { IonRange } from '@ionic/angular';
-
-export interface Track {
-  name: string;
-  author: string;
-  path: string;
-  isLike: boolean;
-}
+import { listenerCount } from 'node:events';
 
 @Component({
   selector: 'app-hymn-music',
@@ -16,122 +9,109 @@ export interface Track {
   styleUrls: ['./hymn-music.page.scss'],
 })
 export class HymnMusicPage implements OnInit {
+  @ViewChild('range', { static: false }) range: IonRange;
+
   headerCustom = { title: 'Nhạc Thánh ca' };
   segmentValue = 'all';
-  likedPlaylist: Track[] = [];
-  playlist: Track[] = [
+  playlist = [
     {
-      name: 'ccccxss',
-      author: 'aasxxasxax',
+      id: 0,
+      name: 'Hãy thắp sáng lên',
+      author: 'Phan Đình Tùng',
       path: 'http://res.cloudinary.com/dtj7y1r0l/video/upload/v1458851262/msgSound_x2laav.mp3',
-      isLike: true,
+      liked: true,
     },
     {
-      name: 'kikikik',
-      author: 'hghghghg',
+      id: 1,
+      name: 'Con chỉ là tạo vật',
+      author: 'Tâm Đoan',
       path: '../../../assets/img/questionares/audios/soundtrack1.mp3',
-      isLike: false,
+      liked: false,
     },
     {
-      name: 'sfsfssdaad',
-      author: '5w5rwres',
+      id: 2,
+      name: 'Hoan Ca Maria',
+      author: 'Hoàng Nhung',
       path: '../../../assets/img/questionares/audios/soundtrack1.mp3',
-      isLike: true,
-    }
+      liked: true,
+    },
   ]
 
-  like() {
-    this.likedPlaylist = [];
-    for(let list of this.playlist) {
-      if(list.isLike == true) {
-        this.likedPlaylist.push({
-          name: list.name,
-          author: list.author,
-          path: list.path,
-          isLike: list.isLike
-        })
-      }
-    }
-  }
-
-  activeTrack: Track = null;
+  activeTrack = null;
   player: Howl = null;
   isPlaying = false;
   progress = 0;
-  @ViewChild('range', { static: false }) range: IonRange;
 
-  constructor(private loadingService: LoadingService) { }
+  constructor() { }
 
   ngOnInit() {
   }
 
   ionViewWillLeave() {
-    if(this.isPlaying) {
-      this.togglePlayer(this.isPlaying);
-    }
+    this.player.playing() && this.player.pause();
   }
 
   changedSegment(event) {
     this.segmentValue = event.target.value;
-    this.like();
   }
 
-  start(track: Track) {
-    this.loadingService.present();
-    if(this.player) {
+  start(track) {
+    this.activeTrack = track;
+    if (this.player) {
       this.player.stop();
     }
     this.player = new Howl({
       src: [track.path],
       html5: true,
       onplay: () => {
-        // console.log('onplay')
         this.isPlaying = true;
-        this.activeTrack = track;
         this.updateProgress();
       },
       onend: () => {
         this.next();
-        // console.log('onend')
       }
     });
     this.player.play();
-    this.loadingService.dismiss();
   }
 
-  togglePlayer(pause) {
-    this.isPlaying = !pause;
-    if(pause) {
+  togglePlayer() {
+    if (this.player.playing()) {
       this.player.pause();
     } else {
       this.player.play();
     }
   }
 
-  toggleLike(track, isLike) {
-    if(isLike == true) {
-      track.isLike == false
-    } else {
-      track.isLike == true
-    }
-    // console.log(isLike)
+  toggleLike(track) {
+    event.stopPropagation();
+    track.liked = !track.liked;
   }
 
   next() {
-    let index = this.playlist.indexOf(this.activeTrack);
-    if (index != this.playlist.length - 1) {
-      this.start(this.playlist[index+1]);
+    let list = this.segmentValue === 'all' ? this.playlist : this.playlist.filter(track => track.liked);
+    let index = list.indexOf(this.activeTrack);
+    if (index == -1) {
+      list = this.playlist;
+      index = list.indexOf(this.activeTrack);
+    }
+    if (index != list.length - 1) {
+      this.start(list[index + 1]);
     } else {
-      this.start(this.playlist[0]);
+      this.start(list[0]);
     }
   }
 
   prev() {
-    let index = this.playlist.indexOf(this.activeTrack);
+    let list = this.segmentValue === 'all' ? this.playlist : this.playlist.filter(track => track.liked);
+    let index = list.indexOf(this.activeTrack);
+    if (index == -1) {
+      list = this.playlist;
+      index = list.indexOf(this.activeTrack);
+    }
     if (index > 0) {
-      this.start(this.playlist[index-1]);
+      this.start(list[index - 1]);
     } else {
-      this.start(this.playlist[this.playlist.length - 1]);
+      this.start(list[list.length - 1]);
     }
   }
 
@@ -143,10 +123,13 @@ export class HymnMusicPage implements OnInit {
 
   updateProgress() {
     let seek = this.player.seek();
-    this.progress = (<any>seek / this.player.duration()) *100 || 0;
+    this.progress = (<any>seek / this.player.duration()) * 100 || 0;
     setTimeout(() => {
       this.updateProgress();
     }, 1000)
   }
 
+  checkActiveTrack(track) {
+    return this.activeTrack && track.id === this.activeTrack.id;
+  }
 }
