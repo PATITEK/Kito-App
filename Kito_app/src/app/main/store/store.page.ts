@@ -14,11 +14,10 @@ export class StorePage implements OnInit {
   @ViewChild(IonContent) ionContent: IonContent;
   @ViewChild('infiniteScroll') infinityScroll: IonInfiniteScroll;
 
-  headerCustom = {title: 'Cửa hàng'};
+  headerCustom = { title: 'Cửa hàng' };
   list = [];
   cart = [];
   hasSetting = false;
-  headerIconElement: any;
   categories = [];
   currentCategoryId = null;
   pageRequestCategories: IPageRequest = {
@@ -50,11 +49,7 @@ export class StorePage implements OnInit {
     this.resetAmount();
   }
 
-  ionViewDidEnter() {
-    this.headerIconElement = document.getElementById('header-icon');
-  }
-
-  getProducts(func?) {
+  getProducts(event?) {
     this.pageRequestProducts.category_id = this.currentCategoryId;
     this.storeService.getAllProducts(this.pageRequestProducts).subscribe(data => {
       data.products.forEach(product => {
@@ -63,7 +58,13 @@ export class StorePage implements OnInit {
       })
       this.list = this.list.concat(data.products);
 
-      func && func();
+
+      if (event) {
+        if (this.list.length >= data.meta.pagination.total_objects) {
+          event.target.disabled = true;
+        }
+        event.target.complete();
+      }
     })
   }
 
@@ -79,14 +80,12 @@ export class StorePage implements OnInit {
     this.list.forEach(item => item.amount = 0);
   }
 
-  toggleHasSetting(value) {
-    this.hasSetting = value;
+  setHasSetting(bool) {
+    this.hasSetting = bool;
   }
 
-  onCheckClickOutsideHeaderIcon(e) {
-    if (this.headerIconElement && !this.headerIconElement.contains(e.target)) {
-      this.toggleHasSetting(false);
-    }
+  toggleHasSetting() {
+    this.hasSetting = !this.hasSetting;
   }
 
   getCart() {
@@ -107,6 +106,7 @@ export class StorePage implements OnInit {
   }
 
   changeCategory(category) {
+    this.setHasSetting(false);
     if (this.currentCategoryId != category.id) {
       this.currentCategoryId = category.id;
       this.list = [];
@@ -172,11 +172,10 @@ export class StorePage implements OnInit {
   }
 
   loadMoreProducts(event) {
-    this.getProducts(() => {
-      event.target.complete();
-      if (this.list.length >= 20) {
-        event.target.disabled = true;
-      }
-    })
+    this.getProducts(event);
+  }
+
+  onScrollContent(event) {
+    this.setHasSetting(false);
   }
 }
