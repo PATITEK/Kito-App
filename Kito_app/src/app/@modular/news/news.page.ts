@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DioceseNewsService, IPageRequest, VaticanService } from 'src/app/@app-core/http';
+import { DioceseNewsService, IPageRequest, ParishesService, VaticanService } from 'src/app/@app-core/http';
 import { IPageParishes } from 'src/app/@app-core/http/parishes/parishes.DTO';
 
 @Component({
@@ -18,14 +18,19 @@ export class NewsPage implements OnInit {
   pageRequestDioceseNews: IPageParishes = {
     page: 1,
     per_page: 10,
-    diocese_id: ''
+    diocese_id: 1
+  }
+  pageRequestParish: IPageRequest = {
+    page: 1,
+    per_page: 10,
   }
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     private vaticanService: VaticanService,
-    private dioceseNewsService: DioceseNewsService
+    private dioceseNewsService: DioceseNewsService,
+    private parishesService: ParishesService
   ) { }
 
   ngOnInit() {
@@ -46,23 +51,28 @@ export class NewsPage implements OnInit {
 
   getData() {
     this.route.queryParams.subscribe(params => {
-      const dataPrams = JSON.parse(params['data']);
-      if (dataPrams.id) {
-        this.pageRequestDioceseNews.diocese_id = dataPrams.id;
-        switch (dataPrams.type.detail) {
+      const dataParams = JSON.parse(params['data']);
+      if (dataParams.id) {
+        this.pageRequestDioceseNews.diocese_id = dataParams.id;
+        switch (dataParams.type.detail) {
           case 'dioceseNews':
             this.dioceseNewsService.getAll(this.pageRequestDioceseNews).subscribe(data => {
-              data.diocese_news.forEach(v => v.type = dataPrams.type);
+              data.diocese_news.forEach(v => v.type = dataParams.type);
               this.news = data.diocese_news;
             })
             break;
         }
       } else {
-        switch (dataPrams.type.detail) {
+        switch (dataParams.type.detail) {
           case 'vatican':
             this.vaticanService.getAll(this.pageRequestVatican).subscribe(data => {
-              data.vatican_news.forEach(v => v.type = dataPrams.type);
+              data.vatican_news.forEach(v => v.type = dataParams.type);
               this.news = data.vatican_news;
+            })
+            break;
+          case 'parish':
+            this.parishesService.getAllNotidDioces(this.pageRequestParish).subscribe(data => {
+              this.news = data.parishes;
             })
             break;
         }

@@ -31,7 +31,6 @@ export class NewsDetailPage implements OnInit {
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
       const dataParams = JSON.parse(params['data']);
-
       switch (dataParams.type.general) {
         case 'news':
           this.headerCustom.title = 'Tin tức';
