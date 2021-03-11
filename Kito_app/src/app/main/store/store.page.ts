@@ -49,7 +49,7 @@ export class StorePage implements OnInit {
     this.resetAmount();
   }
 
-  getProducts(func?) {
+  getProducts(event?) {
     this.pageRequestProducts.category_id = this.currentCategoryId;
     this.storeService.getAllProducts(this.pageRequestProducts).subscribe(data => {
       data.products.forEach(product => {
@@ -58,7 +58,13 @@ export class StorePage implements OnInit {
       })
       this.list = this.list.concat(data.products);
 
-      func && func();
+
+      if (event) {
+        if (this.list.length >= data.meta.pagination.total_objects) {
+          event.target.disabled = true;
+        }
+        event.target.complete();
+      }
     })
   }
 
@@ -100,6 +106,7 @@ export class StorePage implements OnInit {
   }
 
   changeCategory(category) {
+    this.setHasSetting(false);
     if (this.currentCategoryId != category.id) {
       this.currentCategoryId = category.id;
       this.list = [];
@@ -165,15 +172,10 @@ export class StorePage implements OnInit {
   }
 
   loadMoreProducts(event) {
-    this.getProducts(() => {
-      event.target.complete();
-      if (this.list.length >= 20) {
-        event.target.disabled = true;
-      }
-    })
+    this.getProducts(event);
   }
 
-  logContent(event) {
+  onScrollContent(event) {
     this.setHasSetting(false);
   }
 }

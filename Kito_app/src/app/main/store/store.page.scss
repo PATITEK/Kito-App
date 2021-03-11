@@ -63,7 +63,7 @@ ion-infinite-scroll {
   right: 0;
   top: calc(80px + 45px);
   background: #fff;
-  z-index: 2;
+  z-index: 1;
 
   .segment {
     flex-wrap: nowrap;
@@ -110,7 +110,7 @@ ion-infinite-scroll {
     top: 34px;
     right: 8px;
     background: #fff;
-    z-index: 1;
+    z-index: 3;
 
     .setting-item {
       color: #424242;
