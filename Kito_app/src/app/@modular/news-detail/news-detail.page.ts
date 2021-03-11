@@ -42,6 +42,8 @@ export class NewsDetailPage implements OnInit {
           this.headerCustom.title = 'Tiểu sử';
         case 'parish':
           this.headerCustom.title = 'Tin tức Giáo xứ'
+        case 'parish_news':
+          this.headerCustom.title = 'Tin tức Giáo xứ'
           break;
       }
       switch (dataParams.type.detail) {
@@ -67,6 +69,11 @@ export class NewsDetailPage implements OnInit {
           this.parishService.getDetail(dataParams.id).subscribe(data => {
             this.data = data.parish;
             this.imgnotFound(this.data);
+          })
+        case 'parish_news':
+          this.parishService.getParishNewsByid(dataParams.id).subscribe(data => {
+            this.imgnotFound(data?.parish_news);
+            this.data = data.parish_news;
           })
           break;
         case 'dioceseNews':

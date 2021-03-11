@@ -23,13 +23,11 @@ export class NewsPage implements OnInit {
   pageRequestParishNews: IPageParishes = {
     page: 1,
     per_page: 10,
-
   }
   pageRequestParish: IPageParishes = {
     parish_id: localStorage.getItem('parish_id'),
     page: 1,
     per_page: 10,
-
   }
   time = [{
     year: '',
@@ -69,16 +67,21 @@ export class NewsPage implements OnInit {
         switch (dataParams.type.detail) {
           case 'dioceseNews':
             this.dioceseNewsService.getAll(this.pageRequestDioceseNews).subscribe(data => {
-              data.diocese_news.forEach(v => v.type = dataParams.type);
+              data.diocese_news.forEach(element => {
+                element.type = dataParams.type
+                element.time = element.created_at.slice(11,16)
+                element.yymmdd =  element.created_at.slice(0,10);
+                 });
               this.news = data.diocese_news;
             })
-          case 'parish':
+          case 'parish_news':
             this.headerCustom.title = 'Tin tức Giáo xứ'
             this.parishesService.getAllNewsByParish(this.pageRequestParish).subscribe(data => {
               data.parish_news.forEach(element => {
+                element.type = dataParams.type;
                   this.imgnotFound(element);
-                  element['time'] = element.created_at.slice(11,16)
-                  element['yymmdd'] =  element.created_at.slice(0,10);
+                  element.time = element.created_at.slice(11,16)
+                  element.yymmdd =  element.created_at.slice(0,10);
               });
               this.news = data.parish_news;
             })
@@ -89,10 +92,13 @@ export class NewsPage implements OnInit {
           case 'vatican':
             this.vaticanService.getAll(this.pageRequestVatican).subscribe(data => {
               console.log(data)
-              data.vatican_news.forEach(v => v.type = dataParams.type);
+              data.vatican_news.forEach(element => {
+                element.type = dataParams.type
+                element.time = element.created_at.slice(11,16)
+                element.yymmdd =  element.created_at.slice(0,10);
+              });
               this.news = data.vatican_news;
             })
-
             break;
         }
       }

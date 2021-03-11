@@ -162,8 +162,8 @@ export class MainPage implements OnInit {
       const data = {
         id: localStorage.getItem('parish_id'),
         type: {
-          detail: 'parish',
-          general: 'parish'
+          detail: 'parish_news',
+          general: 'parish_news'
         }
 
       }

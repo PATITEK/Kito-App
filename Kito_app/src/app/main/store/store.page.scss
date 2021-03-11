@@ -26,10 +26,10 @@ ion-infinite-scroll {
     padding: 5px;
     background: #fff;
     border-radius: 100%;
-    transition: .25s;
+    transition: 0.25s;
 
     &:active {
-      transform: translate(-50%, -65%) scale(.95);
+      transform: translate(-50%, -65%) scale(0.95);
     }
 
     .cart-inner {
@@ -110,7 +110,7 @@ ion-infinite-scroll {
     top: 34px;
     right: 8px;
     background: #fff;
-    z-index: 1;
+    z-index: 3;
 
     .setting-item {
       color: #424242;
