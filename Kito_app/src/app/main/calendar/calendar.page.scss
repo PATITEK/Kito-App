@@ -2,7 +2,10 @@ ion-content {
     --padding-top: 80px;
     
     .calendar {
-        height: 410px;
+        height: 425px;
+        @media screen and (max-height: 569px) {
+                height: 310px;
+            }
     }
     .title-calendar {
         width: 100%;
@@ -16,6 +19,7 @@ ion-content {
             text-align: center;
             text-transform: uppercase;
             margin: 0;
+            font-size: 20px;
             line-height: 50px;
         }
         .icon-filler {

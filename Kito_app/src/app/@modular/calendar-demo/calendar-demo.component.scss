@@ -14,7 +14,7 @@
             top: 0;
             bottom: 0;
             margin: auto;
-            color: #424242;
+            
         }
         .button-slide {
             position: absolute;
@@ -37,8 +37,10 @@
     .calendar-content {
         margin-top: 10px;
         .days-of-weeks {
+            border-bottom: 3px solid #f2f2f2;
+            margin-bottom: 5px;
             .list-days-week {
-                border-bottom: 3px solid #f2f2f2;
+                // border-bottom: 3px solid #f2f2f2;
                 .day-week {
                     flex-basis: calc(100% / 7);
 
@@ -59,8 +61,11 @@
                     padding: 6px;
                     border: 1px solid #f2f2f2;
                     box-sizing: border-box;
+                    display: flex;
+                    justify-content: left;
                     .duong-lich {
                         font-size: 16px;
+                        text-align: left;
                     }
                     .am-lich {
                         position: absolute;
@@ -88,4 +93,7 @@
         font-weight: 400;
         padding: 10px;
     }
+}
+ion-slides{
+    margin: 10px 20px;
 }

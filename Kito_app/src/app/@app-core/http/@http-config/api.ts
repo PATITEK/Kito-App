@@ -90,6 +90,10 @@ export const APICONFIG = {
     GET_QUES_TOPIC: topic => `/${topic}`,
     GET_QUES_LEVEL: level => `/${level}`,
     CHECK_ANSWER: answerKey => `/${answerKey}`,
+  },
+  COURSE:{
+    GET_COURSE_GROUP: `/app/course_groups`,
+    GET_COURSE_ID:`/app/courses`
   }
 };
 

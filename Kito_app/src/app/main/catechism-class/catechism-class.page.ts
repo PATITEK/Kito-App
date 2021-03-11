@@ -11,7 +11,7 @@ export class CatechismClassPage implements OnInit {
 
   catechismList = [
     {
-      name: 'Giáo lý lớp 1-12',
+      name: 'Giáo lý Hồng Ân',
       thumbImage: 'assets/img/catechism-menu-1.svg',
       desUrl: 'main/catechism-class/catechism'
     },
