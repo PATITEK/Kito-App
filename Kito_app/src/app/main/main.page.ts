@@ -24,7 +24,7 @@ export class MainPage implements OnInit {
     {
       name: 'Tin tức giáo xứ',
       thumbImage: 'assets/img/menu/tintuc.svg',
-      desUrl: 'main/news',
+      desUrl: 'news',
     },
     {
       name: 'Chi tiết giờ lễ',
@@ -102,7 +102,7 @@ export class MainPage implements OnInit {
       }
     })
   }
-
+  
   ngOnInit() {
     this.OneSignalService.startOneSignal();
     this.name = localStorage.getItem('fullname');
@@ -113,7 +113,7 @@ export class MainPage implements OnInit {
       vatican_news: {
         pageRequest: {
           page: 1,
-          per_page: 4,
+          per_page: 100,
         },
         array: [],
         loadedData: false
@@ -125,6 +125,7 @@ export class MainPage implements OnInit {
     let news = this.data.vatican_news;
     this.vaticanService.getAll(news.pageRequest).subscribe(data => {
       news.array = data.vatican_news;
+      news.array = news.array.slice(-4);
       this.lastedData = news.array[news.array.length - 1];
       this.loadingService.dismiss();
       func && func();
@@ -146,14 +147,33 @@ export class MainPage implements OnInit {
         type: 'donate'
       }
       this.authService.sendData(data)
+     this.router.navigateByUrl(item.desUrl);
+
     }
     else if (item.desUrl == 'pray') {
       const data = {
         type: 'pray'
       }
       this.authService.sendData(data)
+     this.router.navigateByUrl(item.desUrl);
+
     }
-    this.router.navigateByUrl(item.desUrl);
+    else if(item.desUrl == 'news') {
+      const data = {
+        id: localStorage.getItem('parish_id'),
+        type: {
+          detail: 'parish',
+          general: 'parish'
+        }
+
+      }
+      this.router.navigate(['/news'], {
+        queryParams: {
+          data: JSON.stringify(data)
+        }
+      })
+    }
+    else this.router.navigateByUrl(item.desUrl);
   }
 
   goToNewsDetail(item) {
@@ -170,7 +190,6 @@ export class MainPage implements OnInit {
       }
     })
   }
-
   goToAccountSetting() {
     this.router.navigateByUrl('account-setting');
   }

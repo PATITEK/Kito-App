@@ -21,6 +21,15 @@ export class ParishesService {
         throw errorRes.error;
       }));
   }
+  public getAllNewsByParish(request: IPageParishes) {
+    return this.http.get<any>(`${APICONFIG.PARISHES.GETNEWS}?${(requestQuery(request))}`).pipe(
+      map((result) => {
+        return result;
+      }),
+      catchError((errorRes: any) => {
+        throw errorRes.error;
+      }));
+  }
   public getAllNotidDioces(request: IPageParishes) {
     return this.http.get<any>(`${APICONFIG.PARISHES.GETLIST}?${(requestQuery(request))}`).pipe(
       map((result) => {

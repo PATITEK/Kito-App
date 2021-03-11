@@ -20,11 +20,24 @@ export class NewsPage implements OnInit {
     per_page: 10,
     diocese_id: 1
   }
-  pageRequestParish: IPageRequest = {
-      page: 1,
-      per_page: 10,
-  }
+  pageRequestParishNews: IPageParishes = {
+    page: 1,
+    per_page: 10,
 
+  }
+  pageRequestParish: IPageParishes = {
+    parish_id: localStorage.getItem('parish_id'),
+    page: 1,
+    per_page: 10,
+
+  }
+  time = [{
+    year: '',
+    month: '',
+    day: '',
+    time: ''
+  }]
+  day: any;
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -36,7 +49,6 @@ export class NewsPage implements OnInit {
   ngOnInit() {
     this.getData();
   }
-
   goToNewsDetail(item) {
     const data = {
       id: item.id,
@@ -60,26 +72,34 @@ export class NewsPage implements OnInit {
               data.diocese_news.forEach(v => v.type = dataParams.type);
               this.news = data.diocese_news;
             })
+          case 'parish':
+            this.headerCustom.title = 'Tin tức Giáo xứ'
+            this.parishesService.getAllNewsByParish(this.pageRequestParish).subscribe(data => {
+              data.parish_news.forEach(element => {
+                  this.imgnotFound(element);
+                  element['time'] = element.created_at.slice(11,16)
+                  element['yymmdd'] =  element.created_at.slice(0,10);
+              });
+              this.news = data.parish_news;
+            })
             break;
         }
       } else {
         switch (dataParams.type.detail) {
           case 'vatican':
             this.vaticanService.getAll(this.pageRequestVatican).subscribe(data => {
+              console.log(data)
               data.vatican_news.forEach(v => v.type = dataParams.type);
               this.news = data.vatican_news;
             })
-          case 'parish':
-            console.log('1')
-            this.parishesService.getAllNotidDioces(this.pageRequestParish).subscribe(data =>{
-              console.log(data)
-              this.news = data.parishes;
-              console.log(this.news)
-              
-            })
+
             break;
         }
       }
     }).unsubscribe();
   }
+  imgnotFound(item) {
+    !item?.thumb_image?.url && (item.thumb_image = {url: "https://i.imgur.com/UKNky29.jpg"});
+  }
+  
 }

@@ -19,7 +19,7 @@
     </ion-item-group >
     <ion-item-group class="home" *ngIf="!tabNew">
       <ion-item-group class="list-item">
-        <ion-item-group *ngFor='let item of listPriest' class="item-stories" (click)="goToStoryDetail()">
+        <ion-item-group *ngFor='let item of listPriest' class="item-stories" (click)="goToStoryDetail(item)">
           <img src="{{item.thumb_image.url}}" alt="">
           <ion-item-group class="stories-info">
             <ion-label text-wrap class="stories-title">{{item.title}}</ion-label>

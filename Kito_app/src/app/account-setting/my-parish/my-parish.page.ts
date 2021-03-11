@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { IPageRequest, ParishesService, PopeService } from 'src/app/@app-core/http';
 import { IPope } from 'src/app/@app-core/http/pope/pope.DTO';
 import { LoadingService } from 'src/app/@app-core/utils';
@@ -20,7 +21,6 @@ export class MyParishPage implements OnInit {
     myParish_image: '',
     myParish_title: '',
     myParish_info :''
-
   }
   listPriest = []
   news: any;
@@ -30,6 +30,7 @@ export class MyParishPage implements OnInit {
     per_page: 100
   }
   constructor( 
+    private router: Router,
     private parishService: ParishesService,
     private loadingService: LoadingService,
     private popeService: PopeService) { }
@@ -50,6 +51,9 @@ export class MyParishPage implements OnInit {
       this.myData.myParish_info = result.parish_info.content;
     })
   }
+  getUrl() {
+    return `url(${this.myData.myParish_image})`
+  }
   imgnotFound(item) {
     !item?.thumb_image?.url && (item.thumb_image = {url: "https://i.imgur.com/UKNky29.jpg"});
     }
@@ -61,7 +65,6 @@ export class MyParishPage implements OnInit {
         this.tabNew = true;
       }
     }
-  
   getPriest() {
       this.popeService.getAllByParish(this.popeRequest).subscribe(data => {
         !data?.pope_infos?.forEach(element => {
@@ -74,9 +77,21 @@ export class MyParishPage implements OnInit {
           console.log(this.listPriest)
       })
   }
-  getUrl() {
-    return `url(${this.myData.myParish_image})`
+  goToStoryDetail(item) {
+    const data = {
+      type: {
+        general: 'story',
+        detail: 'pope',
+      },
+      id: item.id
+    }
+    this.router.navigate(['/news-detail'], {
+      queryParams: {
+        data: JSON.stringify(data)
+      }
+    })
   }
+ 
   counter(i: number) {
     return new Array(i);
   }

@@ -31,7 +31,6 @@ export class NewsDetailPage implements OnInit {
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
       const dataParams = JSON.parse(params['data']);
-      console.log(dataParams);
       switch (dataParams.type.general) {
         case 'news':
           this.headerCustom.title = 'Tin tức';
@@ -41,41 +40,51 @@ export class NewsDetailPage implements OnInit {
           break;
         case 'story':
           this.headerCustom.title = 'Tiểu sử';
+        case 'parish':
+          this.headerCustom.title = 'Tin tức Giáo xứ'
           break;
       }
-
       switch (dataParams.type.detail) {
         case 'vatican':
           this.vaticanService.getDetail(dataParams.id).subscribe(data => {
             this.data = data.vatican_news;
+            this.imgnotFound(this.data);
           })
           break;
         case 'pope':
           this.popeService.getDetail(dataParams.id).subscribe(data => {
             this.data = data.pope_info;
+            this.imgnotFound(this.data);
           })
           break;
         case 'diocese':
           this.dioceseService.getDetail(dataParams.id).subscribe(data => {
             this.data = data.diocese;
+            this.imgnotFound(this.data);
           })
           break;
         case 'parish':
           this.parishService.getDetail(dataParams.id).subscribe(data => {
             this.data = data.parish;
+            this.imgnotFound(this.data);
           })
           break;
         case 'dioceseNews':
           this.dioceseNewsService.getDetail(dataParams.id).subscribe(data => {
             this.data = data.diocese_news;
+            this.imgnotFound(this.data);
           })
           break;
         case 'bishop':
           this.bishopService.getDetail(dataParams.id).subscribe(data => {
             this.data = data.bishop_info;
+            this.imgnotFound(this.data);
           })
           break;
       }
     })
   }
+  imgnotFound(item) {
+    !item?.thumb_image?.url && (item.thumb_image = {url: "https://i.imgur.com/UKNky29.jpg"});
+    }
 }
