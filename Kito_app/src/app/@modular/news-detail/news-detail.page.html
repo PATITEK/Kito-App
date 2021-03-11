@@ -4,9 +4,7 @@
 
 <ion-content>
   <app-search-bar-nav></app-search-bar-nav>
-
   <ion-label class="main-title">{{ data.title ? data.title : data.name }}</ion-label>
   <img [src]="data.thumb_image ? data.thumb_image.url : data.thumb_images[0].url">
-
   <p class="text">{{ data.content }}</p>
 </ion-content>

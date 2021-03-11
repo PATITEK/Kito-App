@@ -20,11 +20,22 @@ export class NewsPage implements OnInit {
     per_page: 10,
     diocese_id: 1
   }
-  pageRequestParish: IPageRequest = {
+  pageRequestParishNews: IPageParishes = {
     page: 1,
     per_page: 10,
   }
-
+  pageRequestParish: IPageParishes = {
+    parish_id: localStorage.getItem('parish_id'),
+    page: 1,
+    per_page: 10,
+  }
+  time = [{
+    year: '',
+    month: '',
+    day: '',
+    time: ''
+  }]
+  day: any;
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -36,7 +47,6 @@ export class NewsPage implements OnInit {
   ngOnInit() {
     this.getData();
   }
-
   goToNewsDetail(item) {
     const data = {
       id: item.id,
@@ -57,8 +67,23 @@ export class NewsPage implements OnInit {
         switch (dataParams.type.detail) {
           case 'dioceseNews':
             this.dioceseNewsService.getAll(this.pageRequestDioceseNews).subscribe(data => {
-              data.diocese_news.forEach(v => v.type = dataParams.type);
+              data.diocese_news.forEach(element => {
+                element.type = dataParams.type
+                element.time = element.created_at.slice(11,16)
+                element.yymmdd =  element.created_at.slice(0,10);
+                 });
               this.news = data.diocese_news;
+            })
+          case 'parish_news':
+            this.headerCustom.title = 'Tin tức Giáo xứ'
+            this.parishesService.getAllNewsByParish(this.pageRequestParish).subscribe(data => {
+              data.parish_news.forEach(element => {
+                element.type = dataParams.type;
+                  this.imgnotFound(element);
+                  element.time = element.created_at.slice(11,16)
+                  element.yymmdd =  element.created_at.slice(0,10);
+              });
+              this.news = data.parish_news;
             })
             break;
         }
@@ -66,17 +91,21 @@ export class NewsPage implements OnInit {
         switch (dataParams.type.detail) {
           case 'vatican':
             this.vaticanService.getAll(this.pageRequestVatican).subscribe(data => {
-              data.vatican_news.forEach(v => v.type = dataParams.type);
+              console.log(data)
+              data.vatican_news.forEach(element => {
+                element.type = dataParams.type
+                element.time = element.created_at.slice(11,16)
+                element.yymmdd =  element.created_at.slice(0,10);
+              });
               this.news = data.vatican_news;
-            })
-            break;
-          case 'parish':
-            this.parishesService.getAllNotidDioces(this.pageRequestParish).subscribe(data => {
-              this.news = data.parishes;
             })
             break;
         }
       }
     }).unsubscribe();
   }
+  imgnotFound(item) {
+    !item?.thumb_image?.url && (item.thumb_image = {url: "https://i.imgur.com/UKNky29.jpg"});
+  }
+  
 }

@@ -25,10 +25,7 @@ const routes: Routes = [
     path: 'store',
     loadChildren: () => import('./store/store.module').then( m => m.StorePageModule)
   },
-  {
-    path: 'news',
-    loadChildren: () => import('./news/news.module').then( m => m.NewsPageModule)
-  },
+ 
   {
     path: 'calendars',
     loadChildren: () => import('./calendar/calendar.module').then( m => m.CalendarPageModule)
@@ -41,7 +38,8 @@ const routes: Routes = [
   {
     path: 'calendar',
     loadChildren: () => import('./calendar/calendar.module').then( m => m.CalendarPageModule)
-  },  {
+  },
+  {
     path: 'hymn-music',
     loadChildren: () => import('./hymn-music/hymn-music.module').then( m => m.HymnMusicPageModule)
   },
