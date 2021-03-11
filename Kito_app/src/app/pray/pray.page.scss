@@ -7,25 +7,25 @@
     .wrapper {
       overflow: scroll;
       @media screen and (max-height: 824px){
-        max-height: 553.328px;
+        max-height: 591px;
       }
       @media screen and (max-height: 812px){
-        max-height: 522.125px;
+        max-height: 575px;
       }
       @media screen and (max-height: 737px){
-        height: 470px;
+        height: 510px;
       }
       @media screen and (max-height: 668px){
-        height: 408px;
+        height: 437px;
       }
       @media screen and (max-height: 641px){
-        height: 390px;
+        height: 420px;
       }
       @media screen and (max-height: 569px){
-        height: 318px;
+        height: 340px;
       }
       @media screen and (max-height: 480px){
-        height: 248px;
+        height: 257px;
       }
     .title {
       text-align: center;
@@ -177,14 +177,14 @@
     padding-top: 6px;
     ion-avatar {
       position: relative;
-      height: auto;
+      height: 65px;
       width: 104px;
      img {
      margin-left: 50%;
       transform: translateX(-50%);
        margin-left: 50%;
-       width: 80px;
-       height: 80px;
+       width: 70px;
+       height: 70px;
      }
     }
     ion-item-group {
@@ -199,7 +199,9 @@
    ion-button {
      font-size: 18px;
      width: 168px;
-     height: 39px;
+     margin: 0;
+     font-size: 17px;
+     height: 36px;
      line-height: 21px;
      --border-radius: 15px;
      --background: var(--main-color);

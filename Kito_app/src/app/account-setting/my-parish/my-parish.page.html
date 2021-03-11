@@ -1,0 +1,34 @@
+<ion-header>
+  <app-header [headerCustom]="headerCustom"></app-header>
+</ion-header>
+
+<ion-content>
+    <ion-segment value="intro">
+      <ion-segment-button value="intro" class="intro"(click)="changeTabs()" >
+        <ion-label>Giới thiệu Giáo xứ</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="biography" class="biography" (click)="changeTabs()">
+        <ion-label>Tiểu sử các Linh Mục</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+    <ion-item-group class="segement-news ion-padding" *ngIf="tabNew">
+        <ion-label> {{myData.myParish_title}}</ion-label>
+        <div [style.background] = "getUrl()" class="bg"></div>
+        <span [innerHTML] = "myData.myParish_info">
+        </span>
+    </ion-item-group >
+    <ion-item-group class="home" *ngIf="!tabNew">
+      <ion-item-group class="list-item">
+        <ion-item-group *ngFor='let item of listPriest' class="item-stories" (click)="goToStoryDetail()">
+          <img src="{{item.thumb_image.url}}" alt="">
+          <ion-item-group class="stories-info">
+            <ion-label text-wrap class="stories-title">{{item.title}}</ion-label>
+            <p class="stories-content three-dots-3" [innerHTML] ="item.description">
+             
+            </p>
+          </ion-item-group>
+
+        </ion-item-group>
+      </ion-item-group>
+    </ion-item-group>
+</ion-content>

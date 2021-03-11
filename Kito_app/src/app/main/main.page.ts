@@ -113,7 +113,7 @@ export class MainPage implements OnInit {
       vatican_news: {
         pageRequest: {
           page: 1,
-          per_page: 3,
+          per_page: 4,
         },
         array: [],
         loadedData: false
