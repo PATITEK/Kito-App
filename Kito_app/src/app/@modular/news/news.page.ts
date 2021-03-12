@@ -69,9 +69,9 @@ export class NewsPage implements OnInit {
             this.dioceseNewsService.getAll(this.pageRequestDioceseNews).subscribe(data => {
               data.diocese_news.forEach(element => {
                 element.type = dataParams.type
-                element.time = element.created_at.slice(11,16)
-                element.yymmdd =  element.created_at.slice(0,10);
-                 });
+                element.time = element.created_at.slice(11, 16)
+                element.yymmdd = element.created_at.slice(0, 10);
+              });
               this.news = data.diocese_news;
             })
           case 'parish_news':
@@ -79,9 +79,9 @@ export class NewsPage implements OnInit {
             this.parishesService.getAllNewsByParish(this.pageRequestParish).subscribe(data => {
               data.parish_news.forEach(element => {
                 element.type = dataParams.type;
-                  this.imgnotFound(element);
-                  element.time = element.created_at.slice(11,16)
-                  element.yymmdd =  element.created_at.slice(0,10);
+                this.imgnotFound(element);
+                element.time = element.created_at.slice(11, 16)
+                element.yymmdd = element.created_at.slice(0, 10);
               });
               this.news = data.parish_news;
             })
@@ -91,11 +91,10 @@ export class NewsPage implements OnInit {
         switch (dataParams.type.detail) {
           case 'vatican':
             this.vaticanService.getAll(this.pageRequestVatican).subscribe(data => {
-              console.log(data)
               data.vatican_news.forEach(element => {
                 element.type = dataParams.type
-                element.time = element.created_at.slice(11,16)
-                element.yymmdd =  element.created_at.slice(0,10);
+                element.time = element.created_at.slice(11, 16)
+                element.yymmdd = element.created_at.slice(0, 10);
               });
               this.news = data.vatican_news;
             })
@@ -105,7 +104,7 @@ export class NewsPage implements OnInit {
     }).unsubscribe();
   }
   imgnotFound(item) {
-    !item?.thumb_image?.url && (item.thumb_image = {url: "https://i.imgur.com/UKNky29.jpg"});
+    !item?.thumb_image?.url && (item.thumb_image = { url: "https://i.imgur.com/UKNky29.jpg" });
   }
-  
+
 }
