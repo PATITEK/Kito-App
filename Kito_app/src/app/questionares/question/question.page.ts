@@ -1,3 +1,4 @@
+import { QuestionaresService } from './../../@app-core/http/questionares/questionares.service';
 import { LoadingService } from './../../@app-core/utils/loading.service';
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
@@ -26,7 +27,7 @@ export class QuestionPage implements OnInit {
   timer: number;
   forTimer: any;
 
-  questions = { questions: [] };
+  questions = [];
 
   soundtrack1 = new Audio();
   right = new Audio();
@@ -37,25 +38,27 @@ export class QuestionPage implements OnInit {
     private router: Router,
     private modalController: ModalController,
     private toastService: ToastService,
-    private loadingService: LoadingService
+    private loadingService: LoadingService,
+    private QuestionaresService: QuestionaresService
   ) {
     this.loadAudio();
-    for (let i = 1; i <= 12; i++) {
-      this.questions.questions.push({
-        id: 1729,
-        question_topic_id: 33,
-        answer: {
-          a: " Thợ mộc" + i,
-          b: "Thợ mỏ" + i,
-          c: " Thợ làm than" + i,
-          d: i + 1,
-        },
-        question: " 1 + " + i + " = ?",
-        img_url: null,
-        level: 1,
-        right: "d",
-      });
-    }
+    // for (let i = 1; i <= 12; i++) {
+    //   this.questions.questions.push({
+    //     id: 1729,
+    //     question_topic_id: 33,
+    //     answer: {
+    //       a: " Thợ mộc" + i,
+    //       b: "Thợ mỏ" + i,
+    //       c: " Thợ làm than" + i,
+    //       d: i + 1,
+    //     },
+    //     question: " 1 + " + i + " = ?",
+    //     img_url: null,
+    //     level: 1,
+    //     right: "d",
+    //   });
+    // }
+    this.checkQuestionType();
     this.loadingService.dismiss();
   }
 
@@ -63,7 +66,6 @@ export class QuestionPage implements OnInit {
     this.soundtrack1.play();
     localStorage.setItem("score", "0");
     this.startTimer(120);
-    this.checkQuestionType();
   }
 
   ionViewDidLeave() {
@@ -121,8 +123,29 @@ export class QuestionPage implements OnInit {
 
   checkQuestionType() {
     this.questionTypeName = localStorage.getItem("questionTypeName");
-    if (localStorage.getItem("questionType") == "topic") {
-    } else if (localStorage.getItem("questionType") == "level") {
+    if (localStorage.getItem("idTopic")) {
+      this.QuestionaresService.getQuesTopic(JSON.parse(localStorage.getItem('idTopic'))).subscribe((data) => {
+        this.questions = data.questions;
+        
+        this.questions.push({
+          question: '',
+          answer: {
+            a: '',
+            b: '',
+            c: '',
+            d: '',
+            right_answer: ''
+          },
+          thumb_image:{url: ''}
+        })
+        console.log(this.questions)
+      });
+      localStorage.removeItem('idTopic')
+    } else if (localStorage.getItem("idLevel")) {
+      this.QuestionaresService.getQuesLevel(JSON.parse(localStorage.getItem('idLevel'))).subscribe((data) => {
+        this.questions = data.questions;
+      });
+      localStorage.removeItem('idLevel');
     }
   }
 
@@ -138,9 +161,9 @@ export class QuestionPage implements OnInit {
 
   loadAudio() {
     this.loadingService.present();
-    this.soundtrack1.src = "../../assets/img/questionares/audios/soundtrack1.mp3"; this.soundtrack1.load();
-    this.right.src = "../../assets/img/questionares/audios/right.mp3"; this.right.load();
-    this.wrong.src = "../../assets/img/questionares/audios/wrong.mp3"; this.wrong.load();
+    this.soundtrack1.src = "https://res.cloudinary.com/baodang359/video/upload/v1615538818/kito-music/soundtrack1_tgqm5n.mp3"; this.soundtrack1.load();
+    this.right.src = "https://res.cloudinary.com/baodang359/video/upload/v1615538813/kito-music/right_omlr5s.mp3"; this.right.load();
+    this.wrong.src = "https://res.cloudinary.com/baodang359/video/upload/v1615538813/kito-music/wrong_ghnyzp.mp3"; this.wrong.load();
   }
 
   startTimer(duration) {
@@ -192,8 +215,7 @@ export class QuestionPage implements OnInit {
 
   btnConfirm() {
     this.answerValue = "";
-    this.questionCounter++;
-    if (this.answerKey == this.questions.questions[this.questionCounter].right) {
+    if (this.answerKey == this.questions[this.questionCounter].answer.right_answer) {
       this.score++;
       localStorage.setItem("score", JSON.stringify(this.score));
       this.toastService.present("Đúng rồi!", "bottom", 1000, "warning");
@@ -208,6 +230,10 @@ export class QuestionPage implements OnInit {
       this.stopTimer();
       this.soundtrack1.pause();
     }
+    if (this.questionCounter <= 10) {
+      this.questionCounter++;
+    }
+
   }
 
   async openCompleteQuestion() {

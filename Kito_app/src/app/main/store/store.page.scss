@@ -39,6 +39,10 @@ ion-infinite-scroll {
       background: #f6c33e;
       justify-content: center;
 
+      ion-icon {
+        color: #fff;
+        font-size: 28px;
+      }
       .cart-amount {
         background: #000;
         border-radius: 100%;

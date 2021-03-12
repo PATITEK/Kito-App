@@ -32,7 +32,7 @@ export class QuestionaresService {
         );
     }
 
-    public getQuesTopic(topic: string) {
+    public getQuesTopic(topic: any) {
         return this.http.get<any>(`${APICONFIG.QUESTIONARES.GET_QUES_TOPIC(topic)}`).pipe(
             map((result) => {
                 return result;
@@ -44,7 +44,7 @@ export class QuestionaresService {
     }
 
     public getQuesLevel(level: any) {
-        return this.http.get<any>(`${APICONFIG.QUESTIONARES.GET_QUES_TOPIC(level)}`).pipe(
+        return this.http.get<any>(`${APICONFIG.QUESTIONARES.GET_QUES_LEVEL(level)}`).pipe(
             map((result) => {
                 return result;
             }),

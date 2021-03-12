@@ -60,7 +60,7 @@
   <div class="cart-wrapper">
     <div class="cart" (click)="goToCart()">
       <ion-buttons class="cart-inner main-box-shadow">
-        <img src="assets/icon/cart.svg" class="cart-icon">
+        <ion-icon name="bag-handle"></ion-icon>
         <ion-buttons *ngIf="cart.length" class="cart-amount">{{ calTotalItem() }}</ion-buttons>
       </ion-buttons>
     </div>

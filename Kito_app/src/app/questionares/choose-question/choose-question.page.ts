@@ -24,31 +24,28 @@ export class ChooseQuestionPage implements OnInit {
   }
 
   ionViewWillEnter() {
-    this.setUpQuestion();
+    // this.setUpQuestion();
+    localStorage.removeItem('questionTypeName');
+    if(localStorage.getItem('score')) {
+      localStorage.removeItem('score');
+    }
   }
 
   setUpQuestion() {
     if(localStorage.getItem('questionType') == 'topic') {
+      this.questionaresService.getTopic().subscribe((data) => {
+        this.questions = data.question_topics;
+      })
       this.questionType = 'Chủ đề'
       this.headerCustom.title = 'CHỌN CHỦ ĐỀ';
-      this.questions = [
-        {name: 'Lời chúa'},
-        {name: 'Các Thánh'},
-        {name: 'Điều răn'},
-        {name: 'Ngày lễ'},
-        {name: 'Kinh Thánh'},
-      ]
+      
     }
     else if(localStorage.getItem('questionType') == 'level') {
+      this.questionaresService.getLevel().subscribe((data) => {
+        this.questions = data;
+      })
       this.questionType = 'Cấp độ'
       this.headerCustom.title = 'CHỌN CẤP ĐỘ';
-      this.questions = [
-        {name: 'Khai tâm'},
-        {name: 'Xưng tội'},
-        {name: 'Thêm sức'},
-        {name: 'Bao đồng'},
-        {name: 'Hôn nhân'},
-      ]
     }
     localStorage.removeItem('questionTypeName');
     if(localStorage.getItem('score')) {
@@ -57,8 +54,13 @@ export class ChooseQuestionPage implements OnInit {
   }
 
   goToQuestion(name) {
-    localStorage.setItem('questionTypeName', this.questionType + ' ' + name);
-    localStorage.removeItem('questionType');
+    if(localStorage.getItem('questionType') == 'topic') {
+      localStorage.setItem('idTopic', name.id);
+    }
+    else if(localStorage.getItem('questionType') == 'level') {
+      localStorage.setItem('idLevel', name.level);
+    }
+    localStorage.setItem('questionTypeName', this.questionType + ' ' + name.name);
     this.router.navigate(['questionares/question']);
   }
 

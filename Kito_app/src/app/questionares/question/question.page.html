@@ -28,9 +28,11 @@
   </ion-buttons>
 </ion-header>
 
-<ion-content class="ion-padding">
+<ion-content class="ion-padding" *ngIf="questions.length > 0">
+  <!-- <ion-label>right for test: {{ questions[this.questionCounter].answer.right_answer }}</ion-label> -->
   <ion-buttons class="question-cover">
-    <ion-label class="question">{{ questions.questions[questionCounter].question }}</ion-label>
+    <ion-label class="question" *ngIf="questions[questionCounter].question != 'No question' ">{{ questions[questionCounter].question }}</ion-label>
+    <img class="question-img" *ngIf="questions[questionCounter].thumb_image.url != null" src="https://www.forescout.com/wp-content/uploads/2019/04/fs-cyber-bob-blog-feaured-img-10-questions.png" />
   </ion-buttons>
 
   <ion-grid>
@@ -38,26 +40,26 @@
       <ion-col>
         <ion-button mode="ios" class="answer active-effect" id="answer" shape="round" Fill="outline"
         (click)="btnActivate($event)" 
-        (click) = "checkAnswerValue(questions.questions[questionCounter].answer.a)"
-        (click) = "checkAnswerKey(questions.questions[questionCounter].answer, answerValue)">{{ questions.questions[questionCounter].answer.a }}
+        (click) = "checkAnswerValue(questions[questionCounter].answer.a)"
+        (click) = "checkAnswerKey(questions[questionCounter].answer, answerValue)">{{ questions[questionCounter].answer.a }}
         </ion-button>
 
         <ion-button mode="ios" class="answer active-effect" id="answer" shape="round" Fill="outline"
         (click)="btnActivate($event)" 
-        (click) = "checkAnswerValue(questions.questions[questionCounter].answer.b)"
-        (click) = "checkAnswerKey(questions.questions[questionCounter].answer, answerValue)">{{ questions.questions[questionCounter].answer.b }}
+        (click) = "checkAnswerValue(questions[questionCounter].answer.b)"
+        (click) = "checkAnswerKey(questions[questionCounter].answer, answerValue)">{{ questions[questionCounter].answer.b }}
         </ion-button>
 
         <ion-button mode="ios" class="answer active-effect" id="answer" shape="round" Fill="outline"
         (click)="btnActivate($event)" 
-        (click) = "checkAnswerValue(questions.questions[questionCounter].answer.c)"
-        (click) = "checkAnswerKey(questions.questions[questionCounter].answer, answerValue)">{{ questions.questions[questionCounter].answer.c }}
+        (click) = "checkAnswerValue(questions[questionCounter].answer.c)"
+        (click) = "checkAnswerKey(questions[questionCounter].answer, answerValue)">{{ questions[questionCounter].answer.c }}
         </ion-button>
 
         <ion-button mode="ios" class="answer active-effect" id="answer" shape="round" Fill="outline"
         (click)="btnActivate($event)" 
-        (click) = "checkAnswerValue(questions.questions[questionCounter].answer.d)"
-        (click) = "checkAnswerKey(questions.questions[questionCounter].answer, answerValue)">{{ questions.questions[questionCounter].answer.d }}
+        (click) = "checkAnswerValue(questions[questionCounter].answer.d)"
+        (click) = "checkAnswerKey(questions[questionCounter].answer, answerValue)">{{ questions[questionCounter].answer.d }}
         </ion-button>
 
         <ion-button mode="ios" class="confirm-btn active-effect" id="confirm" [disabled]="answerValue==''"

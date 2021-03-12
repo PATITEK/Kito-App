@@ -2,7 +2,7 @@
   <div class="calendar-main">
     <div class="title-calendar">
       <p>Tháng {{currentMonth}} . {{currentYear}}</p>
-      <img (click)="toggleFillerClick()" class="icon-filler" src="assets/icon/filler.svg">
+      <ion-icon (click)="toggleFillerClick()" class="icon-filler" name="options"></ion-icon>
       <div (click)="toggleFillerClick()" class="modal-filter" *ngIf="toggleFiller">
         <ion-label class="text-filter">Xem theo ngày</ion-label>
         <ion-label class="text-filter">Xem theo tháng</ion-label>

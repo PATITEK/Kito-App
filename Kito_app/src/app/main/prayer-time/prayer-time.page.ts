@@ -25,7 +25,7 @@ export class PrayerTimePage implements OnInit {
   }
 
   diocese = {
-    thumbImage: 'assets/img/tonggiaophan/hanoi.svg',
+    thumbImage: 'assets/img/tonggiaophan/saigon.svg',
     name: 'Giáo xứ Chánh Tòa Sài Gòn',
     address: '1 Công xã Paris, P. Bến Nghé, Quận 1, TP.HCM'
   }
