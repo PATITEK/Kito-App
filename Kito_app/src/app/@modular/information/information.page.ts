@@ -72,7 +72,6 @@ export class InformationPage implements OnInit {
       switch (this.dataParams.type.detail) {
         case 'pope':
           this.popeService.getAll(this.pageRequestPope).subscribe(data => {
-            console.log(data)
             data.pope_infos.forEach(v => v.type = this.dataParams.type);
             this.list = this.list.concat(data.pope_infos);
             func && func();
@@ -88,7 +87,6 @@ export class InformationPage implements OnInit {
 
   getParams() {
     this.route.queryParams.subscribe(params => {
-      console.log(params)
       this.dataParams = JSON.parse(params['data']);
       this.pageRequestBishop.diocese_id = this.dataParams.id;
       this.pageRequestParish.diocese_id = this.dataParams.id;

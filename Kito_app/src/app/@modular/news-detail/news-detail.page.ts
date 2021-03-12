@@ -40,11 +40,13 @@ export class NewsDetailPage implements OnInit {
           break;
         case 'story':
           this.headerCustom.title = 'Tiểu sử';
-        case 'parish':
-          this.headerCustom.title = 'Tin tức Giáo xứ'
-        case 'parish_news':
-          this.headerCustom.title = 'Tin tức Giáo xứ'
           break;
+        // case 'parish':
+        //   this.headerCustom.title = 'Tin tức Giáo xứ'
+        //   break;
+        // case 'parish_news':
+        //   this.headerCustom.title = 'Tin tức Giáo xứ'
+        //   break;
       }
       switch (dataParams.type.detail) {
         case 'vatican':
@@ -92,6 +94,6 @@ export class NewsDetailPage implements OnInit {
     })
   }
   imgnotFound(item) {
-    !item?.thumb_image?.url && (item.thumb_image = {url: "https://i.imgur.com/UKNky29.jpg"});
-    }
+    !item?.thumb_image?.url && (item.thumb_image = { url: "https://i.imgur.com/UKNky29.jpg" });
+  }
 }
