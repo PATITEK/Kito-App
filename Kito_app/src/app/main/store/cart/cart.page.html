@@ -9,7 +9,7 @@
   <div class="address-box">
     <ion-label class="address-title">Giao hàng đến:</ion-label>
     <ion-buttons class="address-content">
-      <img src="assets/icon/location-lite.svg">
+      <img src="assets/icon/location.svg">
       <p class="address" *ngIf="location != null">{{location}}</p>
     </ion-buttons>
     <div class="change-address-box">
@@ -68,7 +68,7 @@
         <ion-buttons class="payment-method" *ngIf="currentPaymentMethodId == paymentMethod.id">
           <img class="payment-method-icon" [src]="paymentMethod.srcIcon">
           <span class="payment-method-name three-dots-1">{{ paymentMethod.name }}</span>
-          <img src="assets/icon/up.svg">
+          <ion-icon name="chevron-up-outline"></ion-icon>
         </ion-buttons>
       </ng-container>
     </div>

@@ -21,7 +21,7 @@
         <div *ngFor="let item of menuItem.list" class="item active-effect">
           <span class="name">{{ item.name }}</span>
           <ion-buttons class="ion-align-items-start">
-            <img class="icon" src="assets/icon/clock.svg">
+            <ion-icon name="alarm"></ion-icon>
             <span class="time">{{ foramatTime(item.start_time) }} - {{foramatTime(item.end_time)}}</span>
           </ion-buttons>
           <span class="day">{{ item.calendar_detail }}</span>
