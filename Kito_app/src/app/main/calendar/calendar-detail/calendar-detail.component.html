@@ -3,30 +3,38 @@
 </ion-header>
 
 <ion-content>
-  <ion-item-group class="main-calendar" [ngStyle]="{'background-image': 'url(' + photo + ')'}">
-    <div class="backdrop">
-    </div>
-    <div class="content-calendar">
-      <div class="title-date">
-        <p>THÁNG 2 NĂM 2021</p>
-      </div>
-      <div class="text-date">
-        <div><span>22</span></div>
-        <div class="name-ceremony">
-          <p>Thứ Hai Tuần I Mùa Chay</p>
-          <p>Lập Tông Tòa Thánh Phêrô, Tông Đồ</p>
+  <ion-slides [options]="slideOpts" (ionSlideNextStart)="ionSlideNextEnd()" (ionSlidePrevStart)="ionSlidePrevEnd()">
+    <ion-slide  *ngFor="let n of numSequence(coutnCalendar)">
+        <div>
+          <ion-item-group class="main-calendar" [ngStyle]="{'background-image': 'url(' + photo + ')'}">
+            <div class="backdrop">
+            </div>
+            <div class="content-calendar">
+              <div class="title-date">
+                <p>THÁNG 2 NĂM 2021</p>
+              </div>
+              <div class="text-date">
+                <div><span>{{dayDetail-1}}</span></div>
+                <div class="name-ceremony">
+                  <p>Thứ Hai Tuần I Mùa Chay</p>
+                  <p>Lập Tông Tòa Thánh Phêrô, Tông Đồ</p>
+                </div>
+              </div>
+        
+            </div>
+          </ion-item-group>
+          <ion-item-group class="lunner-calendar">
+            <p class="text-day-weekend">Thứ Hai</p>
+            <p class="text-date-lunner">11 Tháng 1</p>
+            <div class="wrap"></div>
+            <p class="text-date-lunner text-year-lunner">Năm Tân Sửu</p>
+          </ion-item-group>
+          <p class="text-day-weekend">Lời Chúa</p>
+          <p class="word-of-god">Anh là Tảng Đá, Thầy sẽ trao cho anh chìa khóa Nước Trời.
+            (Mt 16:13-19)</p>
         </div>
-      </div>
-     
-    </div>
-  </ion-item-group>
-  <ion-item-group class="lunner-calendar">
-    <p class="text-day-weekend">Thứ Hai</p>
-    <p class="text-date-lunner">11 Tháng 1</p>
-    <div class="wrap"></div>
-    <p class="text-date-lunner text-year-lunner">Năm Tân Sửu</p>
-  </ion-item-group>
-  <p class="text-day-weekend">Lời Chúa</p>
-  <p class="word-of-god">Anh là Tảng Đá, Thầy sẽ trao cho anh chìa khóa Nước Trời.
-    (Mt 16:13-19)</p>
+    </ion-slide>
+  </ion-slides>
+
+  
 </ion-content>

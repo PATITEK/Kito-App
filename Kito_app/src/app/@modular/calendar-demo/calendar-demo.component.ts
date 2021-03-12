@@ -73,13 +73,16 @@ export class CalendarDemoComponent implements OnInit {
       this.toggleFiller=!this.toggleFiller;
   }
 gotoDetail(e){
-  console.log(e);
+  const data = {
+    day:e
+  }
   
-  // this.route.navigate(['/main/calendar-detail'], {
-  //   queryParams: {
-  //     data: JSON.stringify(e)
-  //   }
-  // })
+  this.route.navigate(['/main/calendar/detail'], {
+    
+    queryParams: {
+      data: JSON.stringify(data)
+    }
+  })
   
   this.toggleFiller=false;
 }

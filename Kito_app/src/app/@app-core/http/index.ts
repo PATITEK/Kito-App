@@ -1,3 +1,4 @@
+import { from } from 'rxjs';
 
 export * from './auth';
 export * from './account';
@@ -15,4 +16,4 @@ export * from './diocese-news';
 export * from './bishop';
 export * from './store';
 export * from './questionares';
-export * from './calendar';
+export * from './course'
