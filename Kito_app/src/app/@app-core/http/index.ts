@@ -16,4 +16,5 @@ export * from './diocese-news';
 export * from './bishop';
 export * from './store';
 export * from './questionares';
-export * from './course'
+export * from './course';
+export * from './calendar';

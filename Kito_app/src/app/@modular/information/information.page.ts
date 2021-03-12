@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { IonInfiniteScroll } from '@ionic/angular';
 import { BishopService, IPageRequest, ParishesService, PopeService } from 'src/app/@app-core/http';
 import { IPageParishes } from 'src/app/@app-core/http/parishes/parishes.DTO';
 
@@ -9,17 +10,25 @@ import { IPageParishes } from 'src/app/@app-core/http/parishes/parishes.DTO';
   styleUrls: ['./information.page.scss'],
 })
 export class InformationPage implements OnInit {
+  @ViewChild('infiniteScroll') infiniteScroll: IonInfiniteScroll;
+
   headerCustom = { title: '' };
   list = [];
   pageRequestPope: IPageRequest = {
     page: 1,
-    per_page: 10
+    per_page: 5
   };
   pageRequestParish: IPageParishes = {
     page: 1,
     per_page: 10,
-    diocese_id: ''
+    diocese_id: null
   }
+  pageRequestBishop: IPageParishes = {
+    page: 1,
+    per_page: 10,
+    diocese_id: null
+  }
+  dataParams = null;
 
   constructor(
     private route: ActivatedRoute,
@@ -30,14 +39,58 @@ export class InformationPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.getData();
+    this.getParams();
   }
 
-  getData() {
-    this.route.queryParams.subscribe(params => {
-      const dataParams = JSON.parse(params['data']);
+  getData(func?) {
+    if (this.dataParams.id) {
+      switch (this.dataParams.type.detail) {
+        case 'parish':
+          this.parishService.getAll(this.pageRequestParish).subscribe(data => {
+            data.parishes.forEach(v => v.type = this.dataParams.type);
+            this.list = this.list.concat(data.parishes);
+            func && func();
+            this.pageRequestParish.page++;
+            if (this.list.length >= data.meta.pagination.total_objects) {
+              this.infiniteScroll.disabled = true;
+            }
+          })
+          break;
+        case 'bishop':
+          this.bishopService.getAll(this.pageRequestBishop).subscribe(data => {
+            data.bishop_infos.forEach(v => v.type = this.dataParams.type);
+            this.list = this.list.concat(data.bishop_infos);
+            func && func();
+            this.pageRequestBishop.page++;
+            if (this.list.length >= data.meta.pagination.total_objects) {
+              this.infiniteScroll.disabled = true;
+            }
+          })
+          break;
+      }
+    } else {
+      switch (this.dataParams.type.detail) {
+        case 'pope':
+          this.popeService.getAll(this.pageRequestPope).subscribe(data => {
+            data.pope_infos.forEach(v => v.type = this.dataParams.type);
+            this.list = this.list.concat(data.pope_infos);
+            func && func();
+            this.pageRequestPope.page++;
+            if (this.list.length >= data.meta.pagination.total_objects) {
+              this.infiniteScroll.disabled = true;
+            }
+          })
+          break;
+      }
+    }
+  }
 
-      switch (dataParams.type.general) {
+  getParams() {
+    this.route.queryParams.subscribe(params => {
+      this.dataParams = JSON.parse(params['data']);
+      this.pageRequestBishop.diocese_id = this.dataParams.id;
+      this.pageRequestParish.diocese_id = this.dataParams.id;
+      switch (this.dataParams.type.general) {
         case 'info':
           this.headerCustom.title = 'Thông tin';
           break;
@@ -45,34 +98,14 @@ export class InformationPage implements OnInit {
           this.headerCustom.title = 'Tiểu sử';
           break;
       }
-
-      if (dataParams.id) {
-        this.pageRequestParish.diocese_id = dataParams.id;
-        switch (dataParams.type.detail) {
-          case 'parish':
-            this.parishService.getAll(this.pageRequestParish).subscribe(data => {
-              data.parishes.forEach(v => v.type = dataParams.type);
-              this.list = data.parishes;
-            })
-            break;
-          case 'bishop':
-            this.bishopService.getAll(this.pageRequestParish).subscribe(data => {
-              data.bishop_infos.forEach(v => v.type = dataParams.type);
-              this.list = data.bishop_infos;
-            })
-            break;
-        }
-      } else {
-        switch (dataParams.type.detail) {
-          case 'pope':
-            this.popeService.getAll(this.pageRequestPope).subscribe(data => {
-              data.pope_infos.forEach(v => v.type = dataParams.type);
-              this.list = data.pope_infos;
-            })
-            break;
-        }
-      }
+      this.getData();
     }).unsubscribe();
+  }
+
+  loadMoreData(event) {
+    this.getData(() => {
+      event.target.complete();
+    })
   }
 
   goToNewsDetail(item) {

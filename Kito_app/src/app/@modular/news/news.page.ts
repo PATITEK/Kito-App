@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { IonInfiniteScroll } from '@ionic/angular';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DioceseNewsService, IPageRequest, ParishesService, VaticanService } from 'src/app/@app-core/http';
 import { IPageParishes } from 'src/app/@app-core/http/parishes/parishes.DTO';
@@ -9,6 +10,8 @@ import { IPageParishes } from 'src/app/@app-core/http/parishes/parishes.DTO';
   styleUrls: ['./news.page.scss'],
 })
 export class NewsPage implements OnInit {
+  @ViewChild('infiniteScroll') infiniteScroll: IonInfiniteScroll;
+
   headerCustom = { title: 'Tin tức' };
   news = [];
   pageRequestVatican: IPageRequest = {
@@ -18,11 +21,7 @@ export class NewsPage implements OnInit {
   pageRequestDioceseNews: IPageParishes = {
     page: 1,
     per_page: 10,
-    diocese_id: 1
-  }
-  pageRequestParishNews: IPageParishes = {
-    page: 1,
-    per_page: 10,
+    diocese_id: null
   }
   pageRequestParish: IPageParishes = {
     parish_id: localStorage.getItem('parish_id'),
@@ -36,6 +35,9 @@ export class NewsPage implements OnInit {
     time: ''
   }]
   day: any;
+
+  dataParams = null;
+
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -45,8 +47,9 @@ export class NewsPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.getData();
+    this.getParams();
   }
+
   goToNewsDetail(item) {
     const data = {
       id: item.id,
@@ -59,52 +62,78 @@ export class NewsPage implements OnInit {
     })
   }
 
-  getData() {
-    this.route.queryParams.subscribe(params => {
-      const dataParams = JSON.parse(params['data']);
-      if (dataParams.id) {
-        this.pageRequestDioceseNews.diocese_id = dataParams.id;
-        switch (dataParams.type.detail) {
-          case 'dioceseNews':
-            this.dioceseNewsService.getAll(this.pageRequestDioceseNews).subscribe(data => {
-              data.diocese_news.forEach(element => {
-                element.type = dataParams.type
-                element.time = element.created_at.slice(11, 16)
-                element.yymmdd = element.created_at.slice(0, 10);
-              });
-              this.news = data.diocese_news;
-            })
-          case 'parish_news':
-            this.headerCustom.title = 'Tin tức Giáo xứ'
-            this.parishesService.getAllNewsByParish(this.pageRequestParish).subscribe(data => {
-              data.parish_news.forEach(element => {
-                element.type = dataParams.type;
-                this.imgnotFound(element);
-                element.time = element.created_at.slice(11, 16)
-                element.yymmdd = element.created_at.slice(0, 10);
-              });
-              this.news = data.parish_news;
-            })
-            break;
-        }
-      } else {
-        switch (dataParams.type.detail) {
-          case 'vatican':
-            this.vaticanService.getAll(this.pageRequestVatican).subscribe(data => {
-              data.vatican_news.forEach(element => {
-                element.type = dataParams.type
-                element.time = element.created_at.slice(11, 16)
-                element.yymmdd = element.created_at.slice(0, 10);
-              });
-              this.news = data.vatican_news;
-            })
-            break;
-        }
+  getData(func?) {
+    if (this.dataParams.id) {
+      switch (this.dataParams.type.detail) {
+        case 'dioceseNews':
+          this.dioceseNewsService.getAll(this.pageRequestDioceseNews).subscribe(data => {
+            data.diocese_news.forEach(element => {
+              element.type = this.dataParams.type
+              element.time = element.created_at.slice(11, 16)
+              element.yymmdd = element.created_at.slice(0, 10);
+            });
+            this.news = this.news.concat(data.diocese_news);
+            func && func();
+            this.pageRequestDioceseNews.page++;
+            if (this.news.length >= data.meta.pagination.total_objects) {
+              this.infiniteScroll.disabled = true;
+            }
+          })
+          break;
+        case 'parish_news':
+          this.headerCustom.title = 'Tin tức Giáo xứ'
+          this.parishesService.getAllNewsByParish(this.pageRequestParish).subscribe(data => {
+            data.parish_news.forEach(element => {
+              element.type = this.dataParams.type;
+              this.imgnotFound(element);
+              element.time = element.created_at.slice(11, 16)
+              element.yymmdd = element.created_at.slice(0, 10);
+            });
+            this.news = this.news.concat(data.parish_news);
+            func && func();
+            this.pageRequestParish.page++;
+            if (this.news.length >= data.meta.pagination.total_objects) {
+              this.infiniteScroll.disabled = true;
+            }
+          })
+          break;
       }
+    } else {
+      switch (this.dataParams.type.detail) {
+        case 'vatican':
+          this.vaticanService.getAll(this.pageRequestVatican).subscribe(data => {
+            data.vatican_news.forEach(element => {
+              element.type = this.dataParams.type
+              element.time = element.created_at.slice(11, 16)
+              element.yymmdd = element.created_at.slice(0, 10);
+            });
+            this.news = this.news.concat(data.vatican_news);
+            func && func();
+            this.pageRequestVatican.page++;
+            if (this.news.length >= data.meta.pagination.total_objects) {
+              this.infiniteScroll.disabled = true;
+            }
+          })
+          break;
+      }
+    }
+  }
+
+  getParams() {
+    this.route.queryParams.subscribe(params => {
+      this.dataParams = JSON.parse(params['data']);
+      this.pageRequestDioceseNews.diocese_id = this.dataParams.id;
+      this.getData();
     }).unsubscribe();
   }
+
+  loadMoreData(event) {
+    this.getData(() => {
+      event.target.complete();
+    });
+  }
+
   imgnotFound(item) {
     !item?.thumb_image?.url && (item.thumb_image = { url: "https://i.imgur.com/UKNky29.jpg" });
   }
-
 }

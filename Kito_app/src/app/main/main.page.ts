@@ -80,7 +80,7 @@ export class MainPage implements OnInit {
     public loadingService: LoadingService
   ) {
     this.init();
-   }
+  }
   data;
   lastedData: any;
   ionViewWillEnter() {
@@ -102,7 +102,7 @@ export class MainPage implements OnInit {
       }
     })
   }
-  
+
   ngOnInit() {
     this.OneSignalService.startOneSignal();
     this.name = localStorage.getItem('fullname');
@@ -140,14 +140,14 @@ export class MainPage implements OnInit {
     this.getListVatican(() => {
       event.target.complete();
     })
- }
+  }
   goToDetail(item) {
     if (item.desUrl == 'donate') {
       const data = {
         type: 'donate'
       }
       this.authService.sendData(data)
-     this.router.navigateByUrl(item.desUrl);
+      this.router.navigateByUrl(item.desUrl);
 
     }
     else if (item.desUrl == 'pray') {
@@ -155,15 +155,15 @@ export class MainPage implements OnInit {
         type: 'pray'
       }
       this.authService.sendData(data)
-     this.router.navigateByUrl(item.desUrl);
+      this.router.navigateByUrl(item.desUrl);
 
     }
-    else if(item.desUrl == 'news') {
+    else if (item.desUrl == 'news') {
       const data = {
         id: localStorage.getItem('parish_id'),
         type: {
           detail: 'parish_news',
-          general: 'parish_news'
+          general: 'news'
         }
 
       }

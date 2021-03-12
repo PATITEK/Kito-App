@@ -20,4 +20,8 @@
       </div>
     </ion-buttons>
   </ion-list>
+
+  <ion-infinite-scroll #infiniteScroll (ionInfinite)="loadMoreData($event)">
+    <ion-infinite-scroll-content loadingSpinner="lines"></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content>
