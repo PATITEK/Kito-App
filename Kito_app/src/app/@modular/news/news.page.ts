@@ -10,7 +10,7 @@ import { IPageParishes } from 'src/app/@app-core/http/parishes/parishes.DTO';
   styleUrls: ['./news.page.scss'],
 })
 export class NewsPage implements OnInit {
-  @ViewChild('infiniteScroll') infiniteScroll: IonInfiniteScroll
+  @ViewChild('infiniteScroll') infiniteScroll: IonInfiniteScroll;
 
   headerCustom = { title: 'Tin tức' };
   news = [];
@@ -73,6 +73,7 @@ export class NewsPage implements OnInit {
               element.yymmdd = element.created_at.slice(0, 10);
             });
             this.news = this.news.concat(data.diocese_news);
+            func && func();
             this.pageRequestDioceseNews.page++;
             if (this.news.length >= data.meta.pagination.total_objects) {
               this.infiniteScroll.disabled = true;
@@ -89,6 +90,7 @@ export class NewsPage implements OnInit {
               element.yymmdd = element.created_at.slice(0, 10);
             });
             this.news = this.news.concat(data.parish_news);
+            func && func();
             this.pageRequestParish.page++;
             if (this.news.length >= data.meta.pagination.total_objects) {
               this.infiniteScroll.disabled = true;
