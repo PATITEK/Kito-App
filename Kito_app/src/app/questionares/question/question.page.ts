@@ -161,9 +161,9 @@ export class QuestionPage implements OnInit {
 
   loadAudio() {
     this.loadingService.present();
-    this.soundtrack1.src = "../../assets/img/questionares/audios/soundtrack1.mp3"; this.soundtrack1.load();
-    this.right.src = "../../assets/img/questionares/audios/right.mp3"; this.right.load();
-    this.wrong.src = "../../assets/img/questionares/audios/wrong.mp3"; this.wrong.load();
+    this.soundtrack1.src = "https://res.cloudinary.com/baodang359/video/upload/v1615538818/kito-music/soundtrack1_tgqm5n.mp3"; this.soundtrack1.load();
+    this.right.src = "https://res.cloudinary.com/baodang359/video/upload/v1615538813/kito-music/right_omlr5s.mp3"; this.right.load();
+    this.wrong.src = "https://res.cloudinary.com/baodang359/video/upload/v1615538813/kito-music/wrong_ghnyzp.mp3"; this.wrong.load();
   }
 
   startTimer(duration) {

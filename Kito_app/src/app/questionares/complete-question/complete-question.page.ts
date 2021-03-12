@@ -52,8 +52,8 @@ export class CompleteQuestionPage implements OnInit {
   }
 
   loadAudios() {
-    this.win.src = "../../assets/img/questionares/audios/win.mp3"; this.win.load();
-    this.lose.src = "../../assets/img/questionares/audios/lose.mp3"; this.lose.load();
+    this.win.src = "https://res.cloudinary.com/baodang359/video/upload/v1615538814/kito-music/win_pnfljg.mp3"; this.win.load();
+    this.lose.src = "https://res.cloudinary.com/baodang359/video/upload/v1615538814/kito-music/lose_hpvlu2.mp3"; this.lose.load();
   }
 
   pauseAudios() {
