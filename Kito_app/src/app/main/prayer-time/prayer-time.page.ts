@@ -1,7 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { IonContent, IonSlides } from '@ionic/angular';
-import { EventsService, IPageEvent } from 'src/app/@app-core/http';
+import { CalendarService, EventsService, IPageEvent } from 'src/app/@app-core/http';
 import { DateTimeService } from 'src/app/@app-core/utils';
 
 @Component({
@@ -20,7 +20,8 @@ export class PrayerTimePage implements OnInit {
   };
 
   pageReq: IPageEvent = {
-    cal_date: ''
+    cal_date: null,
+    parish_id: null
   }
 
   diocese = {
@@ -38,7 +39,7 @@ export class PrayerTimePage implements OnInit {
     public dateTimeService: DateTimeService,
     private router: Router,
     private eventsService: EventsService,
-    private route: ActivatedRoute,
+    private calendarService: CalendarService
   ) { }
 
   ngOnInit() {
@@ -55,8 +56,8 @@ export class PrayerTimePage implements OnInit {
 
     const parishId = localStorage.getItem('tempParishId');
     if (parishId) {
+      localStorage.removeItem('tempParishId');
     }
-    localStorage.removeItem('tempParishId');
   }
 
   ionViewDidEnter() {
@@ -82,20 +83,26 @@ export class PrayerTimePage implements OnInit {
   }
 
   getData() {
+    this.pageReq.parish_id = JSON.parse(localStorage.getItem('parish'))?.id;
+
+    this.calendarService.getByWeek(new Date()).subscribe(data => {
+      for (let i = 0; i < 7; i++) {
+        this.dateList[i].name = data.calendars[i].mass_name;
+        this.dateList[i].color = data.calendars[i].shirt_color.color_code;
+      }
+    })
+
     for (let i = 0; i < 7; i++) {
-      this.pageReq.cal_date = this.dateTimeService.getDateString2(this.dateList[i].date);
+      this.pageReq.cal_date = this.dateList[i].date;
       this.eventsService.getAll(this.pageReq).subscribe(data => {
-        if (this.dateTimeService.isEmptyObject(data.calendar)) {
+        if (!data.events.length) {
           return;
         }
-        data.calendar.events.forEach(event => {
+        data.events.forEach(event => {
           event.start_time = new Date(event.start_time);
           event.name = event.start_time.getHours() >= 12 ? 'Lễ tối' : 'Lễ sáng';
         });
-        this.dateList[i].name = data.calendar.name;
-        this.dateList[i].date = new Date(data.calendar.date);
-        this.dateList[i].color = data.calendar.shirt_color.color_code;
-        this.dateList[i].events = data.calendar.events;
+        this.dateList[i].events = data.events;
       })
     }
   }
