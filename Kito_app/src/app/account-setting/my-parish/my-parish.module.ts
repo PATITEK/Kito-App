@@ -4,19 +4,19 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { NewsPageRoutingModule } from './news-routing.module';
+import { MyParishPageRoutingModule } from './my-parish-routing.module';
 
-import { NewsPage } from './news.page';
+import { MyParishPage } from './my-parish.page';
 import { HeaderModule } from 'src/app/@modular/header/header.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
-    HeaderModule,
     IonicModule,
-    NewsPageRoutingModule
+    HeaderModule,
+    MyParishPageRoutingModule
   ],
-  declarations: [NewsPage]
+  declarations: [MyParishPage]
 })
-export class NewsPageModule {}
+export class MyParishPageModule {}

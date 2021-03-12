@@ -17,28 +17,31 @@
     <ion-list class="settings">
       <ion-buttons class="setting" routerLink="/account">
         <div class="img-container">
-          <img src="assets/icon/user.svg">
+          <!-- <img src="assets/icon/user.svg"> -->
+          <ion-icon size="normal" name="person"></ion-icon>
         </div>
         <ion-label class="title">Thông tin cá nhân</ion-label>
       </ion-buttons>
       <ion-buttons class="setting">
         <div class="img-container">
-          <div>
-            <span class="notification">3</span>
-          </div>
+          <ion-buttons>
+            3
+          </ion-buttons>
           <ion-icon size="normal" name="notifications"></ion-icon>
         </div>
         <ion-label class="title">Thông báo</ion-label>
       </ion-buttons>
       <ion-buttons class="setting" routerLink="/statistic">
         <div class="img-container">
-          <img src="assets/icon/statistic.svg">
+          <!-- <img src="assets/icon/statistic.svg"> -->
+          <ion-icon name="stats-chart"></ion-icon>
         </div>
         <ion-label class="title">Thống kê</ion-label>
       </ion-buttons>
       <ion-buttons class="setting" routerLink="/paymentmethods">
         <div class="img-container">
-          <img src="assets/icon/wallet.svg">
+          <!-- <img src="assets/icon/wallet.svg"> -->
+          <ion-icon name="wallet"></ion-icon>
         </div>
         <ion-label class="title">Phương thức thanh toán</ion-label>
       </ion-buttons>
@@ -50,25 +53,29 @@
       </ion-buttons>
       <ion-buttons class="setting" routerLink="/account-setting/setting">
         <div class="img-container">
-          <img src="assets/icon/setting-account.svg">
+          <!-- <img src="assets/icon/setting-account.svg"> -->
+          <ion-icon name="settings"></ion-icon>
         </div>
         <ion-label class="title">Cài đặt</ion-label>
       </ion-buttons>
       <ion-buttons class="setting" routerLink="/account-setting/introduce">
         <div class="img-container">
-          <img src="assets/icon/warning.svg">
+          <!-- <img src="assets/icon/warning.svg"> -->
+          <ion-icon name="alert"></ion-icon>
         </div>
         <ion-label class="title">Giới thiệu</ion-label>
       </ion-buttons>
       <ion-buttons routerLink="/account-setting/support" class="setting">
         <div class="img-container">
-          <img src="assets/icon/help.svg">
+          <!-- <img src="assets/icon/help.svg"> -->
+          <ion-icon name="help"></ion-icon>
         </div>
         <ion-label class="title">Trợ giúp</ion-label>
       </ion-buttons>
       <ion-buttons class="setting" (click)="openModalLogOut()">
         <div class="img-container">
-          <img src="assets/icon/log-out.svg">
+          <!-- <img src="assets/icon/log-out.svg"> -->
+          <ion-icon name="log-out"></ion-icon>
         </div>
         <ion-label class="title">Đăng xuất</ion-label>
       </ion-buttons>

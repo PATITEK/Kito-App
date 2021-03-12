@@ -32,7 +32,7 @@ ion-content {
     padding: 10px 5px 5px;
     z-index: 1;
     color: #fff;
-
+    
     .item-title {
       font-size: 14px;
       font-weight: 500;
@@ -44,7 +44,11 @@ ion-content {
       flex-direction: column;
       align-items: flex-end;
       color: #fff;
-
+      ion-buttons {
+        ion-icon {
+          margin-right: 3px;
+        }
+      }
       .time-box {
         justify-content: flex-end;
         width: 120px;
@@ -100,6 +104,14 @@ ion-content {
       .bottom-box {
         width: 100%;
         justify-content: space-between;
+        ion-buttons {
+          .eye {
+            margin-right: 2px;
+          }
+          .time {
+            margin-right: 2px;
+          }
+        }
       }
     }
   }

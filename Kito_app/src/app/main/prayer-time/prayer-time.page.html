@@ -25,7 +25,7 @@
     </ion-buttons>
   </div>
 
-  <ion-slides *ngIf="fixedElHeight != 0" #slides [options]="slideOptions" (ionSlideDidChange)="changeSegmentSlide()"
+  <ion-slides #slides [options]="slideOptions" (ionSlideDidChange)="changeSegmentSlide()"
     (ionSlideWillChange)="scrollToTop(300)">
     <ion-slide *ngFor="let dateItem of dateList">
       <div class="body-header">
