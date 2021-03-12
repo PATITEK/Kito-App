@@ -79,10 +79,10 @@ export const APICONFIG = {
     GET_DETAIL_PRODUCT: id => `/app/products/${id}`
   },
   QUESTIONARES: {
-    GET_TOPIC: ``,
-    GET_LEVEL: ``,
-    GET_QUES_TOPIC: topic => `/${topic}`,
-    GET_QUES_LEVEL: level => `/${level}`,
+    GET_TOPIC: `/app/questions/topics`,
+    GET_LEVEL: `/app/questions/levels`,
+    GET_QUES_TOPIC: topic => `/app/questions/by_topic?topic=${topic}`,
+    GET_QUES_LEVEL: level => `/app/questions/by_level?level=${level}`,
     CHECK_ANSWER: answerKey => `/${answerKey}`,
   },
   COURSE:{
