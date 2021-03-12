@@ -39,8 +39,8 @@ export class MapPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    let tempTitle = JSON.parse(localStorage.getItem('diocese'))
-    this.title = 'Bản đồ ' + tempTitle.name
+    let tempTitle = JSON.parse(localStorage.getItem('diocese')) || '.';
+    this.title = 'Bản đồ ' + tempTitle.name;
     this.GeolocationService.getCurrentLocation();
     this.addDataMarkerToMap();
   }
