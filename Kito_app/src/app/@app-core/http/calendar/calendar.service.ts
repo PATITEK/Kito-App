@@ -2,6 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, catchError } from 'rxjs/operators';
 import { APICONFIG } from '..';
+import { requestQuery } from '../../utils';
+import { IPageCalendar } from './calendar.DTO';
 
 @Injectable({
   providedIn: 'root'
@@ -11,8 +13,8 @@ export class CalendarService {
     private http: HttpClient
   ) { }
 
-  public getByMonth(cal_date) {
-    return this.http.get<any>(`${APICONFIG.CALENDARS.GET_BY_MONTH}?cal_date=${cal_date}`).pipe(
+  public getByMonth(request: IPageCalendar) {
+    return this.http.get<IPageCalendar>(`${APICONFIG.CALENDARS.GET_BY_MONTH}?${(requestQuery(request))}`).pipe(
       map((result) => {
         return result;
       }),
@@ -27,8 +29,8 @@ export class CalendarService {
       catchError((errorRes) => { throw errorRes.error; }));
   }
 
-  public getByDay(cal_date) {
-    return this.http.get<any>(`${APICONFIG.CALENDARS.GET_BY_DAY}?cal_date=${cal_date}`).pipe(
+  public getByday(request: IPageCalendar) {
+    return this.http.get<IPageCalendar>(`${APICONFIG.CALENDARS.GET_BY_DAY}?${(requestQuery(request))}`).pipe(
       map((result) => {
         return result;
       }),
