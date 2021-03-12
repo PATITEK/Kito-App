@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ModalController, PopoverController } from '@ionic/angular';
+import { AlertController, ModalController, PopoverController } from '@ionic/angular';
 import { AccountService } from '../@app-core/http/account/account.service';
 import { GeolocationService, ImageService } from '../@app-core/utils';
 import { PopupComponent } from '../@modular/popup/popup.component';
@@ -56,6 +56,7 @@ export class AccountSettingPage implements OnInit {
     private accountService: AccountService,
     private imageService: ImageService,
     private geolocationService: GeolocationService,
+    private alertCtrl: AlertController,
   ) { }
 
   ngOnInit() {
@@ -88,7 +89,14 @@ export class AccountSettingPage implements OnInit {
     return await popover.present();
   }
 
-  openModalGoogleMap() {
-    this.geolocationService.openModalGoogleMap();
+  async openModalGoogleMap() {
+    if(localStorage.getItem('diocese')) this.geolocationService.openModalGoogleMap();
+    else {
+      let alert = await this.alertCtrl.create({
+        message: 'Hãy chọn giáo phận của bạn trong cài đặt.',
+        mode: 'ios'
+      })
+      await alert.present();
+    }
   }
 }
