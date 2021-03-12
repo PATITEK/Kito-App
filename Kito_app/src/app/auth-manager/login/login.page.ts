@@ -31,7 +31,7 @@ export class LoginPage implements OnInit {
   showSpinner = false;
   validationLoginMessages = {
     phone_number: [
-    { type: 'required', message: 'phone number is required' },
+      { type: 'required', message: 'phone number is required' },
     ],
     password: [
       { type: 'required', message: 'Password is required' }
@@ -72,7 +72,7 @@ export class LoginPage implements OnInit {
     ],
   }
 
-  countries:any;
+  countries: any;
   listDioceses: any;
   listParishes: any;
   id_diocese = 1;
@@ -98,29 +98,29 @@ export class LoginPage implements OnInit {
     page: 1,
     per_page: 100,
   }
- 
+
   ngOnInit() {
     this.authService.countryCode().subscribe((data: any) => {
       this.country_codes = data.country_codes;
       this.code = data.country_codes[0].phone_code;
     })
 
-    this.diocese.getAll(this.pageRequestDioceses).subscribe(data =>{
+    this.diocese.getAll(this.pageRequestDioceses).subscribe(data => {
       this.listDioceses = data.dioceses;
       this.tagret = this.listDioceses[0].name
     }),
-    this.parishes.getAll(this.pageRequestParishes).subscribe(data=> {
-      this.listParishes = data.parishes;
-    })
-   
+      this.parishes.getAll(this.pageRequestParishes).subscribe(data => {
+        this.listParishes = data.parishes;
+      })
+
     this.initForm();
     // this.oneSignal.startOneSignal();
     // this.oneSignal.setUpOneSignal();
   }
   onSelectChange() {
-     this.pageRequestParishes.diocese_id = this.formSignUp.get('dioceses').value;
-     console.log(this.pageRequestParishes);
-     this.parishes.getAll(this.pageRequestParishes).subscribe(data=> {
+    this.pageRequestParishes.diocese_id = this.formSignUp.get('dioceses').value;
+    console.log(this.pageRequestParishes);
+    this.parishes.getAll(this.pageRequestParishes).subscribe(data => {
       this.listParishes = data.parishes;
     })
   }
@@ -137,7 +137,7 @@ export class LoginPage implements OnInit {
       sex: new FormControl('male'),
       email: new FormControl('', Validators.compose([
         Validators.required,
-         Validators.pattern(PATTERN.EMAIL)
+        Validators.pattern(PATTERN.EMAIL)
       ])),
       phone_number: new FormControl('', Validators.compose([
         Validators.required,
@@ -152,9 +152,9 @@ export class LoginPage implements OnInit {
       parish_id: new FormControl('', Validators.compose([
         Validators.required
       ])),
-      country_code: new FormControl(''),  
-     // province: new FormControl('Ho Chi Minh'),
-     // district: new FormControl('Thu Duc'),
+      country_code: new FormControl(''),
+      // province: new FormControl('Ho Chi Minh'),
+      // district: new FormControl('Thu Duc'),
       full_address: new FormControl('', Validators.required),
       password: new FormControl('', Validators.compose([
         Validators.required,
@@ -179,19 +179,19 @@ export class LoginPage implements OnInit {
       this.showSpinner = false;
       this.markFormGroupTouched(this.formLogin);
     } else {
-     let dataFormLogin = this.formLogin.value;
-     dataFormLogin.phone_number =  dataFormLogin.phone_number.length == 10 ? dataFormLogin.phone_number.substring(1, 10) : dataFormLogin.phone_number;
-     dataFormLogin.phone_number = `+84${dataFormLogin.phone_number}`;
-     let dataSubmit = {
-      "phone_number":  dataFormLogin.phone_number,
-      "password": dataFormLogin.password
-    }
+      let dataFormLogin = this.formLogin.value;
+      dataFormLogin.phone_number = dataFormLogin.phone_number.length == 10 ? dataFormLogin.phone_number.substring(1, 10) : dataFormLogin.phone_number;
+      dataFormLogin.phone_number = `+84${dataFormLogin.phone_number}`;
+      let dataSubmit = {
+        "phone_number": dataFormLogin.phone_number,
+        "password": dataFormLogin.password
+      }
       this.authService.login(dataSubmit).subscribe(
-      (data: any) => {
-        this.router.navigate(['main/chabad']);
+        (data: any) => {
+          this.router.navigate(['main/chabad']);
         },
-        (data: any)=> {
-            this.showSpinner = false;
+        (data: any) => {
+          this.showSpinner = false;
         }
       );
     }
@@ -201,29 +201,30 @@ export class LoginPage implements OnInit {
     this.showSpinner = true;
     if (!this.canSubmitSignUp()) {
       this.showSpinner = false;
-        this.markFormGroupTouched(this.formSignUp);
+      this.markFormGroupTouched(this.formSignUp);
     } else if (!this.checkMatchConfirmedPassword()) {
       this.showSpinner = false;
       this.toastService.present('Confirmed password not match');
     } else {
       let data = this.formSignUp.value;
       data.phone_number = data.phone_number.length == 10 ? data.phone_number.substring(1, 10) : data.phone_number;
-      data.phone_number = `+${this.formSignUp.value.country_code}${data.phone_number}`;
+      // data.phone_number = `+${this.formSignUp.value.country_code}${data.phone_number}`;
+      data.phone_number = `+${84}${data.phone_number}`; // BE checked multi language, till now just only use 84
       let submitData = {
-          "full_name": data.full_name,
-          "sex": data.sex,
-          "birthday": data.age,
-          "full_address": data.full_address,
-          "phone_number": data.phone_number,
-          "email": data.email,
-          "password": data.password,
-          "password_confirmation": data.confirmed_password,
-          "parish_id": data.parish_id
+        "full_name": data.full_name,
+        "sex": data.sex,
+        "birthday": data.age,
+        "full_address": data.full_address,
+        "phone_number": data.phone_number,
+        "email": data.email,
+        "password": data.password,
+        "password_confirmation": data.confirmed_password,
+        "parish_id": data.parish_id
       }
       this.authService.signup(submitData).subscribe(
-        (data)=>{
+        (data) => {
         },
-        (data:any) =>{
+        (data: any) => {
           this.showSpinner = false;
         }
       );

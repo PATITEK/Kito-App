@@ -10,7 +10,7 @@
           <img src="assets/img/avatar.png" alt=""*ngIf="!avatar" >
           <ion-spinner *ngIf="!avatar" class="absolute-center" name="lines"></ion-spinner>
       </ion-avatar>
-      <img src="assets/img/edit2.svg" class="icon-edit" (click)="avatarSetting()">
+      <ion-icon class="icon-edit" (click)="avatarSetting()" name="pencil-outline"></ion-icon>
     </div>
     <ion-label *ngIf="loadedData && !activatedInput" class="edit-btn" (click)="activateInput()">Chỉnh sửa</ion-label>
   </div>
