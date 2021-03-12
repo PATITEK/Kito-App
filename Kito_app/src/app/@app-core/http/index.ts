@@ -17,3 +17,4 @@ export * from './bishop';
 export * from './store';
 export * from './questionares';
 export * from './course'
+export * from './calendar'

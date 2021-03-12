@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { IonSlides } from '@ionic/angular';
+import { isNull, isUndefined } from 'node:util';
+import { CalendarService } from 'src/app/@app-core/http';
+import { IPageCalendar } from 'src/app/@app-core/http/calendar/calendar.DTO';
+import { DayPipe } from 'src/app/@app-core/pipe/pipiday.pipe';
 
 @Component({
   selector: 'app-calendar-detail',
@@ -8,39 +13,153 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class CalendarDetailComponent implements OnInit {
   headerCustom = { title: 'Lịch Công Giáo' };
-  photo ='assets/img/calendar/calendar-date.jpg'
+  photo = 'assets/img/calendar/calendar-date.jpg'
   constructor(
     private route: ActivatedRoute,
-    
-  ) { }
+    private calemdarService: CalendarService,
 
+  ) { }
+  dayWeeks = [
+
+    {
+      valueView: "Thứ 2",
+      value: 1
+    },
+    {
+      valueView: "Thứ 3",
+      value: 2
+    },
+    {
+      valueView: "Thứ 4",
+      value: 3
+    },
+    {
+      valueView: "Thứ 5",
+      value: 4
+    },
+    {
+      valueView: "Thứ 6",
+      value: 5
+    },
+    {
+      valueView: "Thứ 7",
+      value: 6
+    },
+    {
+      valueView: "Chúa Nhật",
+      value: 0
+    },
+  ];
+  daynow;
   dayDetail;
-  coutnCalendar=100;
+  monthDetail;
+  yearDetail;
+  dayLunner;
+  monthLunner;
+  yearLunner;
+  dayofWeekend;
+  coutnCalendar = 100;
+  colorDay;
+  fix=0;
   slideOpts = {
 
     initialSlide: this.coutnCalendar,
     speed: 400
   };
+  public pageResult: IPageCalendar = {
+    page: 1,
+    per_page: 10,
+    total_objects: 0,
+    search: '',
+    cal_date: ''
+  };
   ngOnInit() {
     this.getData();
   }
-  getData(){
+  ngAfterContentInit(){
+    
+    
+  }
+ 
+  getData() {
     this.route.queryParams.subscribe(params => {
-      this.dayDetail = JSON.parse(params['data']).day;
-      console.log(this.dayDetail);
-      
+
+
+      let tmp = new Date(JSON.parse(params['data']).day);
+      this.daynow = new Date(JSON.parse(params['data']).day);
+      this.dayDetail = tmp.getDate()-1;
+      this.pageResult.cal_date = tmp.getFullYear() + '-' + (tmp.getMonth()+1) + '-' + tmp.getDate();
+      this.calemdarService.getByday(this.pageResult).subscribe((data: any) => {
+        let day = new Date(data.calendar.date);
+        let tmp1 = new Date(data.calendar.lunar_date);
+        let color = data.calendar.shirt_color.color_code;
+        
+        this.getAPiday(color,day,tmp1)
+       
+      })
+
+
     }).unsubscribe();
+  }
+  getAPiday(color,day,tmp1){
+    this.colorDay = color;
+    this.dayDetail = day.getDate();
+    this.monthDetail = day.getMonth();
+    this.yearDetail = day.getFullYear();
+    this.dayLunner = tmp1.getDate();
+    this.monthLunner = tmp1.getMonth();
+    this.yearLunner = tmp1.getFullYear();
+    this.dayofWeekend = this.PipeDay(day.getDay());
   }
   numSequence(n: number): Array<number> {
     return Array(n);
   }
-  ionSlideNextEnd() {
-    this.dayDetail++;
-    this.coutnCalendar++;
+  ionSlideNextS() {
+    if(this.fix==0)
+    {
+      this.fix++;
+      return;
+    }
+    console.log('test');
+    let dayTmp=new Date(this.pageResult.cal_date);
+    let nextDay = new Date(dayTmp);
+    nextDay.setDate(dayTmp.getDate()+1);
+    this.pageResult.cal_date=nextDay.toString();
+    this.calemdarService.getByday(this.pageResult).subscribe((data: any) => {
+      let day = new Date(data.calendar.date);
+      let tmp1 = new Date(data.calendar.lunar_date);
+      let color = data.calendar.shirt_color.color_code;
+
+      this.getAPiday(color, day, tmp1)
+      this.coutnCalendar++;
+      
+
+    })
+    
+    
   }
 
   ionSlidePrevEnd() {
-    this.dayDetail--;
-    this.coutnCalendar++;
+
+    let dayTmp = new Date(this.pageResult.cal_date);
+    let prevDay = new Date(dayTmp);
+    prevDay.setDate(dayTmp.getDate() - 1);
+    this.pageResult.cal_date = prevDay.toString();
+    this.calemdarService.getByday(this.pageResult).subscribe((data: any) => {
+      let day = new Date(data.calendar.date);
+      let tmp1 = new Date(data.calendar.lunar_date);
+      let color = data.calendar.shirt_color.color_code;
+
+      this.getAPiday(color, day, tmp1)
+      this.coutnCalendar++;
+
+    })
+  }
+
+  PipeDay(value) {
+   
+      const index = this.dayWeeks.findIndex(x => x.value.toString() === value.toString());
+      return this.dayWeeks[index].valueView;
+    
   }
 }

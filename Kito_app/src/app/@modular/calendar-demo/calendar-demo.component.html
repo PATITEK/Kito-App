@@ -25,12 +25,13 @@
           </ion-item-group>
           <ion-item-group class="days-of-month">
             <ion-buttons class="list-days">
-              <ion-item-group (click)="gotoDetail(days)" class="days" *ngFor="let days of dayOfMonth">
-                <span *ngIf="days!=0" class="duong-lich">
-                  {{days}}
+              <ion-item-group (click)="gotoDetail(days)" class="days" *ngFor="let days of dayOfMonth" [ngClass]="{'otherMonth':getMonthFormat(days.date) !== currentMonth-1 }">
+                <span class="duong-lich" [style.color]="days.shirt_color.color_code" >
+                  {{getDayFormat(days.date)}}
+                  <!-- {{days.date | datePipe}} -->
                 </span>
-                <span *ngIf="days!=0" class="am-lich">
-                  {{days}}
+                <span class="am-lich">
+                  {{getDayFormat(days.lunar_date)}}
                 </span>
               </ion-item-group>
             </ion-buttons>
