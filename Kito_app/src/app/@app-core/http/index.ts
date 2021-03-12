@@ -4,9 +4,7 @@ export * from './account';
 export * from './events'
 export * from './global';
 export * from './@http-config';
-export * from './match-users';
 export * from './history';
-export * from './food';
 export * from './donate';
 export * from './order';
 export * from './diocese';
@@ -17,3 +15,4 @@ export * from './diocese-news';
 export * from './bishop';
 export * from './store';
 export * from './questionares';
+export * from './calendar';

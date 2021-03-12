@@ -29,6 +29,8 @@ ion-content {
 }
 
 .song-list {
+  padding-bottom: 20px;
+
   .song-cover {
     padding: 10px;
     justify-content: space-between;
@@ -97,6 +99,7 @@ ion-content {
       width: 60px;
       height: 60px;
       margin-right: 10px;
+      animation: spin 10s linear infinite;
     }
 
     .active-tract-info {
@@ -128,9 +131,15 @@ ion-content {
 .range {
   height: 0;
   position: absolute;
-  top: 0;
+  top: 4px;
   left: 0;
   right: 0;
   --bar-background: #c8c8c8;
   --bar-background-active: #f6c33e;
+}
+
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
 }

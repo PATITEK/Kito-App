@@ -30,29 +30,22 @@ export const APICONFIG = {
     GET_DETAIL: id => `/app/dioceses/${id}`
   },
   PARISHES: {
-    GET:`/app/parishes`,
-    GETNEWS:`/app/parish_news`,
+    GET: `/app/parishes`,
+    GETNEWS: `/app/parish_news`,
     GETLIST: `app/parishes/all_parishes`,
     GET_DETAIL: id => `/app/parishes/${id}`
   },
-  CHABAD: {
-    GET: `/app/chabads`,
-    GET_DETAIL: id => `/app/chabads/${id}`
-  },
   EVENTS: {
-    GET: `/app/calendars`,
+    GET: `/app/events`,
     GET_DETAIL: (id) => `/app/events/${id}`,
-    JOIN: `/app/attention_logs`,
-    CANCEL: `/app/attention_logs/cancel`
+  },
+  CALENDARS: {
+    GET_BY_MONTH: `/app/calendars/month`,
+    GET_BY_WEEK: `/app/calendars/week`,
+    GET_BY_DAY: `/app/calendars/day`,
   },
   DONATES: {
-    DONATE:`/app/donation_logs`  
-  },
-  MATCH_USERS: {
-    GET: `/app/matches/match`
-  },
-  FOOD: {
-    GET: `/app/foods`
+    DONATE: `/app/donation_logs`
   },
   HISTORY: {
     GET_SERVICES: `/app/attention_logs/service_history`,
@@ -80,14 +73,14 @@ export const APICONFIG = {
     GET: `/app/diocese_news`,
     GET_DETAIL: id => `/app/diocese_news/${id}`
   },
-  STORE : {
+  STORE: {
     GET_ALL_CATEGORIES: `/app/categories`,
     GET_ALL_PRODUCTS: `/app/products`,
     GET_DETAIL_PRODUCT: id => `/app/products/${id}`
   },
   QUESTIONARES: {
     GET_TOPIC: ``,
-    GET_LEVEL:``,
+    GET_LEVEL: ``,
     GET_QUES_TOPIC: topic => `/${topic}`,
     GET_QUES_LEVEL: level => `/${level}`,
     CHECK_ANSWER: answerKey => `/${answerKey}`,
