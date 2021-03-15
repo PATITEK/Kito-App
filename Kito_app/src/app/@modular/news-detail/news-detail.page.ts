@@ -41,12 +41,6 @@ export class NewsDetailPage implements OnInit {
         case 'story':
           this.headerCustom.title = 'Tiểu sử';
           break;
-        // case 'parish':
-        //   this.headerCustom.title = 'Tin tức Giáo xứ'
-        //   break;
-        // case 'parish_news':
-        //   this.headerCustom.title = 'Tin tức Giáo xứ'
-        //   break;
       }
       switch (dataParams.type.detail) {
         case 'vatican':

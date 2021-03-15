@@ -13,15 +13,15 @@ export class TonggiaophanPage implements OnInit {
   dioceses = [];
   holySee = {
     diocese_type: "vatican",
-    name: "Tin tức tòa thánh Vatican",
-    thumb_image: { url: "assets/img/tonggiaophan/vatican.svg" }
+    name: "Tòa thánh Vatican",
+    thumb_image: { url: "assets/img/tonggiaophan/vatican.jpg" }
   }
 
   constructor(
     private diocesesService: DioceseService,
   ) { }
+
   ngOnInit() {
-    // this.loadingService.present();
     this.diocesesService.getAll(this.pageRequest).subscribe(data => {
       data.dioceses.forEach(diocese => {
         let hasNull = false;
@@ -33,8 +33,6 @@ export class TonggiaophanPage implements OnInit {
         }
         !hasNull && this.dioceses.push(diocese);
       })
-      // this.loadingService.dismiss();
     })
   }
-  
 }
