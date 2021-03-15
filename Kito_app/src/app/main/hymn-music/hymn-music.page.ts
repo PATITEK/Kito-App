@@ -105,7 +105,7 @@ export class HymnMusicPage implements OnInit {
 
   ngOnDestroy() {
     clearInterval(this.progressInterval);
-    this.player.unload();
+    this.player && this.player.unload();
   }
 
   reInitShuffledList() {
