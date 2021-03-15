@@ -21,4 +21,4 @@ import { MainSlideModule } from 'src/app/@modular/main-slide/main-slide.module';
   ],
   declarations: [ArchdioceseDetailPage]
 })
-export class ArchdioceseDetailPageModule {}
+export class ArchdioceseDetailPageModule { }

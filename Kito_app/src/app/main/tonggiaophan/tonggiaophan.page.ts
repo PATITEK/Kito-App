@@ -35,4 +35,5 @@ export class TonggiaophanPage implements OnInit {
       })
     })
   }
+
 }
