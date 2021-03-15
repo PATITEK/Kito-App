@@ -51,13 +51,16 @@ export class StorePage implements OnInit {
 
   getProducts(event?) {
     this.pageRequestProducts.category_id = this.currentCategoryId;
+    const tempCategoryId = this.currentCategoryId;
     this.storeService.getAllProducts(this.pageRequestProducts).subscribe(data => {
+      if (tempCategoryId !== this.currentCategoryId) {
+        return;
+      }
       data.products.forEach(product => {
         product.unit_price = 'đ';
         product.amount = 0;
       })
       this.list = this.list.concat(data.products);
-
 
       if (event) {
         if (this.list.length >= data.meta.pagination.total_objects) {
@@ -98,7 +101,7 @@ export class StorePage implements OnInit {
 
   calTotalItem() {
     const total = this.cart.reduce((acc, item) => acc + item.amount, 0);
-    return total <= 999 ? total : 999;
+    return total <= 99 ? total : 99;
   }
 
   goToCart() {

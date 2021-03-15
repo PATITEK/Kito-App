@@ -8,11 +8,11 @@ import { PopeService } from 'src/app/@app-core/http/pope';
   styleUrls: ['./parish-news.page.scss'],
 })
 export class ParishNewsPage implements OnInit {
-  headerCustom = {}
+  headerCustom = { title: 'Tòa thánh Vatican' }
 
   list = [
     {
-      heading: 'Tin tức tòa thánh Vatican',
+      heading: 'Tin tức Vatican',
       items: [],
       type: { general: 'news', detail: 'vatican' }
     },

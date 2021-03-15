@@ -19,8 +19,8 @@ export class StorageService {
     public setInfoAccount() {
         if (localStorage.getItem('Authorization') !== null) {
             return this.accountService.getAccounts().subscribe((data: any) => {
-                localStorage.setItem('email',data.app_user.email);
-                localStorage.setItem('diocese_id',data.app_user.diocese_id);
+                localStorage.setItem('email', data.app_user.email);
+                localStorage.setItem('diocese_id', data.app_user.diocese_id);
                 localStorage.setItem('parish_id', data.app_user.parish_id);
                 this.userSub.next(data.user);
             })

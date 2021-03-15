@@ -3,12 +3,12 @@
 
   <div class="fixed" #fixed>
     <div class="img-container main-box-shadow">
-      <img [src]="diocese.thumbImage">
+      <img [src]="parish?.thumb_image?.url">
     </div>
 
-    <div class="parish-name">{{ diocese.name }}</div>
+    <div class="parish-name">{{ parish?.name }}</div>
     <ion-buttons class="parish-address-box">
-      <span class="parish-address">{{ diocese.address }}</span>
+      <span class="parish-address">{{ parish?.address }}</span>
       <ion-icon name="navigate"></ion-icon>
     </ion-buttons>
     <div class="see-more-box">

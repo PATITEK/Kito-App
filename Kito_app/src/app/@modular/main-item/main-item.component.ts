@@ -21,8 +21,9 @@ export class MainItemComponent implements OnInit {
         this.router.navigateByUrl('main/tonggiaophan/parish-news');
         break;
       case 'archdiocese':
+      case 'diocese':
         const data = {
-          diocese : {
+          diocese: {
             id: this.data.id,
             name: this.data.name,
             type: this.data.diocese_type
@@ -31,20 +32,6 @@ export class MainItemComponent implements OnInit {
         this.router.navigate(['/main/tonggiaophan/archdiocese-detail'], {
           queryParams: {
             data: JSON.stringify(data)
-          }
-        })
-        break;
-      case 'diocese':
-        const data1 = {
-          diocese : {
-            id: this.data.id,
-            name: this.data.name,
-            type: this.data.diocese_type
-          }
-        }
-        this.router.navigate(['/main/tonggiaophan/archdiocese-detail'], {
-          queryParams: {
-            data: JSON.stringify(data1)
           }
         })
         break;
