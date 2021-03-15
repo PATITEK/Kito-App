@@ -63,7 +63,7 @@ export class SelectDiocesePage implements OnInit {
   }
 
   setItem(item, type) {
-    localStorage.setItem(type, JSON.stringify({ id: item.id, name: item.name }));
+    localStorage.setItem(type, JSON.stringify(item.id));
   }
 
   goBack() {
@@ -73,15 +73,15 @@ export class SelectDiocesePage implements OnInit {
   choose(item) {
     switch (this.type) {
       case 'diocese':
-        const prev = JSON.parse(localStorage.getItem('diocese'));
-        if (prev.id != item.id) {
+        const prevId = JSON.parse(localStorage.getItem('diocese_id'));
+        if (prevId !== item.id) {
           this.loadingService.present();
           this.parishService.getAll({ page: 1, per_page: 1, diocese_id: item.id }).subscribe(
             data => {
               const parish = data.parishes[0];
               if (parish) {
-                this.setItem(item, this.type);
-                this.setItem(parish, 'parish');
+                this.setItem(item, 'diocese_id');
+                this.setItem(parish, 'parish_id');
               }
               this.loadingService.dismiss();
               this.goBack();
@@ -92,12 +92,11 @@ export class SelectDiocesePage implements OnInit {
             }
           )
         } else {
-          this.setItem(item, this.type);
           this.goBack();
         }
         break;
       case 'parish':
-        this.setItem(item, this.type);
+        this.setItem(item, 'parish_id');
         this.goBack();
         break;
     }
