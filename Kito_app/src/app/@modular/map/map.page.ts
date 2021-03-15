@@ -1,9 +1,9 @@
+import { DioceseService } from './../../@app-core/http/diocese/diocese.service';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Platform } from '@ionic/angular';
 import { GeolocationService } from 'src/app/@app-core/utils';
 import { ParishesService } from 'src/app/@app-core/http/parishes';
 import { IPageParishes } from 'src/app/@app-core/http/parishes/parishes.DTO';
-import { DioceseService } from 'src/app/@app-core/http/diocese';
 import { IPageRequest } from 'src/app/@app-core/http/global/global.DTO';
 @Component({
   selector: 'app-map',
@@ -36,11 +36,14 @@ export class MapPage implements OnInit {
     private parishesService: ParishesService,
     private diocesesService: DioceseService,
     private geolocationService: GeolocationService,
+    private DioceseService: DioceseService,
   ) { }
 
   ngOnInit() {
-    let tempTitle = JSON.parse(localStorage.getItem('diocese')) || '.';
-    this.title = 'Bản đồ ' + tempTitle.name;
+    let tempTitle = JSON.parse(localStorage.getItem('diocese_id')) || '.';
+    this.DioceseService.getDetail(tempTitle).subscribe((data) => {
+      this.title = 'Bản đồ ' + data.diocese.name;
+    })
     this.GeolocationService.getCurrentLocation();
     this.addDataMarkerToMap();
   }
@@ -99,8 +102,8 @@ export class MapPage implements OnInit {
     //   }
     //   this.pageRequestParishes.diocese_id = 0;
     // })
-    let tempId = JSON.parse(localStorage.getItem('diocese'))
-    this.pageRequestParishes.diocese_id = tempId.id
+    let tempId = JSON.parse(localStorage.getItem('diocese_id'))
+    this.pageRequestParishes.diocese_id = tempId;
     this.parishesService.getAll(this.pageRequestParishes).subscribe(data => {
       this.markers = data.parishes;
       this.addMarkersToMap(this.markers);

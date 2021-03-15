@@ -90,7 +90,7 @@ export class AccountSettingPage implements OnInit {
   }
 
   async openModalGoogleMap() {
-    if(localStorage.getItem('diocese')) this.geolocationService.openModalGoogleMap();
+    if(localStorage.getItem('diocese_id')) this.geolocationService.openModalGoogleMap();
     else {
       let alert = await this.alertCtrl.create({
         message: 'Hãy chọn giáo phận của bạn trong cài đặt.',
