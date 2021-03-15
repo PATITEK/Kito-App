@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { IonSlides } from '@ionic/angular';
 import { isNull, isUndefined } from 'node:util';
@@ -58,14 +58,15 @@ export class CalendarDetailComponent implements OnInit {
   monthLunner;
   yearLunner;
   dayofWeekend;
-  coutnCalendar = 100;
+  coutnCalendar = 3;
   colorDay;
   fix=0;
   slideOpts = {
 
-    initialSlide: this.coutnCalendar,
+    initialSlide: 1,
     speed: 400
   };
+  slide:IonSlides
   public pageResult: IPageCalendar = {
     page: 1,
     per_page: 10,
@@ -73,11 +74,20 @@ export class CalendarDetailComponent implements OnInit {
     search: '',
     cal_date: ''
   };
+  @ViewChild('slides', { static: false }) slides: IonSlides;
   ngOnInit() {
-    this.getData();
+
+
   }
-  ngAfterContentInit(){
+
+  slideChanged(slides: IonSlides) {
+    slides.getActiveIndex().then((index: number) => {
+      
+    });
+  }
+  ionViewWillEnter(){
     
+    this.getData();
     
   }
  
@@ -87,10 +97,12 @@ export class CalendarDetailComponent implements OnInit {
 
       let tmp = new Date(JSON.parse(params['data']).day);
       this.daynow = new Date(JSON.parse(params['data']).day);
-      this.dayDetail = tmp.getDate()-1;
+      this.dayDetail = tmp.getDate();
       this.pageResult.cal_date = tmp.getFullYear() + '-' + (tmp.getMonth()+1) + '-' + tmp.getDate();
       this.calemdarService.getByday(this.pageResult).subscribe((data: any) => {
         let day = new Date(data.calendar.date);
+        
+        
         let tmp1 = new Date(data.calendar.lunar_date);
         let color = data.calendar.shirt_color.color_code;
         
@@ -120,7 +132,6 @@ export class CalendarDetailComponent implements OnInit {
       this.fix++;
       return;
     }
-    console.log('test');
     let dayTmp=new Date(this.pageResult.cal_date);
     let nextDay = new Date(dayTmp);
     nextDay.setDate(dayTmp.getDate()+1);
@@ -140,7 +151,10 @@ export class CalendarDetailComponent implements OnInit {
   }
 
   ionSlidePrevEnd() {
-
+    if (this.fix == 0) {
+      this.fix++;
+      return;
+    }
     let dayTmp = new Date(this.pageResult.cal_date);
     let prevDay = new Date(dayTmp);
     prevDay.setDate(dayTmp.getDate() - 1);

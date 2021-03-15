@@ -3,7 +3,7 @@
 </ion-header>
 
 <ion-content>
-  <ion-slides [options]="slideOpts" (ionSlideNextStart)="ionSlideNextS()" (ionSlidePrevEnd)="ionSlidePrevEnd()">
+  <ion-slides #slides (ionSlideDidChange)="slideChanged(slides)" [options]="slideOpts" (ionSlideNextStart)="ionSlideNextS()" (ionSlidePrevEnd)="ionSlidePrevEnd()">
     <ion-slide  *ngFor="let n of numSequence(coutnCalendar)">
         <div>
           <ion-item-group class="main-calendar" [ngStyle]="{'background-image': 'url(' + photo + ')'}">

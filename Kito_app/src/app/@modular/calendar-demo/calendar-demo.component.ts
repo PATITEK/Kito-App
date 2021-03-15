@@ -58,7 +58,7 @@ export class CalendarDemoComponent implements OnInit {
     per_page: 10,
     total_objects: 0,
     search: '',
-    cal_date: this.currentYear + '-' + this.currentMonth + '-' + this.today.getDay()
+    cal_date: this.currentYear + '-' + this.currentMonth + '-' + this.today.getDate()
   };
   constructor(
     private route: Router,
@@ -68,6 +68,7 @@ export class CalendarDemoComponent implements OnInit {
   }
   ngOnInit(){
     this.ionViewWillEnter();
+    
   }
 
   ionViewWillEnter() {
@@ -130,7 +131,7 @@ export class CalendarDemoComponent implements OnInit {
     }
     else {
       this.currentMonth = this.currentMonth + 1;
-      this.pageResult.cal_date = this.currentYear + '-' + this.currentMonth + '-' + this.today.getDay();
+      this.pageResult.cal_date = this.currentYear + '-' + this.currentMonth + '-' + this.today.getDate();
       this.calendarService.getByMonth(this.pageResult).subscribe((data: any) => {
 
         this.dayOfMonth = data.calendars;
@@ -158,7 +159,7 @@ export class CalendarDemoComponent implements OnInit {
       this.currentMonth = 13
     }
     this.currentMonth = this.currentMonth - 1;
-    this.pageResult.cal_date = this.currentYear + '-' + this.currentMonth + '-' + this.today.getDay();
+    this.pageResult.cal_date = this.currentYear + '-' + this.currentMonth + '-' + this.today.getDate();
     this.calendarService.getByMonth(this.pageResult).subscribe((data: any) => {
 
       this.dayOfMonth = data.calendars;
