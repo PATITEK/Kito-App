@@ -1,11 +1,10 @@
-<ion-header class="ion-no-border">
+<ion-header class="ion-no-border" *ngIf="questions.length > 0">
   <ion-buttons class="header-option">
     <ion-icon size="large" mode="ios" name="list-circle-outline" class="active-effect" (click)="questionSetting()"></ion-icon>
-    <ion-icon *ngIf="musicType == true" size="large" name="volume-high" class="active-effect" (click)="setMusicType()"></ion-icon>
-    <ion-icon *ngIf="musicType == false" size="large" name="volume-mute" class="active-effect" (click)="setMusicType()"></ion-icon>
+    <ion-icon size="large" name="volume-high" [name]="musicType ? 'volume-high': 'volume-mute'" class="active-effect" (click)="setMusicType()"></ion-icon>
   </ion-buttons>
   <ion-buttons class="header-notify">
-    <ion-buttons class="heart" lines="none">
+    <ion-buttons class="heart active-effect" lines="none">
       <ion-icon size="large" name="heart-circle-outline"></ion-icon>
       <ion-label>{{ heart }}</ion-label>
     </ion-buttons>
@@ -31,8 +30,10 @@
 <ion-content class="ion-padding" *ngIf="questions.length > 0">
   <!-- <ion-label>right for test: {{ questions[this.questionCounter].answer.right_answer }}</ion-label> -->
   <ion-buttons class="question-cover">
-    <ion-label class="question" *ngIf="questions[questionCounter].question != 'No question' ">{{ questions[questionCounter].question }}</ion-label>
-    <img class="question-img" *ngIf="questions[questionCounter].thumb_image.url != null" src="https://www.forescout.com/wp-content/uploads/2019/04/fs-cyber-bob-blog-feaured-img-10-questions.png" />
+    <ion-label class="question" *ngIf="questions[questionCounter].question != '' ">{{ questions[questionCounter].question }}</ion-label>
+  </ion-buttons>
+  <ion-buttons class="question-cover">
+    <img class="question-img" *ngIf="questions[questionCounter].thumb_image.url != '' " src="https://www.forescout.com/wp-content/uploads/2019/04/fs-cyber-bob-blog-feaured-img-10-questions.png" />
   </ion-buttons>
 
   <ion-grid>
