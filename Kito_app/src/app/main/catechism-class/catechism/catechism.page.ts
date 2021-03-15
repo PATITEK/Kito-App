@@ -35,7 +35,6 @@ export class CatechismPage implements OnInit {
 
   getData() {
     this.coursesService.getGroup().subscribe((data: any) => {
-
       this.menuItems = data.course_groups;
       this.currentMenuItemId = this.menuItems[0].id;
 
@@ -70,7 +69,7 @@ export class CatechismPage implements OnInit {
     this.slides.lockSwipes(true);
   }
 
-  foramatTime(date) {
+  formatTime(date) {
     date = new Date(date);
     var hours = date.getHours();
     var minutes = date.getMinutes();

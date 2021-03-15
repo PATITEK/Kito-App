@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService, IPageRequest, OrderService, VaticanService } from '../@app-core/http';
+import { AuthService, IPageRequest, VaticanService } from '../@app-core/http';
 import { IonInfiniteScroll, ModalController } from '@ionic/angular';
 import { AccountService } from '../@app-core/http/account/account.service';
-import { GeolocationService, ImageService, LoadingService, OneSignalService } from '../@app-core/utils';
+import { OneSignalService } from '../@app-core/utils';
 
 @Component({
   selector: 'app-main',
@@ -68,21 +68,21 @@ export class MainPage implements OnInit {
     },
   ]
 
-  news = [];
+  vaticanList = {
+    heading: '',
+    items: [],
+    type: { general: 'news', detail: 'vatican' }
+  }
+
   constructor(
     private router: Router,
     private OneSignalService: OneSignalService,
-    private imageService: ImageService,
     private accountService: AccountService,
     private authService: AuthService,
     public modalCtrl: ModalController,
     public vaticanService: VaticanService,
-    public loadingService: LoadingService
-  ) {
-    this.init();
-  }
-  data;
-  lastedData: any;
+  ) { }
+
   ionViewWillEnter() {
     this.name = localStorage.getItem('fullname');
     this.accountService.getAccounts().subscribe(data => {
@@ -106,41 +106,20 @@ export class MainPage implements OnInit {
   ngOnInit() {
     this.OneSignalService.startOneSignal();
     this.name = localStorage.getItem('fullname');
-    this.getListVatican();
-  }
-  init() {
-    this.data = {
-      vatican_news: {
-        pageRequest: {
-          page: 1,
-          per_page: 100,
-        },
-        array: [],
-        loadedData: false
-      },
-    };
+    this.getVatican();
   }
 
-  getListVatican(func?) {
-    let news = this.data.vatican_news;
-    this.vaticanService.getAll(news.pageRequest).subscribe(data => {
-      news.array = data.vatican_news;
-      news.array = news.array.slice(-4);
-      this.lastedData = news.array[news.array.length - 1];
-      this.loadingService.dismiss();
-      func && func();
-      news.pageRequest.page++;
-      if (data.vatican_news.length >= data.meta.pagination.total_objects) {
-        news.loadedData = true;
-      }
+  getVatican() {
+    const pageRequest: IPageRequest = {
+      page: 1,
+      per_page: 4
+    }
+    this.vaticanService.getAll(pageRequest).subscribe(data => {
+      data.vatican_news.forEach(v => v.type = this.vaticanList.type);
+      this.vaticanList.items = data.vatican_news;
     })
   }
 
-  loadMoreDataOrders(event) {
-    this.getListVatican(() => {
-      event.target.complete();
-    })
-  }
   goToDetail(item) {
     if (item.desUrl == 'donate') {
       const data = {
@@ -176,20 +155,6 @@ export class MainPage implements OnInit {
     else this.router.navigateByUrl(item.desUrl);
   }
 
-  goToNewsDetail(item) {
-    const data = {
-      id: item.id,
-      type: {
-        general: 'news',
-        detail: 'vatican'
-      }
-    }
-    this.router.navigate(['/news-detail'], {
-      queryParams: {
-        data: JSON.stringify(data)
-      }
-    })
-  }
   goToAccountSetting() {
     this.router.navigateByUrl('account-setting');
   }
