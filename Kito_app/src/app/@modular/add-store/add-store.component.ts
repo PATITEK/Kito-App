@@ -66,7 +66,7 @@ export class AddStoreComponent implements OnInit {
 
   calTotalItem() {
     const total = this.cart.reduce((acc, item) => acc + item.amount, 0);
-    return total <= 999 ? total : 999;
+    return total <= 99 ? total : 99;
   }
 
   goToCart() {

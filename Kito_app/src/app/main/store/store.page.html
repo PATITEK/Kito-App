@@ -61,7 +61,7 @@
     <div class="cart" (click)="goToCart()">
       <ion-buttons class="cart-inner main-box-shadow">
         <ion-icon name="bag-handle"></ion-icon>
-        <ion-buttons *ngIf="cart.length" class="cart-amount">{{ calTotalItem() }}</ion-buttons>
+        <ion-buttons *ngIf="cart.length" class="cart-amount">+{{ calTotalItem() }}</ion-buttons>
       </ion-buttons>
     </div>
   </div>
