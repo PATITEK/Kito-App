@@ -1,7 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { IonContent, IonSlides } from '@ionic/angular';
-import { CalendarService, EventsService, IPageEvent } from 'src/app/@app-core/http';
+import { CalendarService, EventsService, IPageEvent, ParishesService } from 'src/app/@app-core/http';
 import { DateTimeService } from 'src/app/@app-core/utils';
 
 @Component({
@@ -24,12 +24,7 @@ export class PrayerTimePage implements OnInit {
     parish_id: null
   }
 
-  diocese = {
-    thumbImage: 'assets/img/tonggiaophan/saigon.svg',
-    name: 'Giáo xứ Chánh Tòa Sài Gòn',
-    address: '1 Công xã Paris, P. Bến Nghé, Quận 1, TP.HCM'
-  }
-
+  parish = null;
   dateList = [];
   activeDateItemId;
 
@@ -39,12 +34,13 @@ export class PrayerTimePage implements OnInit {
     public dateTimeService: DateTimeService,
     private router: Router,
     private eventsService: EventsService,
-    private calendarService: CalendarService
+    private calendarService: CalendarService,
+    private parishService: ParishesService
   ) { }
 
   ngOnInit() {
     this.initDateList();
-    this.getData();
+    this.getData(localStorage.getItem('parish_id'));
   }
 
   ionViewWillEnter() {
@@ -56,6 +52,7 @@ export class PrayerTimePage implements OnInit {
 
     const parishId = localStorage.getItem('tempParishId');
     if (parishId) {
+      this.getData(parishId);
       localStorage.removeItem('tempParishId');
     }
   }
@@ -82,9 +79,13 @@ export class PrayerTimePage implements OnInit {
     }
   }
 
-  getData() {
-    this.pageReq.parish_id = JSON.parse(localStorage.getItem('parish'))?.id;
+  getParish() {
+    this.parishService.getDetail(this.pageReq.parish_id).subscribe(data => {
+      this.parish = data.parish;
+    })
+  }
 
+  getEvents() {
     this.calendarService.getByWeek(new Date()).subscribe(data => {
       for (let i = 0; i < 7; i++) {
         this.dateList[i].name = data.calendars[i].mass_name;
@@ -105,6 +106,12 @@ export class PrayerTimePage implements OnInit {
         this.dateList[i].events = data.events;
       })
     }
+  }
+
+  getData(parishId) {
+    this.pageReq.parish_id = parishId;
+    this.getParish();
+    this.getEvents();
   }
 
   changeDateItem(id) {
