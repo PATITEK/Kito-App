@@ -24,8 +24,8 @@
   </div>
 
   <ion-list class="sub-news">
-    <ng-container *ngFor="let item of news; let index = i;">
-      <ion-buttons *ngIf="index != 0" class="sub-news-item" (click)="goToNewsDetail(item)">
+    <ng-container *ngFor="let item of news; let i = index;">
+      <ion-buttons *ngIf="i != 0" class="sub-news-item" (click)="goToNewsDetail(item)">
         <div class="img-container">
           <img [src]="item.thumb_images[0].url">
         </div>

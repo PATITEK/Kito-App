@@ -102,6 +102,7 @@ export class NewsPage implements OnInit {
       switch (this.dataParams.type.detail) {
         case 'vatican':
           this.vaticanService.getAll(this.pageRequestVatican).subscribe(data => {
+            console.log(data)
             data.vatican_news.forEach(element => {
               element.type = this.dataParams.type
               element.time = element.created_at.slice(11, 16)
