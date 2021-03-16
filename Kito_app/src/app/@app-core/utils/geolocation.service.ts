@@ -58,6 +58,8 @@ export class GeolocationService {
             .then((result: NativeGeocoderResult[]) => {
                 this.customerLocation.address = this.generateAddress(result[0]);
                 localStorage.setItem('location', this.customerLocation.address);
+                localStorage.setItem('lat', this.centerService.lat.toString());
+                localStorage.setItem('lng', this.centerService.lng.toString());
             })
             .catch((err: any) => {
                 console.error(err, ': because chay tren dien thoai real moi dc =))');

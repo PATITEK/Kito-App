@@ -44,7 +44,7 @@ export class SelectDiocesePage implements OnInit {
           break;
         case 'parish':
           this.headerCustom.title = 'Chọn giáo xứ';
-          this.getParishes(dataParams.dioceseId);
+          this.getParishes(localStorage.getItem('diocese_id'));
           break;
       }
     })
