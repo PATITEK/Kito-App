@@ -66,6 +66,7 @@ export class NewsDetailPage implements OnInit {
             this.data = data.parish;
             this.imgnotFound(this.data);
           })
+          break;
         case 'parish_news':
           this.parishService.getParishNewsByid(dataParams.id).subscribe(data => {
             this.imgnotFound(data?.parish_news);
