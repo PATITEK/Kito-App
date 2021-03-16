@@ -53,7 +53,7 @@ export const APICONFIG = {
   },
   ORDER: {
     GET_ALL: `/app/orders`,
-    GET: (id) => `/app/orders/${id}`,
+    GET_DETAIL: (id) => `/app/orders/${id}`,
     CREATE: `/app/orders`,
     DELETE: (id) => `/app/orders/${id}`,
   },
@@ -85,9 +85,9 @@ export const APICONFIG = {
     GET_QUES_LEVEL: level => `/app/questions/by_level?level=${level}`,
     CHECK_ANSWER: answerKey => `/${answerKey}`,
   },
-  COURSE:{
+  COURSE: {
     GET_COURSE_GROUP: `/app/course_groups`,
-    GET_COURSE_ID:`/app/courses`
+    GET_COURSE_ID: `/app/courses`
   }
 };
 
