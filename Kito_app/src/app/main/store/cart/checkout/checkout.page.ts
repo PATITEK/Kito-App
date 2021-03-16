@@ -46,10 +46,10 @@ export class CheckoutPage implements OnInit {
     this.loadingService.present();
     const req = {
       order: {
-        long: 0.5,
-        lat: 0.5,
+        lat: localStorage.getItem('lat'),
+        lng: localStorage.getItem('lng'),
         note: null,
-        full_address: 'abc',
+        full_address: this.location,
         phone_number_receiver: localStorage.getItem('phoneNumber'),
         order_details_attributes: this.cart.map(item => ({ product_id: item.id, amount: item.amount }))
       }
@@ -62,5 +62,7 @@ export class CheckoutPage implements OnInit {
         this.loadingService.dismiss();
       }
     )
+    localStorage.removeItem('lat');
+    localStorage.removeItem('lng');
   }
 }

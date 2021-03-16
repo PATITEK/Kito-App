@@ -18,7 +18,7 @@ import {enableProdMode} from '@angular/core';
 import { SpeechRecognition } from '@ionic-native/speech-recognition/ngx'
 import { AudioManagement } from '@ionic-native/audio-management/ngx';
 import { AudioManagerService, CameraService, GeolocationService, OneSignalService, SpeechRecognitionService } from './@app-core/utils';
-import { OneSignal } from '@ionic-native/onesignal/ngx';
+// import { OneSignal } from '@ionic-native/onesignal/ngx';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { NativeGeocoder, NativeGeocoderOptions, NativeGeocoderResult } from '@ionic-native/native-geocoder/ngx';
 import { NativePageTransitions } from '@ionic-native/native-page-transitions/ngx';
@@ -48,7 +48,7 @@ import { NativePageTransitions } from '@ionic-native/native-page-transitions/ngx
     SpeechRecognitionService,
     AudioManagement,
     AudioManagerService,
-    OneSignal,
+    // OneSignal,
     OneSignalService,
     Geolocation,
     GeolocationService,
