@@ -30,7 +30,7 @@ export class ModalDetailOrderPage implements OnInit {
   isCanceled = '';
 
   fakeImg = 'assets/img/food.svg';
-  
+
   constructor(
     private orderService: OrderService,
     private dateTimeService: DateTimeService,
@@ -52,10 +52,10 @@ export class ModalDetailOrderPage implements OnInit {
   }
 
   getData(id) {
-    this.orderService.get(id).subscribe(data => {
+    this.orderService.getDetail(id).subscribe(data => {
       this.order = data.order;
       this.loadedData = true;
-      if(data.order.status == 'pending') {
+      if (data.order.status == 'pending') {
         this.isCanceled = 'Cancel Order';
       } else if (data.order.status == 'failed') {
         this.isCanceled = 'The order is canceled';
@@ -101,7 +101,7 @@ export class ModalDetailOrderPage implements OnInit {
   }
 
   calTotalPrice() {
-    return this.order.order_details.reduce((acc, cur) => acc + cur.amount*cur.total_price , 0)
+    return this.order.order_details.reduce((acc, cur) => acc + cur.amount * cur.total_price, 0)
   }
   calTotalAmount() {
     return this.order.order_details.reduce((acc, cur) => acc + cur.amount, 0);

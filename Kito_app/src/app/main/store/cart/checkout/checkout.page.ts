@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { OrderService } from 'src/app/@app-core/http';
-import { DateTimeService } from 'src/app/@app-core/utils';
+import { DateTimeService, LoadingService } from 'src/app/@app-core/utils';
 
 @Component({
   selector: 'app-checkout',
@@ -9,7 +9,7 @@ import { DateTimeService } from 'src/app/@app-core/utils';
   styleUrls: ['./checkout.page.scss'],
 })
 export class CheckoutPage implements OnInit {
-  headerCustom = {title: 'Kiểm tra đơn hàng'};
+  headerCustom = { title: 'Kiểm tra đơn hàng' };
   cart = [];
   location = '';
   shipCost = 5000;
@@ -18,14 +18,15 @@ export class CheckoutPage implements OnInit {
   constructor(
     public dateTimeService: DateTimeService,
     private route: ActivatedRoute,
-    private orderService: OrderService
+    private orderService: OrderService,
+    private loadingService: LoadingService
   ) { }
 
   ngOnInit() {
     this.getCart();
     this.route.queryParams.subscribe(params => {
       this.paymentMethod = JSON.parse(params['data']).paymentMethod;
-    })
+    }).unsubscribe();
   }
 
   getCart() {
@@ -42,6 +43,24 @@ export class CheckoutPage implements OnInit {
   }
 
   confirm() {
-    this.orderService.openModalSuccess().then(() => localStorage.removeItem('cart'));
+    this.loadingService.present();
+    const req = {
+      order: {
+        long: 0.5,
+        lat: 0.5,
+        note: null,
+        full_address: 'abc',
+        phone_number_receiver: localStorage.getItem('phoneNumber'),
+        order_details_attributes: this.cart.map(item => ({ product_id: item.id, amount: item.amount }))
+      }
+    }
+    this.orderService.create(req).subscribe(
+      () => {
+        this.loadingService.dismiss();
+      },
+      () => {
+        this.loadingService.dismiss();
+      }
+    )
   }
 }

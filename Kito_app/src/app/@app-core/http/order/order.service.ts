@@ -13,12 +13,14 @@ export class OrderService {
 
   constructor(
     private http: HttpClient,
-    private modalCtrl: ModalController, 
+    private modalCtrl: ModalController,
     private toastController: ToastController
   ) { }
-  public creat(req) {
+
+  public create(req) {
     return this.http.post(`${APICONFIG.ORDER.CREATE}`, req).pipe(
       map((result) => {
+        localStorage.removeItem('cart');
         this.openModalSuccess();
         return result;
       }),
@@ -29,18 +31,8 @@ export class OrderService {
     )
   }
 
-  // public getAll(request: IPageRequest) {
-  //   return this.http.get(`${APICONFIG.ORDER.GET_ALL}?${(requestQuery(request))}`).pipe(
-  //     map((result: any) => {
-  //       return result;
-  //     }),
-  //     catchError((errorRes) => {
-  //       throw errorRes.error;
-  //     }));
-  // }
-
   public getAll(request: IPageRequest) {
-    return this.http.get(`${APICONFIG.ORDER.GET_ALL}`).pipe(
+    return this.http.get(`${APICONFIG.ORDER.GET_ALL}?${(requestQuery(request))}`).pipe(
       map((result: any) => {
         return result;
       }),
@@ -49,8 +41,8 @@ export class OrderService {
       }));
   }
 
-  public get(id: number) {
-    return this.http.get(`${APICONFIG.ORDER.GET(id)}`).pipe(
+  public getDetail(id) {
+    return this.http.get(`${APICONFIG.ORDER.GET_DETAIL(id)}`).pipe(
       map((result: any) => {
         return result;
       }),
