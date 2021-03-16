@@ -31,44 +31,44 @@ export class LoginPage implements OnInit {
   showSpinner = false;
   validationLoginMessages = {
     phone_number: [
-      { type: 'required', message: 'phone number is required' },
+      { type: 'required', message: 'Hãy nhập số điện thoại' },
     ],
     password: [
-      { type: 'required', message: 'Password is required' }
+      { type: 'required', message: 'Hãy nhập mật khẩu' }
     ],
   }
 
   validationSignUpMessages = {
     full_name: [
-      { type: 'required', message: 'Name is required' },
-      { type: 'pattern', message: "Name can't not contain special letters" },
+      { type: 'required', message: 'Hãy nhập tên' },
+      { type: 'pattern', message: 'Tên không thể chứa ký tự đặc biệt' },
     ],
     email: [
-      { type: 'required', message: 'Email is required' },
-      { type: 'pattern', message: 'Email is invalid' },
+      { type: 'required', message: 'Hãy nhập email' },
+      { type: 'pattern', message: 'Email không hợp lệ' },
     ],
     phone_number: [
-      { type: 'required', message: 'Phone number is required' },
-      { type: 'pattern', message: 'Phone number is invalid' },
+      { type: 'required', message: 'Hãy nhập số điện thoại' },
+      { type: 'pattern', message: 'Số điện thoại không hợp lệ' },
     ],
     age: [
-      { type: 'required', message: 'Age is required' }
+      { type: 'required', message: 'Hãy nhập tuổi' }
     ],
     country_code: [
-      { type: 'required', message: 'Country is required' },
+      { type: 'required', message: 'Hãy nhập mã quốc gia' },
     ],
     province: [
-      { type: 'required', message: 'Province is required' },
+      { type: 'required', message: 'Hãy nhập tỉnh' },
     ],
     district: [
-      { type: 'required', message: 'District is required' },
+      { type: 'required', message: 'Hãy nhập quận' },
     ],
     full_address: [
-      { type: 'required', message: 'Address is required' },
+      { type: 'required', message: 'Hãy nhập địa chỉ' },
     ],
     password: [
-      { type: 'required', message: 'Password is required' },
-      { type: 'minLength', message: 'Password must be at least 6 letters' },
+      { type: 'required', message: 'Hãy nhập mật khẩu' },
+      { type: 'minLength', message: 'Mật khẩu phải dài tối thiểu 6 ký tự' },
     ],
   }
 
@@ -248,16 +248,7 @@ export class LoginPage implements OnInit {
   checkMatchConfirmedPassword() {
     return this.formSignUp.get('password').value == this.formSignUp.get('confirmed_password').value;
   }
-  // async presentToast(message) {
-  //   const toast = await this.toastController.create({
-  //     message: message,
-  //     duration: 1500
-  //   });
-  //   toast.present();
-  // }
-  // showSelectValue = function (mySelect) {
-  //   console.log(mySelect);
-  // }
+
   private markFormGroupTouched(formGroup: FormGroup) {
     (<any>Object).values(formGroup.controls).forEach(control => {
       control.markAsTouched();

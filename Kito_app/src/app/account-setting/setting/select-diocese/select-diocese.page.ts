@@ -75,8 +75,8 @@ export class SelectDiocesePage implements OnInit {
   choose(item) {
     switch (this.type) {
       case 'diocese':
-        const prevId = JSON.parse(localStorage.getItem('diocese_id'));
-        if (prevId !== item.id) {
+        const prevDioceseId = JSON.parse(localStorage.getItem('diocese_id'));
+        if (prevDioceseId !== item.id) {
           this.loadingService.present();
           this.accountService.updateProfile({ diocese_id: item.id }).subscribe(() => {
             this.parishService.getAll({ page: 1, per_page: 1, diocese_id: item.id }).subscribe(
@@ -87,7 +87,7 @@ export class SelectDiocesePage implements OnInit {
                     () => {
                       this.setItem(item, 'diocese_id');
                       this.setItem(parish, 'parish_id');
-                      // this.loadingService.dismiss();
+                      this.loadingService.dismiss();
                       this.goBack();
                     }, (err) => {
                       this.loadingService.dismiss();
@@ -107,16 +107,21 @@ export class SelectDiocesePage implements OnInit {
         }
         break;
       case 'parish':
-        this.loadingService.present();
-        this.accountService.updateProfile({ parish_id: item.id }).subscribe(
-          () => {
-            this.setItem(item, 'parish_id');
-            this.loadingService.dismiss();
-            this.goBack();
-          }, () => {
-            this.loadingService.dismiss();
-          }
-        )
+        const prevParishId = JSON.parse(localStorage.getItem('parish_id'));
+        if (prevParishId !== item.id) {
+          this.loadingService.present();
+          this.accountService.updateProfile({ parish_id: item.id }).subscribe(
+            () => {
+              this.setItem(item, 'parish_id');
+              this.loadingService.dismiss();
+              this.goBack();
+            }, () => {
+              this.loadingService.dismiss();
+            }
+          )
+        } else {
+          this.goBack();
+        }
         break;
     }
   }

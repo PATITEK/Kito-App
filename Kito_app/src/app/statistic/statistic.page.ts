@@ -11,7 +11,7 @@ export class StatisticPage implements OnInit {
   @ViewChild('slides', { static: false }) slides: IonSlides;
   @ViewChild(IonContent, { static: false }) ionContent: IonContent;
 
-  headerCustom = {title: 'Thống kê'};
+  headerCustom = { title: 'Thống kê' };
   years = [
     {
       number: 2017,
