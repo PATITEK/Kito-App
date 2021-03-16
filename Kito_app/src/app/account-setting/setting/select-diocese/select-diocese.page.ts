@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NavController } from '@ionic/angular';
-import { DioceseService, IPageRequest, ParishesService } from 'src/app/@app-core/http';
+import { AccountService, DioceseService, IPageRequest, ParishesService } from 'src/app/@app-core/http';
 import { IPageParishes } from 'src/app/@app-core/http/parishes/parishes.DTO';
 import { LoadingService } from 'src/app/@app-core/utils';
 
@@ -29,7 +29,8 @@ export class SelectDiocesePage implements OnInit {
     private navController: NavController,
     private dioceseService: DioceseService,
     private parishService: ParishesService,
-    private loadingService: LoadingService
+    private loadingService: LoadingService,
+    private accountService: AccountService
   ) { }
 
   ngOnInit() {
@@ -76,28 +77,45 @@ export class SelectDiocesePage implements OnInit {
         const prevId = JSON.parse(localStorage.getItem('diocese_id'));
         if (prevId !== item.id) {
           this.loadingService.present();
-          this.parishService.getAll({ page: 1, per_page: 1, diocese_id: item.id }).subscribe(
-            data => {
-              const parish = data.parishes[0];
-              if (parish) {
-                this.setItem(item, 'diocese_id');
-                this.setItem(parish, 'parish_id');
+          this.accountService.updateProfile({ diocese_id: item.id }).subscribe(() => {
+            this.parishService.getAll({ page: 1, per_page: 1, diocese_id: item.id }).subscribe(
+              data => {
+                const parish = data.parishes[0];
+                if (parish) {
+                  this.accountService.updateProfile({ parish_id: parish.id }).subscribe(
+                    () => {
+                      this.setItem(item, 'diocese_id');
+                      this.setItem(parish, 'parish_id');
+                      // this.loadingService.dismiss();
+                      this.goBack();
+                    }, (err) => {
+                      this.loadingService.dismiss();
+                    }
+                  )
+                }
+              }, () => {
+                this.loadingService.dismiss();
+                this.goBack();
               }
+            ), () => {
               this.loadingService.dismiss();
-              this.goBack();
-            },
-            () => {
-              this.loadingService.dismiss();
-              this.goBack();
             }
-          )
+          })
         } else {
           this.goBack();
         }
         break;
       case 'parish':
-        this.setItem(item, 'parish_id');
-        this.goBack();
+        this.loadingService.present();
+        this.accountService.updateProfile({ parish_id: item.id }).subscribe(
+          () => {
+            this.setItem(item, 'parish_id');
+            this.loadingService.dismiss();
+            this.goBack();
+          }, () => {
+            this.loadingService.dismiss();
+          }
+        )
         break;
     }
   }
