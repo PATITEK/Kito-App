@@ -104,7 +104,7 @@ export class MainPage implements OnInit {
   }
 
   ngOnInit() {
-    // this.OneSignalService.startOneSignal();
+    this.OneSignalService.startOneSignal();
     this.name = localStorage.getItem('fullname');
     this.getVatican();
   }

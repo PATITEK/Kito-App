@@ -71,6 +71,7 @@ export class OrderService {
   }
   async presentToast(mes) {
     const toast = await this.toastController.create({
+      mode: 'ios',
       message: mes,
       duration: 2000,
       color: 'warning'
