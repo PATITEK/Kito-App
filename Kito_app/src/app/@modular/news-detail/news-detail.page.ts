@@ -10,13 +10,7 @@ import { PopeService } from 'src/app/@app-core/http/pope';
 })
 export class NewsDetailPage implements OnInit {
   headerCustom = { title: '' };
-  data = {
-    title: '',
-    name: '',
-    thumb_images: [{ url: '' }],
-    thumb_image: { url: '' },
-    content: ''
-  }
+  data = null;
 
   constructor(
     private route: ActivatedRoute,
@@ -57,6 +51,7 @@ export class NewsDetailPage implements OnInit {
           break;
         case 'diocese':
           this.dioceseService.getDetail(dataParams.id).subscribe(data => {
+            console.log(data)
             this.data = data.diocese;
             this.imgnotFound(this.data);
           })
