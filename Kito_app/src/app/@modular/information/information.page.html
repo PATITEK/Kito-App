@@ -8,14 +8,14 @@
   <ion-list>
     <ion-buttons *ngFor="let item of list" class="item" (click)="goToNewsDetail(item)">
       <div class="img-box">
-        <img class="cover-img" [src]="item.thumb_image.url">
+        <img class="cover-img" [src]="item?.thumb_image?.url">
       </div>
       <div class="text-box">
         <span class="title three-dots-2">
-          {{ item.title ? item.title : item.name }}
+          {{ item?.title || item?.name }}
         </span>
         <span class="content three-dots-4">
-          {{ item.description }}
+          {{ item?.description || item?.address }}
         </span>
       </div>
     </ion-buttons>

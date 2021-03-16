@@ -51,7 +51,7 @@ export class DonatePage implements OnInit {
   type: {
     type: any
   }
-  headerCustom = {title: 'Đóng góp', background: '#e5e5e5'};
+  headerCustom = { title: 'Đóng góp', background: '#e5e5e5' };
   constructor(
     private router: Router,
     public formBuilder: FormBuilder,
@@ -78,11 +78,13 @@ export class DonatePage implements OnInit {
     this.authService.receiveData.subscribe(data => {
       this.type = data;
     })
+    this.route.queryParams.subscribe(params => {
+      console.log(params);
+      this.data = JSON.parse(params['data']);
+    }).unsubscribe();
   }
   ionViewWillEnter() {
-    this.route.queryParams.subscribe(params => {
-      this.data = JSON.parse(params['data']);
-    })
+
     if (this.data) {
       this.source_id = this.data.id;
       this.source_type = this.data.source_type;
