@@ -52,6 +52,7 @@ export class SelectDiocesePage implements OnInit {
   getDioceses() {
     this.dioceseService.getAll(this.pageRequestDiocese).subscribe(data => {
       this.list = data.dioceses;
+      localStorage.setItem('diocese_id', data.dioceses[0].id)
     })
   }
 

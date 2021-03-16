@@ -27,7 +27,6 @@ export class CompleteQuestionPage implements OnInit {
 
   ngOnInit() {
     this.loadAudios();
-    this.lose.play();
     this.init();
   }
 
@@ -40,6 +39,7 @@ export class CompleteQuestionPage implements OnInit {
     localStorage.removeItem('questionType');
     localStorage.removeItem('questionTypeName');
     this.score = parseInt(localStorage.getItem('score'));
+    this.lose.play();
     if ( this.score == 10) {
       this.imgUrl = '../../assets/img/questionares/success.svg';
       this.title = 'HOÀN THÀNH XUẤT SẮC !';
