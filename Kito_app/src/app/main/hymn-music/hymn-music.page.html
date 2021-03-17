@@ -52,8 +52,15 @@
 </ion-content>
 
 <ion-footer *ngIf="activeTrack" class="ion-no-border">
-  <ion-range class="range" mode="md" #range [(ngModel)]="progress" max="100" (touchend)="seek()" (mouseup)="seek()">
-  </ion-range>
+  <ion-buttons style="padding: 0 13px 0 5px;">
+    <ion-range class="range" mode="md" #range [(ngModel)]="progress" max="100" (touchend)="seek()" (mouseup)="seek()">
+    </ion-range>
+    <ion-buttons class="duration-box">
+      <span>{{ secondsToHms(player.seek())}}</span>
+      /
+      <span>{{ secondsToHms(player.duration()) }}</span>
+    </ion-buttons>
+  </ion-buttons>
   <ion-buttons class="footer-inner">
     <ion-buttons class="footer-left" (click)="toggleHasModal(true)">
       <ion-avatar class="avatar">
@@ -92,8 +99,15 @@
   </div>
 
   <div class="modal-footer">
-    <ion-range class="range" mode="md" #range [(ngModel)]="progress" max="100" (touchend)="seek()" (mouseup)="seek()">
-    </ion-range>
+    <ion-buttons style="padding: 0 13px 0 5px;">
+      <ion-range class="range" mode="md" #range [(ngModel)]="progress" max="100" (touchend)="seek()" (mouseup)="seek()">
+      </ion-range>
+      <ion-buttons class="duration-box">
+        <span>{{ secondsToHms(player.seek())}}</span>
+        /
+        <span>{{ secondsToHms(player.duration()) }}</span>
+      </ion-buttons>
+    </ion-buttons>
     <ion-buttons class="btns">
       <ion-icon name="shuffle-outline" class="active-effect" [ngClass]="{'active-btn': mixed}" (click)="toggleMixed()">
       </ion-icon>
