@@ -1,23 +1,23 @@
 <ion-content>
   <ion-back-button icon="chevron-back-outline" text="" class="back-btn"></ion-back-button>
   <div class="header">
-    <ion-label> YOUR PAYMENT</ion-label>
+    <ion-label> THANH TOÁN</ion-label>
   </div>
   <ion-item-group class="ion-padding">
     <ion-label class="title">
-      Amount Payment:
+      Tổng đơn hàng:
      </ion-label>
      <ion-label class="content">
-      {{amount}} $
+      {{amount}} vnd
      </ion-label>
      <ion-label class="title">
-     Purpose:
+     Mục đích:
      </ion-label>
      <span class="content">
       {{purpose}}
      </span>
     <form  (ngSubmit)="showStripe()">
-      <ion-button type="submit" >Make payment</ion-button>
+      <ion-button type="submit" >Thanh toán</ion-button>
     </form>
     <!-- [disabled]="data.donation.token == '' ? 'true':'false'" -->
   </ion-item-group>

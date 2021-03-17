@@ -26,7 +26,7 @@ export class PaymentupComponent implements OnInit {
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
       this.data =  JSON.parse(params['data']);
-    })
+    }).unsubscribe()
     this.setupStripe()
   }
   async openModal() {
@@ -35,10 +35,10 @@ export class PaymentupComponent implements OnInit {
       swipeToClose: true,
       cssClass: 'modal__payment'
     });
-}
-    dismissModal() {
-      this.modalController.dismiss();
-    }
+  }
+  dismissModal() {
+    this.modalController.dismiss();
+  }
   setupStripe() {
     let elements = this.stripe.elements();
     var style = {

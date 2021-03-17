@@ -19,8 +19,7 @@ export class PaymentmethodsPage implements OnInit {
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
       this.data =  JSON.parse(params['data']);
-    })
-
+    }).unsubscribe()
   }
   async openModal() {
     const modal = await this.modalController.create({
