@@ -1,6 +1,7 @@
 ion-content {
     --padding-top: 80px;
     position: relative;
+    --overflow: scroll;
     ion-segment {
         padding-top: 15px;
         background: #e5e5e5;

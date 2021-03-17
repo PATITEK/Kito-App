@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { IonInfiniteScroll } from '@ionic/angular';
 import { IPageRequest, ParishesService, PopeService } from 'src/app/@app-core/http';
 import { IPope } from 'src/app/@app-core/http/pope/pope.DTO';
 import { LoadingService } from 'src/app/@app-core/utils';
@@ -10,26 +11,20 @@ import { LoadingService } from 'src/app/@app-core/utils';
   styleUrls: ['./my-parish.page.scss'],
 })
 export class MyParishPage implements OnInit {
+  @ViewChild('infiniteScroll') infiniteScroll: IonInfiniteScroll;
   tabNew = true;
   headerCustom = { title: 'Thông tin giáo xứ', background: '#e5e5e5' };
-  pageRequest: IPageRequest = {
-    page: 1,
-    per_page: 100
-  }
-  myData = {
-    myParish_id: '',
-    myParish_image: '',
-    myParish_title: '',
-    myParish_info :''
-  }
   listPriest = []
   news: any;
+  data;
+  img = '';
+  id_parish = localStorage.getItem('parish_id');
   popeRequest: IPope = {
-    parish_id: this.myData.myParish_id,
+    parish_id: this.id_parish,
     page: 1,
-    per_page: 100
+    per_page: 6
   }
-  constructor( 
+  constructor(
     private router: Router,
     private parishService: ParishesService,
     private loadingService: LoadingService,
@@ -37,45 +32,48 @@ export class MyParishPage implements OnInit {
 
   ngOnInit() {
     this.loadingService.present()
-    this.myData.myParish_id = localStorage.getItem('parish_id');
     this.getPriest();
     this.myPrish();
   }
   myPrish() {
-    this.parishService.getDetail(this.myData.myParish_id).subscribe(data => {
+    this.parishService.getDetail(this.id_parish).subscribe(data => {
       this.loadingService.dismiss()
-      const result = data.parish;
-      this.imgnotFound(result)
-      this.myData.myParish_image = result.thumb_image.url;
-      this.myData.myParish_title = result.name;
-      this.myData.myParish_info = result.parish_info.content;
+      this.data = data.parish;
+      this.imgnotFound(data.parish);
+      this.img = data.parish.thumb_image.url;
     })
   }
   getUrl() {
-    return `url(${this.myData.myParish_image})`
+    return `url(${this.img})`
   }
   imgnotFound(item) {
-    !item?.thumb_image?.url && (item.thumb_image = {url: "https://i.imgur.com/UKNky29.jpg"});
+    !item?.thumb_image?.url && (item.thumb_image = { url: "https://i.imgur.com/UKNky29.jpg" });
+  }
+  changeTabs() {
+    if (this.tabNew) {
+      this.tabNew = false;
     }
-    changeTabs() {
-      if (this.tabNew) {
-        this.tabNew = false;
-      }
-      else {
-        this.tabNew = true;
-      }
+    else {
+      this.tabNew = true;
     }
-  getPriest() {
-      this.popeService.getAllByParish(this.popeRequest).subscribe(data => {
-        !data?.pope_infos?.forEach(element => {
+  }
+  getPriest(func?) {
+    this.popeService.getAllByParish(this.popeRequest).subscribe(data => {
+      !data?.pope_infos?.forEach(element => {
         this.imgnotFound(element)
-        });
-          this.listPriest = data.pope_infos;
-          this.listPriest.forEach(e => {
-              
-          })
-          console.log(this.listPriest)
-      })
+      });
+      this.listPriest = data.pope_infos;
+      func && func();
+      this.popeRequest.page++;
+      if (this.listPriest.length >= data.meta.pagination.total_objects) {
+        this.infiniteScroll.disabled = true;
+      }
+    })
+  }
+  loadMoreData(event) {
+    this.getPriest(() => {
+      event.target.complete();
+    });
   }
   goToStoryDetail(item) {
     const data = {
@@ -91,7 +89,6 @@ export class MyParishPage implements OnInit {
       }
     })
   }
- 
   counter(i: number) {
     return new Array(i);
   }

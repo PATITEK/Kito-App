@@ -3,11 +3,11 @@
   <form [formGroup] ="frmDonate" (ngSubmit)="onSubmit()" >
     <ion-item-group class="wrapper">
     <ion-item-group class="title">
-    <span class="header__name">{{name_diocese}}</span>
+    <span class="header__name">{{getData?.name}}</span>
     <ion-item-group class="header__group-address">
       <img src="assets/img/address.svg" alt="">
       <span class="header__address">
-        {{address}}
+        {{getData?.address}}
       </span>
     </ion-item-group>
     <!-- <img src="{{img}}" alt="" class="image"> -->
@@ -19,7 +19,6 @@
         </span>
       </ion-item-group>
   </ion-item-group>
-  <ion-label class="title__chabad">{{chabad.name}}</ion-label>
 
  <ion-item-group class="group__donate">
     <ion-label>Số tiền đóng góp:</ion-label>

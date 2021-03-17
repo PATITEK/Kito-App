@@ -19,37 +19,16 @@ export class PrayPage implements OnInit {
     ],
 
   }
-  isHidden = false;
-  isChoose = false;
   source_type: any;
   source_id: any;
-  id_change: any;
   required_mess = false;
   name;
   message_purpose = "";
   required_purpose = false;
   message = "";
-  clicked = false;
-  url: any;
-  events;
-  dataParams;
   avatar: any;
   img;
-  name_diocese;
-  id_diocese;
-  address;
-  chabad = {
-    name: ' ',
-    thumb_image: ''
-  }
-  req: any;
   setamount: any;
-
-  pageResult: IPageRequest = {
-    page: 1,
-    per_page: 100,
-  };
-  type;
   getData;
   bishop_name;
   data;
@@ -64,12 +43,10 @@ export class PrayPage implements OnInit {
     private router: Router,
     public donateService: DonateService,
     public loadingService: LoadingService,
-    private accountService: AccountService,
     public toastController: ToastController,
     public parishesService: ParishesService,
     public imageService: ImageService,
     private diocesesService: DioceseService,
-    private authService: AuthService,
 
   ) {
     this.frmPray = this.formBuilder.group({
@@ -94,7 +71,7 @@ export class PrayPage implements OnInit {
     if (!this.img) {
       return `url("https://i.imgur.com/UKNky29.jpg")`
     }
-    else return `url(${this.img})`
+    return `url(${this.img})`
   }
   ionViewWillEnter() {
     let url = window.location.href;
@@ -111,10 +88,8 @@ export class PrayPage implements OnInit {
       this.parishesService.getDetail(this.source_id).subscribe((data: any) => {
         this.loadingService.dismiss();
         this.getData = data.parish;
-        this.address = this.getData.address;
-        this.name_diocese = this.getData.name;
         this.bishop_name = this.getData.priest_name;
-        this.imgNotFound(this.getData)
+        this.imgNotFound(this.getData);
         this.img = this.getData.thumb_image.url
       })
     }
@@ -125,11 +100,9 @@ export class PrayPage implements OnInit {
       this.diocesesService.getDetail(this.source_id).subscribe((data: any) => {
         this.loadingService.dismiss();
         this.getData = data.diocese;
-        this.address = this.getData.address;
-        this.name_diocese = this.getData.name;
         this.bishop_name = this.getData.bishop_name;
-        this.imgNotFound(this.getData)
-        this.img = this.getData.thumb_image.url
+        this.imgNotFound(this.getData);
+        this.img = this.getData.thumb_image.url;
       })
     }
     else if (this.data && this.data.source_type == 'Parish') {
@@ -138,8 +111,6 @@ export class PrayPage implements OnInit {
       this.parishesService.getDetail(this.source_id).subscribe((data: any) => {
         this.loadingService.dismiss();
         this.getData = data.parish;
-        this.address = this.getData.address;
-        this.name_diocese = this.getData.name;
         this.bishop_name = this.getData.priest_name;
         this.imgNotFound(this.getData)
         this.img = this.getData.thumb_image.url
@@ -153,23 +124,10 @@ export class PrayPage implements OnInit {
     if (this.x != '') {
       this.x = this.x.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
     }
-    else {
-    }
   }
   imgNotFound(item) {
     !item?.thumb_image?.url && (item.thumb_image = { url: "https://i.imgur.com/UKNky29.jpg" });
   }
-  clickHidden(e) {
-    if (this.isHidden == false) {
-      this.isHidden = true;
-      e.target.classList.add('btn__nameless_dis_pray');
-    }
-    else {
-      this.isHidden = false;
-      e.target.classList.remove('btn__nameless_dis_pray');
-    }
-  }
-
   onSubmit() {
     this.amount = this.frmPray.get('amount').value;
     if (this.frmPray.get('amount').dirty || this.frmPray.get('amount').touched) {
@@ -200,7 +158,7 @@ export class PrayPage implements OnInit {
         this.setamount = this.amount;
       }
     }
-   
+
     var result = {
       "donation": {
         "amount": this.setamount,

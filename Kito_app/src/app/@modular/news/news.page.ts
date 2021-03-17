@@ -37,7 +37,6 @@ export class NewsPage implements OnInit {
   day: any;
 
   dataParams = null;
-
   constructor(
     private router: Router,
     private route: ActivatedRoute,
