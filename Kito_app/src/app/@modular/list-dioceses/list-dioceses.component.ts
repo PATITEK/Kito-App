@@ -34,7 +34,7 @@ export class ListDiocesesComponent implements OnInit {
     else if(this.flag_parishes_diocese === 'parish' && this.type_page === 'donate') {
       const data = {
         id: this.data.id,
-        source_type: 'Parishes',
+        source_type: 'Parish',
         type_page: this.type_page,
       }
       this.router.navigate(['donate'], {
@@ -46,7 +46,7 @@ export class ListDiocesesComponent implements OnInit {
     else if(this.flag_parishes_diocese === 'parish' && this.type_page === 'pray') {
         const data = {
           id: this.data.id,
-          source_type: 'Parishes',
+          source_type: 'Parish',
           type_page: this.type_page,
         }
         this.router.navigate(['pray'], {

@@ -52,6 +52,8 @@ export class DonatePage implements OnInit {
  type_page = 'donate';
  type_donate;
   getData;
+  x: any;
+  amount: any;
   headerCustom = { title: 'Đóng góp', background: '#e5e5e5' };
   constructor(
     private router: Router,
@@ -91,6 +93,7 @@ export class DonatePage implements OnInit {
       }
       else {
       this.source_id = parseInt(localStorage.getItem('parish_id'));
+      this.source_type = 'Parish';
       this.level = 'Linh'
       this.parishService.getDetail(this.source_id).subscribe((data: any) => {
         this.loadingService.dismiss();
@@ -117,7 +120,7 @@ export class DonatePage implements OnInit {
               this.img = this.getData.thumb_image.url
       })
     }
-    else if(this.data && this.data.source_type == 'Parishes') {
+    else if(this.data && this.data.source_type == 'Parish') {
       this.source_type = this.data.source_type;
       this.level = 'Linh'
       this.parishService.getDetail(this.source_id).subscribe((data: any) => {
@@ -138,9 +141,17 @@ export class DonatePage implements OnInit {
     }
     else return `url(${this.img})`
   }
-
+  callChangeDot() {
+    this.x = this.frmDonate.get('amount').value;
+    this.x = this.x.replace(/\,/g, '');
+    if (this.x != '') {
+      this.x = this.x.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+    }
+    else {
+    }
+  }
   onSubmit() {
-    this.loadingService.present();
+    // this.loadingService.present();
     var donate = {
       "donation": {
         "email": localStorage.getItem('email'),
@@ -151,39 +162,31 @@ export class DonatePage implements OnInit {
         "source_id": this.source_id
       }
     }
+    this.amount = this.frmDonate.get('amount').value.replace(/\,/g,'');
+
     if (this.frmDonate.get('amount').dirty || this.frmDonate.get('amount').touched) {
-      if (this.frmDonate.get('amount').value < 12000) {
-        this.required_mess = true;
-        this.message = 'Số tiền đóng góp phải lớn hơn 12,000';
-        this.loadingService.dismiss();
-        return;
-      }
-      else {
-        this.required_mess = false;
-        this.loadingService.dismiss();
-      }
-    }
-    if (this.frmDonate.get('note').dirty || this.frmDonate.get('note').touched) {
-      if (this.frmDonate.get('note').value.length == 0) {
+      if (this.amount.length == 0) {
         this.required_purpose = true;
         this.message_purpose = 'Thêm thông tin vào trường này !';
         this.loadingService.dismiss();
         return;
       }
+       else if(this.amount.length != 0 && !this.amount.match(/^[0-9]*$/g)) {
+        this.required_mess = true;
+        this.message = 'Bạn chỉ nhập được số ở trường này!';
+        this.loadingService.dismiss();
+        return; 
+      }
+      else if(this.amount < 12000 ) {
+        this.required_mess = true;
+        this.message = 'Giá trị phải lớn hơn 12000 vnd';
+        this.loadingService.dismiss();
+        return; 
+      }
       else {
-        this.required_purpose = false;
+        this.required_mess = false;
         this.loadingService.dismiss();
       }
-    }
-    if (this.frmDonate.get('note').value.length == 0) {
-      this.required_purpose = true;
-      this.message_purpose = 'Thêm thông tin vào trường này !';
-      this.loadingService.dismiss();
-      return;
-    }
-    else {
-      this.required_purpose = false;
-      this.loadingService.dismiss();
     }
     this.router.navigate(['paymentmethods'], {
       queryParams: {

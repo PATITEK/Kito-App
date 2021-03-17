@@ -48,7 +48,7 @@ export class ModalDonateComponent implements OnInit {
   goToParishes() {
     const data = {
       id: this.diocese_id,
-      source_type: 'Parishes',
+      source_type: 'Parish',
       type_page: this.type_page
     }
     this.router.navigate(['/parishes'], {
