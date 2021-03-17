@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DonateService, EventsService, IPageEvent, AccountService, IPageRequest, AuthService } from '../@app-core/http';
+import { DonateService, EventsService, IPageEvent, AccountService, IPageRequest, AuthService, ParishesService } from '../@app-core/http';
 import { DateTimeService, ImageService, LoadingService } from '../@app-core/utils';
 import { ToastController } from '@ionic/angular';
 import { DioceseService } from '../@app-core/http/diocese';
@@ -50,7 +50,12 @@ export class PrayPage implements OnInit {
     per_page: 100,
   };
   type;
-  headerCustom = {title: 'Xin lễ', background: '#e5e5e5'};
+  getData;
+  bishop_name;
+  data;
+  level = 'Linh';
+  type_page = 'pray';
+  headerCustom = { title: 'Xin lễ', background: '#e5e5e5' };
 
   constructor(
     public formBuilder: FormBuilder,
@@ -60,9 +65,11 @@ export class PrayPage implements OnInit {
     public loadingService: LoadingService,
     private accountService: AccountService,
     public toastController: ToastController,
+    public parishesService: ParishesService,
     public imageService: ImageService,
     private diocesesService: DioceseService,
-    private authService: AuthService
+    private authService: AuthService,
+
   ) {
     this.frmPray = this.formBuilder.group({
       note: new FormControl('', Validators.compose([
@@ -79,10 +86,8 @@ export class PrayPage implements OnInit {
     toast.present();
   }
   ngOnInit() {
+    this.loadingService.present();
     this.name = localStorage.getItem('fullname');
-    this.authService.receiveData.subscribe(data => {
-      this.type = data;
-    })
   }
   getUrl() {
     if (!this.img) {
@@ -91,26 +96,58 @@ export class PrayPage implements OnInit {
     else return `url(${this.img})`
   }
   ionViewWillEnter() {
-    this.id_diocese = localStorage.getItem('diocese_id');
-    this.diocesesService.getAll(this.pageResult).subscribe((data: any) => {
-      data.dioceses.forEach(i => {
-        if (i.id == this.id_diocese) {
-          this.address = i.address;
-          this.name_diocese = i.name;
-          if (i.thumb_image == null) {
-            this.img = 'https://i.imgur.com/UKNky29.jpg'
-          }
-          else if (i.thumb_image.url == null) {
-            this.img = 'https://i.imgur.com/UKNky29.jpg'
-          }
-          else {
-            this.img = i.thumb_image.url;
-          }
-        }
+    let url = window.location.href;
+    if (url.includes('?')) {
+      this.route.queryParams.subscribe(params => {
+        this.data = JSON.parse(params['data']);
+        this.source_id = this.data.id;
       });
-    });
-    // this.imageService.getImage();
+    }
+    else {
+      this.source_id = parseInt(localStorage.getItem('parish_id'));
+      this.level = 'Linh'
+      this.parishesService.getDetail(this.source_id).subscribe((data: any) => {
+        this.loadingService.dismiss();
+        this.getData = data.parish;
+        this.address = this.getData.address;
+        this.name_diocese = this.getData.name;
+        this.bishop_name = this.getData.priest_name;
+        this.imgNotFound(this.getData)
+        this.img = this.getData.thumb_image.url
+      })
+    }
+
+    if (this.data && this.data.source_type == 'Diocese') {
+      this.source_type = this.data.source_type;
+      this.level = 'Giám'
+      this.loadingService.dismiss();
+      this.diocesesService.getDetail(this.source_id).subscribe((data: any) => {
+        this.loadingService.dismiss();
+        this.getData = data.diocese;
+        this.address = this.getData.address;
+        this.name_diocese = this.getData.name;
+        this.bishop_name = this.getData.bishop_name;
+        this.imgNotFound(this.getData)
+        this.img = this.getData.thumb_image.url
+      })
+    }
+    else if (this.data && this.data.source_type == 'Parishes') {
+      this.source_type = this.data.source_type;
+      this.level = 'Linh'
+      this.parishesService.getDetail(this.source_id).subscribe((data: any) => {
+        this.loadingService.dismiss();
+        this.getData = data.parish;
+        this.address = this.getData.address;
+        this.name_diocese = this.getData.name;
+        this.bishop_name = this.getData.priest_name;
+        this.imgNotFound(this.getData)
+        this.img = this.getData.thumb_image.url
+      })
+    }
     this.avatar = localStorage.getItem('avatar');
+  }
+  imgNotFound(item) {
+    !item?.thumb_image?.url && (item.thumb_image = { url: "https://i.imgur.com/UKNky29.jpg" });
   }
   clickHidden(e) {
     if (this.isHidden == false) {
@@ -166,9 +203,12 @@ export class PrayPage implements OnInit {
   }
   async goToDioceses() {
     const data = {
-      type: this.type.type
+      type_page: this.type_page
     }
-    this.authService.sendData(data)
-    this.router.navigateByUrl('/dioceses')
+    this.router.navigate(['/dioceses'], {
+      queryParams: {
+        data: JSON.stringify(data)
+      }
+    })
   }
 }
