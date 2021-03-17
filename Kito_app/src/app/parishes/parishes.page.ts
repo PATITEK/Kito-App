@@ -24,16 +24,16 @@ export class ParishesPage implements OnInit {
     per_page: 100
   }
   data;
-  type : {
+  type: {
     type: any
   };
   ngOnInit() {
     this.loadingService.present()
-    this.authService.receiveData.subscribe(data =>  {
+    this.authService.receiveData.subscribe(data => {
       this.pageParish.diocese_id = data.id;
       this.type = data.type
     })
-    this.parishesService.getAll(this.pageParish).subscribe((data: any) => {
+    this.parishesService.getAllWithDioceseId(this.pageParish).subscribe((data: any) => {
       this.loadingService.dismiss()
       this.data = data.parishes;
     });

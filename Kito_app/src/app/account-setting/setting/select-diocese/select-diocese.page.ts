@@ -59,7 +59,7 @@ export class SelectDiocesePage implements OnInit {
 
   getParishes(id) {
     this.pageRequestParish.diocese_id = id;
-    this.parishService.getAll(this.pageRequestParish).subscribe(data => {
+    this.parishService.getAllWithDioceseId(this.pageRequestParish).subscribe(data => {
       this.list = data.parishes;
     })
   }
@@ -79,7 +79,7 @@ export class SelectDiocesePage implements OnInit {
         if (prevDioceseId !== item.id) {
           this.loadingService.present();
           this.accountService.updateProfile({ diocese_id: item.id }).subscribe(() => {
-            this.parishService.getAll({ page: 1, per_page: 1, diocese_id: item.id }).subscribe(
+            this.parishService.getAllWithDioceseId({ page: 1, per_page: 1, diocese_id: item.id }).subscribe(
               data => {
                 const parish = data.parishes[0];
                 if (parish) {

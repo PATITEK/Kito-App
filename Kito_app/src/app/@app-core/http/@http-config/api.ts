@@ -30,9 +30,9 @@ export const APICONFIG = {
     GET_DETAIL: id => `/app/dioceses/${id}`
   },
   PARISHES: {
-    GET: `/app/parishes`,
+    GET_ALL_WITH_DIOCESE_ID: `/app/parishes`,
     GETNEWS: `/app/parish_news`,
-    GETLIST: `app/parishes/all_parishes`,
+    GET_ALL: `app/parishes/all_parishes`,
     GET_DETAIL: id => `/app/parishes/${id}`
   },
   EVENTS: {
