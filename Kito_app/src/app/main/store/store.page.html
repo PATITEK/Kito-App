@@ -2,7 +2,7 @@
   <app-header [headerCustom]="headerCustom"></app-header>
 </ion-header>
 
-<ion-content [scrollEvents]="true" (ionScroll)="onScrollContent($event)">
+<ion-content [scrollEvents]="true" (ionScroll)="onScrollContent($event)" [ngClass]="{'disable-scroll': !list.length}">
   <app-search-bar-nav></app-search-bar-nav>
 
   <div class="segment-container">
@@ -15,9 +15,9 @@
   </div>
 
   <div class="body">
-    <div class="header">
-      <img *ngIf="list.length" src="assets/icon/setting.svg" class="header-icon active-effect"
-        (click)="toggleHasSetting()">
+    <ion-buttons *ngIf="list.length" class="header">
+      <img src="assets/icon/setting.svg" class="header-icon active-effect" (click)="toggleHasSetting()">
+      <img class="active-effect" src="assets/icon/shop.svg" (click)="alertGoToOtherStore()">
 
       <div *ngIf="hasSetting" class="setting main-box-shadow" (click)="setHasSetting(false)">
         <div class="setting-item" (click)="sortDescendingByPrice()">Giá cao > thấp</div>
@@ -25,7 +25,7 @@
         <div class="setting-item">Hàng mới nhất</div>
         <div class="setting-item">Bán chạy nhất</div>
       </div>
-    </div>
+    </ion-buttons>
 
     <ion-buttons class="list">
       <div *ngFor="let col of list" class="col main-box-shadow">

@@ -2,7 +2,7 @@
   <app-header [headerCustom]="headerCustom"></app-header>
 </ion-header>
 
-<ion-content>
+<ion-content [ngClass]="{'disable-scroll': !list.length}">
   <app-search-bar-nav></app-search-bar-nav>
 
   <ion-list>

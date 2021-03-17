@@ -109,7 +109,7 @@ export class LoginPage implements OnInit {
       this.listDioceses = data.dioceses;
       this.tagret = this.listDioceses[0].name
     }),
-      this.parishes.getAll(this.pageRequestParishes).subscribe(data => {
+      this.parishes.getAllWithDioceseId(this.pageRequestParishes).subscribe(data => {
         this.listParishes = data.parishes;
       })
 
@@ -120,7 +120,7 @@ export class LoginPage implements OnInit {
   onSelectChange() {
     this.pageRequestParishes.diocese_id = this.formSignUp.get('dioceses').value;
     console.log(this.pageRequestParishes);
-    this.parishes.getAll(this.pageRequestParishes).subscribe(data => {
+    this.parishes.getAllWithDioceseId(this.pageRequestParishes).subscribe(data => {
       this.listParishes = data.parishes;
     })
   }

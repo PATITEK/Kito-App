@@ -26,6 +26,7 @@ export class ParishesPage implements OnInit {
     per_page: 100
   }
   data;
+
   dataParish;
   type_page ='pray'
   ngOnInit() {

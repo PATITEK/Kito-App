@@ -23,7 +23,7 @@ export class SelectParishPage implements OnInit {
 
   getData() {
     this.route.queryParams.subscribe(params => {
-      this.parishService.getAll({
+      this.parishService.getAllWithDioceseId({
         page: 1,
         per_page: 10,
         diocese_id: JSON.parse(params['data']).id
