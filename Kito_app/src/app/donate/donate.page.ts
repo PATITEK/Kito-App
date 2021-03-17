@@ -150,21 +150,19 @@ export class DonatePage implements OnInit {
     else {
     }
   }
+
   onSubmit() {
     // this.loadingService.present();
-    var donate = {
-      "donation": {
-        "email": localStorage.getItem('email'),
-        "token": "",
-        "amount": this.frmDonate.get('amount').value,
-        "note": this.frmDonate.get('note').value,
-        "source_type": this.source_type,
-        "source_id": this.source_id
-      }
-    }
+   
     this.amount = this.frmDonate.get('amount').value.replace(/\,/g,'');
 
     if (this.frmDonate.get('amount').dirty || this.frmDonate.get('amount').touched) {
+      if (this.amount != undefined) {
+        this.amount = this.amount.replace(/\,/g, '')
+      }
+      else {
+        this.amount = "";
+      }
       if (this.amount.length == 0) {
         this.required_purpose = true;
         this.message_purpose = 'Thêm thông tin vào trường này !';
@@ -186,6 +184,16 @@ export class DonatePage implements OnInit {
       else {
         this.required_mess = false;
         this.loadingService.dismiss();
+      }
+    }
+    var donate = {
+      "donation": {
+        "email": localStorage.getItem('email'),
+        "token": "",
+        "amount": this.amount,
+        "note": this.frmDonate.get('note').value,
+        "source_type": this.source_type,
+        "source_id": this.source_id
       }
     }
     this.router.navigate(['paymentmethods'], {
@@ -224,5 +232,5 @@ export class DonatePage implements OnInit {
         data: JSON.stringify(data)
       }
     })
+   }
   }
-}
