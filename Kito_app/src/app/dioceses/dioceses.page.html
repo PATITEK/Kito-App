@@ -1,9 +1,8 @@
 <app-header [headerCustom]="headerCustom"></app-header>
 <ion-content class="ion-padding">
   <app-search-bar-nav>{{search}}</app-search-bar-nav>
-  <!-- <ion-label class="ion-text-center">CHỌN GIÁO PHẬN</ion-label> -->
   <ion-list>
-    <app-list-dioceses *ngFor="let item of data" [data] = "item" [flag_parishes_diocese]="'diocese'"
-    [type]="type"></app-list-dioceses>
+    <app-list-dioceses *ngFor="let item of dataDiocese" [data] = "item" [flag_parishes_diocese]="'diocese'"
+   [type_page]="type_page"></app-list-dioceses>
   </ion-list>
 </ion-content>

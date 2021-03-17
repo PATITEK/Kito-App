@@ -17,10 +17,12 @@ export class PaymentmethodsPage implements OnInit {
   ) { }
 
   ngOnInit() {
+    let url = window.location.href;
+    if (url.includes('?')) {
     this.route.queryParams.subscribe(params => {
       this.data =  JSON.parse(params['data']);
     })
-
+  }
   }
   async openModal() {
     const modal = await this.modalController.create({

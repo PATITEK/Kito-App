@@ -11,11 +11,13 @@ import { ModalDonateComponent } from '../modal-donate/modal-donate.component';
 export class ListDiocesesComponent implements OnInit {
   @Input() data: any;
   @Input() flag_parishes_diocese: string;
-  @Input() type;
+   @Input() type_page;
   constructor(
     private modalCtrl: ModalController,
     public router: Router
-  ) { }
+  ) {
+
+   }
 
   ngOnInit() {
   }
@@ -25,20 +27,33 @@ export class ListDiocesesComponent implements OnInit {
         component: ModalDonateComponent,
         swipeToClose: true,
         cssClass: 'modalDonate',
-        componentProps: { diocese_id: this.data.id, type: this.type }
+        componentProps: { diocese_id: this.data.id, type_page: this.type_page}
       });
       return await popover.present();
     }
-    else {
+    else if(this.flag_parishes_diocese === 'parish' && this.type_page === 'donate') {
       const data = {
         id: this.data.id,
-        source_type: 'Parishes'
+        source_type: 'Parish',
+        type_page: this.type_page,
       }
       this.router.navigate(['donate'], {
         queryParams: {
           data: JSON.stringify(data)
         }
       })
+    }
+    else if(this.flag_parishes_diocese === 'parish' && this.type_page === 'pray') {
+        const data = {
+          id: this.data.id,
+          source_type: 'Parish',
+          type_page: this.type_page,
+        }
+        this.router.navigate(['pray'], {
+          queryParams: {
+            data: JSON.stringify(data)
+          }
+        })
     }
   }
 }

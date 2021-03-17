@@ -17,7 +17,7 @@ export class ModalDonateComponent implements OnInit {
     ) { 
     }
     @Input() diocese_id: any;
-    @Input() type: any;
+    @Input() type_page: any;
     ngOnInit() {
   }
   async closeModal() {
@@ -27,17 +27,17 @@ export class ModalDonateComponent implements OnInit {
     const data = {
       id: this.diocese_id,
       source_type: 'Diocese',
-      type: this.type
+      type_page: this.type_page
     }
     this.closeModal();
-    if(this.type == 'donate') {
+    if(this.type_page == 'donate') {
       this.router.navigate(['donate'], {
         queryParams: {
           data: JSON.stringify(data)
         }
       })
     }
-    else if(this.type == 'pray'){
+    else if(this.type_page == 'pray'){
       this.router.navigate(['pray'], {
         queryParams: {
           data: JSON.stringify(data)
@@ -48,11 +48,14 @@ export class ModalDonateComponent implements OnInit {
   goToParishes() {
     const data = {
       id: this.diocese_id,
-      source_type: 'Parishes',
-      type: this.type
+      source_type: 'Parish',
+      type_page: this.type_page
     }
-    this.authService.sendData(data)
-    this.router.navigateByUrl('/parishes')
+    this.router.navigate(['/parishes'], {
+      queryParams: {
+        data: JSON.stringify(data)
+      }
+    })
     this.closeModal();
   }
 }

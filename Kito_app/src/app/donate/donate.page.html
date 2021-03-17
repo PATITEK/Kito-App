@@ -15,7 +15,7 @@
       <ion-item-group class="header__group-address mr-top">
         <img src="assets/img/user_img.svg" alt="">
         <span class="header__title-user">
-          Linh mục Ignatiô Hồ Văn Xuân
+          {{level}} mục {{bishop_name}}
         </span>
       </ion-item-group>
   </ion-item-group>
@@ -26,7 +26,7 @@
     <ion-item-group>
       <ion-icon name="pencil-outline" class="group__donate-pen--edit"></ion-icon>
       <ion-img src="assets/img/dola.svg"></ion-img>
-      <input type="number" formControlName ="amount" class="group__donate-amount">
+      <input formControlName ="amount" class="group__donate-amount"(keyup)="callChangeDot()" [(ngModel)] ="x">
       <ion-label>VND</ion-label>
     </ion-item-group>
     <span class="require" *ngIf="required_mess">
