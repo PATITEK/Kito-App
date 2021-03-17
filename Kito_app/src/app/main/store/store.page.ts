@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { IonContent, IonInfiniteScroll, ModalController } from '@ionic/angular';
+import { AlertController, IonContent, IonInfiniteScroll, ModalController } from '@ionic/angular';
 import { IPageProduct, IPageRequest, StoreService } from 'src/app/@app-core/http';
 import { DateTimeService } from 'src/app/@app-core/utils';
 import { AddStoreComponent } from 'src/app/@modular/add-store/add-store.component';
@@ -20,13 +20,14 @@ export class StorePage implements OnInit {
   hasSetting = false;
   categories = [];
   currentCategoryId = null;
+  parishId = localStorage.getItem('parish_id');
   pageRequestCategories: IPageRequest = {
     page: 1,
-    per_page: 10
+    per_page: 20
   }
   pageRequestProducts: IPageProduct = {
     page: 1,
-    per_page: 10,
+    per_page: 20,
     category_id: null
   }
 
@@ -34,7 +35,8 @@ export class StorePage implements OnInit {
     public dateTimeService: DateTimeService,
     private router: Router,
     private modalController: ModalController,
-    private storeService: StoreService
+    private storeService: StoreService,
+    private alertController: AlertController
   ) { }
 
   ngOnInit() {
@@ -43,6 +45,17 @@ export class StorePage implements OnInit {
 
   ionViewWillEnter() {
     this.getCart();
+    const parishId = localStorage.getItem('tempParishId');
+    if (parishId) {
+      if (parishId !== this.parishId) {
+        this.parishId = parishId;
+        this.categories = [];
+        this.list = [];
+        this.pageRequestProducts.page = 1;
+        this.getCategories();
+      }
+      localStorage.removeItem('tempParishId');
+    }
   }
 
   ionViewWillLeave() {
@@ -61,11 +74,12 @@ export class StorePage implements OnInit {
         product.amount = 0;
       })
       this.list = this.list.concat(data.products);
+      this.pageRequestProducts.page++;
+      if (this.list.length >= data.meta.pagination.total_objects) {
+        this.infinityScroll.disabled = true;
+      }
 
       if (event) {
-        if (this.list.length >= data.meta.pagination.total_objects) {
-          event.target.disabled = true;
-        }
         event.target.complete();
       }
     })
@@ -111,6 +125,8 @@ export class StorePage implements OnInit {
   changeCategory(category) {
     this.setHasSetting(false);
     if (this.currentCategoryId != category.id) {
+      this.infinityScroll.disabled = false;
+      this.pageRequestProducts.page = 1;
       this.currentCategoryId = category.id;
       this.list = [];
       this.infinityScroll.disabled = false;
@@ -175,10 +191,30 @@ export class StorePage implements OnInit {
   }
 
   loadMoreProducts(event) {
+    console.log('load more')
     this.getProducts(event);
   }
 
   onScrollContent(event) {
     this.setHasSetting(false);
+  }
+
+  async alertGoToOtherStore() {
+    const alert = await this.alertController.create({
+      header: 'Xem cửa hàng khác',
+      buttons: [
+        {
+          text: 'Hủy',
+          role: 'cancel'
+        },
+        {
+          text: 'Đồng ý',
+          handler: () => {
+            this.router.navigateByUrl('main/store/choose-store');
+          }
+        }
+      ]
+    })
+    await alert.present();
   }
 }

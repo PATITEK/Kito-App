@@ -13,8 +13,8 @@ export class ParishesService {
 
   constructor(private http: HttpClient) { }
 
-  public getAll(request: IPageParishes) {
-    return this.http.get<any>(`${APICONFIG.PARISHES.GET}?${(requestQuery(request))}`).pipe(
+  public getAllWithDioceseId(request: IPageParishes) {
+    return this.http.get<any>(`${APICONFIG.PARISHES.GET_ALL_WITH_DIOCESE_ID}?${(requestQuery(request))}`).pipe(
       map((result) => {
         return result;
       }),
@@ -40,8 +40,8 @@ export class ParishesService {
         throw errorRes.error;
       }));
   }
-  public getAllNotidDioces(request: IPageParishes) {
-    return this.http.get<any>(`${APICONFIG.PARISHES.GETLIST}?${(requestQuery(request))}`).pipe(
+  public getAll(request: IPageRequest) {
+    return this.http.get<any>(`${APICONFIG.PARISHES.GET_ALL}?${(requestQuery(request))}`).pipe(
       map((result) => {
         return result;
       }),

@@ -46,7 +46,7 @@ export class InformationPage implements OnInit {
     if (this.dataParams.id) {
       switch (this.dataParams.type.detail) {
         case 'parish':
-          this.parishService.getAll(this.pageRequestParish).subscribe(data => {
+          this.parishService.getAllWithDioceseId(this.pageRequestParish).subscribe(data => {
             data.parishes.forEach(v => v.type = this.dataParams.type);
             this.list = this.list.concat(data.parishes);
             func && func();

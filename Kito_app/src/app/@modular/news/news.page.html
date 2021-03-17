@@ -2,7 +2,7 @@
   <app-header [headerCustom]="headerCustom"></app-header>
 </ion-header>
 
-<ion-content>
+<ion-content [ngClass]="{'disable-scroll': !news.length}">
   <app-search-bar-nav></app-search-bar-nav>
 
   <div *ngIf="news.length" class="main-news" (click)="goToNewsDetail(news[0])">
