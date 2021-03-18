@@ -7,14 +7,20 @@ import { HttpEvent } from '@angular/common/http';
 import { catchError, map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { APICONFIG, API_URL } from './http/@http-config';
+import { AlertService } from './http/alert.service';
+import { LoadingService } from './utils';
 
 @Injectable()
+
 export class IntercepterService implements HttpInterceptor {
 
   constructor(
     @Inject(API_URL) private apiUrl: string,
     private router: Router,
+    private alertService: AlertService,
+    private loading: LoadingService
   ) {}
+  count : number = 0;
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     
@@ -38,6 +44,11 @@ export class IntercepterService implements HttpInterceptor {
       catchError((err) => {
         if (err instanceof HttpErrorResponse) {
           if (err.status === 401) {
+            this.count++;
+          }
+          if(this.count == 3) {
+            this.loading.dismiss();
+            this.alertService.presentAlert('Bạn không có quyền truy cập!');
             this.router.navigateByUrl('/auth/login', { queryParams: { returnUrl: window.location.pathname } });
             localStorage.clear();
           }

@@ -28,15 +28,9 @@ export class NewsPage implements OnInit {
     page: 1,
     per_page: 10,
   }
-  time = [{
-    year: '',
-    month: '',
-    day: '',
-    time: ''
-  }]
   day: any;
-
   dataParams = null;
+  check = false;
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -47,6 +41,25 @@ export class NewsPage implements OnInit {
 
   ngOnInit() {
     this.getParams();
+    var orthers = document.getElementById('orthers');
+    var current =  document.getElementById('current');
+    current.addEventListener('mouseover', ()=>{
+      console.log('hihi');
+      orthers.style.display = 'block';
+    });
+    current.addEventListener('mouseout',()=>{
+      orthers.style.display = 'none';
+    })
+    current.addEventListener('click', ()=>{
+      if(!this.check) {
+        orthers.style.display = 'block';
+        this.check = true;
+      }
+      else {
+        orthers.style.display = 'none';
+        this.check = false;
+      }
+    })
   }
 
   goToNewsDetail(item) {

@@ -47,12 +47,20 @@ export class AuthService {
   }
   public checkcodePassword(req) {
     return this.http.post(`${APICONFIG.AUTH.CHECK_CODE_RESET}`, req).pipe(
-      map((result) => {
+      map((result: any) => {
+        this.storage.clear();
+        localStorage.setItem('Authorization', result.token);
+         this.storage.setInfoAccount();
         return result;
+        
       }),
       catchError((errorRes: any) => {
-        // this.toastService.present('Your code has expired, please resend!', 'top');
-        this.toastService.present(errorRes.error.errors, 'top')
+        if(errorRes.error.errors ){
+          this.toastService.present(errorRes.error.errors, 'top');
+        }
+        else if(errorRes.error.messages) {
+          this.toastService.present(errorRes.error.messages, 'top');
+        }
         this.loadingService.dismiss();
         throw errorRes.error;
       }
@@ -84,7 +92,6 @@ export class AuthService {
       map((result: any) => {
         this.storage.clear();
         localStorage.setItem('Authorization', result.token);
-        localStorage.setItem('fullname', result.full_name);
          this.storage.setInfoAccount();
         return result;
       }),
@@ -111,7 +118,7 @@ export class AuthService {
         return result;
       }),
       catchError((errorRes: any) => {
-        this.presentToast("Please check and try again !");
+        this.presentToast("Vui lòng kiểm tra lại !");
         throw errorRes.error;
       }));
   }
