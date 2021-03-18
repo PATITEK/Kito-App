@@ -93,6 +93,8 @@ export class InformationPage implements OnInit {
       switch (this.dataParams.type.general) {
         case 'info':
           this.headerCustom.title = 'Thông tin';
+          case 'parish':
+            this.headerCustom.title = 'Giáo xứ';
           break;
         case 'story':
           this.headerCustom.title = 'Tiểu sử';

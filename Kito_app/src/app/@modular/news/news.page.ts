@@ -28,15 +28,11 @@ export class NewsPage implements OnInit {
     page: 1,
     per_page: 10,
   }
-  time = [{
-    year: '',
-    month: '',
-    day: '',
-    time: ''
-  }]
   day: any;
-
   dataParams = null;
+  check = false;
+  setBg = false;
+  newsParish = false;
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -47,8 +43,31 @@ export class NewsPage implements OnInit {
 
   ngOnInit() {
     this.getParams();
+      var orthers = document.getElementById('orthers');
+      var current =  document.getElementById('current');
+        current.addEventListener('mouseover', ()=>{
+          orthers.style.display = 'block';
+          this.setBg = true;
+        });
+        current.addEventListener('mouseout',()=>{
+          orthers.style.display = 'none';
+          this.setBg = false;
+        })
+        current.addEventListener('click', ()=>{
+          console.log('hihi')
+          if(!this.check) {
+            orthers.style.display = 'block';
+            this.check = true;
+            this.setBg = true;
+          }
+          else {
+            orthers.style.display = 'none';
+            this.check = false;
+            this.setBg = false;
+          }
+        })
   }
-
+ 
   goToNewsDetail(item) {
     const data = {
       id: item.id,
@@ -80,6 +99,7 @@ export class NewsPage implements OnInit {
           })
           break;
         case 'parish_news':
+          this.newsParish = true;
           this.headerCustom.title = 'Tin tức Giáo xứ'
           this.parishesService.getAllNewsByParish(this.pageRequestParish).subscribe(data => {
             data.parish_news.forEach(element => {
@@ -134,5 +154,8 @@ export class NewsPage implements OnInit {
 
   imgnotFound(item) {
     !item?.thumb_image?.url && (item.thumb_image = { url: "https://i.imgur.com/UKNky29.jpg" });
+  }
+  gotoParishOrthers() {
+
   }
 }

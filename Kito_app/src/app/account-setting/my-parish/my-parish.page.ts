@@ -14,7 +14,7 @@ export class MyParishPage implements OnInit {
   @ViewChild('infiniteScroll') infiniteScroll: IonInfiniteScroll;
   tabNew = true;
   headerCustom = { title: 'Thông tin giáo xứ', background: '#e5e5e5' };
-  listPriest = []
+  listPriest = [];
   news: any;
   data;
   img = '';
@@ -62,7 +62,7 @@ export class MyParishPage implements OnInit {
       !data?.pope_infos?.forEach(element => {
         this.imgnotFound(element)
       });
-      this.listPriest = data.pope_infos;
+      this.listPriest = this.listPriest.concat(data.pope_infos);
       func && func();
       this.popeRequest.page++;
       if (this.listPriest.length >= data.meta.pagination.total_objects) {
@@ -70,6 +70,7 @@ export class MyParishPage implements OnInit {
       }
     })
   }
+
   loadMoreData(event) {
     this.getPriest(() => {
       event.target.complete();
