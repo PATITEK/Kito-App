@@ -11,6 +11,7 @@ import { ModalDetailOrderPage } from 'src/app/@modular/modal-detail-order/modal-
   styleUrls: ['./orders-history.page.scss'],
 })
 export class OrdersHistoryPage implements OnInit {
+  headerCustom = { title: 'Lịch sử đặt hàng' };
   data: any;
   lastedData: any;
   constructor(private orderService: OrderService,
@@ -25,6 +26,7 @@ export class OrdersHistoryPage implements OnInit {
   }
 
   init() {
+    this.loadingService.present();
     this.data = {
       orders: {
         pageRequest: {
@@ -66,6 +68,7 @@ export class OrdersHistoryPage implements OnInit {
       count++;
       count == 1 && event.target.complete();
     })
+    this.loadingService.dismiss();
   }
 
   async openOrderDetailModal(order) {
