@@ -3,7 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router';
 import { AccountService, AuthService, DonateService, IPageRequest, ParishesService } from '../@app-core/http';
 import { ImageService, LoadingService } from '../@app-core/utils';
-import { ModalController, ToastController } from '@ionic/angular';
+import { ToastController } from '@ionic/angular';
 import { DioceseService } from '../@app-core/http/diocese';
 
 
@@ -13,9 +13,6 @@ import { DioceseService } from '../@app-core/http/diocese';
   styleUrls: ['./donate.page.scss'],
 })
 export class DonatePage implements OnInit {
-  public tab = 'pray'
-  isHidden = false;
-  isChoose = false;
   source_id: any;
   source_type: any;
   required_mess = false;
@@ -32,7 +29,6 @@ export class DonatePage implements OnInit {
   level;
   data;
   frmDonate: FormGroup;
-  previousUrl;
   error_messages = {
     'amount': [
       {
@@ -41,16 +37,12 @@ export class DonatePage implements OnInit {
     ],
   }
   dataParams;
-  chabad = {
-    name: '',
-    thumb_image: ''
-  }
   pageResult: IPageRequest = {
     page: 1,
     per_page: 100,
   }
- type_page = 'donate';
- type_donate;
+  type_page = 'donate';
+  type_donate;
   getData;
   x: any;
   amount: any;
@@ -62,9 +54,6 @@ export class DonatePage implements OnInit {
     public donateService: DonateService,
     public loadingService: LoadingService,
     public toastController: ToastController,
-    private imageService: ImageService,
-    private authService: AuthService,
-    private accountService: AccountService,
     private diocesesService: DioceseService,
     private parishService: ParishesService
   ) {
@@ -81,60 +70,53 @@ export class DonatePage implements OnInit {
     this.name = localStorage.getItem('fullname');
   }
   imgNotFound(item) {
-    !item?.thumb_image?.url && (item.thumb_image = {url: "https://i.imgur.com/UKNky29.jpg"});
+    !item?.thumb_image?.url && (item.thumb_image = { url: "https://i.imgur.com/UKNky29.jpg" });
   }
   ionViewWillEnter() {
     let url = window.location.href;
-      if(url.includes('?')){
-        this.route.queryParams.subscribe(params => {
-          this.data = JSON.parse(params['data']);
-          this.source_id = this.data.id;
-        });
-      }
-      else {
+    if (url.includes('?')) {
+      this.route.queryParams.subscribe(params => {
+        this.data = JSON.parse(params['data']);
+        this.source_id = this.data.id;
+      });
+    }
+    else {
       this.source_id = parseInt(localStorage.getItem('parish_id'));
       this.source_type = 'Parish';
       this.level = 'Linh'
       this.parishService.getDetail(this.source_id).subscribe((data: any) => {
         this.loadingService.dismiss();
-           this.getData = data.parish;
-            this.address = this.getData.address;
-            this.name_diocese =this.getData.name;
-            this.bishop_name =this.getData.priest_name;
-            this.imgNotFound(this.getData)
-            this.img = this.getData.thumb_image.url
-    })
-     }
-  
-    if (this.data && this.data.source_type == 'Diocese') {
-       this.source_type = this.data.source_type;
-       this.level = 'Giám'
-        this.loadingService.dismiss();
-        this.diocesesService.getDetail(this.source_id).subscribe((data: any) => {
-          this.loadingService.dismiss();
-             this.getData = data.diocese;
-              this.address = this.getData.address;
-              this.name_diocese =this.getData.name;
-              this.bishop_name =this.getData.bishop_name;
-              this.imgNotFound(this.getData)
-              this.img = this.getData.thumb_image.url
+        this.getData = data.parish;
+        this.bishop_name = this.getData.priest_name;
+        this.imgNotFound(this.getData);
+        this.img = this.getData.thumb_image.url;
       })
     }
-    else if(this.data && this.data.source_type == 'Parish') {
+    if (this.data && this.data.source_type == 'Diocese') {
+      this.source_type = this.data.source_type;
+      this.level = 'Giám'
+      this.loadingService.dismiss();
+      this.diocesesService.getDetail(this.source_id).subscribe((data: any) => {
+        this.loadingService.dismiss();
+        this.getData = data.diocese;
+        this.bishop_name = this.getData.bishop_name;
+        this.imgNotFound(this.getData)
+        this.img = this.getData.thumb_image.url
+      })
+    }
+    else if (this.data && this.data.source_type == 'Parish') {
       this.source_type = this.data.source_type;
       this.level = 'Linh'
       this.parishService.getDetail(this.source_id).subscribe((data: any) => {
         this.loadingService.dismiss();
-           this.getData = data.parish;
-            this.address = this.getData.address;
-            this.name_diocese =this.getData.name;
-            this.bishop_name =this.getData.priest_name;
-            this.imgNotFound(this.getData)
-            this.img = this.getData.thumb_image.url
-    })
+        this.getData = data.parish;
+        this.bishop_name = this.getData.priest_name;
+        this.imgNotFound(this.getData);
+        this.img = this.getData.thumb_image.url;
+      })
+    }
+    this.avatar = localStorage.getItem('avatar');
   }
-  this.avatar = localStorage.getItem('avatar');
-}
   getUrl() {
     if (!this.img) {
       return `url("https://i.imgur.com/UKNky29.jpg")`
@@ -147,14 +129,10 @@ export class DonatePage implements OnInit {
     if (this.x != '') {
       this.x = this.x.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
     }
-    else {
-    }
   }
 
   onSubmit() {
-    // this.loadingService.present();
-   
-    this.amount = this.frmDonate.get('amount').value.replace(/\,/g,'');
+    this.amount = this.frmDonate.get('amount').value.replace(/\,/g, '');
 
     if (this.frmDonate.get('amount').dirty || this.frmDonate.get('amount').touched) {
       if (this.amount != undefined) {
@@ -163,23 +141,17 @@ export class DonatePage implements OnInit {
       else {
         this.amount = "";
       }
-      if (this.amount.length == 0) {
-        this.required_purpose = true;
-        this.message_purpose = 'Thêm thông tin vào trường này !';
-        this.loadingService.dismiss();
-        return;
-      }
-       else if(this.amount.length != 0 && !this.amount.match(/^[0-9]*$/g)) {
+      if (this.amount.length != 0 && !this.amount.match(/^[0-9]*$/g)) {
         this.required_mess = true;
         this.message = 'Bạn chỉ nhập được số ở trường này!';
         this.loadingService.dismiss();
-        return; 
+        return;
       }
-      else if(this.amount < 12000 ) {
+      else if (this.amount < 12000) {
         this.required_mess = true;
-        this.message = 'Giá trị phải lớn hơn 12000 vnd';
+        this.message = 'Giá trị phải lớn hơn 12,000';
         this.loadingService.dismiss();
-        return; 
+        return;
       }
       else {
         this.required_mess = false;
@@ -201,29 +173,8 @@ export class DonatePage implements OnInit {
         data: JSON.stringify(donate)
       }
     })
-
   }
-  clickHidden(e) {
-    if (this.isHidden == false) {
-      this.isHidden = true;
-      e.target.classList.add('btn__nameless_dis_pray');
-    }
-    else {
-      this.isHidden = false;
-      e.target.classList.remove('btn__nameless_dis_pray');
-    }
-  }
-
-  btnActivate(e) {
-    this.isChoose = true;
-    let choosed = document.querySelectorAll('day');
-    choosed.forEach(element => {
-      element.classList.remove(('day'));
-      document.getElementById('day-choose').style.background = '#64C18E';
-    });
-    e.target.classList.add('active-button');
-  }
-   goToDioceses() {
+  goToDioceses() {
     const data = {
       type_page: this.type_page
     }
@@ -232,5 +183,5 @@ export class DonatePage implements OnInit {
         data: JSON.stringify(data)
       }
     })
-   }
   }
+}

@@ -109,7 +109,7 @@ export class ArchdioceseDetailPage implements OnInit {
     const data = {
       id: this.archdiocese.id,
       type: {
-        general: 'info',
+        general: 'parish',
         detail: 'parish'
       }
     }

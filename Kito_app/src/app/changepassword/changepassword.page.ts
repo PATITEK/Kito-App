@@ -17,6 +17,7 @@ export class ChangepasswordPage implements OnInit {
   message = '';
   checkpn = false;
   messagepn = '';
+  count: any;
   constructor(private formBuilder: FormBuilder,
     private pageNotiService: PageNotiService,
     private router: Router,
@@ -49,18 +50,18 @@ export class ChangepasswordPage implements OnInit {
     const pc = this.formSubmit.value.passwordconfirm;
     if(pn.length < 6){
         this.checkpn = true;
-        this.messagepn = 'Min password is 6.'
+        this.messagepn = 'Mật khẩu ít nhất 6 kí tự.'
     }
     else if(pn !=  pc) {
       this.check = true;
       this.checkpn = false;
-      this.message = 'Password not match !'
+      this.message = 'Mật khẩu không trùng khớp!'
     }
     else {
       this.check = false;
       const datapasing: IDataNoti = {
         title: 'SUCCESSFUL!',
-        image: 'Change Password successful!',
+        des: 'Change Password successful!',
         routerLink: '/main'
       }
       var ps = {
@@ -68,8 +69,8 @@ export class ChangepasswordPage implements OnInit {
         "new_password": pn,
         "new_password_confirmation": pc
       }
-      this.loadService.present()
       this.dismissModal()
+      this.loadService.present()
       this.authService.resetPassword(ps).subscribe(data=> {
         this.pageNotiService.setdataStatusNoti(datapasing);
         this.router.navigateByUrl('/page-noti');
@@ -77,7 +78,10 @@ export class ChangepasswordPage implements OnInit {
       },
       (data)=> {
         this.loadService.dismiss();
-        this.toastService.present('Xảy ra lỗi, vui lòng thử lại sau !', 'top', 2000);
+        this.count++;
+        this.toastService.present('Mật khẩu bạn nhập sai, vui lòng kiểm tra lại !', 'top', 2000);
+        if(this.count == 3) {
+        }
       })
     }
    
