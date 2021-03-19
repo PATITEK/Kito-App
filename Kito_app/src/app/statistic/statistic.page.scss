@@ -84,6 +84,7 @@ ion-content {
   .segment {
     flex-wrap: nowrap;
     overflow-x: scroll;
+    scroll-behavior: smooth;
 
     &__item {
       white-space: nowrap;
