@@ -49,7 +49,8 @@ export class CheckoutPage implements OnInit {
         lat: localStorage.getItem('lat'),
         lng: localStorage.getItem('lng'),
         note: null,
-        full_address: this.location,
+        // full_address: this.location,
+        full_address: 'test',
         phone_number_receiver: localStorage.getItem('phoneNumber'),
         order_details_attributes: this.cart.map(item => ({ product_id: item.id, amount: item.amount }))
       }
