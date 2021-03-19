@@ -21,6 +21,7 @@ export class PageNotiComponent implements OnInit {
     this.pageNotiService.dataStatusNoti.subscribe((data: IDataNoti) => {
       this.title = data.title;
       this.routerLink = data.routerLink;
+      this.des = data.des;
       setTimeout(() => {
         this.router.navigateByUrl(this.routerLink);
       }, 2000);

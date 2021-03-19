@@ -8,12 +8,64 @@ ion-content {
   --padding-top: calc(80px + 45px);
   --padding-start: 16px;
   --padding-end: 16px;
+  
+}
+.choose-parish {
+  top: 130px;
+    right: 16px;
+    font-size: 16px;
+    height: 38px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    position: fixed;
+    z-index: 12;
+}
+.bg {
+  background-color: #fbfbfb;
+}
+.current {
+  color: #424242;
+  font-weight: 500;
+  border: 1px solid #e5e5e5;
+  padding: 2px 6px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+}
+.orthers {
+  color: #424242;
+    border: 1px solid #e5e5e5;
+    border-radius: 10px;
+    align-items: center;
+    position: relative;
+    background: #fbfbfb;
+    padding: 8px 5px;
+    border-top: none;
+    display: none;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+.right{
+  position: absolute;
+    height: 9px;
+    top: -24px;
+    right: -0.5px;
+    border-right: 1px solid #e5e5e5;
+}
+.left {
+  position: absolute;
+  height: 9px;
+  top: -24px;
+  border-right: 1px solid #e5e5e5;
+  left: -1px;
 }
 
 .main-news {
   position: relative;
+  display: -webkit-inline-box;
   height: 60vw;
   border-radius: 8px;
+  margin-top: 36px;
   overflow: hidden;
   border-bottom: 1px solid #EEEEEE;
 
