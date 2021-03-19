@@ -3,11 +3,11 @@
   <form [formGroup] ="frmPray" (ngSubmit)="onSubmit()" >
     <ion-item-group class="wrapper">
   <ion-item-group class="title">
-    <span class="header__name">{{name_diocese}}</span>
+    <span class="header__name">{{getData?.name}}</span>
     <ion-item-group class="header__group-address">
       <img src="assets/img/address.svg" alt="">
       <span class="header__address">
-       {{address}}
+       {{getData?.address}}
       </span>
     </ion-item-group>
       <!-- <img src="assets/img/bgdonate.jpg" alt="" class="image"> -->

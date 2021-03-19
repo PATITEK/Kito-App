@@ -34,6 +34,8 @@ export class NewsDetailPage implements OnInit {
           break;
         case 'story':
           this.headerCustom.title = 'Tiểu sử';
+        case 'parish':
+          this.headerCustom.title = 'Thông tin';
           break;
       }
       switch (dataParams.type.detail) {
@@ -51,7 +53,6 @@ export class NewsDetailPage implements OnInit {
           break;
         case 'diocese':
           this.dioceseService.getDetail(dataParams.id).subscribe(data => {
-            console.log(data)
             this.data = data.diocese;
             this.imgnotFound(this.data);
           })

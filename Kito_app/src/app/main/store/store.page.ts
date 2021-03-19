@@ -27,8 +27,9 @@ export class StorePage implements OnInit {
   }
   pageRequestProducts: IPageProduct = {
     page: 1,
-    per_page: 20,
-    category_id: null
+    per_page: 0,
+    category_id: this.currentCategoryId,
+    parish_id: localStorage.getItem('parish_id'),
   }
 
   constructor(

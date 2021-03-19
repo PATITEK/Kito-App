@@ -47,7 +47,7 @@ export class NewPasswordPage implements OnInit {
       this.loadingService.dismiss();
       return `${name} không được ít hơn 6 ký tự`;
     }
-    if (name == 'Confirmed password') {
+    if (name == 'Xác nhận mật khẩu') {
       this.loadingService.dismiss();
       if (this.passwordValue != this.confirmedPasswordValue) {
         return 'Xác nhận mật khẩu không trùng khớp';
@@ -60,11 +60,11 @@ export class NewPasswordPage implements OnInit {
     this.loadingService.present();
     const datapasing: IDataNoti = {
       title: 'THÀNH CÔNG!',
-      image: 'Lấy lại mật khẩu thành công!',
+      des: 'Lấy lại mật khẩu thành công!',
       routerLink: '/main'
     }
-    this.invalidPassword = this.checkValidPassword('Password', this.passwordValue);
-    this.invalidConfirmedPassword = this.checkValidPassword('Confirmed password', this.confirmedPasswordValue);
+    this.invalidPassword = this.checkValidPassword('Mật khẩu', this.passwordValue);
+    this.invalidConfirmedPassword = this.checkValidPassword('Xác nhận mật khẩu', this.confirmedPasswordValue);
     if (this.invalidPassword == '' && this.invalidConfirmedPassword == '') {
       let dataSubmit = {
         "new_password":  this.passwordValue,

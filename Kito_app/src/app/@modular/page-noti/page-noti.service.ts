@@ -6,7 +6,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 })
 export class PageNotiService {
 
-  private data: BehaviorSubject<IDataNoti> = new BehaviorSubject<IDataNoti>({ title: '', image: '', routerLink: '' });
+  private data: BehaviorSubject<IDataNoti> = new BehaviorSubject<IDataNoti>({ title: '', des: '', routerLink: '' });
 
   constructor() { }
 
@@ -20,7 +20,7 @@ export class PageNotiService {
 }
 export interface IDataNoti {
   title: string;
-  image: string;
+  des: string;
   routerLink: string;
 }
 export interface IDataSlide {

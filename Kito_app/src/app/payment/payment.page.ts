@@ -45,28 +45,14 @@ export class PaymentPage implements OnInit {
   showStripe() {
     this.loadingService.present();
     const datapasing: IDataNoti = {
-      title: 'DONATE SUCCESSFUL!',
-      image: 'Change Password successful!',
+      title: 'ĐÓNG GÓP THÀNH CÔNG!',
+      des: 'Cảm ơn sự đóng góp của bạn!',
       routerLink: '/main/chabad'
     }
     this.pageNotiService.setdataStatusNoti(datapasing);
     this.router.navigateByUrl('/page-noti');
     this.loadingService.dismiss()
-      // this.donateService.donateLog(this.data).subscribe(
-      //   (data:any) => {
-      //     this.loadingService.dismiss()
-      //     console.log(this.data)
-      //     this.pageNotiService.setdataStatusNoti(datapasing);
-      //     this.router.navigateByUrl('/page-noti');
-      // },
-      //   (data:any) => {
-      //     if(data.errors) {
-      //       console.log(data.errors)
-      //       this.loadingService.dismiss()
-      //       this.presentToast('Cannot process your payment, Please check again!','danger');
-      //       }
-      //   }
-      // )
+    
   }
   
 }
