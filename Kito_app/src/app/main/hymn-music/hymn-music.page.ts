@@ -106,7 +106,6 @@ export class HymnMusicPage implements OnInit {
     this.reInitShuffledList();
     this.reInitShuffledLikedList();
     this.songService.getAllSongs().subscribe(data => {
-      console.log(data)
     })
   }
 
@@ -116,7 +115,6 @@ export class HymnMusicPage implements OnInit {
   }
   ionViewWillEnter() {
       this.songService.getAllSongs().subscribe(data => {
-        console.log(data)
       })
   }
 

@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController, IonContent, IonInfiniteScroll, ModalController } from '@ionic/angular';
-import { IPageProduct, IPageRequest, StoreService } from 'src/app/@app-core/http';
+import { IPageCategory, IPageProduct, IPageRequest, StoreService } from 'src/app/@app-core/http';
 import { DateTimeService, LoadingService } from 'src/app/@app-core/utils';
 import { AddStoreComponent } from 'src/app/@modular/add-store/add-store.component';
 
@@ -20,15 +20,15 @@ export class StorePage implements OnInit {
   hasSetting = false;
   categories = [];
   currentCategoryId = null;
-  parishId = localStorage.getItem('parish_id');
-  pageRequestCategories: IPageRequest = {
+  pageRequestCategories: IPageCategory = {
     page: 1,
-    per_page: 20
+    per_page: 20,
+    parish_id: localStorage.getItem('parish_id')
   }
   pageRequestProducts: IPageProduct = {
     page: 1,
-    per_page: 20,
-    category_id: null
+    per_page: 0,
+    category_id: this.currentCategoryId,
   }
 
   constructor(
@@ -49,11 +49,11 @@ export class StorePage implements OnInit {
     this.getCart();
     const parishId = localStorage.getItem('tempParishId');
     if (parishId) {
-      if (parishId !== this.parishId) {
-        this.parishId = parishId;
+      if (parishId !== this.pageRequestCategories.parish_id) {
+        this.pageRequestCategories.parish_id = parishId;
+        this.pageRequestProducts.page = 1;
         this.categories = [];
         this.list = [];
-        this.pageRequestProducts.page = 1;
         this.getCategories();
       }
       localStorage.removeItem('tempParishId');
@@ -78,8 +78,11 @@ export class StorePage implements OnInit {
       })
       this.list = this.list.concat(data.products);
       this.pageRequestProducts.page++;
+
+      this.infinityScroll.disabled = false;
       if (this.list.length >= data.meta.pagination.total_objects) {
         this.infinityScroll.disabled = true;
+        this.infinityScroll.complete();
       }
 
       if (event) {
@@ -128,11 +131,9 @@ export class StorePage implements OnInit {
   changeCategory(category) {
     this.setHasSetting(false);
     if (this.currentCategoryId != category.id) {
-      this.infinityScroll.disabled = false;
       this.pageRequestProducts.page = 1;
       this.currentCategoryId = category.id;
       this.list = [];
-      this.infinityScroll.disabled = false;
       this.ionContent.scrollToTop(0).then(() => {
         this.getProducts();
       })

@@ -2,7 +2,7 @@
   <app-header [headerCustom]="headerCustom"></app-header>
 </ion-header>
 
-<ion-content>
+<ion-content [scrollEvents]="true" (ionScroll)="onScrollContent($event)">
   <div class="fixed">
     <div class="years">
       <ion-buttons class="selected-year-box" (click)="toggleHasYearOptions(true)">
@@ -17,9 +17,9 @@
 
     <ng-container *ngFor="let year of years">
       <div *ngIf="year.number == selectedYear" class="segment-container">
-        <ion-buttons class="segment">
+        <ion-buttons class="segment" #segment>
           <div class="segment__item" [ngClass]="{'segment__item--selected': selectedMonthId == month.id}"
-            *ngFor="let month of year.months" (click)="changeSegment(month.id)">
+            *ngFor="let month of year.months" (click)="changeSegment(month.id, $event)">
             {{ month.name }}
           </div>
         </ion-buttons>
