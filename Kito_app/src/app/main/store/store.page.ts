@@ -41,7 +41,7 @@ export class StorePage implements OnInit {
   ) { }
 
   ngOnInit() {
-    // this.loading.present();
+    this.loading.present();
     this.getCategories();
   }
 

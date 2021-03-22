@@ -46,10 +46,9 @@ export class NewsPage implements OnInit {
 
   ngOnInit() {
     this.loading.present();
-    this.getParams();
+    // this.getParams();
       var orthers = document.getElementById('orthers');
       var current =  document.getElementById('current');
-      var choose = document.getElementById('choose-parish');
         // current.addEventListener('mouseover', ()=>{
         //   orthers.style.display = 'block';
         //   this.setBg = true;
@@ -66,15 +65,20 @@ export class NewsPage implements OnInit {
           }
         })
       
-      if(this.newsParish) {
-        choose.style.display = 'block'
-      }
+    
       this.route.queryParams.subscribe(params => {
         const dataParams = JSON.parse(params['data']);
           this.pageRequestParish.parish_id = dataParams.id;
       })
   }
- 
+ ionViewWillEnter (){
+   this.getParams();
+   var choose = document.getElementById('choose-parish');
+
+   if(this.newsParish) {
+    choose.style.display = 'block'
+  }
+ }
   goToNewsDetail(item) {
     const data = {
       id: item.id,
@@ -91,6 +95,7 @@ export class NewsPage implements OnInit {
     if (this.dataParams.id) {
       switch (this.dataParams.type.detail) {
         case 'dioceseNews':
+          this.headerCustom.title = 'Tin tức Giáo phận'
           this.dioceseNewsService.getAll(this.pageRequestDioceseNews).subscribe(data => {
             this.loading.dismiss();
             data.diocese_news.forEach(element => {
@@ -108,7 +113,7 @@ export class NewsPage implements OnInit {
           break;
         case 'parish_news':
           this.newsParish = true;
-          this.headerCustom.title = 'Tin tức Giáo xứ'
+          this.headerCustom.title = 'Tin tức Giáo xứ ';
           this.parishesService.getAllNewsByParish(this.pageRequestParish).subscribe(data => {
             this.loading.dismiss();
             data.parish_news.forEach(element => {

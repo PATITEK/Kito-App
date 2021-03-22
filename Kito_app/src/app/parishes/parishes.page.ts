@@ -19,7 +19,6 @@ export class ParishesPage implements OnInit {
     private route: ActivatedRoute,
     private loadingService: LoadingService
   ) { }
-  id = 0;
   pageParish: IPageParishes = {
     diocese_id: null,
     page: 1,
@@ -36,7 +35,6 @@ export class ParishesPage implements OnInit {
       this.pageParish.diocese_id = this.data.id;
       this.type_page = this.data.type_page;
     });
-    console.log(this.pageParish)
     this.parishesService.getAll(this.pageParish).subscribe((data: any) => {
       this.loadingService.dismiss()
       this.dataParish = data.parishes;

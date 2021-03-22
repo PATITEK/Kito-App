@@ -60,7 +60,7 @@ export class ListDiocesesComponent implements OnInit {
         id: this.data.id,
         type: {
           detail: 'parish_news',
-          general: ''
+          general: 'news'
         }
       }
       this.router.navigate(['news'], {

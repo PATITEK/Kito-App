@@ -72,6 +72,7 @@ export class NewsDetailPage implements OnInit {
           break;
         case 'parish_news':
           this.parishService.getParishNewsByid(dataParams.id).subscribe(data => {
+            console.log(data)
             this.loading.dismiss();
             this.imgnotFound(data?.parish_news);
             this.data = data.parish_news;
@@ -79,6 +80,7 @@ export class NewsDetailPage implements OnInit {
           break;
         case 'dioceseNews':
           this.dioceseNewsService.getDetail(dataParams.id).subscribe(data => {
+            console.log(data)
             this.loading.dismiss();
             this.data = data.diocese_news;
             this.imgnotFound(this.data);
