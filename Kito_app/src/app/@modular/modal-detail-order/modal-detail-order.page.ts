@@ -94,7 +94,6 @@ export class ModalDetailOrderPage implements OnInit {
     this.loadingService.present();
     this.order.status = 'failed';
     this.orderService.delete(id).subscribe(data => {
-      // console.log(data);
       this.loadingService.dismiss();
       this.isCanceled = 'The order is canceled';
     })

@@ -11,14 +11,13 @@ ion-content {
   
 }
 .choose-parish {
-  top: 130px;
-    right: 16px;
-    font-size: 16px;
-    height: 38px;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    position: fixed;
-    z-index: 12;
+  font-size: 16px;
+  display: none;
+  width: 146px;
+  float: right;
+  height: 38px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
 }
 .bg {
   background-color: #fbfbfb;
@@ -28,6 +27,7 @@ ion-content {
   font-weight: 500;
   border: 1px solid #e5e5e5;
   padding: 2px 6px;
+  background: #fbfbfb;
   border-radius: 10px;
   display: flex;
   align-items: center;
@@ -41,6 +41,7 @@ ion-content {
     background: #fbfbfb;
     padding: 8px 5px;
     border-top: none;
+    cursor: pointer;
     display: none;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
@@ -65,7 +66,7 @@ ion-content {
   display: -webkit-inline-box;
   height: 60vw;
   border-radius: 8px;
-  margin-top: 36px;
+  margin-top: 26px;
   overflow: hidden;
   border-bottom: 1px solid #EEEEEE;
 

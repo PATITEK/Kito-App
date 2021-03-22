@@ -21,20 +21,22 @@ export class ParishesPage implements OnInit {
   ) { }
   id = 0;
   pageParish: IPageParishes = {
-    diocese_id: 1,
+    diocese_id: null,
     page: 1,
     per_page: 100
   }
   data;
 
   dataParish;
-  type_page ='pray'
+  type_page;
   ngOnInit() {
     this.loadingService.present();
     this.route.queryParams.subscribe(params => {
       this.data = JSON.parse(params['data']);
+      this.pageParish.diocese_id = this.data.id;
       this.type_page = this.data.type_page;
     });
+    console.log(this.pageParish)
     this.parishesService.getAll(this.pageParish).subscribe((data: any) => {
       this.loadingService.dismiss()
       this.dataParish = data.parishes;

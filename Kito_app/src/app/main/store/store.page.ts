@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController, IonContent, IonInfiniteScroll, ModalController } from '@ionic/angular';
 import { IPageProduct, IPageRequest, StoreService } from 'src/app/@app-core/http';
-import { DateTimeService } from 'src/app/@app-core/utils';
+import { DateTimeService, LoadingService } from 'src/app/@app-core/utils';
 import { AddStoreComponent } from 'src/app/@modular/add-store/add-store.component';
 
 @Component({
@@ -36,10 +36,12 @@ export class StorePage implements OnInit {
     private router: Router,
     private modalController: ModalController,
     private storeService: StoreService,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private loading: LoadingService
   ) { }
 
   ngOnInit() {
+    // this.loading.present();
     this.getCategories();
   }
 
@@ -69,6 +71,7 @@ export class StorePage implements OnInit {
       if (tempCategoryId !== this.currentCategoryId) {
         return;
       }
+      this.loading.dismiss();
       data.products.forEach(product => {
         product.unit_price = 'đ';
         product.amount = 0;
@@ -191,7 +194,6 @@ export class StorePage implements OnInit {
   }
 
   loadMoreProducts(event) {
-    console.log('load more')
     this.getProducts(event);
   }
 

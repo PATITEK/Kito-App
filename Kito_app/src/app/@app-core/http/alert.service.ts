@@ -8,7 +8,6 @@ import { AlertController, LoadingController } from '@ionic/angular';
 export class AlertService {
 
   isLoading = false;
-
   constructor(
     private http: HttpClient,
     public loadingController: LoadingController,

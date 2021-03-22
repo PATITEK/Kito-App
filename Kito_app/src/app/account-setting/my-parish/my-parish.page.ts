@@ -13,7 +13,7 @@ import { LoadingService } from 'src/app/@app-core/utils';
 export class MyParishPage implements OnInit {
   @ViewChild('infiniteScroll') infiniteScroll: IonInfiniteScroll;
   tabNew = true;
-  headerCustom = { title: 'Thông tin giáo xứ', background: '#e5e5e5' };
+  headerCustom = { title: 'Thông tin giáo xứ'};
   listPriest = [];
   news: any;
   data;

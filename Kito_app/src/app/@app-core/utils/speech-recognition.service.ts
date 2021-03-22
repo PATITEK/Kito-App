@@ -23,7 +23,6 @@ export class SpeechRecognitionService {
             // });
             this.speechRecognition.requestPermission().then(
                 () => {
-                    // console.log('Granted');
                     this.startVoiceRecord();
                 },
                 () => console.error('Denied, only working on devices')
@@ -35,7 +34,6 @@ export class SpeechRecognitionService {
         this.speechRecognition.startListening().subscribe((matches: Array<string>) => {
           this.voiceResult = matches[0];
           this.toastService.present('Tìm kiếm: '+this.voiceResult, 'top')
-          console.log(this.voiceResult);
         })
     }
 }

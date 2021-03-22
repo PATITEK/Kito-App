@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BishopService, DioceseNewsService, DioceseService, ParishesService, VaticanService } from 'src/app/@app-core/http';
 import { PopeService } from 'src/app/@app-core/http/pope';
+import { LoadingService } from 'src/app/@app-core/utils';
 
 @Component({
   selector: 'app-news-detail',
@@ -19,10 +20,12 @@ export class NewsDetailPage implements OnInit {
     private dioceseService: DioceseService,
     private parishService: ParishesService,
     private dioceseNewsService: DioceseNewsService,
-    private bishopService: BishopService
+    private bishopService: BishopService,
+    private loading: LoadingService
   ) { }
 
   ngOnInit() {
+    this.loading.present();
     this.route.queryParams.subscribe(params => {
       const dataParams = JSON.parse(params['data']);
       switch (dataParams.type.general) {
@@ -41,42 +44,49 @@ export class NewsDetailPage implements OnInit {
       switch (dataParams.type.detail) {
         case 'vatican':
           this.vaticanService.getDetail(dataParams.id).subscribe(data => {
+            this.loading.dismiss();
             this.data = data.vatican_news;
             this.imgnotFound(this.data);
           })
           break;
         case 'pope':
           this.popeService.getDetail(dataParams.id).subscribe(data => {
+            this.loading.dismiss();
             this.data = data.pope_info;
             this.imgnotFound(this.data);
           })
           break;
         case 'diocese':
           this.dioceseService.getDetail(dataParams.id).subscribe(data => {
+            this.loading.dismiss();
             this.data = data.diocese;
             this.imgnotFound(this.data);
           })
           break;
         case 'parish':
           this.parishService.getDetail(dataParams.id).subscribe(data => {
+            this.loading.dismiss();
             this.data = data.parish;
             this.imgnotFound(this.data);
           })
           break;
         case 'parish_news':
           this.parishService.getParishNewsByid(dataParams.id).subscribe(data => {
+            this.loading.dismiss();
             this.imgnotFound(data?.parish_news);
             this.data = data.parish_news;
           })
           break;
         case 'dioceseNews':
           this.dioceseNewsService.getDetail(dataParams.id).subscribe(data => {
+            this.loading.dismiss();
             this.data = data.diocese_news;
             this.imgnotFound(this.data);
           })
           break;
         case 'bishop':
           this.bishopService.getDetail(dataParams.id).subscribe(data => {
+            this.loading.dismiss();
             this.data = data.bishop_info;
             this.imgnotFound(this.data);
           })

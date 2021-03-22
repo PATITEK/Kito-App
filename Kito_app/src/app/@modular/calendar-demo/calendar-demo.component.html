@@ -2,11 +2,11 @@
   <div class="calendar-main">
     <div class="title-calendar">
       <p>Tháng {{currentMonth}} . {{currentYear}}</p>
-      <ion-icon (click)="toggleFillerClick()" class="icon-filler" name="options"></ion-icon>
-      <div (click)="toggleFillerClick()" class="modal-filter" *ngIf="toggleFiller">
+      <!-- <ion-icon (click)="toggleFillerClick()" class="icon-filler" name="options"></ion-icon> -->
+      <!-- <div (click)="toggleFillerClick()" class="modal-filter" *ngIf="toggleFiller">
         <ion-label class="text-filter">Xem theo ngày</ion-label>
         <ion-label class="text-filter">Xem theo tháng</ion-label>
-      </div>
+      </div> -->
       <ion-icon class="button-slide button-left" (click)="PrewMonth()" name="chevron-back-outline"></ion-icon>
       <ion-icon class="button-slide button-right" (click)="nextMonth()" name="chevron-forward-outline"></ion-icon>
     </div>
