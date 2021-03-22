@@ -1,3 +1,4 @@
+import { HeaderModule } from './../../@modular/header/header.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -13,7 +14,8 @@ import { OrdersHistoryPage } from './orders-history.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    OrdersHistoryPageRoutingModule
+    OrdersHistoryPageRoutingModule,
+    HeaderModule
   ],
   declarations: [OrdersHistoryPage]
 })

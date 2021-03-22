@@ -4,11 +4,13 @@
 
 <ion-content [ngClass]="{'disable-scroll': !news.length}">
   <app-search-bar-nav></app-search-bar-nav>
-  <div class="choose-parish">
-    <span class="current" id="current"> Giáo xứ hiện tại
-      <ion-icon name="caret-down-outline"></ion-icon>
-    </span>
-    <span class="orthers" id="orthers"> Giáo xứ khác</span>
+  <div class="choose-parish" [ngClass]="{'bg': setBg}" >
+      <span class="current"id="current" > Giáo xứ hiện tại
+        <ion-icon name="caret-down-outline"></ion-icon>
+      </span>
+        <span class="orthers"id= "orthers" (click)="gotoParishOrthers()">
+          Giáo xứ khác
+        </span>
   </div>
   <div *ngIf="news.length" class="main-news" (click)="goToNewsDetail(news[0])">
     <img class="item-img" [src]="news[0].thumb_images[0].url">

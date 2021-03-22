@@ -34,6 +34,8 @@ export class NewsDetailPage implements OnInit {
           break;
         case 'story':
           this.headerCustom.title = 'Tiểu sử';
+        case 'parish':
+          this.headerCustom.title = 'Thông tin';
           break;
       }
       switch (dataParams.type.detail) {

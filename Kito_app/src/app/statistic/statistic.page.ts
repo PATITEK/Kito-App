@@ -1,5 +1,5 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { IonSlides, IonContent } from '@ionic/angular';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { IonSlides, IonContent, IonButtons } from '@ionic/angular';
 import { DateTimeService } from '../@app-core/utils';
 
 @Component({
@@ -10,6 +10,7 @@ import { DateTimeService } from '../@app-core/utils';
 export class StatisticPage implements OnInit {
   @ViewChild('slides', { static: false }) slides: IonSlides;
   @ViewChild(IonContent, { static: false }) ionContent: IonContent;
+  @ViewChild('segment', { static: false }) segment: any;
 
   headerCustom = { title: 'Thống kê' };
   years = [
@@ -48,6 +49,10 @@ export class StatisticPage implements OnInit {
 
   ngOnInit() {
     this.initData();
+  }
+
+  ionViewDidEnter() {
+    console.log(this.segment)
   }
 
   initData() {
@@ -90,7 +95,11 @@ export class StatisticPage implements OnInit {
     this.ionContent.scrollToTop(value);
   }
 
-  changeSegment(id) {
+  changeSegment(id, event) {
+    const offsetLeft = event.target.offsetLeft;
+    const offsetWidth = event.target.offsetWidth;
+    const segmentOffsetWidth = this.segment.el.offsetWidth;
+    this.segment.el.scroll(offsetLeft - segmentOffsetWidth / 2 + offsetWidth / 2, 0);
     this.slides.lockSwipes(false).then(() => {
       this.slides.slideTo(id).then(() => {
         this.changeSlide(id);
@@ -103,8 +112,8 @@ export class StatisticPage implements OnInit {
     this.selectedMonthId = id;
   }
 
-  toggleHasYearOptions(value) {
-    this.hasYearOptions = value;
+  toggleHasYearOptions(bool) {
+    this.hasYearOptions = bool;
   }
 
   disableSwipe() {
@@ -117,6 +126,10 @@ export class StatisticPage implements OnInit {
       this.selectedYear = year.number;
       this.selectedMonthId = 0;
     }
+    this.toggleHasYearOptions(false);
+  }
+
+  onScrollContent(event) {
     this.toggleHasYearOptions(false);
   }
 }
