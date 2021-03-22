@@ -10,7 +10,6 @@ export class AudioManagerService {
         this.audioman.getMaxVolume(AudioManagement.VolumeType.RING).then((maxVolumn) => {
             this.audioman.setVolume(AudioManagement.VolumeType.RING,
             (maxVolumn.maxVolume)/(100)).then(() => {
-            // console.log(maxVolumn.maxVolume);
             }, (err) => {
                 alert(JSON.stringify(err));
             })
@@ -20,7 +19,6 @@ export class AudioManagerService {
     switchNormalMode() {
         this.audioman.getMaxVolume(AudioManagement.VolumeType.RING).then((maxVolumn) => {
             this.audioman.setVolume(AudioManagement.VolumeType.RING, 5).then(() => {
-            // console.log(maxVolumn.maxVolume);
             }, (err) => {
                 alert(JSON.stringify(err));
             })
@@ -29,11 +27,9 @@ export class AudioManagerService {
 
     getAudioMode() {
         this.audioman.getAudioMode().then((value: AudioManagement.AudioModeReturn) => {
-            // console.log('Device audio mode is ' + value.label + ' (' + value.audioMode + ')');
             alert('Device audio mode is ' + value.label + ' (' + value.audioMode + ')')
         })
         .catch((reason) => {
-            console.log(reason);
         });
     }
 }

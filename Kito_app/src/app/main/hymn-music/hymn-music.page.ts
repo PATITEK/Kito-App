@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Howl } from 'howler'
 import { IonRange } from '@ionic/angular';
+import { SongService } from 'src/app/@app-core/http/song';
 
 enum RepeatingType {
   None,
@@ -30,7 +31,10 @@ export class HymnMusicPage implements OnInit {
   mixed = false;
   repeatingType: RepeatingType = RepeatingType.RepeatAll;
 
-  constructor() {
+  constructor(
+    private songService: SongService
+  ) {
+
     this.playlist = [
       {
         id: 0,
@@ -101,11 +105,17 @@ export class HymnMusicPage implements OnInit {
   ngOnInit() {
     this.reInitShuffledList();
     this.reInitShuffledLikedList();
+    this.songService.getAllSongs().subscribe(data => {
+    })
   }
 
   ngOnDestroy() {
     clearInterval(this.progressInterval);
     this.player && this.player.unload();
+  }
+  ionViewWillEnter() {
+      this.songService.getAllSongs().subscribe(data => {
+      })
   }
 
   reInitShuffledList() {

@@ -55,5 +55,20 @@ export class ListDiocesesComponent implements OnInit {
           }
         })
     }
+    else if(this.type_page == 'parish_news') {
+      const dataParishnews = {
+        id: this.data.id,
+        type: {
+          detail: 'parish_news',
+          general: ''
+        }
+      }
+      this.router.navigate(['news'], {
+        queryParams: {
+          data: JSON.stringify(dataParishnews)
+        }
+      })
+    }
+   
   }
 }

@@ -5,6 +5,7 @@ import { isNull, isUndefined } from 'node:util';
 import { CalendarService } from 'src/app/@app-core/http';
 import { IPageCalendar } from 'src/app/@app-core/http/calendar/calendar.DTO';
 import { DayPipe } from 'src/app/@app-core/pipe/pipiday.pipe';
+import { LoadingService } from 'src/app/@app-core/utils';
 
 @Component({
   selector: 'app-calendar-detail',
@@ -17,6 +18,7 @@ export class CalendarDetailComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private calemdarService: CalendarService,
+    private loading: LoadingService
 
   ) { }
   dayWeeks = [
@@ -76,38 +78,30 @@ export class CalendarDetailComponent implements OnInit {
   };
   @ViewChild('slides', { static: false }) slides: IonSlides;
   ngOnInit() {
-
-
+    this.loading.present();
   }
 
   slideChanged(slides: IonSlides) {
     slides.getActiveIndex().then((index: number) => {
-      
     });
   }
   ionViewWillEnter(){
-    
     this.getData();
     
   }
  
   getData() {
     this.route.queryParams.subscribe(params => {
-
-
-      let tmp = new Date(JSON.parse(params['data']).day);
+          let tmp = new Date(JSON.parse(params['data']).day);
       this.daynow = new Date(JSON.parse(params['data']).day);
       this.dayDetail = tmp.getDate();
       this.pageResult.cal_date = tmp.getFullYear() + '-' + (tmp.getMonth()+1) + '-' + tmp.getDate();
       this.calemdarService.getByday(this.pageResult).subscribe((data: any) => {
+        this.loading.dismiss();
         let day = new Date(data.calendar.date);
-        
-        
         let tmp1 = new Date(data.calendar.lunar_date);
         let color = data.calendar.shirt_color.color_code;
-        
         this.getAPiday(color,day,tmp1)
-       
       })
 
 
