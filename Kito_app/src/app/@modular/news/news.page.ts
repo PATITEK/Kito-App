@@ -43,33 +43,35 @@ export class NewsPage implements OnInit {
 
   ngOnInit() {
     this.getParams();
-    // console.log(window.getSelection())
-    // console.log(window.getSelection().rangeCount);
-   
+    // if(this.newsParish) {
+    //   var orthers = document.getElementById('orthers');
+    //   var current =  document.getElementById('current');
+    //     current.addEventListener('mouseover', ()=>{
+    //       orthers.style.display = 'block';
+    //       this.setBg = true;
+    //     });
+    //     current.addEventListener('mouseout',()=>{
+    //       orthers.style.display = 'none';
+    //       this.setBg = false;
+    //     })
+    //     current.addEventListener('click', ()=>{
+    //       console.log('hihi')
+    //       if(!this.check) {
+    //         orthers.style.display = 'block';
+    //         this.check = true;
+    //         this.setBg = true;
+    //       }
+    //       else {
+    //         orthers.style.display = 'none';
+    //         this.check = false;
+    //         this.setBg = false;
+    //       }
+    //     })
+    // }
+    // else {
 
-      // var orthers = document.getElementById('orthers');
-      // var current =  document.getElementById('current');
-      //   current.addEventListener('mouseover', ()=>{
-      //     orthers.style.display = 'block';
-      //     this.setBg = true;
-      //   });
-      //   current.addEventListener('mouseout',()=>{
-      //     orthers.style.display = 'none';
-      //     this.setBg = false;
-      //   })
-      //   current.addEventListener('click', ()=>{
-      //     console.log('hihi')
-      //     if(!this.check) {
-      //       orthers.style.display = 'block';
-      //       this.check = true;
-      //       this.setBg = true;
-      //     }
-      //     else {
-      //       orthers.style.display = 'none';
-      //       this.check = false;
-      //       this.setBg = false;
-      //     }
-      //   })
+    // }
+     
   }
  
   goToNewsDetail(item) {
