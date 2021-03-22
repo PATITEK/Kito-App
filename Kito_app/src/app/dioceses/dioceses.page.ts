@@ -23,11 +23,6 @@ export class DiocesesPage implements OnInit {
     page: 1,
     per_page: 100,
   }
-  pageParish: IPageParishes = {
-    diocese_id: 1,
-    page: 1,
-    per_page: 100
-  }
   type ='Parish'
   data;
   constructor(
@@ -38,10 +33,13 @@ export class DiocesesPage implements OnInit {
     ) { }
     ngOnInit() { 
     this.loadingService.present();
+    let url = window.location.href;
+    if (url.includes('?')) {
       this.route.queryParams.subscribe(params => {
         this.data = JSON.parse(params['data']);
         this.type_page = this.data.type_page;
       });
+    }
     this.getAll();
   }
   getAll(){

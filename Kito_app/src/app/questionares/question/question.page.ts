@@ -138,7 +138,6 @@ export class QuestionPage implements OnInit {
           },
           thumb_image:{url: ''}
         })
-        console.log(this.questions)
       });
       localStorage.removeItem('idTopic')
     } else if (localStorage.getItem("idLevel")) {

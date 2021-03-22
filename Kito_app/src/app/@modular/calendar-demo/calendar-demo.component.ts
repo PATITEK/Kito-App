@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { IonSlides } from '@ionic/angular';
 import { CalendarService } from 'src/app/@app-core/http/calendar';
 import { IPageCalendar } from 'src/app/@app-core/http/calendar/calendar.DTO';
+import { LoadingService } from 'src/app/@app-core/utils';
 @Component({
   selector: 'app-calendar-demo',
   templateUrl: './calendar-demo.component.html',
@@ -62,11 +63,13 @@ export class CalendarDemoComponent implements OnInit {
   };
   constructor(
     private route: Router,
-    private calendarService: CalendarService
+    private calendarService: CalendarService,
+    private loading: LoadingService
   ) {
 
   }
   ngOnInit(){
+    this.loading.present();
     this.ionViewWillEnter();
     
   }
@@ -75,9 +78,8 @@ export class CalendarDemoComponent implements OnInit {
 
     // this.dayOfMonth = this.calendar(this.currentMonth, this.currentYear);
     this.calendarService.getByMonth(this.pageResult).subscribe((data: any) => {
-
+      this.loading.dismiss();
       this.dayOfMonth = data.calendars;
-
     })
     
     //   

@@ -88,6 +88,9 @@ export const APICONFIG = {
   COURSE: {
     GET_COURSE_GROUP: `/app/course_groups`,
     GET_COURSE_ID: `/app/courses`
+  },
+  SONG: {
+    GET_ALL: `app/songs`,
   }
 };
 

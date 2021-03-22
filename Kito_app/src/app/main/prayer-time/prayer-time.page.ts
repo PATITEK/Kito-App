@@ -2,7 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { IonContent, IonSlides } from '@ionic/angular';
 import { CalendarService, EventsService, IPageEvent, ParishesService } from 'src/app/@app-core/http';
-import { DateTimeService } from 'src/app/@app-core/utils';
+import { DateTimeService, LoadingService } from 'src/app/@app-core/utils';
 
 @Component({
   selector: 'app-prayer-time',
@@ -35,10 +35,12 @@ export class PrayerTimePage implements OnInit {
     private router: Router,
     private eventsService: EventsService,
     private calendarService: CalendarService,
-    private parishService: ParishesService
+    private parishService: ParishesService,
+    private loading: LoadingService
   ) { }
 
   ngOnInit() {
+    this.loading.present();
     this.initDateList();
     this.getData(localStorage.getItem('parish_id'));
   }
@@ -81,6 +83,7 @@ export class PrayerTimePage implements OnInit {
 
   getParish() {
     this.parishService.getDetail(this.pageReq.parish_id).subscribe(data => {
+      this.loading.dismiss();
       this.parish = data.parish;
     })
   }

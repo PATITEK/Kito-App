@@ -3,6 +3,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DioceseNewsService, IPageRequest, ParishesService, VaticanService } from 'src/app/@app-core/http';
 import { IPageParishes } from 'src/app/@app-core/http/parishes/parishes.DTO';
+import { LoadingService } from 'src/app/@app-core/utils';
 
 @Component({
   selector: 'app-news',
@@ -38,34 +39,40 @@ export class NewsPage implements OnInit {
     private route: ActivatedRoute,
     private vaticanService: VaticanService,
     private dioceseNewsService: DioceseNewsService,
-    private parishesService: ParishesService
+    private parishesService: ParishesService,
+    private loading: LoadingService,
+    
   ) { }
 
   ngOnInit() {
+    this.loading.present();
     this.getParams();
       var orthers = document.getElementById('orthers');
       var current =  document.getElementById('current');
-        current.addEventListener('mouseover', ()=>{
-          orthers.style.display = 'block';
-          this.setBg = true;
-        });
-        current.addEventListener('mouseout',()=>{
-          orthers.style.display = 'none';
-          this.setBg = false;
-        })
+      var choose = document.getElementById('choose-parish');
+        // current.addEventListener('mouseover', ()=>{
+        //   orthers.style.display = 'block';
+        //   this.setBg = true;
+        // });
+    
         current.addEventListener('click', ()=>{
-          console.log('hihi')
           if(!this.check) {
             orthers.style.display = 'block';
             this.check = true;
-            this.setBg = true;
           }
           else {
             orthers.style.display = 'none';
             this.check = false;
-            this.setBg = false;
           }
         })
+      
+      if(this.newsParish) {
+        choose.style.display = 'block'
+      }
+      this.route.queryParams.subscribe(params => {
+        const dataParams = JSON.parse(params['data']);
+          this.pageRequestParish.parish_id = dataParams.id;
+      })
   }
  
   goToNewsDetail(item) {
@@ -85,6 +92,7 @@ export class NewsPage implements OnInit {
       switch (this.dataParams.type.detail) {
         case 'dioceseNews':
           this.dioceseNewsService.getAll(this.pageRequestDioceseNews).subscribe(data => {
+            this.loading.dismiss();
             data.diocese_news.forEach(element => {
               element.type = this.dataParams.type
               element.time = element.created_at.slice(11, 16)
@@ -102,6 +110,7 @@ export class NewsPage implements OnInit {
           this.newsParish = true;
           this.headerCustom.title = 'Tin tức Giáo xứ'
           this.parishesService.getAllNewsByParish(this.pageRequestParish).subscribe(data => {
+            this.loading.dismiss();
             data.parish_news.forEach(element => {
               element.type = this.dataParams.type;
               this.imgnotFound(element);
@@ -117,10 +126,13 @@ export class NewsPage implements OnInit {
           })
           break;
       }
-    } else {
+     
+    } 
+    else {
       switch (this.dataParams.type.detail) {
         case 'vatican':
           this.vaticanService.getAll(this.pageRequestVatican).subscribe(data => {
+            this.loading.dismiss();
             data.vatican_news.forEach(element => {
               element.type = this.dataParams.type
               element.time = element.created_at.slice(11, 16)
@@ -156,6 +168,15 @@ export class NewsPage implements OnInit {
     !item?.thumb_image?.url && (item.thumb_image = { url: "https://i.imgur.com/UKNky29.jpg" });
   }
   gotoParishOrthers() {
-
+      var orthers = document.getElementById('orthers');
+      this.check = false;
+     orthers.style.display = 'none';
+     const data = this.dataParams;
+      data['type_page'] = 'news_parish'
+    this.router.navigate(['/dioceses'], {
+      queryParams: {
+        data: JSON.stringify(data)
+      }
+    })
   }
 }

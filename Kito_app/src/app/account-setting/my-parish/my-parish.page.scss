@@ -4,7 +4,7 @@ ion-content {
     --overflow: scroll;
     ion-segment {
         padding-top: 15px;
-        background: #e5e5e5;
+        --background: #fff;
         box-shadow: 0px 3px 5px rgb(0 0 0 / 25%);
         ion-segment-button {
           --background: white;
@@ -21,7 +21,7 @@ ion-content {
           font-size: 14px;
         }
         .intro {
-            
+            box-shadow: inset 3px 4px 4px #f4f5f8;
             border-top-left-radius: 10px;
             border-bottom-left-radius: 10px;
             border-right: none;
@@ -30,7 +30,7 @@ ion-content {
             border-top-right-radius: 10px;
             border-bottom-right-radius: 10px;
             border-left: none;
-    
+            box-shadow: inset 3px 4px 4px #f5f5f5;
         }
       }
       ion-item-group {
@@ -56,7 +56,7 @@ ion-content {
           }
       }
       .home {
-        padding: 0 16px;
+        padding: 12px 16px;
         .list-item{
             .item-stories{
                 display: flex;
