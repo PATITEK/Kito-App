@@ -45,6 +45,7 @@ export class ChooseStorePage implements OnInit {
   async alertChooseStore(item) {
     const alert = await this.alertController.create({
       header: `Vào cửa hàng ${item.name}`,
+      mode: 'ios',
       buttons: [
         {
           text: 'Hủy',
