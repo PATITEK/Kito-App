@@ -97,4 +97,7 @@ export class NewsDetailPage implements OnInit {
   imgnotFound(item) {
     !item?.thumb_image?.url && (item.thumb_image = { url: "https://i.imgur.com/UKNky29.jpg" });
   }
+  goToMap() {
+    window.open('https://www.google.com/maps/dir/?api=1&destination=' + this.data.location.lat + ',' + this.data.location.long);
+  }
 }

@@ -9,7 +9,7 @@
     <div class="parish-name">{{ parish?.name }}</div>
     <ion-buttons class="parish-address-box">
       <span class="parish-address">{{ parish?.address }}</span>
-      <ion-icon name="navigate"></ion-icon>
+      <ion-icon name="navigate" (click)="goToMap()"></ion-icon>
     </ion-buttons>
     <div class="see-more-box">
       <span (click)="seeMore()">Xem lễ giáo xứ khác?</span>

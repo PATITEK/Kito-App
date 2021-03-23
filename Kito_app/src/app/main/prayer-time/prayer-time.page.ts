@@ -155,4 +155,8 @@ export class PrayerTimePage implements OnInit {
   seeMore() {
     this.router.navigateByUrl('main/prayer-time/select-diocese');
   }
+
+  goToMap() {
+    window.open('https://www.google.com/maps/dir/?api=1&destination=' + this.parish.location.lat + ',' + this.parish.location.long);
+  }
 }
