@@ -45,19 +45,19 @@ export class NewsPage implements OnInit {
   ngOnInit() {
     this.loading.present();
     this.getParams();
-    var orthers = document.getElementById('orthers');
-    var current = document.getElementById('current');
-    current.addEventListener('click', () => {
-      if (!this.check) {
-        orthers.style.display = 'block';
-        this.check = true;
-      }
-      else {
-        orthers.style.display = 'none';
-        this.check = false;
-      }
-    })
-  }
+  //   var orthers = document.getElementById('orthers');
+  //   var current = document.getElementById('current');
+  //   current.addEventListener('click', () => {
+  //     if (!this.check) {
+  //       orthers.style.display = 'block';
+  //       this.check = true;
+  //     }
+  //     else {
+  //       orthers.style.display = 'none';
+  //       this.check = false;
+  //     }
+  //   })
+   }
   ionViewWillEnter() {
     const parishId = localStorage.getItem('tempParishId');
     if(parishId) {
@@ -68,10 +68,10 @@ export class NewsPage implements OnInit {
       this.getData();
     }
     localStorage.removeItem('tempParishId');
-    var choose = document.getElementById('choose-parish');
-    if (this.newsParish) {
-      choose.style.display = 'block'
-    }
+    // var choose = document.getElementById('choose-parish');
+    // if (this.newsParish) {
+    //   choose.style.display = 'block'
+    // }
   }
   goToNewsDetail(item) {
     const data = {
@@ -164,9 +164,9 @@ export class NewsPage implements OnInit {
     !item?.thumb_image?.url && (item.thumb_image = { url: "https://i.imgur.com/UKNky29.jpg" });
   }
   gotoParishOrthers() {
-    var orthers = document.getElementById('orthers');
-    this.check = false;
-    orthers.style.display = 'none';
+    // var orthers = document.getElementById('orthers');
+    // this.check = false;
+    // orthers.style.display = 'none';
     const data = this.dataParams;
     data['type_page'] = 'parish_news'
     this.router.navigate(['/dioceses'], {
