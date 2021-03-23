@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./catechism-class.page.scss'],
 })
 export class CatechismClassPage implements OnInit {
-  headerCustom: any;
+  headerCustom = {title: 'Lớp học giáo lý'};
 
   catechismList = [
     {
