@@ -30,6 +30,10 @@ export class QuestionaresPage implements OnInit {
     localStorage.setItem('questionType', type);
   }
 
+  rule() {
+    this.router.navigate(['questionares/rule']);
+  }
+
   quit() {
     this.router.navigate(['main/catechism-class']);
   }

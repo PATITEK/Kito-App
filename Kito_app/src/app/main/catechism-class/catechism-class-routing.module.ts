@@ -14,6 +14,10 @@ const routes: Routes = [
   {
     path: 'catechism-marriage',
     loadChildren: () => import('./catechism-marriage/catechism-marriage.module').then( m => m.CatechismMarriagePageModule)
+  },
+  {
+    path: 'catechism-rcia',
+    loadChildren: () => import('./catechism-rcia/catechism-rcia.module').then( m => m.CatechismRciaPageModule)
   }
 
 ];

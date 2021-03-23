@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { AlertController, ModalController, PopoverController } from '@ionic/angular';
 import { AccountService } from '../@app-core/http/account/account.service';
 import { GeolocationService, ImageService } from '../@app-core/utils';
-import { PopupComponent } from '../@modular/popup/popup.component';
 import { PopuplogoutComponent } from '../@modular/popuplogout/popuplogout.component';
 
 @Component({
@@ -76,17 +75,6 @@ export class AccountSettingPage implements OnInit {
       cssClass: 'modal__logout',
     });
     await modal.present();
-  }
-
-  async presentPopover(ev: any) {
-    const popover = await this.popoverController.create({
-      component: PopupComponent,
-      cssClass: 'my-custom-class',
-      event: ev,
-      translucent: true,
-      mode: 'md',
-    });
-    return await popover.present();
   }
 
   async openModalGoogleMap() {

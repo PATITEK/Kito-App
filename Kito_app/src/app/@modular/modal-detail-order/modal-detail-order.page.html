@@ -27,10 +27,10 @@
         <span class="price">${{order_detail.total_price | number:'2.1-2'}}</span>
       </ion-buttons>
     </ion-list>
-    <ion-row class="group3-row-1">
+    <ion-buttons class="group3-row-1">
       <ion-label class="group3-row1-total">Tổng: ({{calTotalAmount()}} mặt hàng)</ion-label>
       <ion-label class="group3-row1-prices" >${{calTotalPrice() | number:'2.1-2'}}</ion-label>
-    </ion-row>
+    </ion-buttons>
     <ion-col>
       <ion-button mode="ios" (click)="reallyWantCancelOrder(order.id)" [disabled]="isCanceled == 'Đã hủy đơn hàng' ">{{isCanceled}}</ion-button>
     </ion-col>
