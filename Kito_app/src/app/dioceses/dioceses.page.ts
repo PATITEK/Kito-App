@@ -23,7 +23,6 @@ export class DiocesesPage implements OnInit {
     page: 1,
     per_page: 100,
   }
-  type ='Parish'
   data;
   constructor(
     private modalCtrl: ModalController,

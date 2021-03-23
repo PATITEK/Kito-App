@@ -12,7 +12,6 @@ ion-content {
 }
 .choose-parish {
   font-size: 16px;
-  display: none;
   width: 146px;
   float: right;
   height: 38px;
@@ -26,26 +25,13 @@ ion-content {
   color: #424242;
   font-weight: 500;
   border: 1px solid #e5e5e5;
-  padding: 2px 6px;
+  padding: 2px 10px;
   background: #fbfbfb;
+  float: right;
   border-radius: 10px;
-  display: flex;
-  align-items: center;
+  margin-bottom: 10px;
 }
-.orthers {
-  color: #424242;
-    border: 1px solid #e5e5e5;
-    border-radius: 10px;
-    align-items: center;
-    position: relative;
-    background: #fbfbfb;
-    padding: 8px 5px;
-    border-top: none;
-    cursor: pointer;
-    display: none;
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-}
+
 .right{
   position: absolute;
     height: 9px;
@@ -66,7 +52,6 @@ ion-content {
   display: -webkit-inline-box;
   height: 60vw;
   border-radius: 8px;
-  margin-top: 26px;
   overflow: hidden;
   border-bottom: 1px solid #EEEEEE;
 
