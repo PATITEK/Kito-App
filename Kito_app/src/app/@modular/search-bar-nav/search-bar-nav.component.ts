@@ -12,7 +12,7 @@ export class SearchBarNavComponent implements OnInit {
   @ViewChild('searchBar') searchBar: any;
 
   hiddenSearchBar = true;
-
+  x = 'kkk'
   constructor(
     private modalCtrl: ModalController,
     private SpeechRecognitionService: SpeechRecognitionService,

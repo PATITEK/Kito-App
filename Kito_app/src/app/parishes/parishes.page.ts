@@ -25,7 +25,6 @@ export class ParishesPage implements OnInit {
     per_page: 100
   }
   data;
-
   dataParish;
   type_page;
   ngOnInit() {
@@ -35,7 +34,7 @@ export class ParishesPage implements OnInit {
       this.pageParish.diocese_id = this.data.id;
       this.type_page = this.data.type_page;
     });
-    this.parishesService.getAll(this.pageParish).subscribe((data: any) => {
+    this.parishesService.getAllWithDioceseId(this.pageParish).subscribe((data: any) => {
       this.loadingService.dismiss()
       this.dataParish = data.parishes;
     });

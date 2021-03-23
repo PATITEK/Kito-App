@@ -3,8 +3,6 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-  <app-search-bar-nav></app-search-bar-nav>
-
   <ion-radio-group mode="md" [value]="selectedLanguage.id" class="list">
     <ion-item *ngFor="let language of languages" class="item" (click)="setLanguage(language)">
       <ion-label class="label">{{ language.name }}</ion-label>

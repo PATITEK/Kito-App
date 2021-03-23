@@ -1,12 +1,9 @@
 <ion-header>
   <app-header [headerCustom]="headerCustom"></app-header>
- 
- 
 </ion-header>
 <ion-content [ngClass]="{'disable-scroll': !news.length}">
- 
   <app-search-bar-nav></app-search-bar-nav>
-  <div class="choose-parish" [ngClass]="{'bg': check}" id="choose-parish">
+  <div class="choose-parish" [ngClass]="{'bg': check}" id="choose-parish" >
     <span class="current" id="current" > Giáo xứ hiện tại
       <ion-icon name="caret-down-outline"></ion-icon>
     </span>
@@ -58,6 +55,6 @@
   </ion-list>
 
   <ion-infinite-scroll #infiniteScroll (ionInfinite)="loadMoreData($event)">
-    <ion-infinite-scroll-content loadingSpinner="lines"></ion-infinite-scroll-content>
+    <ion-infinite-scroll-content loadingSpinner="bubbles"></ion-infinite-scroll-content>
   </ion-infinite-scroll>
 </ion-content>

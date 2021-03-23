@@ -1,5 +1,5 @@
 ion-content {
-  --padding-top: calc(80px + 45px + 30px);
+  --padding-top: calc(80px + 30px);
   --padding-start: 6px;
   --padding-end: 6px;
 }
@@ -12,7 +12,7 @@ ion-content {
   position: fixed;
   left: 0;
   right: 0;
-  top: calc(80px + 45px);
+  top: calc(80px);
   height: 30px;
   background: #fff;
   padding: 0 16px;

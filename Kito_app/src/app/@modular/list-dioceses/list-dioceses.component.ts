@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
+import { AuthService } from 'src/app/@app-core/http';
 import { ModalDonateComponent } from '../modal-donate/modal-donate.component';
 
 @Component({
@@ -14,7 +15,8 @@ export class ListDiocesesComponent implements OnInit {
    @Input() type_page;
   constructor(
     private modalCtrl: ModalController,
-    public router: Router
+    public router: Router,
+    private authService: AuthService
   ) {
 
    }
@@ -22,7 +24,27 @@ export class ListDiocesesComponent implements OnInit {
   ngOnInit() {
   }
   async goToDetail() {
-    if (this.flag_parishes_diocese === 'diocese') {
+    if(this.type_page === 'parish_news' && this.flag_parishes_diocese === 'parish') {
+      localStorage.setItem('tempParishId', this.data.id);
+
+      this.router.navigateByUrl('news');
+    }
+    else if(this.type_page === 'parish_news') {
+      const dataToParish = {
+        id: this.data.id,
+        type: {
+          detail: 'parish_news',
+          general: 'news'
+        },
+        type_page: 'parish_news'
+      }
+      this.router.navigate(['parishes'], {
+        queryParams: {
+          data: JSON.stringify(dataToParish)
+        }
+      })
+    }
+    else if (this.flag_parishes_diocese === 'diocese') {
       const popover = await this.modalCtrl.create({
         component: ModalDonateComponent,
         swipeToClose: true,
@@ -55,20 +77,7 @@ export class ListDiocesesComponent implements OnInit {
           }
         })
     }
-    else if(this.type_page == 'parish_news') {
-      const dataParishnews = {
-        id: this.data.id,
-        type: {
-          detail: 'parish_news',
-          general: 'news'
-        }
-      }
-      this.router.navigate(['news'], {
-        queryParams: {
-          data: JSON.stringify(dataParishnews)
-        }
-      })
-    }
+  
    
   }
 }
