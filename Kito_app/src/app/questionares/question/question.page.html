@@ -16,7 +16,7 @@
         <ion-label class="question-counter">{{ questionCounter+1 }}/10 câu</ion-label>
     </ion-col>
     </ion-buttons>
-    <ion-icon class="rule active-effect" size="large" name="help-circle-outline"></ion-icon>
+    <ion-icon class="rule active-effect" size="large" name="help-circle-outline" (click)="toggleHasModal(true)"></ion-icon>
   </ion-buttons>
   <ion-buttons class="time-and-score">
     <ion-label>Điểm: {{score}}</ion-label>
@@ -69,3 +69,20 @@
     </ion-row>
   </ion-grid>
 </ion-content>
+
+<ion-buttons class="modal" *ngIf="hasModal" [ngClass]="{'has-modal': hasModal}">
+  <div class="modal-fixed">
+    <div class="modal-header">
+      <ion-icon name="chevron-back-outline" class="back-btn back-btn-custom" (click)="toggleHasModal(false)"></ion-icon>
+    </div>
+  </div>
+
+  <ion-label class="rule-label">Luật chơi</ion-label>
+
+  <div class="ion-content">
+    <ion-buttons *ngFor="let rule of rules">
+      <ion-label class="rule-content">{{rule.rule}}</ion-label>
+    </ion-buttons>
+    <ion-img src="../../assets/img/questionares/rule.svg"></ion-img>
+  </div>
+</ion-buttons>

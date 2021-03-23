@@ -21,6 +21,11 @@ export class CatechismClassPage implements OnInit {
       desUrl: 'main/catechism-class/catechism-marriage'
     },
     {
+      name: 'Giáo lý dự tòng',
+      thumbImage: 'assets/img/catechism-menu-4.svg',
+      desUrl: 'main/catechism-class/catechism-marriage'
+    },
+    {
       name: 'Đố vui giáo lý',
       thumbImage: 'assets/img/catechism-menu-3.svg',
       desUrl: '/questionares'
@@ -28,13 +33,17 @@ export class CatechismClassPage implements OnInit {
   ]
 
   constructor(
-    private router: Router
+    private router: Router,
   ) { }
 
   ngOnInit() {
   }
 
   goToCatechismDetail(catechism) {
-    this.router.navigateByUrl(catechism.desUrl);
+    this.router.navigate([catechism.desUrl], {
+      queryParams: {
+        data: catechism.name
+      }
+    })
   }
 }
