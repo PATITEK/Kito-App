@@ -205,6 +205,7 @@ export class StorePage implements OnInit {
   async alertGoToOtherStore() {
     const alert = await this.alertController.create({
       header: 'Xem cửa hàng khác',
+      mode: 'ios',
       buttons: [
         {
           text: 'Hủy',

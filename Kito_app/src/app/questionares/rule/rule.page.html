@@ -1,0 +1,10 @@
+<ion-header>
+  <app-header [headerCustom]="headerCustom"></app-header>
+</ion-header>
+
+<ion-content>
+  <ion-buttons *ngFor="let rule of rules">
+    <ion-label>{{rule.rule}}</ion-label>
+  </ion-buttons>
+  <ion-img src="../../assets/img/questionares/rule.svg"></ion-img>
+</ion-content>

@@ -7,14 +7,15 @@ const routes: Routes = [
   {
     path: '',
     component: CatechismClassPage
-  },  {
+  },
+  {
     path: 'catechism',
     loadChildren: () => import('./catechism/catechism.module').then( m => m.CatechismPageModule)
   },
   {
     path: 'catechism-marriage',
     loadChildren: () => import('./catechism-marriage/catechism-marriage.module').then( m => m.CatechismMarriagePageModule)
-  }
+  },
 
 ];
 
