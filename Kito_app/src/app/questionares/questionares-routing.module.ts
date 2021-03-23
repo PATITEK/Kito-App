@@ -18,6 +18,10 @@ const routes: Routes = [
   {
     path: 'complete-question',
     loadChildren: () => import('./complete-question/complete-question.module').then( m => m.CompleteQuestionPageModule)
+  },
+  {
+    path: 'rule',
+    loadChildren: () => import('./rule/rule.module').then( m => m.RulePageModule)
   }
 
 ];

@@ -1,3 +1,4 @@
+import { catchError } from 'rxjs/operators';
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { OrderService } from 'src/app/@app-core/http';
@@ -21,7 +22,6 @@ export class OrdersHistoryPage implements OnInit {
     }
 
   ngOnInit() {
-    this.loadingService.present();
     this.getDataOrders();
   }
 
@@ -40,6 +40,7 @@ export class OrdersHistoryPage implements OnInit {
   }
 
   getDataOrders(func?) {
+    this.loadingService.present();
     let orders = this.data.orders;
     this.orderService.getAll(orders.pageRequest).subscribe(data => {
       orders.array = orders.array.concat(data.orders);
@@ -54,8 +55,10 @@ export class OrdersHistoryPage implements OnInit {
   }
 
   loadMoreDataOrders(event) {
+    this.loadingService.present();
     this.getDataOrders(() => {
       event.target.complete();
+      this.loadingService.dismiss();
     })
   }
 
@@ -66,7 +69,6 @@ export class OrdersHistoryPage implements OnInit {
       count++;
       count == 1 && event.target.complete();
     })
-    this.loadingService.dismiss();
   }
 
   async openOrderDetailModal(order) {
