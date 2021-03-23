@@ -6,5 +6,8 @@
   <app-search-bar-nav></app-search-bar-nav>
   <ion-label class="main-title">{{ data?.title || data?.name }}</ion-label>
   <img [src]="data?.thumb_image?.url || data?.thumb_images[0]?.url">
-  <p class="text">{{ data?.content || data?.diocese_info?.content || data?.address}}</p>
+  <P class="text">{{ data?.priest_name }}</P>
+  <p class="text nav-map" (click)="goToMap()">{{ data?.address }}</p>
+  <p class="text">{{ data?.content || data?.diocese_info?.content}}</p>
+  <p class="text">{{ data?.parish_info.content }}</p>
 </ion-content>

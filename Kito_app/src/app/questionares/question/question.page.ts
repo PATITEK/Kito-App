@@ -33,6 +33,23 @@ export class QuestionPage implements OnInit {
   right = new Audio();
   wrong = new Audio();
 
+  hasModal = false;
+
+  rules = [
+    {
+      rule: 'Người chơi chọn chủ đề hoặc cấp độ để bắt đầu trò chơi.'
+    },
+    {
+      rule: 'Mỗi lượt chơi sẽ có 10 câu hỏi với 4 đáp án A, B, C, D (thời gian là 120s/câu). Người chơi chọn 1 trong 4 đáp án để trả lời câu hỏi.'
+    },
+    {
+      rule: 'Người chơi có 3 mạng, mỗi câu trả lời sai sẽ bị trừ 1 mạng. Đến khi hết 3 mạng sẽ kết thúc trò chơi.'
+    },
+    {
+      rule: 'Điểm sau khi kết thúc sẽ được tích lũy vào bảng xếp hạng.'
+    }
+  ]
+
   constructor(
     private alertCtrl: AlertController,
     private router: Router,
@@ -242,5 +259,9 @@ export class QuestionPage implements OnInit {
       swipeToClose: false,
     });
     await modal.present();
+  }
+
+  toggleHasModal(bool) {
+    this.hasModal = bool;
   }
 }

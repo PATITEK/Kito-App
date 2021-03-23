@@ -138,12 +138,12 @@ export class MapPage implements OnInit {
     let infoWindowContent =
       '<div *ngIf=" markers.length != null ">' +
       '<h3 style=" display: block; text-align: center; ">' + mapMarkerInfo.name + '</h3>' +
-      '<img style=" height: 100px; width: 100%; display: block; border-radius: 12px; " src=' + mapMarkerInfo.url + '>' +
+      '<img style=" height: 120px; width: 100%; display: block; border-radius: 12px; " src=' + mapMarkerInfo.url + '>' +
       '<h5 style=" display: block; text-align: center; ">' + mapMarkerInfo.priest_name + '</h5>' +
       '<h5>' + mapMarkerInfo.address + '</h5>' +
       '<p>Khoảng cách ước tính: ' + mapMarkerInfo.distance + ' km</p>' +
-      '<p>Latitude: ' + mapMarkerInfo.lat + '</p>' +
-      '<p>Longitude: ' + mapMarkerInfo.lng + '</p>' +
+      // '<p>Latitude: ' + mapMarkerInfo.lat + '</p>' +
+      // '<p>Longitude: ' + mapMarkerInfo.lng + '</p>' +
       '<ion-button id="navigate" style=" --background: #F6C33E; --border-radius: 10px; display: block; ">' + 'Chỉ đường tới đây' + '</ion-button>'
     '</div>';
     let infoWindow = new google.maps.InfoWindow({
