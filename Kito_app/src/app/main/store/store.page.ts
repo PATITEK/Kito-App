@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController, IonContent, IonInfiniteScroll, ModalController } from '@ionic/angular';
-import { IPageCategory, IPageProduct, IPageRequest, StoreService } from 'src/app/@app-core/http';
+import { IPageCategory, IPageProduct, StoreService } from 'src/app/@app-core/http';
 import { DateTimeService, LoadingService } from 'src/app/@app-core/utils';
 import { AddStoreComponent } from 'src/app/@modular/add-store/add-store.component';
 
@@ -27,9 +27,11 @@ export class StorePage implements OnInit {
   }
   pageRequestProducts: IPageProduct = {
     page: 1,
-    per_page: 0,
+    per_page: 10,
     category_id: this.currentCategoryId,
+    search: ''
   }
+  input = 'abc';
 
   constructor(
     public dateTimeService: DateTimeService,
@@ -41,8 +43,12 @@ export class StorePage implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.loading.present();
+    // this.loading.present();
     this.getCategories();
+
+    setInterval(() => {
+      // this.input = 'd';
+    }, 1000)
   }
 
   ionViewWillEnter() {
@@ -130,7 +136,7 @@ export class StorePage implements OnInit {
 
   changeCategory(category) {
     this.setHasSetting(false);
-    if (this.currentCategoryId != category.id) {
+    if (this.currentCategoryId !== category.id) {
       this.pageRequestProducts.page = 1;
       this.currentCategoryId = category.id;
       this.list = [];
@@ -220,5 +226,20 @@ export class StorePage implements OnInit {
       ]
     })
     await alert.present();
+  }
+
+  search(value: string) {
+    if (typeof value !== 'string') {
+      return
+    }
+    if (!value) {
+      delete this.pageRequestProducts.search;
+    } else {
+      this.pageRequestProducts.search = value;
+    }
+    this.list = [];
+    this.pageRequestProducts.page = 1;
+    this.infinityScroll.disabled = false;
+    this.getProducts();
   }
 }

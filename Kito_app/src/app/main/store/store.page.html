@@ -3,7 +3,7 @@
 </ion-header>
 
 <ion-content [scrollEvents]="true" (ionScroll)="onScrollContent($event)" [ngClass]="{'disable-scroll': !list.length}">
-  <app-search-bar-nav></app-search-bar-nav>
+  <app-search-bar-nav (output)="search($event)"></app-search-bar-nav>
 
   <div class="segment-container">
     <ion-buttons class="segment">
@@ -15,22 +15,27 @@
   </div>
 
   <div class="body">
-    <ion-buttons *ngIf="list.length" class="header">
-      <img src="assets/icon/setting.svg" class="header-icon active-effect" (click)="toggleHasSetting()">
-      <img class="active-effect" src="assets/icon/shop.svg" (click)="alertGoToOtherStore()">
+    <ion-buttons class="header">
+      <div *ngIf="list.length">
+        <img src="assets/icon/setting.svg" class="header-icon active-effect" (click)="toggleHasSetting()">
 
-      <div *ngIf="hasSetting" class="setting main-box-shadow" (click)="setHasSetting(false)">
-        <div class="setting-item" (click)="sortDescendingByPrice()">Giá cao > thấp</div>
-        <div class="setting-item" (click)="sortAscendingByPrice()">Giá thấp > cao</div>
-        <div class="setting-item">Hàng mới nhất</div>
-        <div class="setting-item">Bán chạy nhất</div>
+        <div *ngIf="hasSetting" class="setting main-box-shadow" (click)="setHasSetting(false)">
+          <div class="setting-item" (click)="sortDescendingByPrice()">Giá cao > thấp</div>
+          <div class="setting-item" (click)="sortAscendingByPrice()">Giá thấp > cao</div>
+          <div class="setting-item">Hàng mới nhất</div>
+          <div class="setting-item">Bán chạy nhất</div>
+        </div>
       </div>
+
+      <img class="active-effect other-stores" src="assets/icon/shop.svg" (click)="alertGoToOtherStore()">
     </ion-buttons>
 
     <ion-buttons class="list">
       <div *ngFor="let col of list" class="col main-box-shadow">
         <div class="img-container">
-          <img onerror="this.src='https://res.cloudinary.com/baodang359/image/upload/v1616123967/kito-music/MDC319_avatar_bqms50.jpg';" [src]="col.thumb_images[0]?.url" class="img">
+          <img
+            onerror="this.src='https://res.cloudinary.com/baodang359/image/upload/v1616123967/kito-music/MDC319_avatar_bqms50.jpg';"
+            [src]="col.thumb_images[0]?.url" class="img">
         </div>
         <div class="text-box">
           <ion-label class="name three-dots-2">{{ col.name }}</ion-label>
