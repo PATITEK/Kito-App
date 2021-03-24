@@ -3,9 +3,9 @@
 </ion-header>
 <ion-content [ngClass]="{'disable-scroll': !news.length}">
   <app-search-bar-nav></app-search-bar-nav>
-    <span class="current" *ngIf="newsParish" (click)="gotoParishOrthers()" > Giáo xứ khác >>
-    </span>
-     
+  <span class="current" *ngIf="newsParish" (click)="goToOtherParishes()"> Giáo xứ khác >>
+  </span>
+
   <div *ngIf="news.length" class="main-news" (click)="goToNewsDetail(news[0])">
     <img class="item-img" [src]="news[0].thumb_images[0].url">
 
@@ -48,6 +48,6 @@
   </ion-list>
 
   <ion-infinite-scroll #infiniteScroll (ionInfinite)="loadMoreData($event)">
-    <ion-infinite-scroll-content loadingSpinner="bubbles"></ion-infinite-scroll-content>
+    <ion-infinite-scroll-content loadingSpinner="lines"></ion-infinite-scroll-content>
   </ion-infinite-scroll>
 </ion-content>

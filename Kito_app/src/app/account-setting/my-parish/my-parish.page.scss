@@ -4,6 +4,7 @@ ion-content {
   --overflow: scroll;
   ion-segment {
     padding-top: 10px;
+    position: fixed;
     --background: transparent;
     background: #fff;
     z-index: 10;
@@ -12,14 +13,12 @@ ion-content {
         --color-checked: var(--white-color);
         --color: #828282;
         --border-radius: 10px;
-  
         &::part(indicator-background) {
           background: #f6c33e;
-          // box-shadow: 0px 5px 8px rgba(189, 189, 189, 0.25);
         }
     }
     .intro {
-      // box-shadow: inset 3px 4px 4px #f4f5f8;
+      box-shadow: inset 3px 4px 4px #f4f5f8;
       border-top-left-radius: 10px;
       border-bottom-left-radius: 10px;
       border-right: none;
@@ -28,7 +27,7 @@ ion-content {
       border-top-right-radius: 10px;
       border-bottom-right-radius: 10px;
       border-left: none;
-      // box-shadow: inset 3px 4px 4px #f5f5f5;
+      box-shadow: inset 3px 4px 4px #f4f5f8;
     }
   }
   ion-item-group {
@@ -37,7 +36,6 @@ ion-content {
     .bg {
       background-repeat: no-repeat !important;
       background-size: cover !important;
-      // border-radius: 20px;
       height: 216px !important;
       margin-bottom: 14px;
     }
@@ -53,8 +51,13 @@ ion-content {
       color: #828282;
     }
   }
+  .segement-news {
+    margin-top: 40px;
+  }
   .home {
     padding: 12px 16px;
+    margin-top: 40px;
+
     .list-item {
       .item-stories {
         display: flex;

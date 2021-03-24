@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController, IonContent, IonInfiniteScroll, ModalController } from '@ionic/angular';
-import { IPageCategory, IPageProduct, IPageRequest, StoreService } from 'src/app/@app-core/http';
-import { DateTimeService, LoadingService } from 'src/app/@app-core/utils';
+import { IPageCategory, IPageProduct, StoreService } from 'src/app/@app-core/http';
+import { DateTimeService } from 'src/app/@app-core/utils';
 import { AddStoreComponent } from 'src/app/@modular/add-store/add-store.component';
 
 @Component({
@@ -20,6 +20,13 @@ export class StorePage implements OnInit {
   hasSetting = false;
   categories = [];
   currentCategoryId = null;
+
+  sortType = {
+    newest: 'newest',
+    topSeller: 'top-seller',
+    priceDesc: 'price-desc',
+    priceAsc: 'price-asc'
+  }
   pageRequestCategories: IPageCategory = {
     page: 1,
     per_page: 20,
@@ -27,8 +34,10 @@ export class StorePage implements OnInit {
   }
   pageRequestProducts: IPageProduct = {
     page: 1,
-    per_page: 0,
+    per_page: 6,
     category_id: this.currentCategoryId,
+    search: '',
+    sort: this.sortType.newest
   }
 
   constructor(
@@ -36,24 +45,22 @@ export class StorePage implements OnInit {
     private router: Router,
     private modalController: ModalController,
     private storeService: StoreService,
-    private alertController: AlertController,
-    private loading: LoadingService
+    private alertController: AlertController
   ) { }
 
   ngOnInit() {
-    this.loading.present();
     this.getCategories();
   }
 
   ionViewWillEnter() {
     this.getCart();
+
     const parishId = localStorage.getItem('tempParishId');
     if (parishId) {
       if (parishId !== this.pageRequestCategories.parish_id) {
         this.pageRequestCategories.parish_id = parishId;
-        this.pageRequestProducts.page = 1;
         this.categories = [];
-        this.list = [];
+        this.reset();
         this.getCategories();
       }
       localStorage.removeItem('tempParishId');
@@ -71,7 +78,6 @@ export class StorePage implements OnInit {
       if (tempCategoryId !== this.currentCategoryId) {
         return;
       }
-      this.loading.dismiss();
       data.products.forEach(product => {
         product.unit_price = 'đ';
         product.amount = 0;
@@ -130,7 +136,7 @@ export class StorePage implements OnInit {
 
   changeCategory(category) {
     this.setHasSetting(false);
-    if (this.currentCategoryId != category.id) {
+    if (this.currentCategoryId !== category.id) {
       this.pageRequestProducts.page = 1;
       this.currentCategoryId = category.id;
       this.list = [];
@@ -186,12 +192,11 @@ export class StorePage implements OnInit {
     this.setCart();
   }
 
-  sortDescendingByPrice() {
-    this.list.sort((a, b) => b.price - a.price);
-  }
-
-  sortAscendingByPrice() {
-    this.list.sort((a, b) => a.price - b.price);
+  sort(sortType = this.sortType.newest) {
+    this.setHasSetting(false);
+    this.pageRequestProducts.sort = sortType;
+    this.reset();
+    this.getProducts();
   }
 
   loadMoreProducts(event) {
@@ -220,5 +225,24 @@ export class StorePage implements OnInit {
       ]
     })
     await alert.present();
+  }
+
+  search(value: string) {
+    if (typeof value !== 'string') {
+      return
+    }
+    if (!value) {
+      delete this.pageRequestProducts.search;
+    } else {
+      this.pageRequestProducts.search = value;
+    }
+    this.reset();
+    this.getProducts();
+  }
+
+  reset() {
+    this.list = [];
+    this.pageRequestProducts.page = 1;
+    this.infinityScroll.disabled = false;
   }
 }

@@ -12,6 +12,7 @@ export const APICONFIG = {
     RESET_PASSWORD_EMAIL: `/app/reset_password/send_code`,
     CHECK_CODE_RESET: `/app/reset_password/check_code`,
     RESET_PASSWORD: `/app/app_users/change_password`,
+    RESET_PASSWORD_NEW: `/app/reset_password/reset_password`,
     COUNTRY_CODE: `/app/country_codes`,
     UPDATE_AVATAR: `/app/app_users/update_avatar`
   },
