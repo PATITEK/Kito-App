@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { SpeechRecognitionService } from 'src/app/@app-core/utils';
 import { ModalMenuComponent } from '../modal-menu/modal-menu.component';
@@ -10,9 +10,9 @@ import { ModalMenuComponent } from '../modal-menu/modal-menu.component';
 })
 export class SearchBarNavComponent implements OnInit {
   @ViewChild('searchBar') searchBar: any;
-
+  @Output() output = new EventEmitter<string>();
   hiddenSearchBar = true;
-  x = 'kkk'
+
   constructor(
     private modalCtrl: ModalController,
     private SpeechRecognitionService: SpeechRecognitionService,
@@ -37,5 +37,9 @@ export class SearchBarNavComponent implements OnInit {
 
   startVoice() {
     this.SpeechRecognitionService.checkPermission();
+  }
+
+  changeInput(value) {
+    this.output.emit(value);
   }
 }
