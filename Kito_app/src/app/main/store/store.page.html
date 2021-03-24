@@ -20,10 +20,10 @@
         <img src="assets/icon/setting.svg" class="header-icon active-effect" (click)="toggleHasSetting()">
 
         <div *ngIf="hasSetting" class="setting main-box-shadow" (click)="setHasSetting(false)">
-          <div class="setting-item" (click)="sortDescendingByPrice()">Giá cao > thấp</div>
-          <div class="setting-item" (click)="sortAscendingByPrice()">Giá thấp > cao</div>
-          <div class="setting-item">Hàng mới nhất</div>
-          <div class="setting-item">Bán chạy nhất</div>
+          <div class="setting-item" (click)="sort(sortType.priceDesc)">Giá cao > thấp</div>
+          <div class="setting-item" (click)="sort(sortType.priceAsc)">Giá thấp > cao</div>
+          <div class="setting-item" (click)="sort(sortType.newest)">Hàng mới nhất</div>
+          <div class="setting-item" (click)="sort(sortType.topSeller)">Bán chạy nhất</div>
         </div>
       </div>
 
