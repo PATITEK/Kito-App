@@ -1,7 +1,7 @@
 import { IonInfiniteScroll } from '@ionic/angular';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AuthService, DioceseNewsService, IPageRequest, ParishesService, VaticanService } from 'src/app/@app-core/http';
+import { DioceseNewsService, IPageRequest, ParishesService, VaticanService } from 'src/app/@app-core/http';
 import { IPageParishes } from 'src/app/@app-core/http/parishes/parishes.DTO';
 import { LoadingService } from 'src/app/@app-core/utils';
 
@@ -17,17 +17,17 @@ export class NewsPage implements OnInit {
   news = [];
   pageRequestVatican: IPageRequest = {
     page: 1,
-    per_page: 5
+    per_page: 10
   }
   pageRequestDioceseNews: IPageParishes = {
     page: 1,
-    per_page: 5,
+    per_page: 10,
     diocese_id: null
   }
   pageRequestParish: IPageParishes = {
     parish_id: localStorage.getItem('parish_id'),
     page: 1,
-    per_page: 5,
+    per_page: 10,
   }
   dataParams = null;
   check = false;
@@ -40,27 +40,16 @@ export class NewsPage implements OnInit {
     private dioceseNewsService: DioceseNewsService,
     private parishesService: ParishesService,
     private loading: LoadingService,
-    private authService: AuthService
   ) { }
+
   ngOnInit() {
     this.loading.present();
     this.getParams();
-  //   var orthers = document.getElementById('orthers');
-  //   var current = document.getElementById('current');
-  //   current.addEventListener('click', () => {
-  //     if (!this.check) {
-  //       orthers.style.display = 'block';
-  //       this.check = true;
-  //     }
-  //     else {
-  //       orthers.style.display = 'none';
-  //       this.check = false;
-  //     }
-  //   })
-   }
+  }
+
   ionViewWillEnter() {
     const parishId = localStorage.getItem('tempParishId');
-    if(parishId) {
+    if (parishId) {
       this.dataParams.id = parishId;
       this.news = [];
       this.pageRequestParish.page = 1;
@@ -68,11 +57,8 @@ export class NewsPage implements OnInit {
       this.getData();
     }
     localStorage.removeItem('tempParishId');
-    // var choose = document.getElementById('choose-parish');
-    // if (this.newsParish) {
-    //   choose.style.display = 'block'
-    // }
   }
+
   goToNewsDetail(item) {
     const data = {
       id: item.id,
@@ -84,6 +70,7 @@ export class NewsPage implements OnInit {
       }
     })
   }
+
   getData(func?) {
     if (this.dataParams.id) {
       switch (this.dataParams.type.detail) {
@@ -111,7 +98,7 @@ export class NewsPage implements OnInit {
             this.loading.dismiss();
             data.parish_news.forEach(element => {
               element.type = this.dataParams.type;
-              this.imgnotFound(element);
+              this.imgNotFound(element);
               element.time = element.created_at.slice(11, 16)
               element.yymmdd = element.created_at.slice(0, 10);
             });
@@ -146,6 +133,7 @@ export class NewsPage implements OnInit {
       }
     }
   }
+
   getParams() {
     this.route.queryParams.subscribe(params => {
       this.dataParams = JSON.parse(params['data']);
@@ -160,13 +148,11 @@ export class NewsPage implements OnInit {
     });
   }
 
-  imgnotFound(item) {
+  imgNotFound(item) {
     !item?.thumb_image?.url && (item.thumb_image = { url: "https://i.imgur.com/UKNky29.jpg" });
   }
-  gotoParishOrthers() {
-    // var orthers = document.getElementById('orthers');
-    // this.check = false;
-    // orthers.style.display = 'none';
+
+  goToOtherParishes() {
     const data = this.dataParams;
     data['type_page'] = 'parish_news'
     this.router.navigate(['/dioceses'], {
