@@ -45,12 +45,12 @@ export class NewsPage implements OnInit {
   ngOnInit() {
     this.loading.present();
     this.getParams();
-  }
 
+   }
   ionViewWillEnter() {
     const parishId = localStorage.getItem('tempParishId');
-    if (parishId) {
-      this.dataParams.id = parishId;
+    if(parishId) {
+      this.pageRequestParish.parish_id = parishId;
       this.news = [];
       this.pageRequestParish.page = 1;
       this.infiniteScroll.disabled = false;
@@ -135,12 +135,15 @@ export class NewsPage implements OnInit {
   }
 
   getParams() {
+    let url = window.location.href;
+    if (url.includes('?')) {
     this.route.queryParams.subscribe(params => {
       this.dataParams = JSON.parse(params['data']);
       this.pageRequestDioceseNews.diocese_id = this.dataParams.id;
       this.getData();
     }).unsubscribe();
   }
+}
 
   loadMoreData(event) {
     this.getData(() => {
@@ -151,7 +154,6 @@ export class NewsPage implements OnInit {
   imgNotFound(item) {
     !item?.thumb_image?.url && (item.thumb_image = { url: "https://i.imgur.com/UKNky29.jpg" });
   }
-
   goToOtherParishes() {
     const data = this.dataParams;
     data['type_page'] = 'parish_news'

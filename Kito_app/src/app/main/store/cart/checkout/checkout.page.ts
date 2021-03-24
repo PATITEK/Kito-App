@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ModalController } from '@ionic/angular';
 import { OrderService } from 'src/app/@app-core/http';
 import { DateTimeService, LoadingService } from 'src/app/@app-core/utils';
+import { ModalFoodComponent } from 'src/app/@modular/modal-food/modal-food.component';
 
 @Component({
   selector: 'app-checkout',
@@ -19,6 +21,7 @@ export class CheckoutPage implements OnInit {
     public dateTimeService: DateTimeService,
     private route: ActivatedRoute,
     private orderService: OrderService,
+    private modalCtrl: ModalController,
     private loadingService: LoadingService
   ) { }
 
@@ -41,7 +44,17 @@ export class CheckoutPage implements OnInit {
   calTotalPrice() {
     return this.cart.reduce((acc, item) => acc + this.calPrice(item), 0);
   }
-
+  async openModalSuccess() {
+    const popover = await this.modalCtrl.create({
+      component: ModalFoodComponent,
+      cssClass: 'modalFood',
+      backdropDismiss: false
+    });
+    return await popover.present();
+  }
+  ionViewWillLeave() {
+    this.modalCtrl.dismiss();
+  }
   confirm() {
     this.loadingService.present();
     const req = {
@@ -57,6 +70,7 @@ export class CheckoutPage implements OnInit {
     this.orderService.create(req).subscribe(
       () => {
         this.loadingService.dismiss();
+        this.openModalSuccess();
       },
       () => {
         this.loadingService.dismiss();

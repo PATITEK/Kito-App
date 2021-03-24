@@ -86,6 +86,7 @@ export class MainPage implements OnInit {
   ionViewWillEnter() {
     this.name = localStorage.getItem('fullname');
     this.accountService.getAccounts().subscribe(data => {
+      this.name = data.app_user.full_name;
       if (data.app_user.thumb_image == null) {
         data.app_user['thumb_image'] = "https://i.imgur.com/edwXSJa.png";
         this.avatar = data.app_user.thumb_image;
@@ -105,7 +106,6 @@ export class MainPage implements OnInit {
 
   ngOnInit() {
     this.OneSignalService.startOneSignal();
-    this.name = localStorage.getItem('fullname');
     this.getVatican();
   }
 

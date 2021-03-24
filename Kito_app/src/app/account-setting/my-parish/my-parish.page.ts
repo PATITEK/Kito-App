@@ -24,6 +24,7 @@ export class MyParishPage implements OnInit {
     page: 1,
     per_page: 6
   }
+  total:any;
   constructor(
     private router: Router,
     private parishService: ParishesService,
@@ -58,14 +59,19 @@ export class MyParishPage implements OnInit {
     }
   }
   getPriest(func?) {
+    if(this.listPriest.length >= this.total) {
+      this.infiniteScroll.disabled = true;
+      return;
+    }
     this.popeService.getAllByParish(this.popeRequest).subscribe(data => {
+      this.total = data.meta.pagination.total_objects;
       !data?.pope_infos?.forEach(element => {
         this.imgnotFound(element)
       });
       this.listPriest = this.listPriest.concat(data.pope_infos);
       func && func();
       this.popeRequest.page++;
-      if (this.listPriest.length >= data.meta.pagination.total_objects) {
+      if (this.listPriest.length >= this.total) {
         this.infiniteScroll.disabled = true;
       }
     })

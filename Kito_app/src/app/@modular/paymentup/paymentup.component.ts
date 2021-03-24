@@ -24,11 +24,15 @@ export class PaymentupComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    let url = window.location.href;
+      if (url.includes('?')) {
     this.route.queryParams.subscribe(params => {
       this.data =  JSON.parse(params['data']);
-    }).unsubscribe()
-    this.setupStripe()
+    })
   }
+    this.setupStripe();
+  }
+ 
   async openModal() {
     const modal = await this.modalController.create({
       component: PaymentupComponent,
@@ -59,6 +63,8 @@ export class PaymentupComponent implements OnInit {
     };
   
     this.card = elements.create('card', { style: style });
+   
+    // const customer =  this.stripe.customers.create();
     this.card.mount('#card-element');
     this.card.addEventListener('change', event => {
       var displayError = document.getElementById('card-errors');
@@ -73,6 +79,7 @@ export class PaymentupComponent implements OnInit {
     form.addEventListener('submit', event => {
       event.preventDefault();
       this.stripe.createSource(this.card).then(result => {
+        console.log(result)
         if (result.error) {
           var errorElement = document.getElementById('card-errors');
           errorElement.textContent = result.error.message;
@@ -84,9 +91,9 @@ export class PaymentupComponent implements OnInit {
             }
           })
           this.dismissModal();
-          
         }
       });
+      
     });
   }
   async presentToastValid(message, color) {

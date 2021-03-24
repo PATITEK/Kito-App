@@ -2,7 +2,7 @@
   <app-header [headerCustom]="headerCustom"></app-header>
 </ion-header>
 
-<ion-content >
+<ion-content [ngClass]="{'disable-scroll': !listPriest.length}">
     <ion-segment value="intro" swipeGesture="false" mode="ios">
       <ion-segment-button value="intro" class="intro"(click)="changeTabs()" >
         <ion-label>Giới thiệu Giáo xứ</ion-label>
@@ -27,7 +27,7 @@
             </p>
           </ion-item-group>
         </ion-list>
-        <ion-infinite-scroll #infiniteScroll (ionInfinite)="loadMoreData($event)">
+        <ion-infinite-scroll #infiniteScroll (ionInfinite)="loadMoreData($event)" >
           <ion-infinite-scroll-content loadingSpinner="lines"></ion-infinite-scroll-content>
         </ion-infinite-scroll>
       </ion-item-group>
