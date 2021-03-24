@@ -17,17 +17,17 @@ export class NewsPage implements OnInit {
   news = [];
   pageRequestVatican: IPageRequest = {
     page: 1,
-    per_page: 5
+    per_page: 10
   }
   pageRequestDioceseNews: IPageParishes = {
     page: 1,
-    per_page: 5,
+    per_page: 10,
     diocese_id: null
   }
   pageRequestParish: IPageParishes = {
     parish_id: localStorage.getItem('parish_id'),
     page: 1,
-    per_page: 5,
+    per_page: 10,
   }
   dataParams = null;
   check = false;
@@ -45,33 +45,17 @@ export class NewsPage implements OnInit {
   ngOnInit() {
     this.loading.present();
     this.getParams();
-  //   var orthers = document.getElementById('orthers');
-  //   var current = document.getElementById('current');
-  //   current.addEventListener('click', () => {
-  //     if (!this.check) {
-  //       orthers.style.display = 'block';
-  //       this.check = true;
-  //     }
-  //     else {
-  //       orthers.style.display = 'none';
-  //       this.check = false;
-  //     }
-  //   })
    }
   ionViewWillEnter() {
     const parishId = localStorage.getItem('tempParishId');
     if(parishId) {
-      this.dataParams.id = parishId;
+      this.pageRequestParish.parish_id = parishId;
       this.news = [];
       this.pageRequestParish.page = 1;
       this.infiniteScroll.disabled = false;
       this.getData();
     }
     localStorage.removeItem('tempParishId');
-    // var choose = document.getElementById('choose-parish');
-    // if (this.newsParish) {
-    //   choose.style.display = 'block'
-    // }
   }
   goToNewsDetail(item) {
     const data = {
@@ -147,12 +131,15 @@ export class NewsPage implements OnInit {
     }
   }
   getParams() {
+    let url = window.location.href;
+    if (url.includes('?')) {
     this.route.queryParams.subscribe(params => {
       this.dataParams = JSON.parse(params['data']);
       this.pageRequestDioceseNews.diocese_id = this.dataParams.id;
       this.getData();
     }).unsubscribe();
   }
+}
 
   loadMoreData(event) {
     this.getData(() => {
@@ -164,9 +151,6 @@ export class NewsPage implements OnInit {
     !item?.thumb_image?.url && (item.thumb_image = { url: "https://i.imgur.com/UKNky29.jpg" });
   }
   gotoParishOrthers() {
-    // var orthers = document.getElementById('orthers');
-    // this.check = false;
-    // orthers.style.display = 'none';
     const data = this.dataParams;
     data['type_page'] = 'parish_news'
     this.router.navigate(['/dioceses'], {

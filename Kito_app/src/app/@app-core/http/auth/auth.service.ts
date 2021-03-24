@@ -67,7 +67,7 @@ export class AuthService {
       ));
   }
   public newPassword(req) {
-    return this.http.post(`${APICONFIG.AUTH.RESET_PASSWORD}`, req).pipe(
+    return this.http.post(`${APICONFIG.AUTH.RESET_PASSWORD_NEW}`, req).pipe(
       map((result) => {
         return result;
       }),
@@ -98,7 +98,15 @@ export class AuthService {
       catchError((errorRes: any) => {
         localStorage.clear();
         this.storage.clear();
-        this.presentToast(errorRes.error.errors);
+        if(errorRes.error.errors) {
+          this.presentToast(errorRes.error.errors);
+        }
+        else if(errorRes.error.message) {
+          this.presentToast(errorRes.error.errors);
+        }
+        else {
+          this.presentToast('Xảy ra lỗi, vui lòng kiểm tra lại!');
+        }
         throw errorRes.error;
       })
       );
@@ -106,19 +114,19 @@ export class AuthService {
   logout() {
     localStorage.clear();
     this.storage.clear();
-    this.storage.setInfoAccount();
     window.location.assign('/');
   }
   public signup(req) {
     return this.http.post(`${APICONFIG.AUTH.SIGNUP}`, req).pipe(
       map((result: any) => {
+        this.storage.clear();
         localStorage.setItem('Authorization', result.token);
-        localStorage.setItem('fullname', result.full_name);
+        this.storage.setInfoAccount();
         this.router.navigate(['main/chabad']);
         return result;
       }),
       catchError((errorRes: any) => {
-        this.presentToast("Vui lòng kiểm tra lại !");
+        this.toastService.present('Vui lòng kiểm tra lại thông tin');
         throw errorRes.error;
       }));
   }
@@ -130,14 +138,6 @@ export class AuthService {
       catchError((errorRes: any) => {
         throw errorRes.error;
       }))
-  }
-  checkLogin() {
-    const token = localStorage.getItem('Authorization');
-    if (!token) {
-      return false;
-    } else {
-      return true;
-    }
   }
   async presentToast(message: string) {
     const toast = await this.toastController.create({

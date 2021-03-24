@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { BishopService, DioceseNewsService } from 'src/app/@app-core/http';
 import { DioceseService } from 'src/app/@app-core/http/diocese';
 import { IPageParishes } from 'src/app/@app-core/http/parishes/parishes.DTO';
+import { LoadingService } from 'src/app/@app-core/utils';
 
 @Component({
   selector: 'app-archdiocese-detail',
@@ -45,10 +46,12 @@ export class ArchdioceseDetailPage implements OnInit {
     private diocesesService: DioceseService,
     private router: Router,
     private dioceseNewsService: DioceseNewsService,
-    private bishopService: BishopService
+    private bishopService: BishopService,
+    private loadingService: LoadingService
   ) { }
 
   ngOnInit() {
+    this.loadingService.present();
     this.getData();
   }
 
@@ -69,7 +72,8 @@ export class ArchdioceseDetailPage implements OnInit {
 
   getBishops() {
     this.bishopService.getAll(this.pageRequest).subscribe(data => {
-      data.bishop_infos.forEach(d => {
+      this.loadingService.dismiss();
+        data.bishop_infos.forEach(d => {
         d.type = { general: 'story', detail: 'bishop' };
       });
       this.list[1].items = data.bishop_infos;

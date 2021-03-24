@@ -187,6 +187,7 @@ export class LoginPage implements OnInit {
       }
       this.authService.login(dataSubmit).subscribe(
         (data: any) => {
+          this.showSpinner = false;
           this.router.navigate(['main/chabad']);
         },
         (data: any) => {

@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { APICONFIG } from '..';
 import { map, catchError } from 'rxjs/operators';
-import { ModalFoodComponent } from 'src/app/@modular/modal-food/modal-food.component';
 import { ModalController } from '@ionic/angular';
 import { ToastController } from '@ionic/angular';
 import { IPageRequest } from '../global';
@@ -13,7 +12,6 @@ export class OrderService {
 
   constructor(
     private http: HttpClient,
-    private modalCtrl: ModalController,
     private toastController: ToastController
   ) { }
 
@@ -21,11 +19,15 @@ export class OrderService {
     return this.http.post(`${APICONFIG.ORDER.CREATE}`, req).pipe(
       map((result) => {
         localStorage.removeItem('cart');
-        this.openModalSuccess();
         return result;
       }),
       catchError((errorRes: any) => {
-        this.presentToast(errorRes.error.messages[0]);
+        if(errorRes.error.messages[0]) {
+          this.presentToast(errorRes.error.messages[0]);
+        }
+        else {
+          this.presentToast('Bạn vui lòng kiểm tra lại.')
+        }
         throw errorRes.error;
       })
     )
@@ -61,14 +63,7 @@ export class OrderService {
       }));
   }
 
-  async openModalSuccess() {
-    const popover = await this.modalCtrl.create({
-      component: ModalFoodComponent,
-      cssClass: 'modalFood',
-      backdropDismiss: false
-    });
-    return await popover.present();
-  }
+ 
   async presentToast(mes) {
     const toast = await this.toastController.create({
       mode: 'ios',
