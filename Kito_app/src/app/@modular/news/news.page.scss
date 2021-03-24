@@ -8,19 +8,8 @@ ion-content {
   --padding-top: calc(80px + 45px);
   --padding-start: 16px;
   --padding-end: 16px;
-  
 }
-.choose-parish {
-  font-size: 16px;
-  width: 146px;
-  float: right;
-  height: 38px;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
-}
-.bg {
-  background-color: #fbfbfb;
-}
+
 .current {
   color: #424242;
   font-weight: 500;
@@ -32,28 +21,13 @@ ion-content {
   margin-bottom: 10px;
 }
 
-.right{
-  position: absolute;
-    height: 9px;
-    top: -24px;
-    right: -0.5px;
-    border-right: 1px solid #e5e5e5;
-}
-.left {
-  position: absolute;
-  height: 9px;
-  top: -24px;
-  border-right: 1px solid #e5e5e5;
-  left: -1px;
-}
-
 .main-news {
   position: relative;
   display: -webkit-inline-box;
   height: 60vw;
   border-radius: 8px;
   overflow: hidden;
-  border-bottom: 1px solid #EEEEEE;
+  border-bottom: 1px solid #eeeeee;
 
   .item-img {
     width: 100%;
@@ -70,7 +44,7 @@ ion-content {
     padding: 10px 5px 5px;
     z-index: 1;
     color: #fff;
-    
+
     .item-title {
       font-size: 14px;
       font-weight: 500;
@@ -102,12 +76,12 @@ ion-content {
     padding: 20px 10px;
     align-items: stretch;
     border-radius: 8px;
-    transition: .15s;
+    transition: 0.15s;
 
     &:active {
       background: rgb(240, 240, 240);
     }
-    
+
     &:not(:first-child) {
       border-top: 1px solid #eee;
     }
@@ -124,7 +98,7 @@ ion-content {
         object-fit: cover;
       }
     }
-  
+
     .content-box {
       width: 65%;
       flex-direction: column;
@@ -133,7 +107,7 @@ ion-content {
       margin-left: 10px;
 
       .item-title {
-        color: #002D63;
+        color: #002d63;
         font-size: 14px;
         margin: 0;
         text-align: left;
@@ -142,10 +116,12 @@ ion-content {
       .bottom-box {
         width: 100%;
         justify-content: space-between;
+
         ion-buttons {
           .eye {
             margin-right: 2px;
           }
+
           .time {
             margin-right: 2px;
           }

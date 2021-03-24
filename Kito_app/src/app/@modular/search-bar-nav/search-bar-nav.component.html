@@ -1,4 +1,5 @@
 <div class="search-bar-container">
   <ion-icon name="mic" class="voice" alt="" (click)="startVoice()"></ion-icon>
-  <ion-searchbar #searchBar mode="ios" placeholder="Tìm kiếm..." ngModule="x" input="111"></ion-searchbar>
+  <ion-searchbar #searchBar mode="ios" placeholder="Tìm kiếm..." (ionChange)="changeInput($event.target.value)">
+  </ion-searchbar>
 </div>
