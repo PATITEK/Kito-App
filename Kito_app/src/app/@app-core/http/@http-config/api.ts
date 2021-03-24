@@ -89,8 +89,12 @@ export const APICONFIG = {
     GET_COURSE_GROUP: `/app/course_groups`,
     GET_COURSE_ID: `/app/courses`
   },
-  SONG: {
+  MUSIC: {
     GET_ALL: `app/songs`,
+    GET_DETAIL: id => `app/songs/${id}`,
+    GET_ALL_FAVORITE: `app/songs/favourite_songs`,
+    FAVORITE: `app/songs/favourite`,
+    UNFAVORITE: `app/songs/unfavourite`,
   }
 };
 
