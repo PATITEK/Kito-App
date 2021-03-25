@@ -46,7 +46,7 @@ export const APICONFIG = {
     GET_BY_DAY: `/app/calendars/day`,
   },
   DONATES: {
-    DONATE: `/app/donation_logs`
+    DONATE_VISA: `/app/donation_logs/visa_master`
   },
   HISTORY: {
     GET_SERVICES: `/app/attention_logs/service_history`,
@@ -90,8 +90,12 @@ export const APICONFIG = {
     GET_COURSE_GROUP: `/app/course_groups`,
     GET_COURSE_ID: `/app/courses`
   },
-  SONG: {
+  MUSIC: {
     GET_ALL: `app/songs`,
+    GET_DETAIL: id => `app/songs/${id}`,
+    GET_ALL_FAVORITE: `app/songs/favourite_songs`,
+    FAVORITE: `app/songs/favourite`,
+    UNFAVORITE: `app/songs/unfavourite`,
   }
 };
 

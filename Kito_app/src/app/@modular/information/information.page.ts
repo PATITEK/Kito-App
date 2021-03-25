@@ -84,7 +84,37 @@ export class InformationPage implements OnInit {
       }
     }
   }
+  search(value: string) {
+    if (typeof value != 'string') {
+      return;
+    }
+    else if (!value) {
+      delete this.pageRequestParish.search;
+      delete this.pageRequestBishop.search;
+      delete this.pageRequestPope.search;
+    }
+    else {
+      if (this.dataParams.id == null) {
+        this.pageRequestPope.search = value;
+      }
+      else if (this.dataParams.type.detail == 'parish') {
+        this.pageRequestParish.search = value;
 
+      }
+      else if (this.dataParams.type.detail == 'bishop') {
+        this.pageRequestBishop.search = value;
+      }
+    }
+    this.reset();
+    this.getData();
+  }
+  reset() {
+    this.list = [];
+    this.infiniteScroll.disabled = false;
+    this.pageRequestPope.page = 1;
+    this.pageRequestParish.page = 1;
+    this.pageRequestBishop.page = 1;
+  }
   getParams() {
     this.route.queryParams.subscribe(params => {
       this.dataParams = JSON.parse(params['data']);
@@ -93,8 +123,8 @@ export class InformationPage implements OnInit {
       switch (this.dataParams.type.general) {
         case 'info':
           this.headerCustom.title = 'Thông tin';
-          case 'parish':
-            this.headerCustom.title = 'Giáo xứ';
+        case 'parish':
+          this.headerCustom.title = 'Giáo xứ';
           break;
         case 'story':
           this.headerCustom.title = 'Tiểu sử';
@@ -109,7 +139,6 @@ export class InformationPage implements OnInit {
       event.target.complete();
     })
   }
-
   goToNewsDetail(item) {
     const data = {
       id: item.id,

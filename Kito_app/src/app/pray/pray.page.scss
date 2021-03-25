@@ -7,22 +7,22 @@
     .wrapper {
       overflow: scroll;
       @media screen and (max-height: 824px){
-        max-height: 591px;
+        max-height: 581px;
       }
       @media screen and (max-height: 812px){
-        max-height: 575px;
+        max-height: 565px;
       }
       @media screen and (max-height: 737px){
-        height: 510px;
+        height: 500px;
       }
       @media screen and (max-height: 668px){
-        height: 437px;
+        height: 430px;
       }
       @media screen and (max-height: 641px){
-        height: 420px;
+        height: 410px;
       }
       @media screen and (max-height: 569px){
-        height: 340px;
+        height: 330px;
       }
       @media screen and (max-height: 480px){
         height: 257px;
@@ -114,12 +114,15 @@
           width: 14px;
           height: 24px;
         }
+        .vnd {
+          font-size: 11px;
+        }
         .group__donate-pen--edit {
           position: absolute;
           background-color: var(--main-color);
           width: 13px;
           height: 13px;
-          right: 41px;
+          right: 34px;
           top: -4px;
           border-radius: 6px;
           color: #fff;
@@ -177,20 +180,20 @@
   }
   .footer {
     padding-top: 6px;
+    margin-bottom: 42px;
     ion-avatar {
       position: relative;
       height: 65px;
       width: 104px;
      img {
-     margin-left: 50%;
       transform: translateX(-50%);
        margin-left: 50%;
-       width: 70px;
-       height: 70px;
+       width: 65px;
+       height: 65px;
      }
     }
     ion-item-group {
-      margin-top: 10px;
+      margin-top: 4px;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -200,14 +203,13 @@
       }
     }
    ion-button {
-     font-size: 18px;
-     width: 168px;
-     margin: 0;
-     font-size: 17px;
-     height: 36px;
-     line-height: 21px;
-     --border-radius: 15px;
-     --background: var(--main-color);
+    width: 150px;
+    margin: 0;
+    font-size: 17px;
+    height: 32px;
+    line-height: 21px;
+    --border-radius: 12px;
+    --background: var(--main-color);
     }
   }
 }

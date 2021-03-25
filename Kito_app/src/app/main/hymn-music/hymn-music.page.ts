@@ -1,13 +1,10 @@
+import { HymnMusicService } from './../../@app-core/http/hymn-music/hymn-music.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Howl } from 'howler'
 import { IonRange } from '@ionic/angular';
-import { SongService } from 'src/app/@app-core/http/song';
+import { LoadingService } from 'src/app/@app-core/utils';
+import { IPageRequest } from 'src/app/@app-core/http';
 
-enum RepeatingType {
-  None,
-  RepeatOne,
-  RepeatAll
-}
 @Component({
   selector: 'app-hymn-music',
   templateUrl: './hymn-music.page.html',
@@ -19,241 +16,42 @@ export class HymnMusicPage implements OnInit {
 
   headerCustom = { title: 'Nhạc Thánh ca' };
   segmentValue = 'all';
-  playlist = [];
-  shuffledList = [];
-  shuffledLikedList = [];
 
-  activeTrack = null;
+  songs = [];
+  favoriteSongs: any[];
+  shuffledSongs = [];
+  shuffledFavoriteSongs = [];
+
+  activeSong = null;
   player: Howl = null;
   progress = 0;
   progressInterval = null;
   hasModal = false;
+
   mixed = false;
-  repeatingType: RepeatingType = RepeatingType.RepeatAll;
-
-  constructor(
-    private songService: SongService
-  ) {
-
-    this.playlist = [
-      {
-        id: 0,
-        name: 'Hãy thắp sáng lên',
-        author: 'Phan Đình Tùng',
-        path: 'https://res.cloudinary.com/baodang359/video/upload/v1615538818/kito-music/soundtrack1_tgqm5n.mp3',
-        liked: true,
-        thumbImage: 'https://cdn.searchenginejournal.com/wp-content/uploads/2019/08/c573bf41-6a7c-4927-845c-4ca0260aad6b-760x400.jpeg',
-        lyrics: [
-          'Này bạn hỡi hãy thắp sáng lên',
-          'Này bạn hỡi hãy thắp sáng lên',
-          'Này bạn hỡi hãy thắp sáng lên',
-          'Này bạn hỡi hãy thắp sáng lên',
-          'Này bạn hỡi hãy thắp sáng lên',
-          'Này bạn hỡi hãy thắp sáng lên',
-          'Này bạn hỡi hãy thắp sáng lên',
-          'Này bạn hỡi hãy thắp sáng lên',
-          'Này bạn hỡi hãy thắp sáng lên',
-          'Này bạn hỡi hãy thắp sáng lên',
-          'Này bạn hỡi hãy thắp sáng lên',
-          'Này bạn hỡi hãy thắp sáng lên',
-        ]
-      },
-      {
-        id: 1,
-        name: 'Con chỉ là tạo vật',
-        author: 'Tâm Đoan',
-        path: 'https://res.cloudinary.com/baodang359/video/upload/v1615538818/kito-music/soundtrack1_tgqm5n.mp3',
-        liked: false,
-        thumbImage: 'https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y',
-        lyrics: [
-          'Này bạn hỡi hãy thắp sáng lên',
-          'Này bạn hỡi hãy thắp sáng lên',
-          'Này bạn hỡi hãy thắp sáng lên',
-          'Này bạn hỡi hãy thắp sáng lên',
-          'Này bạn hỡi hãy thắp sáng lên',
-          'Này bạn hỡi hãy thắp sáng lên',
-          'Này bạn hỡi hãy thắp sáng lên',
-        ]
-      },
-      {
-        id: 2,
-        name: 'Hoan Ca Maria',
-        author: 'Hoàng Nhung',
-        path: 'https://res.cloudinary.com/baodang359/video/upload/v1615538818/kito-music/soundtrack1_tgqm5n.mp3',
-        liked: true,
-        thumbImage: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/1200px-Image_created_with_a_mobile_phone.png',
-        lyrics: [
-          'Này bạn hỡi hãy thắp sáng lên',
-          'Này bạn hỡi hãy thắp sáng lên',
-          'Này bạn hỡi hãy thắp sáng lên',
-          'Này bạn hỡi hãy thắp sáng lên',
-          'Này bạn hỡi hãy thắp sáng lên',
-          'Này bạn hỡi hãy thắp sáng lên',
-          'Này bạn hỡi hãy thắp sáng lên',
-          'Này bạn hỡi hãy thắp sáng lên',
-          'Này bạn hỡi hãy thắp sáng lên',
-          'Này bạn hỡi hãy thắp sáng lên',
-          'Này bạn hỡi hãy thắp sáng lên',
-          'Này bạn hỡi hãy thắp sáng lên',
-          'Này bạn hỡi hãy thắp sáng lên',
-          'Này bạn hỡi hãy thắp sáng lên',
-        ]
-      },
-    ]
+  REPEATING_TYPE = {
+    NONE: 0,
+    REPEAT_ONE: 1,
+    REPEAT_ALL: 2
+  }
+  repeatingType = this.REPEATING_TYPE.REPEAT_ALL;
+  pageRequest: IPageRequest = {
+    page: 1,
+    per_page: 10,
   }
 
+  constructor(
+    private hymnMusicService: HymnMusicService,
+    private loadingService: LoadingService
+  ) { }
+
   ngOnInit() {
-    this.reInitShuffledList();
-    this.reInitShuffledLikedList();
-    this.songService.getAllSongs().subscribe(data => {
-    })
+    this.getData();
   }
 
   ngOnDestroy() {
     clearInterval(this.progressInterval);
     this.player && this.player.unload();
-  }
-  ionViewWillEnter() {
-      this.songService.getAllSongs().subscribe(data => {
-      })
-  }
-
-  reInitShuffledList() {
-    this.shuffledList = this.shuffleArr(this.playlist);
-  }
-
-  reInitShuffledLikedList() {
-    this.shuffledLikedList = this.shuffleArr(this.playlist.filter(track => track.liked));
-  }
-
-  changedSegment(event) {
-    this.segmentValue = event.target.value;
-  }
-
-  start(track) {
-    this.activeTrack = track;
-    if (this.player) {
-      this.player.stop();
-    }
-    this.player = new Howl({
-      src: [track.path],
-      html5: true,
-      onplay: () => {
-        this.updateProgress();
-      },
-      onend: () => {
-        this.onEndTrack();
-      }
-    });
-    this.player.play();
-  }
-
-  onEndTrack() {
-    switch (this.repeatingType) {
-      case RepeatingType.RepeatOne:
-        this.player.play();
-        break;
-      case RepeatingType.RepeatAll:
-        this.next();
-        break;
-    }
-  }
-
-  togglePlayer = () => {
-    if (this.player.playing()) {
-      this.player.pause();
-    } else {
-      this.player.play();
-    }
-  }
-
-  toggleLike(track) {
-    event.stopPropagation();
-    track.liked = !track.liked;
-    this.reInitShuffledLikedList();
-  }
-
-  toggleHasModal(bool) {
-    this.hasModal = bool;
-  }
-
-  toggleMixed() {
-    this.mixed = !this.mixed;
-  }
-
-  changeRepeatingType() {
-    if (this.repeatingType === RepeatingType.RepeatAll) {
-      this.repeatingType = RepeatingType.RepeatOne;
-    } else if (this.repeatingType === RepeatingType.RepeatOne) {
-      this.repeatingType = RepeatingType.None;
-    } else if (this.repeatingType === RepeatingType.None) {
-      this.repeatingType = RepeatingType.RepeatAll;
-    }
-  }
-
-  checkNoneRepeating() {
-    return this.repeatingType === RepeatingType.None;
-  }
-
-  checkRepeatingOne() {
-    return this.repeatingType === RepeatingType.RepeatOne;
-  }
-
-  getCurrentListAndIndex() {
-    let list = [];
-    let index = null;
-    if (this.mixed) {
-      list = this.segmentValue === 'all' ? this.shuffledList : this.shuffledLikedList;
-      index = list.indexOf(this.activeTrack);
-      if (index === -1) {
-        list = this.shuffledList;
-        index = list.indexOf(this.activeTrack);
-      }
-    } else {
-      list = this.segmentValue === 'all' ? this.playlist : this.playlist.filter(track => track.liked);
-      index = list.indexOf(this.activeTrack);
-      if (index === -1) {
-        list = this.playlist;
-        index = list.indexOf(this.activeTrack);
-      }
-    }
-    return { list: list, index: index };
-  }
-
-  next = () => {
-    const { list, index } = this.getCurrentListAndIndex();
-    if (index === list.length - 1) {
-      this.start(list[0]);
-    } else {
-      this.start(list[index + 1]);
-    }
-  }
-
-  prev = () => {
-    const { list, index } = this.getCurrentListAndIndex();
-    if (index > 0) {
-      this.start(list[index - 1]);
-    } else {
-      this.start(list[list.length - 1]);
-    }
-  }
-
-  seek = () => {
-    let newValue = +this.range.value;
-    let duration = this.player.duration();
-    this.player.seek(duration * (newValue / 100));
-  }
-
-  updateProgress() {
-    clearInterval(this.progressInterval);
-    this.progressInterval = setInterval(() => {
-      const seek = this.player.seek();
-      this.progress = (<any>seek / this.player.duration()) * 100 || 0;
-    }, 1000)
-  }
-
-  checkActiveTrack(track) {
-    return this.activeTrack && track.id === this.activeTrack.id;
   }
 
   shuffleArr(arr) {
@@ -267,13 +65,188 @@ export class HymnMusicPage implements OnInit {
 
   secondsToHms(d) {
     d = Number(d);
-    var h = Math.floor(d / 3600);
-    var m = Math.floor(d % 3600 / 60);
-    var s = Math.floor(d % 3600 % 60);
+    const h = Math.floor(d / 3600);
+    const m = Math.floor(d % 3600 / 60);
+    const s = Math.floor(d % 3600 % 60);
 
-    var hDisplay = h > 0 ? h + ':' : "";
-    var mDisplay = m > 0 ? m + ':' : "0:";
-    var sDisplay = s > 0 ? s + '' : "0";
+    const hDisplay = h > 0 ? h + ':' : '';
+    const mDisplay = m > 0 ? m + ':' : '0:';
+    const sDisplay = s > 0 ? s + '' : '0';
     return hDisplay + mDisplay + sDisplay;
+  }
+
+  shuffleSongs() {
+    this.shuffledSongs = this.shuffleArr(this.songs);
+  }
+
+  shuffleFavoriteSongs() {
+    this.shuffledFavoriteSongs = this.shuffleArr(this.favoriteSongs);
+  }
+
+  getSongs() {
+    this.hymnMusicService.getAll(this.pageRequest).subscribe(data => {
+      this.songs = data.songs;
+      this.shuffleSongs();
+    })
+  }
+
+  getFavoriteSongs() {
+    this.hymnMusicService.getAllFavorite(this.pageRequest).subscribe(data => {
+      this.favoriteSongs = data.songs;
+      this.shuffleFavoriteSongs();
+    })
+  }
+
+  getData() {
+    this.getSongs();
+    this.getFavoriteSongs();
+  }
+
+  changedSegment(event) {
+    this.segmentValue = event.target.value;
+  }
+
+  onEndSong() {
+    switch (this.repeatingType) {
+      case this.REPEATING_TYPE.REPEAT_ONE:
+        this.player.play();
+        break;
+      case this.REPEATING_TYPE.REPEAT_ALL:
+        this.next();
+        break;
+    }
+  }
+
+  start(song) {
+    this.activeSong = song;
+    if (this.player) {
+      this.player.stop();
+    }
+    this.player = new Howl({
+      src: [song.url],
+      html5: true,
+      onplay: () => {
+        this.updateProgress();
+      },
+      onend: () => {
+        this.onEndSong();
+      }
+    });
+    this.player.play();
+  }
+
+  togglePlayer() {
+    if (this.player.playing()) {
+      this.player.pause();
+    } else {
+      this.player.play();
+    }
+  }
+
+  toggleLike(song) {
+    this.loadingService.present();
+    event.stopPropagation();
+    if (this.checkAllSegment()) {
+      if (song.favourite) {
+        this.hymnMusicService.unfavorite(song.id).subscribe(() => {
+          song.favourite = !song.favourite;
+          this.favoriteSongs = this.favoriteSongs.filter(favoriteSong => favoriteSong.id !== song.id);
+          this.loadingService.dismiss();
+        }, () => {
+          this.loadingService.dismiss();
+        })
+      } else {
+        this.shuffleFavoriteSongs();
+        this.hymnMusicService.favorite(song.id).subscribe(() => {
+          song.favourite = !song.favourite;
+          this.favoriteSongs.push(song);
+          this.loadingService.dismiss();
+        }, () => {
+          this.loadingService.dismiss();
+        });
+      }
+    } else {
+      this.hymnMusicService.unfavorite(song.id).subscribe(() => {
+        this.favoriteSongs = this.favoriteSongs.filter(favoriteSong => favoriteSong.id !== song.id);
+        this.loadingService.dismiss();
+      }, () => {
+        this.loadingService.dismiss();
+      });
+    }
+  }
+
+  toggleHasModal(bool) {
+    this.hasModal = bool;
+  }
+
+  toggleMixed() {
+    this.mixed = !this.mixed;
+  }
+
+  changeRepeatingType() {
+    switch (this.repeatingType) {
+      case this.REPEATING_TYPE.REPEAT_ALL:
+        this.repeatingType = this.REPEATING_TYPE.REPEAT_ONE;
+        break;
+      case this.REPEATING_TYPE.REPEAT_ONE:
+        this.repeatingType = this.REPEATING_TYPE.NONE;
+        break;
+      case this.REPEATING_TYPE.NONE:
+        this.repeatingType = this.REPEATING_TYPE.REPEAT_ALL;
+        break;
+    }
+  }
+
+  getCurrentListAndIndex() {
+    let list = [];
+    let index = null;
+    if (this.mixed) {
+      list = this.checkAllSegment() ? this.shuffledSongs : this.shuffledFavoriteSongs;
+      index = list.indexOf(this.activeSong);
+      if (index === -1) {
+        list = this.shuffledSongs;
+        index = list.indexOf(this.activeSong);
+      }
+    } else {
+      list = this.checkAllSegment() ? this.songs : this.favoriteSongs;
+      index = list.indexOf(this.activeSong);
+      if (index === -1) {
+        list = this.songs;
+        index = list.indexOf(this.activeSong);
+      }
+    }
+    return { list: list, index: index };
+  }
+
+  next() {
+    const { list, index } = this.getCurrentListAndIndex();
+    this.start(index === list.length - 1 ? list[0] : list[index + 1]);
+  }
+
+  prev() {
+    const { list, index } = this.getCurrentListAndIndex();
+    this.start(index > 0 ? list[index - 1] : list[list.length - 1])
+  }
+
+  seek() {
+    let newValue = +this.range.value;
+    let duration = this.player.duration();
+    this.player.seek(duration * (newValue / 100));
+  }
+
+  updateProgress() {
+    clearInterval(this.progressInterval);
+    this.progressInterval = setInterval(() => {
+      const seek = this.player.seek();
+      this.progress = (<any>seek / this.player.duration()) * 100 || 0;
+    }, 1000)
+  }
+
+  checkActiveSong(song) {
+    return this.activeSong && song.id === this.activeSong.id;
+  }
+
+  checkAllSegment() {
+    return this.segmentValue === 'all';
   }
 }

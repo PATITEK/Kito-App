@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { AuthService, IPageRequest, VaticanService } from '../@app-core/http';
 import { IonInfiniteScroll, ModalController } from '@ionic/angular';
 import { AccountService } from '../@app-core/http/account/account.service';
-import { OneSignalService } from '../@app-core/utils';
+import { LoadingService, OneSignalService } from '../@app-core/utils';
 
 @Component({
   selector: 'app-main',
@@ -69,7 +69,7 @@ export class MainPage implements OnInit {
   ]
 
   vaticanList = {
-    heading: '',
+    // heading: '',
     items: [],
     type: { general: 'news', detail: 'vatican' }
   }
@@ -81,6 +81,7 @@ export class MainPage implements OnInit {
     private authService: AuthService,
     public modalCtrl: ModalController,
     public vaticanService: VaticanService,
+    private loading: LoadingService
   ) { }
 
   ionViewWillEnter() {
@@ -105,6 +106,7 @@ export class MainPage implements OnInit {
   }
 
   ngOnInit() {
+    this.loading.present();
     this.OneSignalService.startOneSignal();
     this.getVatican();
   }
@@ -115,6 +117,7 @@ export class MainPage implements OnInit {
       per_page: 4
     }
     this.vaticanService.getAll(pageRequest).subscribe(data => {
+      this.loading.dismiss();
       data.vatican_news.forEach(v => v.type = this.vaticanList.type);
       this.vaticanList.items = data.vatican_news;
     })
