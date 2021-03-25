@@ -21,6 +21,11 @@ export class CartPage implements OnInit {
       srcIcon: 'assets/icon/visa.svg',
       name: 'VISA/MASTER',
       id: 1
+    },
+    {
+      srcIcon: 'assets/icon/visa.svg',
+      name: 'MOMO',
+      id: 2
     }
   ];
   currentPaymentMethodId = 1;

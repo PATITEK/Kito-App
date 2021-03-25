@@ -23,7 +23,7 @@ export class GeolocationService {
     customerLocation: Location = {
         lat: 0,
         lng: 0,
-        address: "null"
+        address: 'Hãy lấy địa chỉ của bạn'
     };
 
     centerService: google.maps.LatLngLiteral = { lat: 10.847949, lng: 106.786794 };

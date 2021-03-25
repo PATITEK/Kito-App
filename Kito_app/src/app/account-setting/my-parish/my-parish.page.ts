@@ -40,7 +40,7 @@ export class MyParishPage implements OnInit {
     this.parishService.getDetail(this.id_parish).subscribe(data => {
       this.loadingService.dismiss()
       this.data = data.parish;
-      this.imgnotFound(data.parish);
+      // this.imgnotFound(data.parish);
       this.img = data.parish.thumb_image.url;
     })
   }
@@ -66,7 +66,7 @@ export class MyParishPage implements OnInit {
     this.popeService.getAllByParish(this.popeRequest).subscribe(data => {
       this.total = data.meta.pagination.total_objects;
       !data?.pope_infos?.forEach(element => {
-        this.imgnotFound(element)
+        // this.imgnotFound(element)
       });
       this.listPriest = this.listPriest.concat(data.pope_infos);
       func && func();

@@ -3,7 +3,7 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-  <app-search-bar-nav></app-search-bar-nav>
+  <app-search-bar-nav (output)="search($event)"></app-search-bar-nav>
 
   <ion-list>
     <app-main-item [data]="holySee"></app-main-item>

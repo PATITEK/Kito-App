@@ -1,5 +1,9 @@
 ion-content {
-  --padding-top: calc(80px + 45px);
+  --padding-top: calc(80px);
+  ion-icon {
+    color: #828282;
+    margin-left: 4px;
+  }
 }
 
 .main-title {
@@ -15,7 +19,14 @@ ion-content {
   color: #828282;
   font-size: 16px;
   line-height: 1.5;
+  display: inline-flex;
   margin: 12px;
+  margin-bottom: 0;
+}
+.name {
+  display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .nav-map {

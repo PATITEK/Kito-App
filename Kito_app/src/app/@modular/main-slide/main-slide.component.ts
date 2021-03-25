@@ -21,7 +21,8 @@ export class MainSlideComponent implements OnInit {
     private router: Router
   ) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+   }
 
   seeMore() {
     const data = {

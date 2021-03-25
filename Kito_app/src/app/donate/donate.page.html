@@ -26,7 +26,7 @@
       <ion-icon name="pencil-outline" class="group__donate-pen--edit"></ion-icon>
       <ion-img src="assets/img/dola.svg"></ion-img>
       <input formControlName ="amount" class="group__donate-amount"(keyup)="callChangeDot()" [(ngModel)] ="x">
-      <ion-label>VND</ion-label>
+      <ion-label class="vnd">VND</ion-label>
     </ion-item-group>
     <span class="require" *ngIf="required_mess">
       {{message}}

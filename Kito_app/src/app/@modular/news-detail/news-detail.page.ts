@@ -12,7 +12,7 @@ import { LoadingService } from 'src/app/@app-core/utils';
 export class NewsDetailPage implements OnInit {
   headerCustom = { title: '' };
   data = null;
-
+  map = false;
   constructor(
     private route: ActivatedRoute,
     private vaticanService: VaticanService,
@@ -62,6 +62,7 @@ export class NewsDetailPage implements OnInit {
           break;
         case 'parish':
           this.parishService.getDetail(dataParams.id).subscribe(data => {
+            this.map = true;
             this.loading.dismiss();
             this.data = data.parish;
           })
