@@ -17,6 +17,7 @@ export class PaymentPage implements OnInit {
   card: any;
   amount: any;
   purpose: any;
+  headerCustom = {title: 'Thanh toán', background: '#fff'}
   constructor(
     private route: ActivatedRoute,
     private pageNotiService: PageNotiService,
@@ -49,10 +50,11 @@ export class PaymentPage implements OnInit {
       des: 'Cảm ơn sự đóng góp của bạn!',
       routerLink: '/main/chabad'
     }
-    this.pageNotiService.setdataStatusNoti(datapasing);
-    this.router.navigateByUrl('/page-noti');
-    this.loadingService.dismiss()
-    
+    this.donateService.donateByVisa(this.data).subscribe((data) => {
+        console.log(data)
+         this.pageNotiService.setdataStatusNoti(datapasing);
+        this.router.navigateByUrl('/page-noti');
+        this.loadingService.dismiss()
+    })
   }
-  
 }

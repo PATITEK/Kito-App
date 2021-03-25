@@ -10,14 +10,13 @@ declare var Stripe;
   styleUrls: ['./paymentup.component.scss'],
 })
 export class PaymentupComponent implements OnInit {
-  data:any;
+  data: any;
   stripe = Stripe('pk_test_51IFwpWCpBejooWZYsmTcqPL7wfAcx58B6lQNiE3K8XEueAbjRJCRzczedDQO3LbJ1afIh6oln6VT6SZXOZYtiL6G00Ow7S9qTG');
   card: any;
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private donateService: DonateService,
-    public modalController: ModalController, 
+    public modalController: ModalController,
     public loadingService: LoadingService,
     public toastController: ToastController,
 
@@ -25,20 +24,12 @@ export class PaymentupComponent implements OnInit {
 
   ngOnInit() {
     let url = window.location.href;
-      if (url.includes('?')) {
-    this.route.queryParams.subscribe(params => {
-      this.data =  JSON.parse(params['data']);
-    })
-  }
+    if (url.includes('?')) {
+      this.route.queryParams.subscribe(params => {
+        this.data = JSON.parse(params['data']);
+      }).unsubscribe();
+    }
     this.setupStripe();
-  }
- 
-  async openModal() {
-    const modal = await this.modalController.create({
-      component: PaymentupComponent,
-      swipeToClose: true,
-      cssClass: 'modal__payment'
-    });
   }
   dismissModal() {
     this.modalController.dismiss();
@@ -61,10 +52,9 @@ export class PaymentupComponent implements OnInit {
         iconColor: '#fa755a'
       }
     };
-  
+
     this.card = elements.create('card', { style: style });
-   
-    // const customer =  this.stripe.customers.create();
+
     this.card.mount('#card-element');
     this.card.addEventListener('change', event => {
       var displayError = document.getElementById('card-errors');
@@ -74,17 +64,18 @@ export class PaymentupComponent implements OnInit {
         displayError.textContent = '';
       }
     });
-  
+
     var form = document.getElementById('payment-form');
     form.addEventListener('submit', event => {
       event.preventDefault();
       this.stripe.createSource(this.card).then(result => {
-        console.log(result)
         if (result.error) {
           var errorElement = document.getElementById('card-errors');
           errorElement.textContent = result.error.message;
-        } else {
+        }
+        else {
           this.data.donation.token = result.source.id;
+          this.data.donation.payment_type = 'visa_master';
           this.router.navigate(['/payment'], {
             queryParams: {
               data: JSON.stringify(this.data)
@@ -93,7 +84,7 @@ export class PaymentupComponent implements OnInit {
           this.dismissModal();
         }
       });
-      
+
     });
   }
   async presentToastValid(message, color) {

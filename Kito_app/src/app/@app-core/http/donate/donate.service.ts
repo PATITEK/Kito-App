@@ -11,8 +11,17 @@ import { IPageRequest } from '../global';
 export class DonateService {
 
   constructor( private http: HttpClient) { }
-  public donateLog(req) {
+  public donateByVisa(req) {
     return this.http.post(`${APICONFIG.DONATES.DONATE_VISA}`, req).pipe(
+      map((result) => {
+        return result;
+      }),
+      catchError((errorRes: any) => {
+        throw errorRes.error;
+      }));
+  }
+  public donateByMoMo(req) {
+    return this.http.post(`${APICONFIG.DONATES.DONATE_MOMO}`, req).pipe(
       map((result) => {
         return result;
       }),

@@ -55,12 +55,15 @@ export class NewsDetailPage implements OnInit {
           })
           break;
         case 'diocese':
+          this.map = true;
+          console.log(this.map)
           this.dioceseService.getDetail(dataParams.id).subscribe(data => {
             this.loading.dismiss();
             this.data = data.diocese;
           })
           break;
         case 'parish':
+          this.map = true;
           this.parishService.getDetail(dataParams.id).subscribe(data => {
             this.map = true;
             this.loading.dismiss();

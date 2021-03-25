@@ -1,6 +1,6 @@
 <app-header [headerCustom]="headerCustom"></app-header>
 <ion-content class="ion-padding">
-  <app-search-bar-nav></app-search-bar-nav>
+  <app-search-bar-nav (output)="search($event)"></app-search-bar-nav>
   <ion-list>
     <app-list-dioceses *ngFor="let item of dataParish" [data] = "item" [flag_parishes_diocese]="'parish'"
     [type_page]="type_page"

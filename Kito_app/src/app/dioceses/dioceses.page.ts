@@ -21,7 +21,7 @@ export class DiocesesPage implements OnInit {
   type_page;
   pageResult:IPageRequest = {
     page: 1,
-    per_page: 100,
+    per_page: 1000,
   }
   data;
   constructor(
@@ -41,11 +41,26 @@ export class DiocesesPage implements OnInit {
     }
     this.getAll();
   }
+  
   getAll(){
       this.diocesesService.getAll(this.pageResult).subscribe((data: any) => {
         this.loadingService.dismiss()
         this.dataDiocese = data.dioceses;
         this.pageResult.total_objects = data.meta.pagination.total_objects || 1;
       });
+    }
+    search(value: string) {
+      if (typeof value != 'string') {
+        return;
+      }
+      else if (!value) {
+        delete this.pageResult.search;
+      }
+      else {
+        this.pageResult.search = value;
+      }
+      this.pageResult.page = 1;
+      this.dataDiocese  = [];
+      this.getAll();
     }
 }

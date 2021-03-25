@@ -46,7 +46,8 @@ export const APICONFIG = {
     GET_BY_DAY: `/app/calendars/day`,
   },
   DONATES: {
-    DONATE_VISA: `/app/donation_logs/visa_master`
+    DONATE_VISA: `/app/donation_logs/visa_master`,
+    DONATE_MOMO: `/app/donation_logs/momo`
   },
   HISTORY: {
     GET_SERVICES: `/app/attention_logs/service_history`,

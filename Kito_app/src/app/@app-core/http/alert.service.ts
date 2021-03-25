@@ -26,17 +26,8 @@ export class AlertService {
           }
         }));
   }
-  async presentAlert(text: string) {
-    const alert = await this.alertCtrl.create({
-      header: 'Warning',
-      message: text,
-      buttons: [{
-        text: 'Agree',
-        role: 'ok'
-      }]
-    });
-    await alert.present();
-  }
+  
+ 
   async dismiss() {
     this.isLoading = false;
     let topLoader = await this.loadingController.getTop();

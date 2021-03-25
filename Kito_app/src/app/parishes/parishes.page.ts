@@ -22,10 +22,10 @@ export class ParishesPage implements OnInit {
   pageParish: IPageParishes = {
     diocese_id: null,
     page: 1,
-    per_page: 100
+    per_page: 1000
   }
   data;
-  dataParish;
+  dataParish = [];
   type_page;
   ngOnInit() {
     this.loadingService.present();
@@ -34,9 +34,26 @@ export class ParishesPage implements OnInit {
       this.pageParish.diocese_id = this.data.id;
       this.type_page = this.data.type_page;
     });
+   this. getAll();
+  }
+  getAll() {
     this.parishesService.getAllWithDioceseId(this.pageParish).subscribe((data: any) => {
       this.loadingService.dismiss()
       this.dataParish = data.parishes;
     });
+  }
+  search(value: string) {
+    if (typeof value != 'string') {
+      return;
+    }
+    else if (!value) {
+      delete this.pageParish.search;
+    }
+    else {
+      this.pageParish.search = value;
+    }
+    this.pageParish.page = 1;
+    this.dataParish = [];
+    this.getAll();
   }
 }
