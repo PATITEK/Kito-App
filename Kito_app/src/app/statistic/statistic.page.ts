@@ -51,10 +51,6 @@ export class StatisticPage implements OnInit {
     this.initData();
   }
 
-  ionViewDidEnter() {
-    console.log(this.segment)
-  }
-
   initData() {
     this.years.forEach(year => {
       let months = [];

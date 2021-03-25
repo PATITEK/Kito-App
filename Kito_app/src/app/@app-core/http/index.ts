@@ -18,3 +18,4 @@ export * from './store';
 export * from './questionares';
 export * from './course'
 export * from './calendar'
+export * from './hymn-music'
