@@ -43,14 +43,14 @@ export class IntercepterService implements HttpInterceptor {
     .pipe(
       catchError((err) => {
         if (err instanceof HttpErrorResponse) {
-          // if (err.status === 401) {
-          //   this.count++;
-          // }
-          // if(this.count >= 3) {
+          if (err.status === 401) {
             this.loading.dismiss();
-            // this.alertService.presentAlert('Bạn không có quyền truy cập!');
             this.router.navigateByUrl('/auth/login', { queryParams: { returnUrl: window.location.pathname } });
             localStorage.clear();
+            this.count++;
+          }
+          // if(this.count >= 3) {
+            // this.alertService.presentAlert('Bạn không có quyền truy cập!');
           //}
           return throwError(err);
         }

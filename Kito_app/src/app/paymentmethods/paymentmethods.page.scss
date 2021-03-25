@@ -11,12 +11,22 @@
         font-size: 14px;
     }
 }
+ion-content {
+    --background:#e5e5e5;
+    --padding-top: 80px;
+}
 .title {
-    color: var(--main-color);
+    color: #828282;
     margin-left: 10px;
 }
 ion-item-group {
-    display: flex;
+   ion-buttons {
+      padding: 10px 0;
+      img {
+          width: 26px;
+          height: 26px;
+      }
+   }
     align-items: center;
 }
 .back-btn {

@@ -22,21 +22,21 @@ export class PrayPage implements OnInit {
   source_type: any;
   source_id: any;
   required_mess = false;
-  name;
+  name: any;
   message_purpose = "";
   required_purpose = false;
   message = "";
   avatar: any;
   img;
-  setamount: any;
-  getData;
+  getData:any;
   bishop_name;
-  data;
+  data: any;
   level = 'Linh';
   type_page = 'pray';
   headerCustom = { title: 'Xin lễ', background: '#e5e5e5' };
   x: any;
   amount: any;
+  setamount = 0;
   constructor(
     public formBuilder: FormBuilder,
     private route: ActivatedRoute,
@@ -151,30 +151,32 @@ export class PrayPage implements OnInit {
       else {
         this.required_mess = false;
       }
-      if (this.amount == undefined || this.amount == "") {
-        this.setamount = 0;
-      }
-      else {
-        this.setamount = this.amount;
-      }
-    }
-
-    var result = {
-      "donation": {
-        "amount": this.setamount,
-        "note": this.frmPray.get('note').value,
-        "source_type": this.source_type,
-        "source_id": this.source_id
-      }
     }
     if (this.amount == "" || this.amount == undefined) {
-      this.donateService.donateLog(result).subscribe((data) => {
+      this.amount = this.setamount;
+    }
+    else {
+      this.setamount = this.amount;
+    }
+    this.amount = parseInt(this.amount);  
+    var result = {
+      "donation": {
+        "amount": this.amount,
+        "note": this.frmPray.get('note').value,
+        "source_type": this.source_type,
+        "source_id": this.source_id,
+      }
+    }
+    if (this.amount == 0) {
+      result.donation['payment_type'] = 'visa_master';
+      this.donateService.donateByVisa(result).subscribe((data) => {
         this.presentToast('Pray successfully!');
       })
     }
     else {
       result.donation['email'] = localStorage.getItem('email');
       result.donation['token'] = '';
+      result.donation['payment_type'] = '';
       this.router.navigate(['paymentmethods'], {
         queryParams: {
           data: JSON.stringify(result)

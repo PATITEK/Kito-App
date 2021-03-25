@@ -14,12 +14,10 @@ ion-content {
   display: block;
   text-align: center;
 }
-
 .text {
   color: #828282;
   font-size: 16px;
   line-height: 1.5;
-  display: inline-flex;
   margin: 12px;
   margin-bottom: 0;
 }
@@ -28,7 +26,6 @@ ion-content {
     justify-content: center;
     align-items: center;
 }
-
 .nav-map {
     color: #F6C33E;
     text-decoration: underline;
