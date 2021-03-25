@@ -12,7 +12,7 @@ export class DonateService {
 
   constructor( private http: HttpClient) { }
   public donateLog(req) {
-    return this.http.post(`${APICONFIG.DONATES.DONATE}`, req).pipe(
+    return this.http.post(`${APICONFIG.DONATES.DONATE_VISA}`, req).pipe(
       map((result) => {
         return result;
       }),

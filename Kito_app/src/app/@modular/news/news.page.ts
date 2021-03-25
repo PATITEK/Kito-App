@@ -98,7 +98,7 @@ export class NewsPage implements OnInit {
             this.loading.dismiss();
             data.parish_news.forEach(element => {
               element.type = this.dataParams.type;
-              this.imgNotFound(element);
+              // this.imgNotFound(element);
               element.time = element.created_at.slice(11, 16)
               element.yymmdd = element.created_at.slice(0, 10);
             });
@@ -133,7 +133,37 @@ export class NewsPage implements OnInit {
       }
     }
   }
+  search(value: string) {
+    if (typeof value != 'string') {
+      return;
+    }
+    else if (!value) {
+      delete this.pageRequestParish.search;
+      delete this.pageRequestDioceseNews.search;
+      delete this.pageRequestVatican.search;
+    }
+    else {
+      if (this.dataParams.id == null) {
+        this.pageRequestVatican.search = value;
+      }
+      else if (this.dataParams.type.detail == 'dioceseNews') {
+        this.pageRequestDioceseNews.search = value;
 
+      }
+      else if (this.dataParams.type.detail == 'parish_news') {
+        this.pageRequestParish.search = value;
+      }
+    }
+    this.reset();
+    this.getData();
+  }
+  reset() {
+    this.news = [];
+    this.infiniteScroll.disabled = false;
+    this.pageRequestDioceseNews.page = 1;
+    this.pageRequestParish.page = 1;
+    this.pageRequestVatican.page = 1;
+  }
   getParams() {
     let url = window.location.href;
     if (url.includes('?')) {
@@ -144,7 +174,6 @@ export class NewsPage implements OnInit {
     }).unsubscribe();
   }
 }
-
   loadMoreData(event) {
     this.getData(() => {
       event.target.complete();

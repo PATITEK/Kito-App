@@ -89,7 +89,7 @@ export class PrayPage implements OnInit {
         this.loadingService.dismiss();
         this.getData = data.parish;
         this.bishop_name = this.getData.priest_name;
-        this.imgNotFound(this.getData);
+        // this.imgNotFound(this.getData);
         this.img = this.getData.thumb_image.url
       })
     }
@@ -101,7 +101,7 @@ export class PrayPage implements OnInit {
         this.loadingService.dismiss();
         this.getData = data.diocese;
         this.bishop_name = this.getData.bishop_name;
-        this.imgNotFound(this.getData);
+        // this.imgNotFound(this.getData);
         this.img = this.getData.thumb_image.url;
       })
     }
@@ -112,7 +112,7 @@ export class PrayPage implements OnInit {
         this.loadingService.dismiss();
         this.getData = data.parish;
         this.bishop_name = this.getData.priest_name;
-        this.imgNotFound(this.getData)
+        // this.imgNotFound(this.getData)
         this.img = this.getData.thumb_image.url
       })
     }

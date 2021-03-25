@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 import { DioceseService } from 'src/app/@app-core/http/diocese';
 import { IPageRequest } from 'src/app/@app-core/http/global/global.DTO';
 import { LoadingService } from 'src/app/@app-core/utils';
@@ -10,13 +10,16 @@ import { LoadingService } from 'src/app/@app-core/utils';
 })
 export class TonggiaophanPage implements OnInit {
   headerCustom = { title: '(Tổng) Giáo phận' };
-  pageRequest: IPageRequest = {}
+  pageRequest: IPageRequest = {
+    search: '',
+  }
   dioceses = [];
   holySee = {
     diocese_type: "vatican",
     name: "Tòa thánh Vatican",
     thumb_image: { url: "assets/img/tonggiaophan/vatican.jpg" }
   }
+  output;
 
   constructor(
     private diocesesService: DioceseService,
@@ -25,6 +28,9 @@ export class TonggiaophanPage implements OnInit {
 
   ngOnInit() {
     this.loading.present();
+    this.getAllDiocese();
+  }
+  getAllDiocese() {
     this.diocesesService.getAll(this.pageRequest).subscribe(data => {
       this.loading.dismiss();
       data.dioceses.forEach(diocese => {
@@ -39,5 +45,21 @@ export class TonggiaophanPage implements OnInit {
       })
     })
   }
-
+  search(value: string) {
+    if (typeof value != 'string') {
+      return;
+    }
+    else if (!value) {
+      delete this.pageRequest.search;
+    }
+    else {
+      this.pageRequest.search = value;
+    }
+    this.reset();
+    this.getAllDiocese();
+  }
+  reset() {
+    this.dioceses = [];
+    this.pageRequest.page = 1;
+  }
 }
