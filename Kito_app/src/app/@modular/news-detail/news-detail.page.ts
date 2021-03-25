@@ -65,6 +65,7 @@ export class NewsDetailPage implements OnInit {
         case 'parish':
           this.map = true;
           this.parishService.getDetail(dataParams.id).subscribe(data => {
+            this.map = true;
             this.loading.dismiss();
             this.data = data.parish;
           })
