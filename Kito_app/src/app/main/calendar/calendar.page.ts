@@ -13,6 +13,7 @@ import { IPageCalendar } from 'src/app/@app-core/http/calendar/calendar.DTO';
 })
 export class CalendarPage implements OnInit {
   @ViewChild('slides', { static: false }) slides: IonSlides;
+  @ViewChild('slidesModal', { static: false }) slidesModal: IonSlides;
 
   headerCustom = { title: 'Lịch Công Giáo' };
   pageReq: IPageCalendar = {
@@ -26,6 +27,18 @@ export class CalendarPage implements OnInit {
   months = [];
   currentDate = new Date();
   hasFilter = false;
+
+  hasModal = false;
+
+  DATES = [
+    'Chúa nhật',
+    'Thứ hai',
+    'Thứ ba',
+    'Thứ tư',
+    'Thứ năm',
+    'Thứ sáu',
+    'Thứ bảy',
+  ]
 
   constructor(
     private route: Router,
@@ -117,33 +130,33 @@ export class CalendarPage implements OnInit {
     })
   }
 
-  toggleFilter() {
+  toggleHasFilter() {
     this.hasFilter = !this.hasFilter;
   }
 
-  setFilter(bool) {
+  setHasFilter(bool) {
     this.hasFilter = bool;
   }
 
-  gotoDetail(e) {
-    const data = {
-      day: e.date,
-    }
-
-    this.route.navigate(['/main/calendar/detail'], {
-      queryParams: {
-        data: JSON.stringify(data)
-      }
-    })
-
+  openDetailModal(date) {
     this.hasFilter = false;
-  }
-
-  onScrollContent(event) {
-    this.setFilter(false);
+    const index = this.getDates().findIndex(d => {
+      return d.date.getFullYear() === date.date.getFullYear()
+        && d.date.getMonth() === date.date.getMonth()
+        && d.date.getDate() === date.date.getDate()
+    });
+    this.slidesModal.slideTo(index, 0).then(() => this.hasModal = true);
   }
 
   getDateString(date: Date) {
     return `${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear()}`;
+  }
+
+  toggleHasModal() {
+    this.hasModal = !this.hasModal;
+  }
+
+  getDates() {
+    return this.months.reduce((dates, month) => [...dates, ...month.filter(date => this.checkRightMonthAndYear(date.date, month[12].date))], [])
   }
 }
