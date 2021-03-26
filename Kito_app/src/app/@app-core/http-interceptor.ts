@@ -45,13 +45,14 @@ export class IntercepterService implements HttpInterceptor {
         if (err instanceof HttpErrorResponse) {
           if (err.status === 401) {
             this.loading.dismiss();
-            this.router.navigateByUrl('/auth/login', { queryParams: { returnUrl: window.location.pathname } });
-            localStorage.clear();
             this.count++;
           }
-          // if(this.count >= 3) {
-            // this.alertService.presentAlert('Bạn không có quyền truy cập!');
-          //}
+          if(this.count == 3) {
+            this.count = 0;
+             this.loading.dismiss();
+            this.router.navigateByUrl('/auth/login', { queryParams: { returnUrl: window.location.pathname } });
+            localStorage.clear();
+          }
           return throwError(err);
         }
     }));

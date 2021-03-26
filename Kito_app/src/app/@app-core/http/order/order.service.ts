@@ -18,7 +18,6 @@ export class OrderService {
   public create(req) {
     return this.http.post(`${APICONFIG.ORDER.CREATE}`, req).pipe(
       map((result) => {
-        localStorage.removeItem('cart');
         return result;
       }),
       catchError((errorRes: any) => {
@@ -52,7 +51,24 @@ export class OrderService {
         throw errorRes.error;
       }));
   }
-
+  public paymentOrder_Visa(request) {
+    return this.http.post(`${APICONFIG.ORDER.PAYMENT_ORDER_VISA}`,request).pipe(
+      map((result: any) => {
+        return result;
+      }),
+      catchError((errorRes) => {
+        throw errorRes.error;
+      }));
+  }
+  public paymentOrder_Momo(request) {
+    return this.http.post(`${APICONFIG.ORDER.PAYMENT_ORDER_MOMO}`,request).pipe(
+      map((result: any) => {
+        return result;
+      }),
+      catchError((errorRes) => {
+        throw errorRes.error;
+      }));
+  }
   public delete(id: number) {
     return this.http.delete(`${APICONFIG.ORDER.DELETE(id)}`).pipe(
       map((result) => {
@@ -62,7 +78,7 @@ export class OrderService {
         throw errorRes.error;
       }));
   }
-
+  
  
   async presentToast(mes) {
     const toast = await this.toastController.create({

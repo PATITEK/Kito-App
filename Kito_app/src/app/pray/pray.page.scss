@@ -7,25 +7,25 @@
     .wrapper {
       overflow: scroll;
       @media screen and (max-height: 824px){
-        max-height: 581px;
+        max-height: 647px;
       }
       @media screen and (max-height: 812px){
-        max-height: 565px;
+        max-height: 631px;
       }
       @media screen and (max-height: 737px){
-        height: 500px;
+        height: 566px;
       }
       @media screen and (max-height: 668px){
-        height: 430px;
+        height: 496px;
       }
       @media screen and (max-height: 641px){
-        height: 410px;
+        height: 476px;
       }
       @media screen and (max-height: 569px){
-        height: 330px;
+        height: 400px;
       }
       @media screen and (max-height: 480px){
-        height: 257px;
+        height: 310px;
       }
     .title {
       text-align: center;
@@ -115,23 +115,25 @@
           height: 24px;
         }
         .vnd {
-          font-size: 11px;
-        }
+          // font-size: 13px;
+          width: 40px;
+          }
         .group__donate-pen--edit {
           position: absolute;
           background-color: var(--main-color);
           width: 13px;
           height: 13px;
-          right: 34px;
+          right: 4px;
           top: -4px;
           border-radius: 6px;
           color: #fff;
         }
         .group__donate-amount {
-          margin: 0 10px;
+          margin: 0 5px 0 5px;
           padding: 0 10px;
           height: 30px;
-          flex: auto;
+          flex: 1;
+          font-size: 13px;
           border-radius: 9px;
           outline: none;
           background-color: #f5f5f5;
@@ -173,7 +175,8 @@
    .donate__other {
     margin: 10px;
     color: #002D63;
-    width: 173px;
+    flex: 1;
+    text-align: right;
     margin-left: auto;
     text-decoration: underline;
    }
@@ -182,14 +185,10 @@
     padding-top: 6px;
     margin-bottom: 42px;
     ion-avatar {
-      position: relative;
-      height: 65px;
-      width: 104px;
+      height: 40px;
      img {
-      transform: translateX(-50%);
-       margin-left: 50%;
-       width: 65px;
-       height: 65px;
+       width: 40px;
+       height: 40px;
      }
     }
     ion-item-group {
@@ -198,12 +197,14 @@
       justify-content: space-between;
       align-items: center;
       span {
-        width: 104px;
-        text-align: center;
+       width: 97px;
+       height: 40px;
+       display: flex;
+       align-items: center;
       }
     }
    ion-button {
-    width: 150px;
+    width: 140px;
     margin: 0;
     font-size: 17px;
     height: 32px;
