@@ -3,7 +3,7 @@
 </ion-header>
 
 <ion-content [scrollEvents]="true" (ionScroll)="onScrollContent($event)" [ngClass]="{'disable-scroll': !list.length}">
-  <app-search-bar-nav (output)="search($event)" ></app-search-bar-nav>
+  <app-search-bar-nav (output)="search($event)"></app-search-bar-nav>
 
   <div class="segment-container">
     <ion-buttons class="segment">
