@@ -96,6 +96,7 @@ ion-content {
     border: 1px solid #fafafa;
     position: relative;
     background: #fff;
+    opacity: 0.5;
 
     .date-text {
       font-weight: 500;
@@ -113,6 +114,7 @@ ion-content {
     border-color: #c8c8c8;
     color: #002d63;
     box-shadow: none;
+    opacity: 1;
   }
 }
 
