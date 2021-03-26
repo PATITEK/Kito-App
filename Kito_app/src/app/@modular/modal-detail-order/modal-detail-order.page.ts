@@ -68,7 +68,7 @@ export class ModalDetailOrderPage implements OnInit {
     const alert = await this.alertController.create({
       cssClass: 'my-custom-class',
       header: 'Xác nhận!',
-      message: 'Bạn muốn <strong>hủy</strong> đơn hàng này?',
+      message: 'Bạn chắc chắn muốn <strong>hủy</strong> đơn hàng này?',
       mode: 'ios',
       backdropDismiss: true,
       buttons: [

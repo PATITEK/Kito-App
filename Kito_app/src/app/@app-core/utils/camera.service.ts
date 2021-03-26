@@ -120,23 +120,29 @@ export class CameraService {
     }
 
     removeAvatar() {
-        this.loadingService.present();
-        this.image_null = {
-            "thumb_image": {
-                "url": null
-            }
+        if (localStorage.getItem('avatar') == 'https://i.imgur.com/edwXSJa.png') {
+            this.toastService.present('Bạn chưa có ảnh đại diện', 'top');
         }
-        this.accountService.updateAvatar(this.image_null).subscribe(
-            (data: any) => {
-                this.loadingService.dismiss();
-                this.toastService.present('Xóa ảnh thành công !', 'top', 2000);
-            },
-            (data: any) => {
-                this.loadingService.dismiss();
-                if (data.error) {
-                    this.toastService.present('Lỗi rồi !', 'top', 2000);
+        else {
+            this.loadingService.present();
+            this.image_null = {
+                "thumb_image": {
+                    "url": null
                 }
             }
-        )
+            this.accountService.updateAvatar(this.image_null).subscribe(
+                (data: any) => {
+                    localStorage.setItem('avatar', 'https://i.imgur.com/edwXSJa.png')
+                    this.loadingService.dismiss();
+                    this.toastService.present('Xóa ảnh thành công !', 'top', 2000);
+                },
+                (data: any) => {
+                    this.loadingService.dismiss();
+                    if (data.error) {
+                        this.toastService.present('Lỗi rồi !', 'top', 2000);
+                    }
+                }
+            )
+        }
     }
 }

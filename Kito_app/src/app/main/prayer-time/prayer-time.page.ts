@@ -65,10 +65,10 @@ export class PrayerTimePage implements OnInit {
 
   initDateList() {
     const now = new Date();
+    const colors = ["#E83333", "#955ECC", "#FFFFFF", "#4DD11F", "#FFACCA"];
     for (let i = 0; i < 7; i++) {
       let nextDate = new Date(now);
       nextDate.setDate(nextDate.getDate() + i);
-
       this.dateList.push({
         id: i,
         date: nextDate,

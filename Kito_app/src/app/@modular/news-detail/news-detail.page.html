@@ -7,7 +7,7 @@
   <img [src]="data?.thumb_image?.url || data?.thumb_images[0]?.url">
   <span class="text name" *ngIf="data?.priest_name">{{ data?.priest_name }}
   </span>
-  <p class="text nav-map" *ngIf="data?.address">{{ data?.address }}
+  <p class="text nav-map" (click)="goToMap()" *ngIf="data?.address">{{ data?.address }}
     <ion-icon name="navigate" (click)="goToMap()" *ngIf="map"></ion-icon>
   </p>
  
