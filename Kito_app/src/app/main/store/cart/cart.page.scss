@@ -35,14 +35,32 @@ ion-footer {
     align-items: flex-start;
     background: #f8f8f8;
     border-radius: 10px;
-    padding: 16px;
+    height: 59px;
+    padding: 0 10px;
+    margin-bottom: 23px;
+    display: inherit;
+    position: relative;
     margin-top: 5px;
 
     .address {
       color: #424242;
       font-size: 14px;
       font-weight: 500;
-      margin: 0 0 0 8px;
+      width: 86%;
+      position: absolute;
+      height: 50px;
+      background: #f8f8f8;
+      border: none;
+      padding-right: 5px;
+    }
+    .address:focus {
+      outline: 0;
+    }
+  }
+  .phone-content {
+    height: 30px;
+    .phone {
+      height: 100%;
     }
   }
 
@@ -50,7 +68,7 @@ ion-footer {
     color: #cc9d3e;
     font-size: 14px;
     text-align: right;
-    margin: 16px 0;
+    margin: 12px 0;
 
     ion-label {
       margin-right: 10px;

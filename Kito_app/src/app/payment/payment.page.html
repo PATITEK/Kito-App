@@ -1,10 +1,6 @@
 <app-header  [headerCustom]="headerCustom"></app-header>
 
 <ion-content>
-  <!-- <ion-back-button icon="chevron-back-outline" text="" class="back-btn"></ion-back-button>
-  <div class="header">
-    <ion-label> THANH TOÁN</ion-label>
-  </div> -->
   <ion-item-group class="ion-padding">
     <ion-label class="title">
       Tổng đơn hàng:
@@ -21,7 +17,6 @@
     <form  (ngSubmit)="showStripe()">
       <ion-button type="submit" >Thanh toán</ion-button>
     </form>
-    <!-- [disabled]="data.donation.token == '' ? 'true':'false'" -->
   </ion-item-group>
  
 </ion-content>

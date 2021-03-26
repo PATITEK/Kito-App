@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ModalController, ToastController } from '@ionic/angular';
-import { DonateService } from '../../@app-core/http';
-import { LoadingService } from '../../@app-core/utils';
+import { DonateService, OrderService } from '../../@app-core/http';
+import { LoadingService, ToastService } from '../../@app-core/utils';
+import { IDataNoti, PageNotiService } from '../page-noti/page-noti.service';
 declare var Stripe;
 @Component({
   selector: 'app-paymentup',
@@ -19,6 +20,9 @@ export class PaymentupComponent implements OnInit {
     public modalController: ModalController,
     public loadingService: LoadingService,
     public toastController: ToastController,
+    private orderService: OrderService,
+    private pageNotiService: PageNotiService,
+    private toart: ToastService
 
   ) { }
 
@@ -54,7 +58,6 @@ export class PaymentupComponent implements OnInit {
     };
 
     this.card = elements.create('card', { style: style });
-
     this.card.mount('#card-element');
     this.card.addEventListener('change', event => {
       var displayError = document.getElementById('card-errors');
@@ -67,6 +70,7 @@ export class PaymentupComponent implements OnInit {
 
     var form = document.getElementById('payment-form');
     form.addEventListener('submit', event => {
+      this.loadingService.present();
       event.preventDefault();
       this.stripe.createSource(this.card).then(result => {
         if (result.error) {
@@ -74,13 +78,41 @@ export class PaymentupComponent implements OnInit {
           errorElement.textContent = result.error.message;
         }
         else {
-          this.data.donation.token = result.source.id;
-          this.data.donation.payment_type = 'visa_master';
-          this.router.navigate(['/payment'], {
-            queryParams: {
-              data: JSON.stringify(this.data)
-            }
-          })
+          const param = {
+            donation : {
+              "email": localStorage.getItem('email'),
+              "token": result.source.id,
+              "order_id": this.data.order_id
+          }
+        }
+        const datapasing: IDataNoti = {
+          title: 'THÀNH CÔNG',
+          des: 'Thanh toán thành công!',
+          routerLink: '/main/chabad'
+        }
+          if(this.data.type) {
+            this.data.token = result.source.id;
+            this.orderService.paymentOrder_Visa(param).subscribe((data)=>{
+              this.loadingService.dismiss();
+              this.pageNotiService.setdataStatusNoti(datapasing);
+              this.router.navigateByUrl('/page-noti');
+            },
+            ()=> {
+              this.loadingService.dismiss();
+              this.toart.present('Hãy thử lại sau');
+            }) 
+          }
+          else {
+            this.loadingService.dismiss();
+            this.data.donation.token = result.source.id;
+            this.data.donation.payment_type = 'visa_master';
+            this.router.navigate(['/payment'], {
+              queryParams: {
+                data: JSON.stringify(this.data)
+              }
+            },)
+          }
+        
           this.dismissModal();
         }
       });
