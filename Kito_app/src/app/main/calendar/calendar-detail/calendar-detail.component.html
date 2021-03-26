@@ -3,38 +3,40 @@
 </ion-header>
 
 <ion-content>
-  <ion-slides #slides (ionSlideDidChange)="slideChanged(slides)" [options]="slideOpts" (ionSlideNextStart)="ionSlideNextS()" (ionSlidePrevEnd)="ionSlidePrevEnd()">
-    <ion-slide  *ngFor="let n of numSequence(coutnCalendar)">
-        <div>
-          <ion-item-group class="main-calendar" [ngStyle]="{'background-image': 'url(' + photo + ')'}">
-            <div class="backdrop">
+  <ion-slides #slides (ionSlideDidChange)="slideChanged(slides)" [options]="slideOpts"
+    (ionSlideNextStart)="ionSlideNextS()" (ionSlidePrevEnd)="ionSlidePrevEnd()">
+    <ion-slide *ngFor="let n of numSequence(coutnCalendar)">
+      <div>
+        <ion-item-group class="main-calendar" [ngStyle]="{'background-image': 'url(' + photo + ')'}">
+          <div class="backdrop">
+          </div>
+          <div class="content-calendar">
+            <div class="title-date">
+              <p>THÁNG {{monthDetail+1}} NĂM {{yearDetail}}</p>
             </div>
-            <div class="content-calendar">
-              <div class="title-date">
-                <p>THÁNG {{monthDetail+1}} NĂM {{yearDetail}}</p>
+            <div class="text-date">
+              <div><span [style.color]="colorDay">{{dayDetail}}</span></div>
+              <div class="name-ceremony">
+                <p>{{dayofWeekend}} Tuần I Mùa Chay</p>
+                <p>Lập Tông Tòa Thánh Phêrô, Tông Đồ</p>
               </div>
-              <div class="text-date">
-                <div><span [style.color]="colorDay">{{dayDetail}}</span></div>
-                <div class="name-ceremony">
-                  <p>{{dayofWeekend}} Tuần I Mùa Chay</p>
-                  <p>Lập Tông Tòa Thánh Phêrô, Tông Đồ</p>
-                </div>
-              </div>
-        
             </div>
-          </ion-item-group>
-          <ion-item-group class="lunner-calendar">
-            <p class="text-day-weekend">{{dayofWeekend}}</p>
-            <p class="text-date-lunner">{{dayLunner}} Tháng {{monthLunner}}</p>
-            <div class="wrap"></div>
-            <p class="text-date-lunner text-year-lunner">Năm Tân Sửu</p>
-          </ion-item-group>
-          <p class="text-day-weekend">Lời Chúa</p>
-          <p class="word-of-god">Anh là Tảng Đá, Thầy sẽ trao cho anh chìa khóa Nước Trời.
-            (Mt 16:13-19)</p>
-        </div>
+
+          </div>
+        </ion-item-group>
+
+        <ion-item-group class="lunner-calendar">
+          <p class="text-day-weekend">{{dayofWeekend}}</p>
+          <p class="text-date-lunner">{{dayLunner}} Tháng {{monthLunner}}</p>
+          <div class="wrap"></div>
+          <p class="text-date-lunner text-year-lunner">Năm Tân Sửu</p>
+        </ion-item-group>
+        <p class="text-day-weekend">Lời Chúa</p>
+        <p class="word-of-god">Anh là Tảng Đá, Thầy sẽ trao cho anh chìa khóa Nước Trời.
+          (Mt 16:13-19)</p>
+      </div>
     </ion-slide>
   </ion-slides>
 
-  
+
 </ion-content>

@@ -1,50 +1,103 @@
-<ion-header>
+<ion-header [ngClass]="{'hide-header': hasModal}">
   <app-header [headerCustom]="headerCustom"></app-header>
 </ion-header>
 
-<ion-content>
-  <!-- <ion-calendar [(ngModel)]="dateRange" #calander #ctrl="ngModel"
-  (monthChange)='monthChange()'
-  [options]="optionsRange"
-  [type]="type"
-  [format]="'YYYY-MM'">
-</ion-calendar> -->
-  
-  <ion-item-group class="calendar">
-    <!-- <calendar #calander [eventSource]="eventSource" locale="vi" formatDayHeader="EE" [calendarMode]="calendar.mode"
-      [currentDate]="calendar.currentDate" (onCurrentDateChanged)="onCurrentDateChanged($event)"
-      (onRangeChanged)="reloadSource(startTime, endTime)" (onEventSelected)="onEventSelected($event)"
-      (onTitleChanged)="onViewTitleChanged($event)" (onTimeSelected)="onTimeSelected($event)" step="15"
-      >
+<ion-content [scrollEvents]="true" (ionScroll)="setHasFilter(false)">
+  <ion-buttons class="header">
+    <ion-icon (click)="prevMonth()" name="chevron-back-outline" [ngClass]="{'icon-disabled': checkStartMonth()}">
+    </ion-icon>
+    <span class="date">Tháng {{ currentDate.getMonth() + 1 }} . {{ currentDate.getFullYear() }}</span>
+    <ion-icon (click)="nextMonth()" name="chevron-forward-outline" [ngClass]="{'icon-disabled': checkEndMonth()}">
+    </ion-icon>
 
-    </calendar> -->
-    <app-calendar-demo></app-calendar-demo>
-  </ion-item-group>
-
-  <ion-item-group class="calendar-month">
-    <div class="backdop-calendar-month">
-
+    <div class="filter">
+      <ion-icon class="filter-icon" (click)="toggleHasFilter()" name="options"></ion-icon>
+      <div *ngIf="hasFilter" class="filter-options" (click)="toggleHasFilter()">
+        <div class="filter-option">Xem theo ngày</div>
+        <div class="filter-option">Xem theo tháng</div>
+      </div>
     </div>
-    <div class="solemnity">
-      <h3 class="title-solemnity">Lễ trọng trong tháng</h3>
-      <ion-item-group class="list-solemnity">
-        <div class="solemnity-item">
-          <p class="solemnity-date">07.03.2021</p>
-          <p class="solemnity-text">Chúa Nhật thứ III Mùa Chay</p>
+  </ion-buttons>
+
+  <ion-slides #slides (ionSlideWillChange)="setHasFilter(false)" (ionSlideDrag)="setHasFilter(false)"
+    (ionSlideDidChange)="changeCurrentDate()">
+    <ion-slide *ngFor="let month of months">
+      <ion-buttons class="days">
+        <div class="day">Th2</div>
+        <div class="day">Th3</div>
+        <div class="day">Th4</div>
+        <div class="day">Th5</div>
+        <div class="day">Th6</div>
+        <div class="day">Th7</div>
+        <div class="day">CN</div>
+      </ion-buttons>
+
+      <ion-buttons class="dates">
+        <div *ngFor="let date of month" class="date-container" (click)="openDetailModal(date)">
+          <ion-buttons class="date" [ngClass]="{'date-opacity': !checkRightMonthAndYear(date.date, month[12].date) }">
+            <div class="date-top">
+              <span class="circle" [style.background]="date.shirt_color?.color_code"
+                [ngClass]="{'border': date.shirt_color?.color_code === '#FFFFFF', 'opacity-none': !checkRightMonthAndYear(date.date, month[12].date) }"></span>
+              <span class="calendar-date">{{ date.date.getDate() }}</span>
+            </div>
+            <div class="date-bottom">
+              <span class="lunar-date">{{ date.lunar_date.getDate() }}</span>
+            </div>
+          </ion-buttons>
         </div>
-        <div class="solemnity-item">
-          <p class="solemnity-date">07.03.2021</p>
-          <p class="solemnity-text">Chúa Nhật thứ III Mùa Chay</p>
+      </ion-buttons>
+
+      <div class="solemnity">
+        <div class="solemnity-label">Lễ trọng trong tháng</div>
+        <ion-list class="solemnity-list">
+          <ng-container *ngFor="let date of month">
+            <ion-buttons *ngIf="checkRightMonthAndYear(date.date, month[12].date) && date.isSolemnity"
+              class="solemnity-item">
+              <span class="solemnity-item-date">{{ getDateString(date.date) }}</span>
+              <span class="solemnity-item-name">Tên lễ trọng</span>
+            </ion-buttons>
+          </ng-container>
+        </ion-list>
+      </div>
+    </ion-slide>
+  </ion-slides>
+
+  <div class="modal" [ngClass]="{'show-modal': hasModal}">
+    <ion-buttons class="modal-header">
+      <ion-label class="three-dots-2">Lịch Công Giáo</ion-label>
+      <ion-back-button (click)="toggleHasModal()" icon="chevron-back-outline" text="" class="back-btn">
+      </ion-back-button>
+    </ion-buttons>
+
+    <ion-slides #slidesModal>
+      <ion-slide *ngFor="let date of getDates()">
+        <ion-buttons class="top">THÁNG {{ date.date.getMonth() + 1 }} NĂM {{ date.date.getFullYear() }}
+        </ion-buttons>
+
+        <div class="mid">
+          <div class="date" [style.color]="date.shirt_color?.color_code"
+            [ngClass]="{'date-stroke-black': date.shirt_color?.color_code === '#FFFFFF'}">{{ date.date.getDate() }}
+          </div>
+
+          <div class="calendar-detail">
+            <div>Thứ Hai Tuần 1 Mùa Chay</div>
+            <div>{{ date.mass_name}}</div>
+            <div>{{ date.mass_type }}</div>
+          </div>
         </div>
-        <div class="solemnity-item">
-          <p class="solemnity-date">07.03.2021</p>
-          <p class="solemnity-text">Chúa Nhật thứ III Mùa Chay</p>
+
+        <div class="bottom">
+          <ion-buttons class="lunar">
+            <span class="lunar-date">{{ DATES[date.date.getDay()] }}</span>
+            <span class="month-year">{{ date.lunar_date.getDate()}} Tháng {{ date.lunar_date.getMonth() + 1 }}</span>
+            <span class="lunar-year">Năm Tân Sửu</span>
+          </ion-buttons>
+          <ion-buttons class="word-of-god">
+            <span class="label">Lời chúa</span>
+            <span class="content">Anh là Tảng Đá, Thầy sẽ trao cho anh chìa khóa Nước Trời. (Mt 16:13-19)</span>
+          </ion-buttons>
         </div>
-        <div class="solemnity-item">
-          <p class="solemnity-date">07.03.2021</p>
-          <p class="solemnity-text">Chúa Nhật thứ III Mùa Chay</p>
-        </div>
-      </ion-item-group>
-    </div>
-</ion-item-group>
+      </ion-slide>
+    </ion-slides>
+  </div>
 </ion-content>

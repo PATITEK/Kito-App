@@ -1,5 +1,10 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { ModalController, NavController } from '@ionic/angular';
+import { LoadingService } from 'src/app/@app-core/utils';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
+import { IonSlides } from '@ionic/angular';
+import { forkJoin } from 'rxjs';
+import { CalendarService } from 'src/app/@app-core/http';
+import { IPageCalendar } from 'src/app/@app-core/http/calendar/calendar.DTO';
 
 @Component({
   selector: 'app-calendar',
@@ -7,157 +12,151 @@ import { ModalController, NavController } from '@ionic/angular';
   styleUrls: ['./calendar.page.scss'],
 })
 export class CalendarPage implements OnInit {
+  @ViewChild('slides', { static: false }) slides: IonSlides;
+  @ViewChild('slidesModal', { static: false }) slidesModal: IonSlides;
+
   headerCustom = { title: 'Lịch Công Giáo' };
-  
-//   @ViewChild(CalendarComponent, null) myCalendar:CalendarComponent;
-//   eventSource;
-//   viewTitle;
-// Title:string;
-//   isToday:boolean;
-//   calendar = {
-//       mode: 'month',
-//       currentDate: new Date(),
-//       dateFormatter: {
-//           formatMonthViewDay: function(date:Date) {
-//               return date.getDate().toString();
-//           },
-          
-//           formatMonthViewDayHeader: function(date:Date) {
-//               return 'MonMH';
-//           },
-//           formatMonthViewTitle: function(date:Date) {
-//               return 'testMT';
-//           },
-//           formatWeekViewDayHeader: function(date:Date) {
-//               return 'MonWH';
-//           },
-//           formatWeekViewTitle: function(date:Date) {
-//               return 'testWT';
-//           },
-//           formatWeekViewHourColumn: function(date:Date) {
-//               return 'testWH';
-//           },
-//           formatDayViewHourColumn: function(date:Date) {
-//               return 'testDH';
-//           },
-//           formatDayViewTitle: function(date:Date) {
-//               return 'testDT';
-//           },
-          
-//       }
-//   };
+  pageReq: IPageCalendar = {
+    cal_date: null
+  };
+  slideOpts = {
+    initialSlide: 0,
+    speed: 400,
+    autoHeight: true
+  };
+  months = [];
+  currentDate = new Date();
+  hasFilter = false;
+
+  hasModal = false;
+
+  DATES = [
+    'Chúa nhật',
+    'Thứ hai',
+    'Thứ ba',
+    'Thứ tư',
+    'Thứ năm',
+    'Thứ sáu',
+    'Thứ bảy',
+  ]
 
   constructor(
-    private navController:NavController,
-    ) {
+    private route: Router,
+    private calendarService: CalendarService,
+    private loadingService: LoadingService
+  ) { }
 
+  ngOnInit() {
+    this.loadingService.present();
+    this.getYear(this.currentDate.getFullYear(), true);
   }
- ngOnInit(){
-//    this.loadEvents();
- }
-//  onViewTitleChange(title){
-//    this.viewTitle=title;
-//  }
-//   loadEvents() {
-//       this.eventSource = this.createRandomEvents();
-//   }
 
-//   onViewTitleChanged(title) {
-//     // let date =new Date(title).getMonth();
-//     this.viewTitle=title;
-     
-      
-      
-//   }
-// nextMonth(){
-//     this.myCalendar.slideNext();
-//     this.eventSource=this.createRandomEvents();
-//     console.log(this.eventSource);
-    
-// }
-// PrewMonth(){
-//     this.myCalendar.slidePrev();
-// }
-// // slideNext() {
-// //     this.myCalendar.slideNext();
-// // }
-//   onEventSelected(event) {
-//       console.log('Event selected:' + event.startTime + '-' + event.endTime + ',' + event.title);
-//   }
+  checkRightMonthAndYear(date1: Date, date2: Date) {
+    return date1.getMonth() === date2.getMonth() && date1.getFullYear() === date2.getFullYear();
+  }
 
-//   changeMode(mode) {
-//       this.calendar.mode = mode;
-//   }
+  getCurrentMonthIndex() {
+    return this.months.findIndex(month => this.checkRightMonthAndYear(month[15].date, this.currentDate));
+  }
 
-//   today() {
-//       this.calendar.currentDate = new Date();
-//   }
+  getYear(year, firstLoad?) {
+    let dataYear = [];
+    for (let i = 1; i <= 12; i++) {
+      this.pageReq.cal_date = new Date(year, i);
+      const month = this.calendarService.getByMonth(this.pageReq);
+      dataYear.push(month);
+    }
 
-//   onTimeSelected(ev) {
-     
-//   }
+    forkJoin(dataYear).subscribe(data => {
+      data.forEach((month: any) => {
+        month = month.calendars;
+        month.forEach(day => {
+          day.date = new Date(day.date);
+          day.lunar_date = new Date(day.lunar_date);
+          day.isSolemnity = Math.floor(Math.random() * 3) === 1;
+        })
 
-//   onCurrentDateChanged(event:Date) {
-//       var today = new Date();
-//       today.setHours(0, 0, 0, 0);
-//       event.setHours(0, 0, 0, 0);
-//       this.isToday = today.getTime() === event.getTime();
-     
-      
-      
-      
-//   }
+        // remove redundant weeks
+        while (true) {
+          if (!this.checkRightMonthAndYear(month[month.length - 7].date, month[7].date)) {
+            month.splice(month.length - 7, 7);
+          } else {
+            break;
+          }
+        }
 
-//   createRandomEvents() {
-//       var events = [];
-//       for (var i = 0; i < 50; i += 1) {
-//           var date = new Date();
-         
-        
-//           var eventType = Math.floor(Math.random() * 2);
-//           var startDay = Math.floor(Math.random() * 350) - 45;
-//           var endDay = Math.floor(Math.random() * 2) + startDay;
-//           var startTime;
-//           var endTime;
-//           if (eventType === 0) {
-//               startTime = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate() + startDay));
-//               if (endDay === startDay) {
-//                   endDay += 1;
-//               }
-//               endTime = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate() + endDay));
-//               events.push({
-//                   title: 'All Day - ' + i,
-//                   startTime: startTime,
-//                   endTime: endTime,
-//                   allDay: true,
-//                   color:"blue"
-//               });
-//           } else {
-//               var startMinute = Math.floor(Math.random() * 24 * 60);
-//               var endMinute = Math.floor(Math.random() * 180) + startMinute;
-//               startTime = new Date(date.getFullYear(), date.getMonth(), date.getDate() + startDay, 0, date.getMinutes() + startMinute);
-//               endTime = new Date(date.getFullYear(), date.getMonth(), date.getDate() + endDay, 0, date.getMinutes() + endMinute);
-//               events.push({
-//                   title: 'Event - ' + i,
-//                   startTime: startTime,
-//                   endTime: endTime,
-//                   allDay: false,
-//                   color:"red"
-//               });
-//           }
-//       }
-//       return events;
-//   }
+        if (year >= this.currentDate.getFullYear()) {
+          this.months.push(month)
+        } else {
+          this.months.unshift(month);
+        }
+      })
 
-//   onRangeChanged(ev) {
-//       console.log('range changed: startTime: ' + ev.startTime + ', endTime: ' + ev.endTime);
-//   }
+      firstLoad && this.slides.slideTo(this.getCurrentMonthIndex()).then(() => {
+        this.currentDate = new Date();
+        this.loadingService.dismiss();
+      })
+    }, () => {
+      this.loadingService.dismiss();
+    })
+  }
 
-//   markDisabled = (date:Date) => {
-//       var current = new Date();
-//       current.setHours(0, 0, 0);
-//       return date < current;
-//   };
+  checkStartMonth() {
+    return this.getCurrentMonthIndex() <= 0;
+  }
 
- 
+  checkEndMonth() {
+    return this.getCurrentMonthIndex() >= this.months.length - 1;
+  }
+
+  prevMonth() {
+    if (!this.checkStartMonth()) {
+      this.currentDate.setMonth(this.currentDate.getMonth() - 1);
+      this.slides.slideTo(this.getCurrentMonthIndex());
+    }
+  }
+
+  nextMonth() {
+    if (!this.checkEndMonth()) {
+      this.currentDate.setMonth(this.currentDate.getMonth() + 1);
+      this.slides.slideTo(this.getCurrentMonthIndex());
+    }
+  }
+
+  changeCurrentDate() {
+    this.slides.getActiveIndex().then(index => {
+      const absolute = index - this.getCurrentMonthIndex();
+      this.currentDate.setMonth(this.currentDate.getMonth() + absolute);
+    })
+  }
+
+  toggleHasFilter() {
+    this.hasFilter = !this.hasFilter;
+  }
+
+  setHasFilter(bool) {
+    this.hasFilter = bool;
+  }
+
+  openDetailModal(date) {
+    this.hasFilter = false;
+    const index = this.getDates().findIndex(d => {
+      return d.date.getFullYear() === date.date.getFullYear()
+        && d.date.getMonth() === date.date.getMonth()
+        && d.date.getDate() === date.date.getDate()
+    });
+    this.slidesModal.slideTo(index, 0).then(() => this.hasModal = true);
+  }
+
+  getDateString(date: Date) {
+    return `${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear()}`;
+  }
+
+  toggleHasModal() {
+    this.hasModal = !this.hasModal;
+  }
+
+  getDates() {
+    return this.months.reduce((dates, month) => [...dates, ...month.filter(date => this.checkRightMonthAndYear(date.date, month[12].date))], [])
+  }
 }
