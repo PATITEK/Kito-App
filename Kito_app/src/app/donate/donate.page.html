@@ -21,18 +21,18 @@
   </ion-item-group>
 
  <ion-item-group class="group__donate">
-    <ion-label>Số tiền đóng góp:</ion-label>
+    <ion-label>Nhập số tiền đóng góp:</ion-label>
     <ion-item-group>
-      <ion-icon name="pencil-outline" class="group__donate-pen--edit"></ion-icon>
+      <!-- <ion-icon name="pencil-outline" class="group__donate-pen--edit"></ion-icon> -->
       <ion-img src="assets/img/dola.svg"></ion-img>
-      <input formControlName ="amount" class="group__donate-amount"(keyup)="callChangeDot()" [(ngModel)] ="x">
-      <ion-label class="vnd">VND</ion-label>
+      <input formControlName ="amount" class="group__donate-amount"(keyup)="callChangeDot()" [(ngModel)] ="x" placeholder="VND">
+      <!-- <ion-label class="vnd">VND</ion-label> -->
     </ion-item-group>
     <span class="require" *ngIf="required_mess">
       {{message}}
   </span>
     <ion-item-group class="group__purpose">
-      <ion-icon name="pencil-outline" class="group__donate-pen--edit2"></ion-icon>
+      <!-- <ion-icon name="pencil-outline" class="group__donate-pen--edit2"></ion-icon> -->
       <ion-label class="group__purpose-label">Mục đích:</ion-label>
       <textarea placeholder="Ghi chú thêm thông tin..."  formControlName="note" ></textarea>
     </ion-item-group>
@@ -44,15 +44,18 @@
  <ion-label (click)="goToDioceses()" class="donate__other">Đóng góp giáo xứ khác?</ion-label>
 </ion-item-group>
  <ion-item-group class="footer">
-   <ion-avatar>
-    <img [src] ="avatar" alt="" *ngIf="avatar">
-    <img src="assets/img/avatar.png" alt=""*ngIf="!avatar">
-    <ion-spinner *ngIf="!avatar" class="absolute-center" name="lines"></ion-spinner>
-   </ion-avatar>
+  
    <ion-item-group>
-     <span>
-      {{name}}
-     </span>
+     <ion-buttons>
+      <span>
+        {{name}} 
+       </span>
+       <!-- <ion-avatar>
+        <img [src] ="avatar" alt="" *ngIf="avatar">
+        <img src="assets/img/avatar.png" alt=""*ngIf="!avatar">
+        <ion-spinner *ngIf="!avatar" class="absolute-center" name="lines"></ion-spinner>
+       </ion-avatar> -->
+     </ion-buttons>
     <ion-button type="submit"  [disabled] ="frmDonate.invalid">
       Xác nhận
     </ion-button>

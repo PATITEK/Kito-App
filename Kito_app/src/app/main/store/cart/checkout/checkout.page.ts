@@ -16,7 +16,8 @@ export class CheckoutPage implements OnInit {
   location = '';
   shipCost = 5000;
   paymentMethod;
-
+  phone;
+  order_id;
   constructor(
     public dateTimeService: DateTimeService,
     private route: ActivatedRoute,
@@ -27,6 +28,7 @@ export class CheckoutPage implements OnInit {
 
   ngOnInit() {
     this.getCart();
+    this.phone = localStorage.getItem('phone_temp');
     this.route.queryParams.subscribe(params => {
       this.paymentMethod = JSON.parse(params['data']).paymentMethod;
     }).unsubscribe();
@@ -48,7 +50,8 @@ export class CheckoutPage implements OnInit {
     const popover = await this.modalCtrl.create({
       component: ModalFoodComponent,
       cssClass: 'modalFood',
-      backdropDismiss: false
+      backdropDismiss: false,
+      componentProps: { order_id: this.order_id }
     });
     return await popover.present();
   }
@@ -63,14 +66,16 @@ export class CheckoutPage implements OnInit {
         lng: localStorage.getItem('lng'),
         note: null,
         full_address: this.location,
-        phone_number_receiver: localStorage.getItem('phoneNumber'),
+        phone_number_receiver: localStorage.getItem('phone_temp'),
         order_details_attributes: this.cart.map(item => ({ product_id: item.id, amount: item.amount }))
       }
     }
     this.orderService.create(req).subscribe(
-      () => {
+      (data: any) => {
+        this.order_id = data.order.id;
         this.loadingService.dismiss();
         this.openModalSuccess();
+        this.modalCtrl.dismiss();
       },
       () => {
         this.loadingService.dismiss();

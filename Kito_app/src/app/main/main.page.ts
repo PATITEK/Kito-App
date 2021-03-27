@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { AuthService, IPageRequest, VaticanService } from '../@app-core/http';
 import { IonInfiniteScroll, ModalController } from '@ionic/angular';
 import { AccountService } from '../@app-core/http/account/account.service';
-import { LoadingService, OneSignalService } from '../@app-core/utils';
+import { GeolocationService, LoadingService, OneSignalService } from '../@app-core/utils';
 
 @Component({
   selector: 'app-main',
@@ -81,7 +81,7 @@ export class MainPage implements OnInit {
     private authService: AuthService,
     public modalCtrl: ModalController,
     public vaticanService: VaticanService,
-    private loading: LoadingService
+    private loading: LoadingService,
   ) { }
 
   ionViewWillEnter() {
@@ -122,7 +122,7 @@ export class MainPage implements OnInit {
       this.vaticanList.items = data.vatican_news;
     })
   }
-
+  
   goToDetail(item) {
     if (item.desUrl == 'donate') {
       const data = {

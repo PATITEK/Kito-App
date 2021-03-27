@@ -58,6 +58,8 @@ export const APICONFIG = {
     GET_DETAIL: (id) => `/app/orders/${id}`,
     CREATE: `/app/orders`,
     DELETE: (id) => `/app/orders/${id}`,
+    PAYMENT_ORDER_VISA: `/app/order_payments/visa_master`,
+    PAYMENT_ORDER_MOMO: `/app/order_payments/momo`
   },
   VATICAN: {
     GET: `/app/vatican_news`,

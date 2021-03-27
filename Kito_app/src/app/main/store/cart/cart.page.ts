@@ -1,5 +1,8 @@
+import { listLazyRoutes } from '@angular/compiler/src/aot/lazy_routes';
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
 import { DateTimeService, GeolocationService } from 'src/app/@app-core/utils';
 
 @Component({
@@ -31,22 +34,60 @@ export class CartPage implements OnInit {
   currentPaymentMethodId = 1;
   hasPaymentModal = false;
   paymentSelectElement: any;
-  location = 'Hãy lấy địa chỉ hoặc nhập địa chỉ của bạn';
-
+  phone_number = null;
+  location;
+  phone_temp;
+  frm: FormGroup;
   constructor(
     public dateTimeService: DateTimeService,
+    public formBuilder: FormBuilder,
     private router: Router,
-    private geolocationSerivce: GeolocationService
-  ) { }
-
+    private geolocationSerivce: GeolocationService,
+    private alert: AlertController
+  ) { 
+    this.frm = this.formBuilder.group({
+      address: new FormControl('', Validators.compose([
+        Validators.required,
+      ])),
+      phone_number: new FormControl('', Validators.compose([
+        Validators.required,
+      ])),
+    });
+    }
   ngOnInit() {
     this.getCart();
-    this.geolocationSerivce.getCurrentLocation();
+    this.phone_number = localStorage.getItem('phoneNumber');
+    this.location = localStorage.getItem('location')
+      // this.presentAlert('Cập nhật', 'Cập nhật lấy địa chỉ của bạn!');
   }
-
+  async presentAlert(header: string, text: string) {
+    const alert = await this.alert.create({
+      header: header,
+      message: text,
+      buttons: [
+        {
+          text: 'Hủy',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+          }
+        }, {
+          text: 'Đồng ý',
+          handler: () => {
+            this.reTakeLocation();
+          }
+        }
+      ]
+    });
+    await alert.present();
+  }
+  check(): boolean {
+    return !this.cart.length || this.location == null;
+  }
   reTakeLocation() {
     this.geolocationSerivce.getCurrentLocation();
     this.location = this.geolocationSerivce.customerLocation.address;
+    localStorage.setItem('location', this.location)
   }
 
   ionViewDidEnter() {
@@ -62,8 +103,8 @@ export class CartPage implements OnInit {
   }
 
   changeAddress() {
-
-  }
+     document.getElementById('address').focus();
+    }
 
   decreaseAmount(item) {
     if (item.amount > 1) {
@@ -116,6 +157,15 @@ export class CartPage implements OnInit {
   }
 
   goToCheckout() {
+    if(localStorage.getItem(this.location)) {
+      localStorage.removeItem('location');
+    }
+    if(localStorage.getItem(this.phone_temp)) {
+      localStorage.removeItem('phone_temp');
+    }
+    localStorage.setItem('location', this.location);
+    localStorage.setItem('phone_temp', this.phone_number);
+
     const data = {
       paymentMethod: this.paymentMethods[this.currentPaymentMethodId]
     }

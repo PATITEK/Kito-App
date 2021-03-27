@@ -15,8 +15,8 @@ export class PaymentPage implements OnInit {
   data:any;
   stripe = Stripe('pk_test_51IFwpWCpBejooWZYsmTcqPL7wfAcx58B6lQNiE3K8XEueAbjRJCRzczedDQO3LbJ1afIh6oln6VT6SZXOZYtiL6G00Ow7S9qTG');
   card: any;
-  amount: any;
-  purpose: any;
+  amount?: any;
+  purpose?: any;
   headerCustom = {title: 'Thanh toán', background: '#fff'}
   constructor(
     private route: ActivatedRoute,
@@ -51,10 +51,10 @@ export class PaymentPage implements OnInit {
       routerLink: '/main/chabad'
     }
     this.donateService.donateByVisa(this.data).subscribe((data) => {
-        console.log(data)
+      this.loadingService.dismiss()
          this.pageNotiService.setdataStatusNoti(datapasing);
         this.router.navigateByUrl('/page-noti');
-        this.loadingService.dismiss()
+      
     })
   }
 }
