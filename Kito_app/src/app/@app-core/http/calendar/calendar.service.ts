@@ -14,7 +14,7 @@ export class CalendarService {
   ) { }
 
   public getByMonth(request: IPageCalendar) {
-    return this.http.get<IPageCalendar>(`${APICONFIG.CALENDARS.GET_BY_MONTH}?${(requestQuery(request))}`).pipe(
+    return this.http.get<any>(`${APICONFIG.CALENDARS.GET_BY_MONTH}?${(requestQuery(request))}`).pipe(
       map((result) => {
         return result;
       }),

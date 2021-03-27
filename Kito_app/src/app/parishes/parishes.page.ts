@@ -11,7 +11,7 @@ import { LoadingService } from '../@app-core/utils';
   styleUrls: ['./parishes.page.scss'],
 })
 export class ParishesPage implements OnInit {
-  headerCustom = {title: 'Chọn giáo xứ'};
+  headerCustom = { title: 'Chọn giáo xứ' };
 
   constructor(
     public parishesService: ParishesService,
@@ -34,7 +34,7 @@ export class ParishesPage implements OnInit {
       this.pageParish.diocese_id = this.data.id;
       this.type_page = this.data.type_page;
     });
-   this. getAll();
+    this.getAll();
   }
   getAll() {
     this.parishesService.getAllWithDioceseId(this.pageParish).subscribe((data: any) => {

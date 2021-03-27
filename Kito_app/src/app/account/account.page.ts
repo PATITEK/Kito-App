@@ -92,7 +92,7 @@ export class AccountPage implements OnInit {
           }
         },
         {
-          text: 'Tải ảnh lên',
+          text: 'Chọn từ thư viện',
           handler: () => {
 
             this.cameraService.getAvatarUpload(this.image_avatar);
@@ -111,7 +111,7 @@ export class AccountPage implements OnInit {
           }
         },
         {
-          text: 'Hủy',
+          text: 'Đóng',
           role: 'destructive',
         },
       ]

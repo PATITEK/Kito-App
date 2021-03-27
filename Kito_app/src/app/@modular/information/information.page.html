@@ -3,7 +3,7 @@
 </ion-header>
 
 <ion-content [ngClass]="{'disable-scroll': !list.length}">
-  <app-search-bar-nav  (output)="search($event)"></app-search-bar-nav>
+  <app-search-bar-nav (output)="search($event)"></app-search-bar-nav>
 
   <ion-list>
     <ion-buttons *ngFor="let item of list" class="item" (click)="goToNewsDetail(item)">

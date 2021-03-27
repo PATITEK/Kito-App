@@ -3,7 +3,7 @@
 </ion-header>
 
 <ion-content [scrollEvents]="true" (ionScroll)="onScrollContent($event)" [ngClass]="{'disable-scroll': !list.length}">
-  <app-search-bar-nav (output)="search($event)" ></app-search-bar-nav>
+  <app-search-bar-nav (output)="search($event)"></app-search-bar-nav>
 
   <div class="segment-container">
     <ion-buttons class="segment">
@@ -39,7 +39,7 @@
         </div>
         <div class="text-box">
           <ion-label class="name three-dots-2">{{ col.name }}</ion-label>
-          <ion-label class="price">{{ dateTimeService.numberWithCommas(col.price) }} {{ col.unit_price}}</ion-label>
+          <ion-label class="price">{{ col.price | number:'2.1-2'}} {{ col.unit_price}}</ion-label>
         </div>
 
         <div *ngIf="col.amount <= 0" class="add-btn">

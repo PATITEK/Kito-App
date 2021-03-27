@@ -6,7 +6,7 @@
     <span class="header__name">{{getData?.name}}</span>
     <ion-item-group class="header__group-address">
       <img src="assets/img/address.svg" alt="">
-      <span class="header__address">
+      <span class="header__address" (click)="goToMap(getData.location.lat, getData.location.long)">
        {{getData?.address}}
       </span>
     </ion-item-group>
