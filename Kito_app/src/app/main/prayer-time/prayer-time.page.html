@@ -16,8 +16,9 @@
     </div>
 
     <ion-buttons class="date-list">
-      <ion-buttons *ngFor="let dateItem of dateList" class="date-item main-box-shadow active-effect"
-        [ngClass]="{'active-date-item': activeDateItemId == dateItem.id}" (click)="changeSegment(dateItem.id)" [ngStyle]="{'background-color': dateItem.color}">
+      <ion-buttons *ngFor="let dateItem of dateList" class="date-item"
+        [ngClass]="{'active-date-item': activeDateItemId == dateItem.id}" (click)="changeSegment(dateItem.id)"
+        [ngStyle]="{'background-color': dateItem.color, 'color': dateItem.color === '#FFFFFF' ? '#424242' : '#fff'}">
         <span class="date-text">{{ dateTimeService.VIETNAMESE_DAYS[dateItem.date.getDay()].substring(0, 3)}}</span>
         <span>{{ dateItem.date.getDate() }}</span>
         <span *ngIf="dateItem.events.length" class="circle date-item-note" [style.background]="dateItem.color"></span>
