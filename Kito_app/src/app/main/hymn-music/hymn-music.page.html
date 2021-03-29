@@ -3,7 +3,7 @@
 </ion-header>
 
 <ion-content>
-  <app-search-bar-nav></app-search-bar-nav>
+  <app-search-bar-nav (output)="search($event)"></app-search-bar-nav>
 
   <ion-segment (ionChange)="changedSegment($event)" value="all" swipeGesture="false" mode="ios">
     <ion-segment-button value="all" class="intro">
@@ -47,6 +47,7 @@
       </ion-buttons>
     </ng-container>
   </ion-list>
+ 
 </ion-content>
 
 <ion-footer *ngIf="activeSong" class="ion-no-border">

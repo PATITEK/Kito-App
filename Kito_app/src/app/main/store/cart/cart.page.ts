@@ -57,8 +57,11 @@ export class CartPage implements OnInit {
   ngOnInit() {
     this.getCart();
     this.phone_number = localStorage.getItem('phoneNumber');
-    this.location = localStorage.getItem('location')
-      // this.presentAlert('Cập nhật', 'Cập nhật lấy địa chỉ của bạn!');
+    this.location = localStorage.getItem('location');
+    if(!localStorage.getItem('location')) {
+      this.presentAlert('Cập nhật', 'Lấy địa chỉ của bạn!');
+    }
+    
   }
   async presentAlert(header: string, text: string) {
     const alert = await this.alert.create({
@@ -70,6 +73,7 @@ export class CartPage implements OnInit {
           role: 'cancel',
           cssClass: 'secondary',
           handler: () => {
+            this.reTakeLocation();
           }
         }, {
           text: 'Đồng ý',
