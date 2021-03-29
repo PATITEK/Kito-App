@@ -169,7 +169,6 @@ export class CartPage implements OnInit {
     }
     localStorage.setItem('location', this.location);
     localStorage.setItem('phone_temp', this.phone_number);
-
     const data = {
       paymentMethod: this.paymentMethods[this.currentPaymentMethodId]
     }

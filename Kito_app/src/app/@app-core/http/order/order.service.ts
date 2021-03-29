@@ -69,6 +69,15 @@ export class OrderService {
         throw errorRes.error;
       }));
   }
+  public paymentOrder_Cash(request) {
+    return this.http.post(`${APICONFIG.ORDER.PAYMENT_ORDER_CASH}`,request).pipe(
+      map((result: any) => {
+        return result;
+      }),
+      catchError((errorRes) => {
+        throw errorRes.error;
+      }));
+  }
   public delete(id: number) {
     return this.http.delete(`${APICONFIG.ORDER.DELETE(id)}`).pipe(
       map((result) => {

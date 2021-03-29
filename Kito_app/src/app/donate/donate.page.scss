@@ -4,32 +4,12 @@
   }
 
   ion-content {
-    --overflow: hidden;
+    --overflow: scroll;
     --padding-top: 80px;
+    position: relative;
     --background: var(--gray-color);
     .wrapper {
-      overflow: scroll;
-      @media screen and (max-height: 824px){
-        max-height: 647px;
-      }
-      @media screen and (max-height: 812px){
-        max-height: 631px;
-      }
-      @media screen and (max-height: 737px){
-        height: 566px;
-      }
-      @media screen and (max-height: 668px){
-        height: 496px;
-      }
-      @media screen and (max-height: 641px){
-        height: 476px;
-      }
-      @media screen and (max-height: 569px){
-        height: 400px;
-      }
-      @media screen and (max-height: 480px){
-        height: 310px;
-      }
+     margin-bottom: 54px;
     
     .title {
       text-align: center;
@@ -106,11 +86,9 @@
     .group__donate {
       background: #F5F5F5;
       padding: 20px 16px 15px;
+      color: #828282;
       border-radius: 30px;
       box-shadow: 0 4px 2px -2px rgb(180, 176, 176);
-      ion-label {
-        color: #828282;
-      }
       .require {
         color: var(--main-color);
       }
@@ -123,10 +101,7 @@
           width: 14px;
           height: 24px;
         }
-        .vnd {
-          // font-size: 12px;
-          width: 40px;
-          }
+       
         .group__donate-pen--edit {
           position: absolute;
           background-color: var(--main-color);
@@ -190,37 +165,22 @@
      }
   }
    .footer {
-     padding-top: 6px;
-     margin-bottom: 42px;
-     ion-avatar {
-       height: 40px;
-      img {
-        width: 40px;
-        height: 40px;
-      }
-     }
-     ion-item-group {
-       margin-top: 4px;
-       display: flex;
-       justify-content: space-between;
-       align-items: center;
-       span {
-        width: 97px;
-        height: 40px;
-        display: flex;
-        align-items: center;
-       }
-     }
+     display: flex;
+     position: fixed;
+     justify-content: space-between;
+     left: 16px;
+     right: 16px;
+     background: rgb(229, 229, 229);
+     bottom: 0;
     ion-button {
-      width: 140px;
-      margin: 0;
       font-size: 17px;
-      height: 32px;
-      line-height: 21px;
-      --border-radius: 12px;
+      width: 140px;
+      -webkit-appearance: none;
+      height: 34px;
+      --border-radius: 16px;
       --background: var(--main-color);
   }
-   }
+  }
 }
 
 
