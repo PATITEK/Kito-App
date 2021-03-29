@@ -16,6 +16,7 @@ export class ToastService {
       message: message,
       duration: duration,
       position: position == 'top' ? 'top' : 'bottom',
+      cssClass:'toast-css',
       color: color
     });
     toast.present();
