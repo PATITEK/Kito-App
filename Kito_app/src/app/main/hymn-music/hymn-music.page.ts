@@ -37,7 +37,7 @@ export class HymnMusicPage implements OnInit {
   repeatingType = this.REPEATING_TYPE.REPEAT_ALL;
   pageRequest: IPageRequest = {
     page: 1,
-    per_page: 10,
+    per_page: 100,
   }
 
   constructor(
@@ -46,6 +46,7 @@ export class HymnMusicPage implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.loadingService.present();
     this.getData();
   }
 
@@ -53,7 +54,20 @@ export class HymnMusicPage implements OnInit {
     clearInterval(this.progressInterval);
     this.player && this.player.unload();
   }
-
+  search(value: string) {
+      if (typeof value != 'string') {
+        return;
+      }
+      else if (!value) {
+        delete this.pageRequest.search;
+      }
+      else {
+        this.pageRequest.search = value;
+      }
+      this.pageRequest.page = 1;
+      this.songs = [];
+      this.getData();
+  }
   shuffleArr(arr) {
     const tempArr = [...arr];
     for (let i = tempArr.length - 1; i > 0; i--) {
@@ -92,6 +106,7 @@ export class HymnMusicPage implements OnInit {
 
   getFavoriteSongs() {
     this.hymnMusicService.getAllFavorite(this.pageRequest).subscribe(data => {
+      this.loadingService.dismiss();
       this.favoriteSongs = data.songs;
       this.shuffleFavoriteSongs();
     })
@@ -101,7 +116,7 @@ export class HymnMusicPage implements OnInit {
     this.getSongs();
     this.getFavoriteSongs();
   }
-
+ 
   changedSegment(event) {
     this.segmentValue = event.target.value;
   }

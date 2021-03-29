@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService, IPageRequest, VaticanService } from '../@app-core/http';
-import { IonInfiniteScroll, ModalController } from '@ionic/angular';
+import { AlertController, IonInfiniteScroll, ModalController, NavController, Platform, ToastController } from '@ionic/angular';
 import { AccountService } from '../@app-core/http/account/account.service';
-import { GeolocationService, LoadingService, OneSignalService } from '../@app-core/utils';
+import { GeolocationService, LoadingService, OneSignalService, ToastService } from '../@app-core/utils';
 
 @Component({
   selector: 'app-main',
@@ -73,7 +73,10 @@ export class MainPage implements OnInit {
     items: [],
     type: { general: 'news', detail: 'vatican' }
   }
-
+  subscribe: any;
+  location;
+  public alertPresented = false;
+  count = 0;
   constructor(
     private router: Router,
     private OneSignalService: OneSignalService,
@@ -82,6 +85,11 @@ export class MainPage implements OnInit {
     public modalCtrl: ModalController,
     public vaticanService: VaticanService,
     private loading: LoadingService,
+    private platform: Platform,
+    private alertController: AlertController,
+    private toarst: ToastService,
+    private navController: NavController,
+    private geolocationSerivce: GeolocationService,
   ) { }
 
   ionViewWillEnter() {
@@ -109,6 +117,53 @@ export class MainPage implements OnInit {
     this.loading.present();
     this.OneSignalService.startOneSignal();
     this.getVatican();
+    this.reTakeLocation();
+    this.subscribe = this.platform.backButton.subscribeWithPriority(99999,()=>{
+      if(this.router.url === '/main') {
+        this.count++;
+        if(this.count == 1) {
+          this.toarst.present('Nhấn lần nữa để thoát','bottom');
+        }
+        else {
+            navigator['app'].exitApp();
+        }
+         setTimeout(()=> {
+          this.count = 0;
+        }, 2000);
+      }
+      else {
+        this.navController.back();
+      }
+    })
+  }
+ 
+  reTakeLocation() {
+    this.geolocationSerivce.getCurrentLocation();
+    this.location = this.geolocationSerivce.customerLocation.address;
+  }
+  async presentAlert() {
+    this.alertPresented = true;
+    const alert = await this.alertController.create({
+      cssClass: 'logout-alert',
+      message: 'Bạn có muốn thoát app ?',
+      buttons: [
+        {
+          text: 'Đồng ý',
+          handler: () => {
+            navigator['app'].exitApp();
+          }
+        },
+        {
+          text: 'Hủy',
+          
+          handler: () => {
+            this.alertPresented = false;
+            return;
+          }
+        },
+      ]
+    });
+    await alert.present();
   }
 
   getVatican() {
