@@ -65,8 +65,7 @@
   <div class="modal" [ngClass]="{'show-modal': hasModal}">
     <ion-buttons class="modal-header">
       <ion-label class="three-dots-2">Lịch Công Giáo</ion-label>
-      <ion-back-button (click)="toggleHasModal()" icon="chevron-back-outline" text="" class="back-btn">
-      </ion-back-button>
+      <ion-icon name="close-outline" class="back-btn back-btn-custom" (click)="toggleHasModal()"></ion-icon>
     </ion-buttons>
 
     <ion-slides #slidesModal>
