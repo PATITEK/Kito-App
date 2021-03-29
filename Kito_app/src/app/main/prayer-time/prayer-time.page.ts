@@ -65,7 +65,6 @@ export class PrayerTimePage implements OnInit {
 
   initDateList() {
     const now = new Date();
-    const colors = ["#E83333", "#955ECC", "#FFFFFF", "#4DD11F", "#FFACCA"];
     for (let i = 0; i < 7; i++) {
       let nextDate = new Date(now);
       nextDate.setDate(nextDate.getDate() + i);
@@ -93,6 +92,7 @@ export class PrayerTimePage implements OnInit {
       for (let i = 0; i < 7; i++) {
         this.dateList[i].name = data.calendars[i].mass_name;
         this.dateList[i].color = data.calendars[i].shirt_color.color_code;
+        console.log(this.dateList[i].color)
       }
     })
 
