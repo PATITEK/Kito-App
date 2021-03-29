@@ -122,5 +122,14 @@ export class AccountService {
       })
     )
   }
+  public getArrayAvatar(){
+    return this.http.get(`${APICONFIG.IMAGE_PROFILE.GET_ALL}`).pipe(
+      map((result: any) => {
+        return result;
+      }),
+      catchError((errorRes) => {
+        throw errorRes.error;
+      }));
+  }
 
 }

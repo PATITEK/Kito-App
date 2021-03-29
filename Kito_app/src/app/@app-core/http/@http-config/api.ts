@@ -99,6 +99,9 @@ export const APICONFIG = {
     GET_ALL_FAVORITE: `app/songs/favourite_songs`,
     FAVORITE: `app/songs/favourite`,
     UNFAVORITE: `app/songs/unfavourite`,
+  },
+  IMAGE_PROFILE:{
+    GET_ALL:`app/app_users/default_avatar`
   }
 };
 
