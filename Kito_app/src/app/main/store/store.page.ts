@@ -200,7 +200,6 @@ export class StorePage implements OnInit {
   }
 
   loadMoreProducts(event) {
-    console.log('load more')
     this.getProducts(event);
   }
 

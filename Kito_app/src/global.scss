@@ -300,3 +300,12 @@
 .disable-scroll {
   --overflow: hidden;
 }
+.toast-css {
+  --background: #424242;
+  color: #fff;
+  font-size: 16px;
+  text-align: center;
+}
+.searchbar-clear-button.sc-ion-searchbar-ios {
+  right: 28px !important;
+}

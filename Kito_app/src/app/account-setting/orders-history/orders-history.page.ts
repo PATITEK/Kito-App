@@ -40,12 +40,11 @@ export class OrdersHistoryPage implements OnInit {
   }
 
   getDataOrders(func?) {
-    this.loadingService.present();
     let orders = this.data.orders;
     this.orderService.getAll(orders.pageRequest).subscribe(data => {
+      this.loadingService.dismiss();
       orders.array = orders.array.concat(data.orders);
       this.lastedData = orders.array[orders.array.length - 1];
-      this.loadingService.dismiss();
       func && func();
       orders.pageRequest.page++;
       if (orders.array.length >= data.meta.pagination.total_objects) {
@@ -53,12 +52,9 @@ export class OrdersHistoryPage implements OnInit {
       }
     })
   }
-
   loadMoreDataOrders(event) {
-    this.loadingService.present();
     this.getDataOrders(() => {
       event.target.complete();
-      this.loadingService.dismiss();
     })
   }
 
