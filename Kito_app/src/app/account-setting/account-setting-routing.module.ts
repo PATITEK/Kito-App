@@ -27,7 +27,11 @@ const routes: Routes = [
   {
     path: 'my-parish',
     loadChildren: () => import('./my-parish/my-parish.module').then( m => m.MyParishPageModule)
+  },  {
+    path: 'change-avatar',
+    loadChildren: () => import('./change-avatar/change-avatar.module').then( m => m.ChangeAvatarPageModule)
   }
+
 
  
 ];

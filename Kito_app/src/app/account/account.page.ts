@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AlertController, ModalController, PopoverController } from '@ionic/angular';
 import { AccountService, PATTERN } from '../@app-core/http';
 import { CameraService, ImageService, LoadingService, ToastService } from '../@app-core/utils';
@@ -47,7 +48,8 @@ export class AccountPage implements OnInit {
     private toastService: ToastService,
     public imageService: ImageService,
     private alertCtrl: AlertController,
-    private cameraService: CameraService
+    private cameraService: CameraService,
+    private router:Router
   ) { }
   ngOnInit() {
     this.initForm();
@@ -92,18 +94,24 @@ export class AccountPage implements OnInit {
           }
         },
         {
-          text: 'Chọn từ thư viện',
-          handler: () => {
+          text:"Cập nhật ảnh đại diện",
+          handler:()=>{
+      this.router.navigateByUrl('/account-setting/change-avatar');
+          }
+        },
+        // {
+        //   text: 'Chọn từ thư viện',
+        //   handler: () => {
 
-            this.cameraService.getAvatarUpload(this.image_avatar);
-          }
-        },
-        {
-          text: 'Chụp ảnh mới',
-          handler: () => {
-            this.cameraService.getAvatarTake(this.image_avatar);
-          }
-        },
+        //     this.cameraService.getAvatarUpload(this.image_avatar);
+        //   }
+        // },
+        // {
+        //   text: 'Chụp ảnh mới',
+        //   handler: () => {
+        //     this.cameraService.getAvatarTake(this.image_avatar);
+        //   }
+        // },
         {
           text: 'Xóa ảnh đại diện',
           handler: () => {

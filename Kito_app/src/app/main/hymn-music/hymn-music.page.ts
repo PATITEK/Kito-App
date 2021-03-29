@@ -1,7 +1,7 @@
 import { HymnMusicService } from './../../@app-core/http/hymn-music/hymn-music.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Howl } from 'howler'
-import { IonRange } from '@ionic/angular';
+import { IonInfiniteScroll, IonRange, IonContent } from '@ionic/angular';
 import { LoadingService } from 'src/app/@app-core/utils';
 import { IPageRequest } from 'src/app/@app-core/http';
 
@@ -11,8 +11,9 @@ import { IPageRequest } from 'src/app/@app-core/http';
   styleUrls: ['./hymn-music.page.scss'],
 })
 export class HymnMusicPage implements OnInit {
-  @ViewChild('range', { static: false })
-  range: IonRange;
+  @ViewChild('range', { static: false }) range: IonRange;
+  @ViewChild('infiniteScrollSongs') infinityScroll: IonInfiniteScroll;
+  @ViewChild(IonContent) ionContent: IonContent;
 
   headerCustom = { title: 'Nhạc Thánh ca' };
   segmentValue = 'all';
@@ -35,10 +36,15 @@ export class HymnMusicPage implements OnInit {
     REPEAT_ALL: 2
   }
   repeatingType = this.REPEATING_TYPE.REPEAT_ALL;
-  pageRequest: IPageRequest = {
+  pageRequestSongs: IPageRequest = {
     page: 1,
-    per_page: 100,
+    per_page: 20,
   }
+  pageRequestFavoriteSongs: IPageRequest = {
+    page: 1,
+  }
+
+  loadedSong = false;
 
   constructor(
     private hymnMusicService: HymnMusicService,
@@ -54,20 +60,25 @@ export class HymnMusicPage implements OnInit {
     clearInterval(this.progressInterval);
     this.player && this.player.unload();
   }
+
   search(value: string) {
-      if (typeof value != 'string') {
-        return;
-      }
-      else if (!value) {
-        delete this.pageRequest.search;
-      }
-      else {
-        this.pageRequest.search = value;
-      }
-      this.pageRequest.page = 1;
-      this.songs = [];
-      this.getData();
+    if (typeof value != 'string') {
+      return;
+    }
+    else if (!value) {
+      delete this.pageRequestSongs.search;
+    }
+
+    else {
+      this.pageRequestSongs.search = value;
+    }
+    this.pageRequestSongs.page = 1;
+    this.songs = [];
+    this.getData();
+    this.infinityScroll.disabled = false;
+    this.ionContent.scrollToTop(0);
   }
+
   shuffleArr(arr) {
     const tempArr = [...arr];
     for (let i = tempArr.length - 1; i > 0; i--) {
@@ -97,17 +108,23 @@ export class HymnMusicPage implements OnInit {
     this.shuffledFavoriteSongs = this.shuffleArr(this.favoriteSongs);
   }
 
-  getSongs() {
-    this.hymnMusicService.getAll(this.pageRequest).subscribe(data => {
-      this.songs = data.songs;
+  getSongs(func?) {
+    this.hymnMusicService.getAll(this.pageRequestSongs).subscribe(data => {
+      this.songs = this.songs.concat(data.songs);
+      this.pageRequestSongs.page++;
+      func && func();
+      if (this.songs.length >= data.meta.pagination.total_objects) {
+        this.infinityScroll.disabled = true;
+        this.loadedSong = true;
+      }
       this.shuffleSongs();
+      this.loadingService.dismiss();
     })
   }
 
   getFavoriteSongs() {
-    this.hymnMusicService.getAllFavorite(this.pageRequest).subscribe(data => {
-      this.loadingService.dismiss();
-      this.favoriteSongs = data.songs;
+    this.hymnMusicService.getAllFavorite(this.pageRequestFavoriteSongs).subscribe(data => {
+      this.favoriteSongs = this.songs.concat(data.songs);
       this.shuffleFavoriteSongs();
     })
   }
@@ -116,9 +133,17 @@ export class HymnMusicPage implements OnInit {
     this.getSongs();
     this.getFavoriteSongs();
   }
- 
+
   changedSegment(event) {
     this.segmentValue = event.target.value;
+    this.infinityScroll.complete();
+    if (this.checkAllSegment()) {
+      if (!this.loadedSong) {
+        this.infinityScroll.disabled = false;
+      }
+    } else {
+      this.infinityScroll.disabled = true;
+    }
   }
 
   onEndSong() {
@@ -167,8 +192,6 @@ export class HymnMusicPage implements OnInit {
           song.favourite = !song.favourite;
           this.favoriteSongs = this.favoriteSongs.filter(favoriteSong => favoriteSong.id !== song.id);
           this.loadingService.dismiss();
-        }, () => {
-          this.loadingService.dismiss();
         })
       } else {
         this.shuffleFavoriteSongs();
@@ -176,15 +199,11 @@ export class HymnMusicPage implements OnInit {
           song.favourite = !song.favourite;
           this.favoriteSongs.push(song);
           this.loadingService.dismiss();
-        }, () => {
-          this.loadingService.dismiss();
         });
       }
     } else {
       this.hymnMusicService.unfavorite(song.id).subscribe(() => {
         this.favoriteSongs = this.favoriteSongs.filter(favoriteSong => favoriteSong.id !== song.id);
-        this.loadingService.dismiss();
-      }, () => {
         this.loadingService.dismiss();
       });
     }
@@ -263,5 +282,13 @@ export class HymnMusicPage implements OnInit {
 
   checkAllSegment() {
     return this.segmentValue === 'all';
+  }
+
+  loadMoreSongs(event) {
+    if (this.checkAllSegment()) {
+      this.getSongs(() => {
+        event.target.complete();
+      });
+    }
   }
 }
