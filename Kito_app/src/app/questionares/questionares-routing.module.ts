@@ -22,6 +22,10 @@ const routes: Routes = [
   {
     path: 'rule',
     loadChildren: () => import('./rule/rule.module').then( m => m.RulePageModule)
+  },
+  {
+    path: 'rank',
+    loadChildren: () => import('./rank/rank.module').then( m => m.RankPageModule)
   }
 
 ];

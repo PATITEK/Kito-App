@@ -116,14 +116,10 @@ export class PrayPage implements OnInit {
     this.avatar = localStorage.getItem('avatar');
   }
   callChangeDot() {
-    this.x = this.frmPray.get('amount').value;
-    if(!this.x.match(/^[0-9]*$/g)) {
-      this.x = this.x.replace(/[^0-9]/g, '');
-     }
-    this.x = this.x.replace(/\,/g, '');
-    if (this.x != '') {
-      this.x = this.x.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
-    }
+    let data = this.frmPray.get('amount').value;
+    data = data.replace(/[^0-9]/gm, '');
+    data = data.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+    this.frmPray.controls['amount'].setValue(data);
   }
   imgNotFound(item) {
     !item?.thumb_image?.url && (item.thumb_image = { url: "https://i.imgur.com/UKNky29.jpg" });
