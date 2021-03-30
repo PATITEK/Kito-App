@@ -3,12 +3,30 @@
 </ion-header>
 
 <ion-content *ngIf="questions.length > 0">
-  <ion-img class="background-img" src="../../assets/img/questionares/background.svg"></ion-img>
-  <ion-grid>
-    <ion-row>
-      <ion-col>
-        <ion-button mode="ios" Fill="round" class="active-effect" *ngFor="let question of questions" (click)="goToQuestion(question)">{{ question.name }}</ion-button>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+  <center>
+    <h3 class="title-ques">{{ title }}</h3>
+  </center>
+
+  <div class="choose-cover-topic" *ngIf="title == 'CHỌN CHỦ ĐỀ' ">
+    <div class="choose-topic" *ngFor="let question of questions" (click)="goToQuestion(question)">
+      <img class="choose-topic-img" src="https://pbs.twimg.com/profile_images/1305027806779203584/tAs8GbuL_400x400.jpg"/>
+      <p class="choose-topic-text">{{ question.name }}</p>
+    </div>
+  </div>
+
+  <div class="choose-cover-level" *ngIf="title == 'CHỌN CẤP ĐỘ' ">
+    <div class="choose-level" *ngFor="let question of questions" (click)="goToQuestion(question)">
+      <img class="choose-level-img" src="../../../assets/img/questionares/towel1.png" />
+      <p class="choose-level-text"> {{ question.name }} </p>
+    </div>
+  </div>
+
+  <div class="background-gif">
+    <div class="img-star2">
+      <img src="assets/img/questionares/star2.gif" alt="" srcset="" />
+    </div>
+    <div class="img-star4">
+      <img src="assets/img/questionares/star2.gif" alt="" srcset="" />
+    </div>
+  </div>
 </ion-content>
