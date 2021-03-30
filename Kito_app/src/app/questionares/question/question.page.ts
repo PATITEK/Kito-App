@@ -59,22 +59,6 @@ export class QuestionPage implements OnInit {
     private QuestionaresService: QuestionaresService
   ) {
     this.loadAudio();
-    // for (let i = 1; i <= 12; i++) {
-    //   this.questions.questions.push({
-    //     id: 1729,
-    //     question_topic_id: 33,
-    //     answer: {
-    //       a: " Thợ mộc" + i,
-    //       b: "Thợ mỏ" + i,
-    //       c: " Thợ làm than" + i,
-    //       d: i + 1,
-    //     },
-    //     question: " 1 + " + i + " = ?",
-    //     img_url: null,
-    //     level: 1,
-    //     right: "d",
-    //   });
-    // }
     this.checkQuestionType();
     this.loadingService.dismiss();
   }
