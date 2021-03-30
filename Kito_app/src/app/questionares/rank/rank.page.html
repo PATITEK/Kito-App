@@ -1,0 +1,26 @@
+<app-header class="header" [headerCustom]="headerCustom"></app-header>
+<ion-content class="ion-padding">
+  <div class="ion-text-center">
+    <h3 class="title">BẢNG XẾP HẠNG</h3>
+  </div>
+  <ul>
+    <li *ngFor="let item of numSequence(12);let i = index">
+      <div class="stt-rank">
+        {{i+1}}
+      </div>
+      <div class="rank-info">
+        <div class="avatar-name">
+        <ion-avatar>
+          <img src="assets/img/avatar.png" alt="">
+          </ion-avatar>
+          <ion-lable>Hoang An</ion-lable>
+        </div>
+
+          <div class="rank-point">
+            <img src="assets/img/rank/cup.svg" alt="">
+            <ion-lable>100 000</ion-lable>
+          </div>
+      </div>
+    </li>
+  </ul>
+</ion-content>
