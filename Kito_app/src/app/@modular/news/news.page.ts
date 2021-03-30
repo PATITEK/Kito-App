@@ -58,7 +58,9 @@ export class NewsPage implements OnInit {
     }
     localStorage.removeItem('tempParishId');
   }
-
+  ionViewWillLeave() {
+    localStorage.removeItem('voice');
+  }
   goToNewsDetail(item) {
     const data = {
       id: item.id,
@@ -98,7 +100,6 @@ export class NewsPage implements OnInit {
             this.loading.dismiss();
             data.parish_news.forEach(element => {
               element.type = this.dataParams.type;
-              // this.imgNotFound(element);
               element.time = element.created_at.slice(11, 16)
               element.yymmdd = element.created_at.slice(0, 10);
             });

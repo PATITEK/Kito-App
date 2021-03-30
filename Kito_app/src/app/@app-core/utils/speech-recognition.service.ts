@@ -35,13 +35,14 @@ export class SpeechRecognitionService {
     }
 
     startVoiceRecord() {
+        if(localStorage.getItem('voice')) {
+            localStorage.removeItem('voice')
+        }
         this.speechRecognition.startListening().subscribe((matches: Array<string>) => {
-            
           this.voiceResult = matches[0];
           this.authService.sendData(this.voiceResult)
-        //   this.toastService.present('Tìm kiếm: '+ this.voiceResult, 'top')
-          this.router.navigateByUrl('/main')
-
+            localStorage.setItem('voice', this.voiceResult);
+            console.log(localStorage.getItem('voice'));
         })
     }
 }

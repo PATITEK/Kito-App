@@ -12,13 +12,15 @@ export class SearchBarNavComponent implements OnInit {
   @ViewChild('searchBar') searchBar: any;
   @Output() output = new EventEmitter<string>();
   hiddenSearchBar = true;
-
+  input: any;
   constructor(
     private modalCtrl: ModalController,
     private SpeechRecognitionService: SpeechRecognitionService,
   ) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    // console.log(this.input);
+   }
 
   toggleHideSearchBar(value) {
     this.hiddenSearchBar = value;
@@ -34,7 +36,9 @@ export class SearchBarNavComponent implements OnInit {
     });
     return await popover.present();
   }
-
+  ngDoCheck() {
+    // console.log(this.input);
+  }
   startVoice() {
     this.SpeechRecognitionService.checkPermission();
   }
