@@ -8,8 +8,8 @@ import { QuestionaresService } from 'src/app/@app-core/http';
   styleUrls: ['./choose-question.page.scss'],
 })
 export class ChooseQuestionPage implements OnInit {
-  headerCustom = { title: '' };
-
+  headerCustom = { title: '', background:'transparent' };
+  title;
   questions = [];
 
   questionType = '';
@@ -37,7 +37,7 @@ export class ChooseQuestionPage implements OnInit {
         this.questions = data.question_topics;
       })
       this.questionType = 'Chủ đề'
-      this.headerCustom.title = 'CHỌN CHỦ ĐỀ';
+      this.title = 'CHỌN CHỦ ĐỀ';
       
     }
     else if(localStorage.getItem('questionType') == 'level') {
@@ -45,7 +45,7 @@ export class ChooseQuestionPage implements OnInit {
         this.questions = data;
       })
       this.questionType = 'Cấp độ'
-      this.headerCustom.title = 'CHỌN CẤP ĐỘ';
+      this.title = 'CHỌN CẤP ĐỘ';
     }
     localStorage.removeItem('questionTypeName');
     if(localStorage.getItem('score')) {

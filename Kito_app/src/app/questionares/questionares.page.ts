@@ -8,11 +8,6 @@ import { Router } from '@angular/router';
 })
 export class QuestionaresPage implements OnInit {
   headerCustom = { title: '', background:'transparent' };
-
-  questions = [
-    {name: 'Chơi theo chủ đề', type: 'topic'},
-    {name: 'Chơi theo cấp độ', type: 'level'},
-  ]
   constructor(
     private router: Router,
   ) { }
@@ -34,8 +29,8 @@ export class QuestionaresPage implements OnInit {
     this.router.navigate(['questionares/rule']);
   }
 
-  quit() {
-    this.router.navigate(['main/catechism-class']);
+  rank() {
+    this.router.navigate(['questionares/rank']);
   }
 
 }

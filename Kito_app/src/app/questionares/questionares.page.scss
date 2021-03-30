@@ -1,63 +1,77 @@
 ion-content {
-        --padding-top: 80px;
-        --overflow: hidden;
-       --background: linear-gradient(180deg, #1800AE 0%, #FFFFFF 100%);
-  
+  --padding-top: 80px;
+  --overflow: hidden;
+  --background: linear-gradient(180deg, #1800ae 0%, #ffffff 100%);
 }
-.title-ques{
-    color: #ffffff;
+.title-ques {
+  color: #ffffff;
 }
-.list-menu-ques{
+.list-menu-ques {
+  position: relative;
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  height: calc(100% - 45px);
+  overflow: scroll;
+  .menu-item {
+    height: 25vh;
+    width: 35vh;
+    margin-left: 12px;
     position: relative;
-    z-index: 4;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    height: calc(100% - 60px);
-    overflow: scroll;
-    .menu-item{
-        height: 25vh;
-        width: 35vh;
-        &:nth-child(even)
-        {
-           align-self: flex-end;
-        }
-        img{
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-        }
+
+    &:nth-child(even) {
+      align-self: flex-end;
+      margin-right: 12px;
     }
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+    .choose-text {
+      font-weight: bold;
+      position: absolute;
+      margin: auto;
+      left: 0;
+      right: 0;
+      top: 50%;
+      text-align: center;
+      color: #ffffff;
+      font-size: 18px;
+      transform: translateY(-100%);
+    }
+  }
 }
-.background-gif{
+.background-gif {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100%;
+  z-index: 1;
+  .img-star1 {
     position: absolute;
-    top: 0;
     left: 0;
-    height: 100vh;
-    width: 100%;
+    top: 0;
     z-index: 1;
-    .img-star1{
-        position: absolute;
-        left: 0;
-        top: 0;
-        z-index: 1;
-    }
-    .img-star2{
-        position: absolute;
-        left: 0;
-        top: 10vh;
-        z-index: 1;
-    }
-    .img-star3{
-        position: absolute;
-        left: 0;
-        top: 50vh;
-        z-index: 1;
-    }
-    .img-star4{
-        position: absolute;
-        left: 0;
-        top: 30vh;
-        z-index: 1;
-    }
+  }
+  .img-star2 {
+    position: absolute;
+    left: 0;
+    top: 10vh;
+    z-index: 1;
+  }
+  .img-star3 {
+    position: absolute;
+    left: 0;
+    top: 50vh;
+    z-index: 1;
+  }
+  .img-star4 {
+    position: absolute;
+    left: 0;
+    top: 30vh;
+    z-index: 1;
+  }
 }
