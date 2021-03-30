@@ -100,7 +100,7 @@ const routes: Routes = [
     loadChildren: () => import('./questionares/questionares.module').then( m => m.QuestionaresPageModule),
     canActivate: [AuthGuard],
   },
-  { path: '', redirectTo: '/account-setting/change-avatar', pathMatch: 'full' },
+  { path: '', redirectTo: '/main', pathMatch: 'full' },
   { path: '**', redirectTo: 'main' },
 
 ];
