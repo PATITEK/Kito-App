@@ -99,7 +99,7 @@ export class PaymentupComponent implements OnInit {
             },
             ()=> {
               this.loadingService.dismiss();
-              this.toart.present('Hãy thử lại sau');
+              this.toart.present('Hãy thử lại sau', 'top', 1000, 'dark');
             }) 
           }
           else {

@@ -90,7 +90,7 @@ export class ChangeAvatarPage implements OnInit {
       })
       this.loadingService.dismiss();
       this.accoutnService.getAccounts().subscribe();
-      this.toastService.present('Cập nhật ảnh thành công !', 'top', 2000);
+      this.toastService.present('Cập nhật ảnh thành công !', 'top', 2000, 'dark');
     
     this.accoutnService.updateAvatar(this.activedAvatar);
     this.router.navigateByUrl('account');

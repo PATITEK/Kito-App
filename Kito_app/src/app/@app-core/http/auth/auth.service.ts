@@ -35,10 +35,10 @@ export class AuthService {
       }),
       catchError((errorRes: any) => {
         if(errorRes.error.messages) {
-          this.toastService.present(errorRes.error.messages)
+          this.toastService.present(errorRes.error.errors, 'top',1000,'dark')
         }
         else if(errorRes.error.errors) {
-          this.toastService.present(errorRes.error.errors)
+          this.toastService.present(errorRes.error.errors, 'top',1000,'dark')
         }
         this.loadingService.dismiss();
         throw errorRes.error;
@@ -56,10 +56,10 @@ export class AuthService {
       }),
       catchError((errorRes: any) => {
         if(errorRes.error.errors ){
-          this.toastService.present(errorRes.error.errors, 'top');
+          this.toastService.present(errorRes.error.errors, 'top',1000,'dark');
         }
         else if(errorRes.error.messages) {
-          this.toastService.present(errorRes.error.messages, 'top');
+          this.toastService.present(errorRes.error.errors, 'top',1000,'dark');
         }
         this.loadingService.dismiss();
         throw errorRes.error;
@@ -72,7 +72,7 @@ export class AuthService {
         return result;
       }),
       catchError((errorRes: any) => {
-        this.toastService.present(errorRes.error.errors, 'top')
+        this.toastService.present(errorRes.error.errors, 'top',1000,'dark')
         throw errorRes.error;
       }
       ));
@@ -126,7 +126,7 @@ export class AuthService {
         return result;
       }),
       catchError((errorRes: any) => {
-        this.toastService.present('Vui lòng kiểm tra lại thông tin');
+        this.toastService.present('Vui lòng kiểm tra lại thông tin', 'top',1000,'dark');
         throw errorRes.error;
       }));
   }

@@ -117,8 +117,8 @@ export class PrayPage implements OnInit {
   }
   callChangeDot() {
     this.x = this.frmPray.get('amount').value;
-    if(this.x.match(/[a-zA-Z]+/g)) {
-      this.x = this.x.substring(0,this.x.length - 1);
+    if(!this.x.match(/^[0-9]*$/g)) {
+      this.x = this.x.replace(/[^0-9]/g, '');
      }
     this.x = this.x.replace(/\,/g, '');
     if (this.x != '') {

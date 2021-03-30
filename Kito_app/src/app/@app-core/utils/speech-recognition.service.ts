@@ -39,7 +39,7 @@ export class SpeechRecognitionService {
             
           this.voiceResult = matches[0];
           this.authService.sendData(this.voiceResult)
-          this.toastService.present('Tìm kiếm: '+ this.voiceResult, 'top')
+        //   this.toastService.present('Tìm kiếm: '+ this.voiceResult, 'top')
           this.router.navigateByUrl('/main')
 
         })

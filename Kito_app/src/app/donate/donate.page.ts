@@ -122,17 +122,15 @@ export class DonatePage implements OnInit {
   }
   callChangeDot() {
     this.x = this.frmDonate.get('amount').value;
-   if(this.x.match(/[a-zA-Z]+/g)) {
-    this.x = this.x.substring(0,this.x.length - 1);
+   if(!this.x.match(/^[0-9]*$/g)) {
+    this.x = this.x.replace(/[^0-9]/g, '');
    }
     this.x = this.x.replace(/\,/g, '');
     if (this.x != '') {
       this.x = this.x.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
     }
   }
-  onSearchChange(searchValue: string): void {  
-    // console.log(searchValue);
-  }
+  
   onSubmit() {
     this.amount = this.frmDonate.get('amount').value.replace(/\,/g, '');
     if (this.frmDonate.get('amount').dirty || this.frmDonate.get('amount').touched) {

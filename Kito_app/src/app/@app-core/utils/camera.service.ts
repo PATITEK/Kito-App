@@ -44,14 +44,14 @@ export class CameraService {
                     })
                     this.loadingService.dismiss();
                     this.accountService.getAccounts().subscribe();
-                    this.toastService.present('Cập nhật ảnh thành công !', 'top', 2000);
+                    this.toastService.present('Cập nhật ảnh thành công !', 'top', 2000,'dark');
                 })
             } else {
             }
         }).catch((err) => {
             console.error(err)
             this.loadingService.dismiss();
-            this.toastService.present('Xảy ra lỗi, vui lòng thử lại sau !', 'top', 2000);
+            this.toastService.present('Xảy ra lỗi, vui lòng thử lại sau !', 'top', 2000, 'dark');
         })
     }
     public getAvatarTake(image_avatar) {
@@ -80,14 +80,14 @@ export class CameraService {
                     })
                     this.loadingService.dismiss();
                     this.accountService.getAccounts().subscribe();
-                    this.toastService.present('Cập nhật ảnh thành công !', 'top', 2000);
+                    this.toastService.present('Cập nhật ảnh thành công !', 'top', 2000,'dark');
                 })
             } else {
             }
         }).catch((err) => {
             console.error(err)
             this.loadingService.dismiss();
-            this.toastService.present('Xảy ra lỗi, vui lòng thử lại sau !', 'top', 2000);
+            this.toastService.present('Xảy ra lỗi, vui lòng thử lại sau !', 'top', 2000,'dark');
 
         })
     }
@@ -121,7 +121,7 @@ export class CameraService {
 
     removeAvatar() {
         if (localStorage.getItem('avatar') == 'https://i.imgur.com/edwXSJa.png') {
-            this.toastService.present('Bạn chưa có ảnh đại diện', 'top');
+            this.toastService.present('Bạn chưa có ảnh đại diện', 'top', 2000, 'dark');
         }
         else {
             this.loadingService.present();
@@ -134,12 +134,12 @@ export class CameraService {
                 (data: any) => {
                     localStorage.setItem('avatar', 'https://i.imgur.com/edwXSJa.png')
                     this.loadingService.dismiss();
-                    this.toastService.present('Xóa ảnh thành công !', 'top', 2000);
+                    this.toastService.present('Xóa ảnh thành công !', 'top', 2000, 'dark');
                 },
                 (data: any) => {
                     this.loadingService.dismiss();
                     if (data.error) {
-                        this.toastService.present('Lỗi rồi !', 'top', 2000);
+                        this.toastService.present('Lỗi rồi !', 'top', 2000, 'dark');
                     }
                 }
             )
