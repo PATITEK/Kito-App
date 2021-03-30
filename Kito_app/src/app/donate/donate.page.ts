@@ -121,14 +121,12 @@ export class DonatePage implements OnInit {
     else return `url(${this.img})`
   }
   callChangeDot() {
-    this.x = this.frmDonate.get('amount').value;
-   if(!this.x.match(/^[0-9]*$/g)) {
-    this.x = this.x.replace(/[^0-9]/g, '');
-   }
-    this.x = this.x.replace(/\,/g, '');
-    if (this.x != '') {
-      this.x = this.x.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
-    }
+  
+    let data=this.frmDonate.get('amount').value;
+    data = data.replace(/[^0-9]/gm, '');
+    data = data.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+    this.frmDonate.controls['amount'].setValue(data);
+
   }
   
   onSubmit() {
