@@ -7,7 +7,7 @@
   </span>
 
   <div *ngIf="news.length" class="main-news" (click)="goToNewsDetail(news[0])">
-    <img class="item-img" [src]="news[0].thumb_images[0].url">
+    <img class="item-img" [src]="news[0].thumb_image.url">
 
     <ion-buttons class="text-box">
       <p class="item-title three-dots-2">{{ news[0].title }}</p>
@@ -28,7 +28,7 @@
     <ng-container *ngFor="let item of news; let i = index;">
       <ion-buttons *ngIf="i != 0" class="sub-news-item" (click)="goToNewsDetail(item)">
         <div class="img-container">
-          <img [src]="item.thumb_images[0].url">
+          <img [src]="item.thumb_image.url">
         </div>
         <ion-buttons class="content-box">
           <p class="item-title three-dots-3">{{ item.title }}</p>

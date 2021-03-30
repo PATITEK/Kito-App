@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./questionares.page.scss'],
 })
 export class QuestionaresPage implements OnInit {
-  headerCustom = { title: 'ĐỐ VUI GIÁO LÝ' };
+  headerCustom = { title: '', background:'transparent' };
 
   questions = [
     {name: 'Chơi theo chủ đề', type: 'topic'},

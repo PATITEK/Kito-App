@@ -23,7 +23,7 @@ export class GeolocationService {
     customerLocation: Location = {
         lat: 0,
         lng: 0,
-        address: 'Hãy lấy địa chỉ của bạn'
+        address: null
     };
 
     centerService: google.maps.LatLngLiteral = { lat: 10.847949, lng: 106.786794 };
@@ -39,8 +39,9 @@ export class GeolocationService {
 
     getCurrentLocation() {
         this.PlatForm.ready().then(() => {
-            this.loadingService.present('Hãy đợi trong giây lát...');
+            this.loadingService.present();
             this.geolocation.getCurrentPosition().then((resp) => {
+                
                 this.centerService.lat = resp.coords.latitude;
                 this.centerService.lng = resp.coords.longitude;
                 this.getGeoEncoder(this.centerService.lat, this.centerService.lng);
@@ -57,7 +58,6 @@ export class GeolocationService {
         this.nativeGeocoder.reverseGeocode(latitude, longitude, this.geoEncoderOptions)
             .then((result: NativeGeocoderResult[]) => {
                 this.customerLocation.address = this.generateAddress(result[0]);
-                localStorage.setItem('location', this.customerLocation.address);
                 localStorage.setItem('lat', this.centerService.lat.toString());
                 localStorage.setItem('lng', this.centerService.lng.toString());
             })

@@ -46,7 +46,8 @@ export const APICONFIG = {
     GET_BY_DAY: `/app/calendars/day`,
   },
   DONATES: {
-    DONATE_VISA: `/app/donation_logs/visa_master`
+    DONATE_VISA: `/app/donation_logs/visa_master`,
+    DONATE_MOMO: `/app/donation_logs/momo`
   },
   HISTORY: {
     GET_SERVICES: `/app/attention_logs/service_history`,
@@ -57,6 +58,9 @@ export const APICONFIG = {
     GET_DETAIL: (id) => `/app/orders/${id}`,
     CREATE: `/app/orders`,
     DELETE: (id) => `/app/orders/${id}`,
+    PAYMENT_ORDER_VISA: `/app/order_payments/visa_master`,
+    PAYMENT_ORDER_MOMO: `/app/order_payments/momo`,
+    PAYMENT_ORDER_CASH: `/app/order_payments/cash`,
   },
   VATICAN: {
     GET: `/app/vatican_news`,
@@ -96,6 +100,9 @@ export const APICONFIG = {
     GET_ALL_FAVORITE: `app/songs/favourite_songs`,
     FAVORITE: `app/songs/favourite`,
     UNFAVORITE: `app/songs/unfavourite`,
+  },
+  IMAGE_PROFILE:{
+    GET_ALL:`app/app_users/default_avatar`
   }
 };
 

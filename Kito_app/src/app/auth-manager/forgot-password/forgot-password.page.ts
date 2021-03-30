@@ -28,16 +28,16 @@ export class ForgotPasswordPage implements OnInit {
     if (PATTERN.EMAIL.test(this.email.email)) {
       this.loadingService.present();
       this.authService.forgotPassword({email: this.email.email}).subscribe((data) => {
-        this.toastService.present('Vui lòng kiểm tra mã OTP vừa gửi đến mail của bạn.', 'top');
+        this.toastService.present('Vui lòng kiểm tra mã OTP vừa gửi đến mail của bạn.', 'top',2000, 'dark');
         this.loadingService.dismiss();
         this.router.navigateByUrl('auth-manager/verification');
       })
     } else {
       if(this.email.email == '') {
-        this.toastService.present('Vui lòng nhập email của bạn!', 'top', 2000);
+        this.toastService.present('Vui lòng nhập email của bạn!', 'top', 2000,'dark');
       }
       else {
-        this.toastService.present('Email không hợp lệ!', 'top', 2000);
+        this.toastService.present('Email không hợp lệ!', 'top', 2000, 'dark');
       }
     }
   }

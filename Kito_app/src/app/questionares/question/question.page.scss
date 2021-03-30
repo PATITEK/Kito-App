@@ -113,7 +113,7 @@ ion-content {
   z-index: 10;
   flex-direction: column;
   background-color: #fff;
-  // transform: translateY(100%);
+  transform: translateY(100%);
   transition: 0.3s;
 
   .modal-fixed {
@@ -133,35 +133,31 @@ ion-content {
 
   .rule-label {
     font-size: 35px;
-    color: #CC9D3E;
+    color: #cc9d3e;
   }
 
   .ion-content {
     overflow: auto;
 
     ion-buttons {
-        width: 90%;
+      width: 90%;
+      display: block;
+      margin: auto;
+      margin-top: 30px;
+      .rule-content {
+        justify-content: center;
         display: block;
         margin: auto;
-        margin-top: 30px;
-        .rule-content {
-            justify-content: center;
-            display: block;
-            margin: auto;
-        }
+      }
     }
-    // ion-buttons:first-child {
-    //     // margin-top: 140px;
-    // }
     ion-img {
-        width: 80%;
-        display: block;
-        margin: auto;
-        margin-top: 50px;
+      width: 80%;
+      display: block;
+      margin: auto;
+      margin-top: 50px;
     }
   }
 }
-
 .has-modal {
   transform: translateY(0);
 }

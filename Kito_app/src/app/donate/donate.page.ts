@@ -88,7 +88,6 @@ export class DonatePage implements OnInit {
         this.loadingService.dismiss();
         this.getData = data.parish;
         this.bishop_name = this.getData.priest_name;
-        // this.imgNotFound(this.getData);
         this.img = this.getData.thumb_image.url;
       })
     }
@@ -100,7 +99,6 @@ export class DonatePage implements OnInit {
         this.loadingService.dismiss();
         this.getData = data.diocese;
         this.bishop_name = this.getData.bishop_name;
-        // this.imgNotFound(this.getData)
         this.img = this.getData.thumb_image.url
       })
     }
@@ -111,7 +109,6 @@ export class DonatePage implements OnInit {
         this.loadingService.dismiss();
         this.getData = data.parish;
         this.bishop_name = this.getData.priest_name;
-        // this.imgNotFound(this.getData);
         this.img = this.getData.thumb_image.url;
       })
     }
@@ -124,16 +121,16 @@ export class DonatePage implements OnInit {
     else return `url(${this.img})`
   }
   callChangeDot() {
-    this.x = this.frmDonate.get('amount').value;
-    this.x = this.x.replace(/\,/g, '');
-    if (this.x != '') {
-      this.x = this.x.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
-    }
-  }
+  
+    let data=this.frmDonate.get('amount').value;
+    data = data.replace(/[^0-9]/gm, '');
+    data = data.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+    this.frmDonate.controls['amount'].setValue(data);
 
+  }
+  
   onSubmit() {
     this.amount = this.frmDonate.get('amount').value.replace(/\,/g, '');
-
     if (this.frmDonate.get('amount').dirty || this.frmDonate.get('amount').touched) {
       if (this.amount != undefined) {
         this.amount = this.amount.replace(/\,/g, '')
@@ -141,13 +138,7 @@ export class DonatePage implements OnInit {
       else {
         this.amount = "";
       }
-      if (this.amount.length != 0 && !this.amount.match(/^[0-9]*$/g)) {
-        this.required_mess = true;
-        this.message = 'Bạn chỉ nhập được số ở trường này!';
-        this.loadingService.dismiss();
-        return;
-      }
-      else if (this.amount < 12000) {
+      if (this.amount < 12000) {
         this.required_mess = true;
         this.message = 'Giá trị phải lớn hơn 12,000';
         this.loadingService.dismiss();
@@ -158,6 +149,7 @@ export class DonatePage implements OnInit {
         this.loadingService.dismiss();
       }
     }
+    this.amount = parseInt(this.amount);
     var donate = {
       "donation": {
         "email": localStorage.getItem('email'),
@@ -165,7 +157,8 @@ export class DonatePage implements OnInit {
         "amount": this.amount,
         "note": this.frmDonate.get('note').value,
         "source_type": this.source_type,
-        "source_id": this.source_id
+        "source_id": this.source_id,
+        "payment_type": ''
       }
     }
     this.router.navigate(['paymentmethods'], {
@@ -183,5 +176,8 @@ export class DonatePage implements OnInit {
         data: JSON.stringify(data)
       }
     })
+  }
+  goToMap(lat, lng) {
+    window.open('https://www.google.com/maps/dir/?api=1&destination=' + lat + ',' + lng);
   }
 }

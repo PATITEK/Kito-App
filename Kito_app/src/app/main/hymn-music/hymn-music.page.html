@@ -2,8 +2,8 @@
   <app-header [headerCustom]="headerCustom"></app-header>
 </ion-header>
 
-<ion-content>
-  <app-search-bar-nav></app-search-bar-nav>
+<ion-content [ngClass]="{'disable-scroll': !songs.length}">
+  <app-search-bar-nav (output)="search($event)"></app-search-bar-nav>
 
   <ion-segment (ionChange)="changedSegment($event)" value="all" swipeGesture="false" mode="ios">
     <ion-segment-button value="all" class="intro">
@@ -47,6 +47,10 @@
       </ion-buttons>
     </ng-container>
   </ion-list>
+
+  <ion-infinite-scroll #infiniteScrollSongs (ionInfinite)="loadMoreSongs($event)">
+    <ion-infinite-scroll-content loadingSpinner="lines"></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content>
 
 <ion-footer *ngIf="activeSong" class="ion-no-border">
@@ -62,7 +66,7 @@
   <ion-buttons class="footer-inner">
     <ion-buttons class="footer-left" (click)="toggleHasModal(true)">
       <ion-avatar class="avatar">
-        <img [src]="activeSong.thumb_image?.url" />
+        <img onerror="this.src='assets/img/avatar.png'" [src]="activeSong.thumb_image?.url" />
       </ion-avatar>
       <div class="active-tract-info">
         <div class="active-track-name three-dots-1">{{ activeSong.name }}</div>
@@ -86,7 +90,7 @@
     <div class="name">{{ activeSong.name }}</div>
     <div class="author">{{ activeSong.artist }}</div>
     <ion-avatar class="avatar">
-      <img [src]="activeSong.thumb_image?.url" />
+      <img onerror="this.src='assets/img/avatar.png'" [src]="activeSong.thumb_image?.url" />
     </ion-avatar>
   </div>
 

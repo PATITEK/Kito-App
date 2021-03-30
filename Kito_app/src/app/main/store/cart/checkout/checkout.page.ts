@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 import { OrderService } from 'src/app/@app-core/http';
 import { DateTimeService, LoadingService } from 'src/app/@app-core/utils';
 import { ModalFoodComponent } from 'src/app/@modular/modal-food/modal-food.component';
+import { IDataNoti, PageNotiService } from 'src/app/@modular/page-noti/page-noti.service';
 
 @Component({
   selector: 'app-checkout',
@@ -16,17 +17,22 @@ export class CheckoutPage implements OnInit {
   location = '';
   shipCost = 5000;
   paymentMethod;
-
+  phone;
+  order_id: any;
   constructor(
     public dateTimeService: DateTimeService,
     private route: ActivatedRoute,
     private orderService: OrderService,
     private modalCtrl: ModalController,
-    private loadingService: LoadingService
+    private loadingService: LoadingService,
+    private pageNotiService: PageNotiService,
+    private router: Router,
+
   ) { }
 
   ngOnInit() {
     this.getCart();
+    this.phone = localStorage.getItem('phone_temp');
     this.route.queryParams.subscribe(params => {
       this.paymentMethod = JSON.parse(params['data']).paymentMethod;
     }).unsubscribe();
@@ -48,7 +54,8 @@ export class CheckoutPage implements OnInit {
     const popover = await this.modalCtrl.create({
       component: ModalFoodComponent,
       cssClass: 'modalFood',
-      backdropDismiss: false
+      backdropDismiss: false,
+      componentProps: { order_id: this.order_id }
     });
     return await popover.present();
   }
@@ -63,20 +70,52 @@ export class CheckoutPage implements OnInit {
         lng: localStorage.getItem('lng'),
         note: null,
         full_address: this.location,
-        phone_number_receiver: localStorage.getItem('phoneNumber'),
+        phone_number_receiver: localStorage.getItem('phone_temp'),
         order_details_attributes: this.cart.map(item => ({ product_id: item.id, amount: item.amount }))
       }
     }
-    this.orderService.create(req).subscribe(
-      () => {
+    if (this.paymentMethod.id == 0) {
+      this.orderService.create(req).subscribe((data:any) => {
+        this.order_id = data.order.id;
         this.loadingService.dismiss();
-        this.openModalSuccess();
-      },
-      () => {
-        this.loadingService.dismiss();
-      }
-    )
+        this.paymentByCash();
+      })
+    }
+    else {
+      this.orderService.create(req).subscribe(
+        (data: any) => {
+          this.order_id = data.order.id;
+          this.loadingService.dismiss();
+          this.openModalSuccess();
+          this.modalCtrl.dismiss();
+        },
+        () => {
+          this.loadingService.dismiss();
+        }
+      )
+    }
+
     localStorage.removeItem('lat');
     localStorage.removeItem('lng');
+  }
+  paymentByCash() {
+    var orderByCash = {
+      "donation": {
+        "order_id": this.order_id
+      }
+    }
+    const datapasing: IDataNoti = {
+      title: 'THÀNH CÔNG!',
+      des: 'Đơn hàng đặt thành công!',
+      routerLink: '/main/chabad'
+    }
+    this.orderService.paymentOrder_Cash(orderByCash).subscribe(data => {
+      this.loadingService.dismiss();
+      this.pageNotiService.setdataStatusNoti(datapasing);
+      this.router.navigateByUrl('/page-noti');
+    },
+    ()=>{
+      this.loadingService.dismiss();
+    })
   }
 }

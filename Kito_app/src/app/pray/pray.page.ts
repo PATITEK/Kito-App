@@ -22,21 +22,21 @@ export class PrayPage implements OnInit {
   source_type: any;
   source_id: any;
   required_mess = false;
-  name;
+  name: any;
   message_purpose = "";
   required_purpose = false;
   message = "";
   avatar: any;
   img;
-  setamount: any;
-  getData;
+  getData:any;
   bishop_name;
-  data;
+  data: any;
   level = 'Linh';
   type_page = 'pray';
   headerCustom = { title: 'Xin lễ', background: '#e5e5e5' };
   x: any;
   amount: any;
+  setamount = 0;
   constructor(
     public formBuilder: FormBuilder,
     private route: ActivatedRoute,
@@ -89,7 +89,6 @@ export class PrayPage implements OnInit {
         this.loadingService.dismiss();
         this.getData = data.parish;
         this.bishop_name = this.getData.priest_name;
-        // this.imgNotFound(this.getData);
         this.img = this.getData.thumb_image.url
       })
     }
@@ -101,7 +100,6 @@ export class PrayPage implements OnInit {
         this.loadingService.dismiss();
         this.getData = data.diocese;
         this.bishop_name = this.getData.bishop_name;
-        // this.imgNotFound(this.getData);
         this.img = this.getData.thumb_image.url;
       })
     }
@@ -112,18 +110,16 @@ export class PrayPage implements OnInit {
         this.loadingService.dismiss();
         this.getData = data.parish;
         this.bishop_name = this.getData.priest_name;
-        // this.imgNotFound(this.getData)
         this.img = this.getData.thumb_image.url
       })
     }
     this.avatar = localStorage.getItem('avatar');
   }
   callChangeDot() {
-    this.x = this.frmPray.get('amount').value;
-    this.x = this.x.replace(/\,/g, '');
-    if (this.x != '') {
-      this.x = this.x.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
-    }
+    let data = this.frmPray.get('amount').value;
+    data = data.replace(/[^0-9]/gm, '');
+    data = data.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+    this.frmPray.controls['amount'].setValue(data);
   }
   imgNotFound(item) {
     !item?.thumb_image?.url && (item.thumb_image = { url: "https://i.imgur.com/UKNky29.jpg" });
@@ -137,13 +133,7 @@ export class PrayPage implements OnInit {
       else {
         this.amount = "";
       }
-      if (this.amount.length != 0 && !this.amount.match(/^[0-9]*$/g)) {
-        this.required_mess = true;
-        this.message = 'Trường này bạn chỉ nhập số!';
-        this.loadingService.dismiss();
-        return;
-      }
-      else if (this.amount.length != 0 && this.amount < 12000) {
+      if (this.amount.length != 0 && this.amount < 12000) {
         this.required_mess = true;
         this.message = 'Giá trị phải lớn hơn 12,000 vnd';
         return;
@@ -151,30 +141,32 @@ export class PrayPage implements OnInit {
       else {
         this.required_mess = false;
       }
-      if (this.amount == undefined || this.amount == "") {
-        this.setamount = 0;
-      }
-      else {
-        this.setamount = this.amount;
-      }
-    }
-
-    var result = {
-      "donation": {
-        "amount": this.setamount,
-        "note": this.frmPray.get('note').value,
-        "source_type": this.source_type,
-        "source_id": this.source_id
-      }
     }
     if (this.amount == "" || this.amount == undefined) {
-      this.donateService.donateLog(result).subscribe((data) => {
+      this.amount = this.setamount;
+    }
+    else {
+      this.setamount = this.amount;
+    }
+    this.amount = parseInt(this.amount);  
+    var result = {
+      "donation": {
+        "amount": this.amount,
+        "note": this.frmPray.get('note').value,
+        "source_type": this.source_type,
+        "source_id": this.source_id,
+      }
+    }
+    if (this.amount == 0) {
+      result.donation['payment_type'] = 'visa_master';
+      this.donateService.donateByVisa(result).subscribe((data) => {
         this.presentToast('Pray successfully!');
       })
     }
     else {
       result.donation['email'] = localStorage.getItem('email');
       result.donation['token'] = '';
+      result.donation['payment_type'] = '';
       this.router.navigate(['paymentmethods'], {
         queryParams: {
           data: JSON.stringify(result)
@@ -191,5 +183,8 @@ export class PrayPage implements OnInit {
         data: JSON.stringify(data)
       }
     })
+  }
+  goToMap(lat, lng) {
+    window.open('https://www.google.com/maps/dir/?api=1&destination=' + lat + ',' + lng);
   }
 }

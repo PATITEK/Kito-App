@@ -1,7 +1,19 @@
 <ion-header class="ion-no-border" *ngIf="questions.length > 0">
   <ion-buttons class="header-option">
-    <ion-icon size="large" mode="ios" name="list-circle-outline" class="active-effect" (click)="questionSetting()"></ion-icon>
-    <ion-icon size="large" name="volume-high" [name]="musicType ? 'volume-high': 'volume-mute'" class="active-effect" (click)="setMusicType()"></ion-icon>
+    <ion-icon
+      size="large"
+      mode="ios"
+      name="list-circle-outline"
+      class="active-effect"
+      (click)="questionSetting()"
+    ></ion-icon>
+    <ion-icon
+      size="large"
+      name="volume-high"
+      [name]="musicType ? 'volume-high': 'volume-mute'"
+      class="active-effect"
+      (click)="setMusicType()"
+    ></ion-icon>
   </ion-buttons>
   <ion-buttons class="header-notify">
     <ion-buttons class="heart active-effect" lines="none">
@@ -13,10 +25,17 @@
         <ion-row>
           <ion-label class="question-type">{{ questionTypeName }}</ion-label>
         </ion-row>
-        <ion-label class="question-counter">{{ questionCounter+1 }}/10 câu</ion-label>
-    </ion-col>
+        <ion-label class="question-counter"
+          >{{ questionCounter+1 }}/10 câu</ion-label
+        >
+      </ion-col>
     </ion-buttons>
-    <ion-icon class="rule active-effect" size="large" name="help-circle-outline" (click)="toggleHasModal(true)"></ion-icon>
+    <ion-icon
+      class="rule active-effect"
+      size="large"
+      name="help-circle-outline"
+      (click)="toggleHasModal(true)"
+    ></ion-icon>
   </ion-buttons>
   <ion-buttons class="time-and-score">
     <ion-label>Điểm: {{score}}</ion-label>
@@ -30,41 +49,80 @@
 <ion-content class="ion-padding" *ngIf="questions.length > 0">
   <!-- <ion-label>right for test: {{ questions[this.questionCounter].answer.right_answer }}</ion-label> -->
   <ion-buttons class="question-cover">
-    <ion-label class="question" *ngIf="questions[questionCounter].question != '' ">{{ questions[questionCounter].question }}</ion-label>
+    <ion-label
+      class="question"
+      *ngIf="questions[questionCounter].question != '' "
+      >{{ questions[questionCounter].question }}</ion-label
+    >
   </ion-buttons>
   <ion-buttons class="question-cover">
-    <img class="question-img" *ngIf="questions[questionCounter].thumb_image.url != '' " src="https://www.forescout.com/wp-content/uploads/2019/04/fs-cyber-bob-blog-feaured-img-10-questions.png" />
+    <img
+      class="question-img"
+      *ngIf="questions[questionCounter].thumb_image.url != '' "
+      src="https://www.forescout.com/wp-content/uploads/2019/04/fs-cyber-bob-blog-feaured-img-10-questions.png"
+    />
   </ion-buttons>
 
   <ion-grid>
     <ion-row>
       <ion-col>
-        <ion-button mode="ios" class="answer active-effect" id="answer" shape="round" Fill="outline"
-        (click)="btnActivate($event)" 
-        (click) = "checkAnswerValue(questions[questionCounter].answer.a)"
-        (click) = "checkAnswerKey(questions[questionCounter].answer, answerValue)">{{ questions[questionCounter].answer.a }}
+        <ion-button
+          mode="ios"
+          class="answer active-effect"
+          id="answer"
+          shape="round"
+          Fill="outline"
+          (click)="btnActivate($event)"
+          (click)="checkAnswerValue(questions[questionCounter].answer.a)"
+          (click)="checkAnswerKey(questions[questionCounter].answer, answerValue)"
+          >{{ questions[questionCounter].answer.a }}
         </ion-button>
 
-        <ion-button mode="ios" class="answer active-effect" id="answer" shape="round" Fill="outline"
-        (click)="btnActivate($event)" 
-        (click) = "checkAnswerValue(questions[questionCounter].answer.b)"
-        (click) = "checkAnswerKey(questions[questionCounter].answer, answerValue)">{{ questions[questionCounter].answer.b }}
+        <ion-button
+          mode="ios"
+          class="answer active-effect"
+          id="answer"
+          shape="round"
+          Fill="outline"
+          (click)="btnActivate($event)"
+          (click)="checkAnswerValue(questions[questionCounter].answer.b)"
+          (click)="checkAnswerKey(questions[questionCounter].answer, answerValue)"
+          >{{ questions[questionCounter].answer.b }}
         </ion-button>
 
-        <ion-button mode="ios" class="answer active-effect" id="answer" shape="round" Fill="outline"
-        (click)="btnActivate($event)" 
-        (click) = "checkAnswerValue(questions[questionCounter].answer.c)"
-        (click) = "checkAnswerKey(questions[questionCounter].answer, answerValue)">{{ questions[questionCounter].answer.c }}
+        <ion-button
+          mode="ios"
+          class="answer active-effect"
+          id="answer"
+          shape="round"
+          Fill="outline"
+          (click)="btnActivate($event)"
+          (click)="checkAnswerValue(questions[questionCounter].answer.c)"
+          (click)="checkAnswerKey(questions[questionCounter].answer, answerValue)"
+          >{{ questions[questionCounter].answer.c }}
         </ion-button>
 
-        <ion-button mode="ios" class="answer active-effect" id="answer" shape="round" Fill="outline"
-        (click)="btnActivate($event)" 
-        (click) = "checkAnswerValue(questions[questionCounter].answer.d)"
-        (click) = "checkAnswerKey(questions[questionCounter].answer, answerValue)">{{ questions[questionCounter].answer.d }}
+        <ion-button
+          mode="ios"
+          class="answer active-effect"
+          id="answer"
+          shape="round"
+          Fill="outline"
+          (click)="btnActivate($event)"
+          (click)="checkAnswerValue(questions[questionCounter].answer.d)"
+          (click)="checkAnswerKey(questions[questionCounter].answer, answerValue)"
+          >{{ questions[questionCounter].answer.d }}
         </ion-button>
 
-        <ion-button mode="ios" class="confirm-btn active-effect" id="confirm" [disabled]="answerValue==''"
-        (click)="btnConfirm()" (click)="btnActivate($event)">Đồng ý</ion-button>
+        <ion-button
+          mode="ios"
+          class="confirm-btn active-effect"
+          id="confirm"
+          [disabled]="answerValue==''"
+          (click)="btnConfirm()"
+          (click)="btnActivate($event)"
+          >Đồng ý</ion-button
+        >
       </ion-col>
     </ion-row>
   </ion-grid>
@@ -73,7 +131,11 @@
 <ion-buttons class="modal" *ngIf="hasModal" [ngClass]="{'has-modal': hasModal}">
   <div class="modal-fixed">
     <div class="modal-header">
-      <ion-icon name="chevron-back-outline" class="back-btn back-btn-custom" (click)="toggleHasModal(false)"></ion-icon>
+      <ion-icon
+        name="chevron-back-outline"
+        class="back-btn back-btn-custom"
+        (click)="toggleHasModal(false)"
+      ></ion-icon>
     </div>
   </div>
 

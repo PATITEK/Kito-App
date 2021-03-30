@@ -10,17 +10,22 @@ ion-header {
   }
 
   .address-content {
-    align-items: flex-start;
-    background: #f8f8f8;
     border-radius: 10px;
-    padding: 16px;
+    padding: 8px 8px;
     margin-top: 5px;
-
+    margin-bottom: 23px;
+    height: 59px;
     .address {
       color: #424242;
       font-size: 14px;
       font-weight: 500;
       margin: 0 0 0 8px;
+    }
+  }
+  .phone-content {
+    height: 30px;
+    .phone {
+      height: 100%;
     }
   }
 }

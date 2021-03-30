@@ -185,8 +185,8 @@
 }
 
 .modalFood {
-  --height: 170px;
-  --width: 300px;
+  --height: 178px;
+  --width: 305px;
   .modal-wrapper {
     border-radius: 20px;
   }
@@ -299,4 +299,10 @@
 
 .disable-scroll {
   --overflow: hidden;
+}
+.toast-css {
+  text-align: center;
+}
+.searchbar-clear-button.sc-ion-searchbar-ios {
+  right: 28px !important;
 }

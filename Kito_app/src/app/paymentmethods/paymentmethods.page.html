@@ -1,12 +1,23 @@
+<app-header  [headerCustom]="headerCustom"></app-header>
 <ion-content>
-  <ion-back-button icon="chevron-back-outline" text="" class="back-btn"></ion-back-button>
-  <div class="header">
-    <ion-label> PHƯƠNG THỨC THANH TOÁN</ion-label>
-  </div>
-  <ion-item-group class="ion-padding">
-    <ion-label class=" title" (click)="openModal()">
-       + Thêm thẻ
-     </ion-label>
-  </ion-item-group>
  
+  <ion-item-group class="ion-padding">
+    <ion-buttons>
+      <img src="assets/img/card_payment.svg" alt="">
+      <ion-label class=" title" (click)="openModal()">
+         + Thêm thẻ
+       </ion-label>
+    </ion-buttons>
+    <ion-buttons>
+      <img src="assets/img/momo.png" alt="">
+      <ion-label class=" title" (click)="goMomo()">
+        + Qua momo
+      </ion-label>
+    </ion-buttons>
+    
+  </ion-item-group>
+  <!-- <input id="cardholder-name" type="text">
+<div id="card-element"></div>
+<div id="card-result"></div>
+<button id="card-button">Save Card</button> -->
 </ion-content>
