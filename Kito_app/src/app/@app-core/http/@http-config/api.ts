@@ -59,7 +59,8 @@ export const APICONFIG = {
     CREATE: `/app/orders`,
     DELETE: (id) => `/app/orders/${id}`,
     PAYMENT_ORDER_VISA: `/app/order_payments/visa_master`,
-    PAYMENT_ORDER_MOMO: `/app/order_payments/momo`
+    PAYMENT_ORDER_MOMO: `/app/order_payments/momo`,
+    PAYMENT_ORDER_CASH: `/app/order_payments/cash`,
   },
   VATICAN: {
     GET: `/app/vatican_news`,
@@ -99,6 +100,9 @@ export const APICONFIG = {
     GET_ALL_FAVORITE: `app/songs/favourite_songs`,
     FAVORITE: `app/songs/favourite`,
     UNFAVORITE: `app/songs/unfavourite`,
+  },
+  IMAGE_PROFILE:{
+    GET_ALL:`app/app_users/default_avatar`
   }
 };
 

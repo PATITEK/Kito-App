@@ -204,7 +204,7 @@ export class LoginPage implements OnInit {
       this.markFormGroupTouched(this.formSignUp);
     } else if (!this.checkMatchConfirmedPassword()) {
       this.showSpinner = false;
-      this.toastService.present('Confirmed password not match');
+      this.toastService.present('Confirmed password not match', 'top', 2000, 'dark');
     } else {
       let data = this.formSignUp.value;
       data.phone_number = data.phone_number.length == 10 ? data.phone_number.substring(1, 10) : data.phone_number;

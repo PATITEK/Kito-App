@@ -88,7 +88,6 @@ export class DonatePage implements OnInit {
         this.loadingService.dismiss();
         this.getData = data.parish;
         this.bishop_name = this.getData.priest_name;
-        // this.imgNotFound(this.getData);
         this.img = this.getData.thumb_image.url;
       })
     }
@@ -100,7 +99,6 @@ export class DonatePage implements OnInit {
         this.loadingService.dismiss();
         this.getData = data.diocese;
         this.bishop_name = this.getData.bishop_name;
-        // this.imgNotFound(this.getData)
         this.img = this.getData.thumb_image.url
       })
     }
@@ -111,7 +109,6 @@ export class DonatePage implements OnInit {
         this.loadingService.dismiss();
         this.getData = data.parish;
         this.bishop_name = this.getData.priest_name;
-        // this.imgNotFound(this.getData);
         this.img = this.getData.thumb_image.url;
       })
     }
@@ -125,15 +122,17 @@ export class DonatePage implements OnInit {
   }
   callChangeDot() {
     this.x = this.frmDonate.get('amount').value;
+   if(!this.x.match(/^[0-9]*$/g)) {
+    this.x = this.x.replace(/[^0-9]/g, '');
+   }
     this.x = this.x.replace(/\,/g, '');
     if (this.x != '') {
       this.x = this.x.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
     }
   }
-
+  
   onSubmit() {
     this.amount = this.frmDonate.get('amount').value.replace(/\,/g, '');
-
     if (this.frmDonate.get('amount').dirty || this.frmDonate.get('amount').touched) {
       if (this.amount != undefined) {
         this.amount = this.amount.replace(/\,/g, '')
@@ -141,13 +140,7 @@ export class DonatePage implements OnInit {
       else {
         this.amount = "";
       }
-      if (this.amount.length != 0 && !this.amount.match(/^[0-9]*$/g)) {
-        this.required_mess = true;
-        this.message = 'Bạn chỉ nhập được số ở trường này!';
-        this.loadingService.dismiss();
-        return;
-      }
-      else if (this.amount < 12000) {
+      if (this.amount < 12000) {
         this.required_mess = true;
         this.message = 'Giá trị phải lớn hơn 12,000';
         this.loadingService.dismiss();

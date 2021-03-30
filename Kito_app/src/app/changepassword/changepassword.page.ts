@@ -79,7 +79,7 @@ export class ChangepasswordPage implements OnInit {
       (data)=> {
         this.loadService.dismiss();
         this.count++;
-        this.toastService.present('Mật khẩu bạn nhập sai, vui lòng kiểm tra lại !', 'top', 2000);
+        this.toastService.present('Mật khẩu bạn nhập sai, vui lòng kiểm tra lại !', 'top', 2000, 'dark');
         if(this.count == 3) {
         }
       })

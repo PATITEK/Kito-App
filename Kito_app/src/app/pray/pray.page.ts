@@ -89,7 +89,6 @@ export class PrayPage implements OnInit {
         this.loadingService.dismiss();
         this.getData = data.parish;
         this.bishop_name = this.getData.priest_name;
-        // this.imgNotFound(this.getData);
         this.img = this.getData.thumb_image.url
       })
     }
@@ -101,7 +100,6 @@ export class PrayPage implements OnInit {
         this.loadingService.dismiss();
         this.getData = data.diocese;
         this.bishop_name = this.getData.bishop_name;
-        // this.imgNotFound(this.getData);
         this.img = this.getData.thumb_image.url;
       })
     }
@@ -112,7 +110,6 @@ export class PrayPage implements OnInit {
         this.loadingService.dismiss();
         this.getData = data.parish;
         this.bishop_name = this.getData.priest_name;
-        // this.imgNotFound(this.getData)
         this.img = this.getData.thumb_image.url
       })
     }
@@ -120,6 +117,9 @@ export class PrayPage implements OnInit {
   }
   callChangeDot() {
     this.x = this.frmPray.get('amount').value;
+    if(!this.x.match(/^[0-9]*$/g)) {
+      this.x = this.x.replace(/[^0-9]/g, '');
+     }
     this.x = this.x.replace(/\,/g, '');
     if (this.x != '') {
       this.x = this.x.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
@@ -137,13 +137,7 @@ export class PrayPage implements OnInit {
       else {
         this.amount = "";
       }
-      if (this.amount.length != 0 && !this.amount.match(/^[0-9]*$/g)) {
-        this.required_mess = true;
-        this.message = 'Trường này bạn chỉ nhập số!';
-        this.loadingService.dismiss();
-        return;
-      }
-      else if (this.amount.length != 0 && this.amount < 12000) {
+      if (this.amount.length != 0 && this.amount < 12000) {
         this.required_mess = true;
         this.message = 'Giá trị phải lớn hơn 12,000 vnd';
         return;

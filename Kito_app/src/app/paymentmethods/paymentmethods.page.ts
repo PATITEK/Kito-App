@@ -82,7 +82,7 @@ export class PaymentmethodsPage implements OnInit {
       },
         () => {
           this.loading.dismiss();
-          this.toart.present('Hãy thử lại sau')
+          this.toart.present('Hãy thử lại sau', 'top', 2000, 'dark')
         })
     }
     else {
@@ -95,7 +95,7 @@ export class PaymentmethodsPage implements OnInit {
       },
         () => {
           this.loading.dismiss();
-          this.toart.present('Hãy thử lại sau');
+          this.toart.present('Hãy thử lại sau', 'top', 2000, 'dark');
         })
     }
   }
