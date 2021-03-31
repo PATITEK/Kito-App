@@ -1,0 +1,25 @@
+<ion-header>
+  <app-header [headerCustom]="headerCustom"></app-header>
+</ion-header>
+
+<ion-content>
+  <ion-item-group class="support-main">
+    <div class="support-backgroup">
+      <h3 class="text-title">xin chào, chúng tôi có thể giúp gì cho bạn?</h3>
+    <div class="search-bar-container">
+      <ion-icon name="mic-outline" class="voice" alt="" (click)="startVoice()"></ion-icon>
+      <ion-searchbar #searchBar mode="ios" placeholder="Tìm kiếm..." input="111"></ion-searchbar>
+    </div>
+    </div>
+
+  </ion-item-group>
+  <ion-item-group class="support-content">
+    <h3 class="text-support">Câu hỏi thường gặp</h3>
+    <ion-item-group class="list-support">
+        <ion-item-group class="support-item">
+          <p>Làm sao để đăng ký học Giáo lý?</p>
+          <ion-icon name="chevron-forward-outline"></ion-icon>
+        </ion-item-group>
+    </ion-item-group>
+  </ion-item-group>
+</ion-content>

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { IPageRequest, VaticanService } from 'src/app/@app-core/http';
+import { PopeService } from 'src/app/@app-core/http/pope';
 
 @Component({
   selector: 'app-parish-news',
@@ -7,68 +8,50 @@ import { Router } from '@angular/router';
   styleUrls: ['./parish-news.page.scss'],
 })
 export class ParishNewsPage implements OnInit {
-  news = [
+  headerCustom = { title: 'Tòa thánh Vatican' }
+
+  list = [
     {
-      id: "1",
-      title: 'ĐTC Phanxicô cử hành Thánh lễ Ngày Đời sống Thánh hiến',
-      thumbImage: 'assets/img/parish-item.svg'
+      heading: 'Tin tức Vatican',
+      items: [],
+      type: { general: 'news', detail: 'vatican' }
     },
     {
-      id: "2",
-      title: 'ĐTC Phanxicô cử hành Thánh lễ Ngày Đời sống Thánh hiến',
-      thumbImage: 'assets/img/parish-item.svg'
-    },
-    {
-      id: "3",
-      title: 'ĐTC Phanxicô cử hành Thánh lễ Ngày Đời sống Thánh hiến',
-      thumbImage: 'assets/img/parish-item.svg'
-    },
-    {
-      id: "4",
-      title: 'ĐTC Phanxicô cử hành Thánh lễ Ngày Đời sống Thánh hiến',
-      thumbImage: 'assets/img/parish-item.svg'
+      heading: 'Tiểu sử các Đức Giáo Hoàng',
+      items: [],
+      type: { general: 'story', detail: 'pope' }
     }
   ]
+  pageRequest: IPageRequest = {
+    page: 1,
+    per_page: 4
+  }
 
-  stories = [
-    {
-      id: "1",
-      title: `Giáo hoàng Phanxicô - Đương kim giáo hoàng`,
-      thumbImage: 'assets/img/pope.svg'
-    },
-    {
-      id: "2",
-      title: `Giáo hoàng Phanxicô - Đương kim giáo hoàng`,
-      thumbImage: 'assets/img/pope.svg'
-    },
-    {
-      id: "3",
-      title: `Giáo hoàng Phanxicô - Đương kim giáo hoàng`,
-      thumbImage: 'assets/img/pope.svg'
-    },
-    {
-      id: "4",
-      title: `Giáo hoàng Phanxicô - Đương kim giáo hoàng`,
-      thumbImage: 'assets/img/pope.svg'
-    }
-  ]
-
-  slideOptions = {
-    initialSlide: 0,
-    loop: true,
-    autoplay: {
-      disableOnInteraction: false
-    }
-  };
-
-  constructor( private router: Router) { }
+  constructor(
+    private vaticanService: VaticanService,
+    private popeService: PopeService
+  ) { }
 
   ngOnInit() {
+    this.getData();
   }
-  routerLink(path) {
-    
-    // this.router.navigate(['main/'+path]);
-    this.router.navigateByUrl('main/tonggiaophan/parish-news/'+path);
-   
+
+  getVatican() {
+    this.vaticanService.getAll(this.pageRequest).subscribe(data => {
+      data.vatican_news.forEach(v => v.type = this.list[0].type);
+      this.list[0].items = data.vatican_news;
+    })
+  }
+
+  getPope() {
+    this.popeService.getAll(this.pageRequest).subscribe(data => {
+      data.pope_infos.forEach(v => v.type = this.list[1].type);
+      this.list[1].items = data.pope_infos;
+    })
+  }
+
+  getData() {
+    this.getVatican();
+    this.getPope();
   }
 }

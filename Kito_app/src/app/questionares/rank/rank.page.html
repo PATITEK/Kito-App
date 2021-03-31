@@ -1,0 +1,44 @@
+<app-header class="header" [headerCustom]="headerCustom"></app-header>
+<ion-content class="ion-padding">
+  <center class="ion-text-center">
+    <h3 class="title">BẢNG XẾP HẠNG</h3>
+  </center>
+  <ul>
+    <li *ngFor="let item of data">
+      <span class="stt-rank" *ngIf="item.index != 1 && item.index != 2 && item.index != 3">
+        {{item.index}}
+      </span>
+      <img class="rank-img" src="../../../assets/img/questionares/1st.svg" *ngIf="item.index==1"/>
+      <img class="rank-img" src="../../../assets/img/questionares/2nd.svg" *ngIf="item.index==2"/>
+      <img class="rank-img" src="../../../assets/img/questionares/3rd.svg" *ngIf="item.index==3"/>
+      <div class="rank-info">
+        <ion-avatar class="avatar">
+          <img src="assets/img/avatar.png" alt="">
+        </ion-avatar>
+        <span class="name three-dots-3">{{ item.name }}</span>
+        <div class="rank-point">
+          <img src="assets/img/rank/cup.svg" alt="">
+          <ion-label>{{ item.point }}</ion-label>
+        </div>
+      </div>
+    </li>
+  </ul>
+
+  <div class="background-gif">
+    <div class="img-star2">
+      <img src="assets/img/questionares/bubble.gif" alt="" srcset="" />
+    </div>
+    <div class="img-star2">
+      <img src="assets/img/questionares/star2.gif" alt="" srcset="" />
+    </div>
+    <div class="img-star4">
+      <img src="assets/img/questionares/star2.gif" alt="" srcset="" />
+    </div>
+    <div class="img-star3">
+      <img src="assets/img/questionares/bubble.gif" alt="" srcset="" />
+    </div>
+    <div class="img-star4">
+      <img src="assets/img/questionares/bubble.gif" alt="" srcset="" />
+    </div>
+  </div>
+</ion-content>

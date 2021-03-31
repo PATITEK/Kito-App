@@ -7,15 +7,7 @@ const routes: Routes = [
   {
     path: '',
     component: ParishNewsPage
-  },  {
-    path: 'news',
-    loadChildren: () => import('./news/news.module').then( m => m.NewsPageModule)
   },
-  {
-    path: 'stories',
-    loadChildren: () => import('./stories/stories.module').then( m => m.StoriesPageModule)
-  }
-
 ];
 
 @NgModule({

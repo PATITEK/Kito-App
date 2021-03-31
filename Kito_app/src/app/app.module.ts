@@ -15,7 +15,14 @@ import { Camera } from '@ionic-native/camera/ngx';
 import { SlideService } from './@modular/slide/slide.service';
 import { Stripe } from '@ionic-native/stripe/ngx';
 import {enableProdMode} from '@angular/core';
-
+import { SpeechRecognition } from '@ionic-native/speech-recognition/ngx'
+import { AudioManagement } from '@ionic-native/audio-management/ngx';
+import { AudioManagerService, CameraService, GeolocationService, OneSignalService, SpeechRecognitionService } from './@app-core/utils';
+import { OneSignal } from '@ionic-native/onesignal/ngx';
+import { Geolocation } from '@ionic-native/geolocation/ngx';
+import { NativeGeocoder, NativeGeocoderOptions, NativeGeocoderResult } from '@ionic-native/native-geocoder/ngx';
+import { NativePageTransitions } from '@ionic-native/native-page-transitions/ngx';
+// import { IonicSwipeAllModule } from 'ionic-swipe-all';
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -24,9 +31,9 @@ import {enableProdMode} from '@angular/core';
     IonicModule.forRoot(), 
     AppRoutingModule,
     CoreModule.forRoot(),
-    FormsModule, 
+    FormsModule,
     ReactiveFormsModule,
-   
+    
   ],
   providers: [
     StatusBar,
@@ -36,6 +43,17 @@ import {enableProdMode} from '@angular/core';
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     AuthGuard,
     Camera,
+    CameraService,
+    SpeechRecognition,
+    SpeechRecognitionService,
+    AudioManagement,
+    AudioManagerService,
+    OneSignal,
+    OneSignalService,
+    Geolocation,
+    GeolocationService,
+    NativeGeocoder,
+    NativePageTransitions,
   ],
   bootstrap: [AppComponent]
 })

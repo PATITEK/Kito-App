@@ -1,0 +1,33 @@
+.search-bar-container {
+  position: fixed;
+  top: 80px;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  padding: 3px 16px 10px;
+  background: #fff;
+
+  ion-searchbar {
+    --background: #fff;
+    --icon-color: #cacaca;
+    --placeholder-color: #cacaca;
+    --placeholder-opacity: 1;
+    --color: #6c6c6c;
+    border: 1px solid #c8c8c8;
+    border-radius: 5px;
+    height: 32px;
+    padding: 0 5px;
+  }
+}
+
+.voice {
+  color: #c8c8c8;
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  right: 25px;
+  top: 0;
+  bottom: 7px;
+  margin: auto;
+  z-index: 99;
+}

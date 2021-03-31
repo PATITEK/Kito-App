@@ -1,0 +1,33 @@
+<ion-header>
+  <app-header [headerCustom]="headerCustom"></app-header>
+</ion-header>
+
+<ion-content>
+  <app-search-bar-nav></app-search-bar-nav>
+
+  <div class="main-news" *ngFor="let data of datas">
+    <div class="img-container">
+      <img class="item-img" src="{{ data.thumb_img }}" />
+    </div>
+
+    <ion-buttons class="text-box">
+      <ion-avatar>
+        <img src="{{ data.avatar }}" />
+      </ion-avatar>
+      <ion-col>
+        <p class="item-title three-dots-2">{{ data.title }}</p>
+        <p class="item-title-bottom three-dots-2">{{ data.sub_title }}</p>
+      </ion-col>
+      <ion-buttons class="right-box text">
+        <ion-buttons>
+          <ion-icon name="eye"></ion-icon>
+          <ion-label>{{ data.views }}</ion-label>
+        </ion-buttons>
+        <ion-buttons class="time-box">
+          <ion-icon name="time"></ion-icon>
+          <ion-label>{{ data.time }}</ion-label>
+        </ion-buttons>
+      </ion-buttons>
+    </ion-buttons>
+  </div>
+</ion-content>

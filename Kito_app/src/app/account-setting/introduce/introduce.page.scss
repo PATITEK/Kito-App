@@ -1,0 +1,39 @@
+ion-content {
+    --padding-top: 80px;
+    position: relative;
+}
+
+.title-text {
+    color: #cc9d3e;
+    text-transform: uppercase;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 23px;
+    text-align: center;
+}
+.info-app {
+    border-bottom: 2px solid #f2f2f2;
+    ion-item {
+        margin: 20px 0;
+        ion-avatar {
+            height: 60px;
+            width: 60px;
+        }
+    }
+}
+.info-company{
+    padding: 0 25px;
+    p{
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 19px;
+        color: #424242;
+    }
+}
+.version{
+font-size: 14px;
+line-height: 18px;
+color: #828282;
+font-weight: 400;
+text-align: center;
+}

@@ -10,7 +10,7 @@ import { IDataNoti, PageNotiService } from 'src/app/@modular/page-noti/page-noti
   styleUrls: ['./new-password.page.scss'],
 })
 export class NewPasswordPage implements OnInit {
-  passwordValue = '444';
+  passwordValue = '359';
   confirmedPasswordValue = '';
   
   invalidPassword = '';
@@ -41,16 +41,16 @@ export class NewPasswordPage implements OnInit {
   checkValidPassword(name: string, value: string) {
     if (value == '') {
       this.loadingService.dismiss();
-      return `${name} can't not be empty`;
+      return `${name} không được trống`;
     }
     if (value.length < 6) {
       this.loadingService.dismiss();
-      return `${name} can't not be less than 6 letters`;
+      return `${name} không được ít hơn 6 ký tự`;
     }
-    if (name == 'Confirmed password') {
+    if (name == 'Xác nhận mật khẩu') {
       this.loadingService.dismiss();
       if (this.passwordValue != this.confirmedPasswordValue) {
-        return 'Confirmed password not match with password';
+        return 'Xác nhận mật khẩu không trùng khớp';
       }
     }
     return '';
@@ -59,18 +59,21 @@ export class NewPasswordPage implements OnInit {
   confirmPassword() {
     this.loadingService.present();
     const datapasing: IDataNoti = {
-      title: 'SUCCESSFUL!',
-      image: 'Change Password successful!',
-      routerLink: '/main/chabad'
+      title: 'THÀNH CÔNG!',
+      des: 'Lấy lại mật khẩu thành công!',
+      routerLink: '/main'
     }
-    this.invalidPassword = this.checkValidPassword('Password', this.passwordValue);
-    this.invalidConfirmedPassword = this.checkValidPassword('Confirmed password', this.confirmedPasswordValue);
+    this.invalidPassword = this.checkValidPassword('Mật khẩu', this.passwordValue);
+    this.invalidConfirmedPassword = this.checkValidPassword('Xác nhận mật khẩu', this.confirmedPasswordValue);
     if (this.invalidPassword == '' && this.invalidConfirmedPassword == '') {
-      this.loadingService.dismiss();
-      this.authService.newPassword({ password: this.passwordValue }).subscribe((data) => {
-        // console.log(data);
+      let dataSubmit = {
+        "new_password":  this.passwordValue,
+        "new_password_confirmation": this.confirmedPasswordValue
+      }
+      this.authService.newPassword(dataSubmit).subscribe((data) => {
         this.pageNotiService.setdataStatusNoti(datapasing);
         this.router.navigateByUrl('/page-noti');
+        this.loadingService.dismiss();
       })
     }    
   }

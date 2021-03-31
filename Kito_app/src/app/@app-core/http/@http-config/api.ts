@@ -11,7 +11,8 @@ export const APICONFIG = {
     TYPE_OF_USER: `/app/auth/users/profile`,
     RESET_PASSWORD_EMAIL: `/app/reset_password/send_code`,
     CHECK_CODE_RESET: `/app/reset_password/check_code`,
-    RESET_PASSWORD: `/app/reset_password/reset_password`,
+    RESET_PASSWORD: `/app/app_users/change_password`,
+    RESET_PASSWORD_NEW: `/app/reset_password/reset_password`,
     COUNTRY_CODE: `/app/country_codes`,
     UPDATE_AVATAR: `/app/app_users/update_avatar`
   },
@@ -25,24 +26,28 @@ export const APICONFIG = {
     UPDATE_PREMIUM: (id) => `/app/users/request_upgrade`,
     CONTACT_ADMIN: `/app/interact_email/submit`
   },
-  CHABAD: {
-    GET: `/app/chabads`,
-    GET_DETAIL: id => `/app/chabads/${id}`
+  DIOCESE: {
+    GET: `/app/dioceses`,
+    GET_DETAIL: id => `/app/dioceses/${id}`
+  },
+  PARISHES: {
+    GET_ALL_WITH_DIOCESE_ID: `/app/parishes`,
+    GETNEWS: `/app/parish_news`,
+    GET_ALL: `app/parishes/all_parishes`,
+    GET_DETAIL: id => `/app/parishes/${id}`
   },
   EVENTS: {
     GET: `/app/events`,
     GET_DETAIL: (id) => `/app/events/${id}`,
-    JOIN: `/app/attention_logs`,
-    CANCEL: `/app/attention_logs/cancel`
+  },
+  CALENDARS: {
+    GET_BY_MONTH: `/app/calendars/month`,
+    GET_BY_WEEK: `/app/calendars/week`,
+    GET_BY_DAY: `/app/calendars/day`,
   },
   DONATES: {
-    DONATE:`/app/donation_logs`  
-  },
-  MATCH_USERS: {
-    GET: `/app/matches/match`
-  },
-  FOOD: {
-    GET: `/app/foods`
+    DONATE_VISA: `/app/donation_logs/visa_master`,
+    DONATE_MOMO: `/app/donation_logs/momo`
   },
   HISTORY: {
     GET_SERVICES: `/app/attention_logs/service_history`,
@@ -50,9 +55,54 @@ export const APICONFIG = {
   },
   ORDER: {
     GET_ALL: `/app/orders`,
-    GET: (id) => `/app/orders/${id}`,
+    GET_DETAIL: (id) => `/app/orders/${id}`,
     CREATE: `/app/orders`,
     DELETE: (id) => `/app/orders/${id}`,
+    PAYMENT_ORDER_VISA: `/app/order_payments/visa_master`,
+    PAYMENT_ORDER_MOMO: `/app/order_payments/momo`,
+    PAYMENT_ORDER_CASH: `/app/order_payments/cash`,
+  },
+  VATICAN: {
+    GET: `/app/vatican_news`,
+    GET_DETAIL: id => `/app/vatican_news/${id}`
+  },
+  POPE: {
+    GET: `/app/pope_infos`,
+    GET_DETAIL: id => `/app/pope_infos/${id}`
+  },
+  BISHOP: {
+    GET: `/app/bishop_infos`,
+    GET_DETAIL: id => `/app/bishop_infos/${id}`
+  },
+  DIOCESE_NEWS: {
+    GET: `/app/diocese_news`,
+    GET_DETAIL: id => `/app/diocese_news/${id}`
+  },
+  STORE: {
+    GET_ALL_CATEGORIES: `/app/categories`,
+    GET_ALL_PRODUCTS: `/app/products`,
+    GET_DETAIL_PRODUCT: id => `/app/products/${id}`
+  },
+  QUESTIONARES: {
+    GET_TOPIC: `/app/questions/topics`,
+    GET_LEVEL: `/app/questions/levels`,
+    GET_QUES_TOPIC: topic => `/app/questions/by_topic?topic=${topic}`,
+    GET_QUES_LEVEL: level => `/app/questions/by_level?level=${level}`,
+    CHECK_ANSWER: answerKey => `/${answerKey}`,
+  },
+  COURSE: {
+    GET_COURSE_GROUP: `/app/course_groups`,
+    GET_COURSE_ID: `/app/courses`
+  },
+  MUSIC: {
+    GET_ALL: `app/songs`,
+    GET_DETAIL: id => `app/songs/${id}`,
+    GET_ALL_FAVORITE: `app/songs/favourite_songs`,
+    FAVORITE: `app/songs/favourite`,
+    UNFAVORITE: `app/songs/unfavourite`,
+  },
+  IMAGE_PROFILE:{
+    GET_ALL:`app/app_users/default_avatar`
   }
 };
 

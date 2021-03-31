@@ -1,39 +1,9 @@
-<ion-content>
-  <ion-back-button icon="chevron-back-outline" text="" class="back-btn back-btn-custom"></ion-back-button>
+<ion-header>
+  <app-header [headerCustom]="headerCustom"></app-header>
+</ion-header>
 
-  <div class="header"></div>
-  
-  <div class="box">
-    <div class="heading-box">
-      <ion-label>Tin tức <br>TÒA THÁNH VATICAN</ion-label>
-    </div>
-  
-    <ion-slides pager="true" [options]="slideOptions">
-      <ion-slide *ngFor="let item of news" class="item main-box-shadow">
-        <img class="item-img" [src]="item.thumbImage">
-        <p class="item-title three-dots-2">{{ item.title }}</p>
-      </ion-slide>
-    </ion-slides>
-
-    <div class="see-more-box">
-      <ion-label class="active-effect">Xem thêm ></ion-label>
-    </div>
-  </div>
-
-  <div class="box" (click)="routerLink('stories')">
-    <div class="heading-box">
-      <ion-label>Tiểu sử các <br>ĐỨC GIÁO HOÀNG</ion-label>
-    </div>
-  
-    <ion-slides pager="true" [options]="slideOptions">
-      <ion-slide *ngFor="let item of stories" class="item main-box-shadow">
-        <img class="item-img" [src]="item.thumbImage">
-        <p class="item-title three-dots-2">{{ item.title }}</p>
-      </ion-slide>
-    </ion-slides>
-
-    <div class="see-more-box">
-      <ion-label>Xem thêm ></ion-label>
-    </div>
-  </div>
+<ion-content class="ion-padding">
+  <ion-list>
+    <app-main-slide *ngFor="let item of list" [data]="item"></app-main-slide>
+  </ion-list>
 </ion-content>

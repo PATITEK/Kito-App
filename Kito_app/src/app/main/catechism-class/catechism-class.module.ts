@@ -7,14 +7,18 @@ import { IonicModule } from '@ionic/angular';
 import { CatechismClassPageRoutingModule } from './catechism-class-routing.module';
 
 import { CatechismClassPage } from './catechism-class.page';
+import { HeaderModule } from 'src/app/@modular/header/header.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    CatechismClassPageRoutingModule
+    CatechismClassPageRoutingModule,
+    HeaderModule
   ],
-  declarations: [CatechismClassPage]
+  declarations: [
+    CatechismClassPage,
+  ]
 })
 export class CatechismClassPageModule {}

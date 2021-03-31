@@ -7,12 +7,14 @@ import { IonicModule } from '@ionic/angular';
 import { DonatePageRoutingModule } from './donate-routing.module';
 
 import { DonatePage } from './donate.page';
+import { HeaderModule } from '../@modular/header/header.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
+    HeaderModule,
     ReactiveFormsModule,
     DonatePageRoutingModule
   ],

@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { APICONFIG, SUCCESS, STATUS } from '../@http-config';
 // import { ToastrService } from 'ngx-toastr';
 import { catchError, map } from 'rxjs/operators';
-import { requestQuery } from 'src/app/@app-core/utils';
+import { LoadingService, requestQuery } from 'src/app/@app-core/utils';
 import { IPageRequest } from '../global';
 import { IAccount, IGetAccounts, IPageAccount } from './account.DTO';
 import { promise } from 'protractor';
@@ -16,6 +16,7 @@ export class AccountService {
     private http: HttpClient,
     // private storage: StorageService,
     // private toastr: ToastrService,
+    public loadingServie: LoadingService
   ) { }
 
   public getAccounts() {
@@ -102,6 +103,7 @@ export class AccountService {
         return result
       }),
       catchError((errorRes: any) => {
+        this.loadingServie.dismiss();
         throw errorRes.error;
       })
     )
@@ -119,6 +121,15 @@ export class AccountService {
         throw errorRes.error;
       })
     )
+  }
+  public getArrayAvatar(){
+    return this.http.get(`${APICONFIG.IMAGE_PROFILE.GET_ALL}`).pipe(
+      map((result: any) => {
+        return result;
+      }),
+      catchError((errorRes) => {
+        throw errorRes.error;
+      }));
   }
 
 }

@@ -16,14 +16,12 @@ export class AuthService {
 
   constructor(
     private http: HttpClient,
-    // private toastr: ToastrService,
     private router: Router,
     private storage: StorageService,
     public toastController: ToastController,
     private loadingService: LoadingService,
     private toastService: ToastService
   ) { }
-
   public get receiveData(): Observable<any> {
     return this.data.asObservable();
   }
@@ -36,7 +34,12 @@ export class AuthService {
         return result;
       }),
       catchError((errorRes: any) => {
-        this.toastService.present("Email is not available!")
+        if(errorRes.error.messages) {
+          this.toastService.present(errorRes.error.errors, 'top',1000,'dark')
+        }
+        else if(errorRes.error.errors) {
+          this.toastService.present(errorRes.error.errors, 'top',1000,'dark')
+        }
         this.loadingService.dismiss();
         throw errorRes.error;
       }));
@@ -44,24 +47,32 @@ export class AuthService {
   }
   public checkcodePassword(req) {
     return this.http.post(`${APICONFIG.AUTH.CHECK_CODE_RESET}`, req).pipe(
-      map((result) => {
+      map((result: any) => {
+        this.storage.clear();
+        localStorage.setItem('Authorization', result.token);
+         this.storage.setInfoAccount();
         return result;
+        
       }),
       catchError((errorRes: any) => {
-        // this.toastService.present('Your code has expired, please resend!', 'top');
-        this.toastService.present(errorRes.error.errors, 'top')
+        if(errorRes.error.errors ){
+          this.toastService.present(errorRes.error.errors, 'top',1000,'dark');
+        }
+        else if(errorRes.error.messages) {
+          this.toastService.present(errorRes.error.errors, 'top',1000,'dark');
+        }
         this.loadingService.dismiss();
         throw errorRes.error;
       }
       ));
   }
   public newPassword(req) {
-    return this.http.post(`${APICONFIG.AUTH.RESET_PASSWORD}`, req).pipe(
+    return this.http.post(`${APICONFIG.AUTH.RESET_PASSWORD_NEW}`, req).pipe(
       map((result) => {
         return result;
       }),
       catchError((errorRes: any) => {
-        this.toastService.present(errorRes.error.errors, 'top')
+        this.toastService.present(errorRes.error.errors, 'top',1000,'dark')
         throw errorRes.error;
       }
       ));
@@ -81,44 +92,44 @@ export class AuthService {
       map((result: any) => {
         this.storage.clear();
         localStorage.setItem('Authorization', result.token);
-        localStorage.setItem('fullname', result.full_name);
-        this.storage.setInfoAccount();
-        //  this.toastr.success(SUCCESS.AUTH.LOGIN);
+         this.storage.setInfoAccount();
         return result;
       }),
       catchError((errorRes: any) => {
         localStorage.clear();
         this.storage.clear();
-        this.presentToast('Password or Email is invalid!');
+        if(errorRes.error.errors) {
+          this.presentToast(errorRes.error.errors);
+        }
+        else if(errorRes.error.message) {
+          this.presentToast(errorRes.error.errors);
+        }
+        else {
+          this.presentToast('Xảy ra lỗi, vui lòng kiểm tra lại!');
+        }
         throw errorRes.error;
       })
       );
   }
- 
   logout() {
     localStorage.clear();
     this.storage.clear();
-    this.storage.setInfoAccount();
-    // this.router.navigateByUrl('/main/product-categories');
     window.location.assign('/');
   }
   public signup(req) {
     return this.http.post(`${APICONFIG.AUTH.SIGNUP}`, req).pipe(
-      
       map((result: any) => {
-        // this.toastr.success(SUCCESS.AUTH.LOGIN);
+        this.storage.clear();
         localStorage.setItem('Authorization', result.token);
-        localStorage.setItem('fullname', result.full_name);
-        // console.log('auth-signup');
+        this.storage.setInfoAccount();
         this.router.navigate(['main/chabad']);
         return result;
       }),
       catchError((errorRes: any) => {
-        this.presentToast(errorRes.error);
+        this.toastService.present('Vui lòng kiểm tra lại thông tin', 'top',1000,'dark');
         throw errorRes.error;
       }));
   }
-
   public countryCode() {
     return this.http.get(`${APICONFIG.AUTH.COUNTRY_CODE}`).pipe(
       map((result: any) => {
@@ -128,21 +139,6 @@ export class AuthService {
         throw errorRes.error;
       }))
   }
- 
-  checkLogin() {
-    const token = localStorage.getItem('Authorization');
-    if (!token) {
-      return false;
-    } else {
-      return true;
-    }
-  }
-  private setLocalStore(data) {
-    localStorage.setItem('Authorization', data.token);
-    localStorage.setItem('fullname', data.fullname);
-    localStorage.setItem('exp', data.exp);
-  }
-
   async presentToast(message: string) {
     const toast = await this.toastController.create({
       message: message,

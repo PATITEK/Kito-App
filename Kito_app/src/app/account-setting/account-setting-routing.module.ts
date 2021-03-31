@@ -11,7 +11,28 @@ const routes: Routes = [
   {
     path: 'orders-history',
     loadChildren: () => import('./orders-history/orders-history.module').then( m => m.OrdersHistoryPageModule)
+  },
+  {
+    path: 'setting',
+    loadChildren: () => import('./setting/setting.module').then( m => m.SettingPageModule)
+  },
+  {
+    path: 'introduce',
+    loadChildren: () => import('./introduce/introduce.module').then( m => m.IntroducePageModule)
+  },
+  {
+    path: 'support',
+    loadChildren: () => import('./support/support.module').then( m => m.SupportPageModule)
+  },
+  {
+    path: 'my-parish',
+    loadChildren: () => import('./my-parish/my-parish.module').then( m => m.MyParishPageModule)
+  },  {
+    path: 'change-avatar',
+    loadChildren: () => import('./change-avatar/change-avatar.module').then( m => m.ChangeAvatarPageModule)
   }
+
+
  
 ];
 

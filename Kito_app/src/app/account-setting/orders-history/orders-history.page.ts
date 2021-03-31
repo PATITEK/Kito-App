@@ -1,3 +1,4 @@
+import { catchError } from 'rxjs/operators';
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { OrderService } from 'src/app/@app-core/http';
@@ -11,6 +12,7 @@ import { ModalDetailOrderPage } from 'src/app/@modular/modal-detail-order/modal-
   styleUrls: ['./orders-history.page.scss'],
 })
 export class OrdersHistoryPage implements OnInit {
+  headerCustom = { title: 'Lịch sử đặt hàng' };
   data: any;
   lastedData: any;
   constructor(private orderService: OrderService,
@@ -20,11 +22,11 @@ export class OrdersHistoryPage implements OnInit {
     }
 
   ngOnInit() {
-    this.loadingService.present();
     this.getDataOrders();
   }
 
   init() {
+    this.loadingService.present();
     this.data = {
       orders: {
         pageRequest: {
@@ -40,10 +42,9 @@ export class OrdersHistoryPage implements OnInit {
   getDataOrders(func?) {
     let orders = this.data.orders;
     this.orderService.getAll(orders.pageRequest).subscribe(data => {
+      this.loadingService.dismiss();
       orders.array = orders.array.concat(data.orders);
       this.lastedData = orders.array[orders.array.length - 1];
-      // orders.array = orders.array.reverse();
-      this.loadingService.dismiss();
       func && func();
       orders.pageRequest.page++;
       if (orders.array.length >= data.meta.pagination.total_objects) {
@@ -51,7 +52,6 @@ export class OrdersHistoryPage implements OnInit {
       }
     })
   }
-
   loadMoreDataOrders(event) {
     this.getDataOrders(() => {
       event.target.complete();

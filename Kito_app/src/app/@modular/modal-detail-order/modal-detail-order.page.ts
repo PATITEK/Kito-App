@@ -29,8 +29,8 @@ export class ModalDetailOrderPage implements OnInit {
 
   isCanceled = '';
 
-  fakeImg = 'assets/img/food.svg';
-  
+  fakeImg = 'https://res.cloudinary.com/baodang359/image/upload/v1616123967/kito-music/MDC319_avatar_bqms50.jpg';
+
   constructor(
     private orderService: OrderService,
     private dateTimeService: DateTimeService,
@@ -52,13 +52,13 @@ export class ModalDetailOrderPage implements OnInit {
   }
 
   getData(id) {
-    this.orderService.get(id).subscribe(data => {
+    this.orderService.getDetail(id).subscribe(data => {
       this.order = data.order;
       this.loadedData = true;
-      if(data.order.status == 'pending') {
-        this.isCanceled = 'Cancel Order';
+      if (data.order.status == 'pending') {
+        this.isCanceled = 'Hủy đơn hàng';
       } else if (data.order.status == 'failed') {
-        this.isCanceled = 'The order is canceled';
+        this.isCanceled = 'Đã hủy đơn hàng';
       }
       this.loadingService.dismiss();
     })
@@ -67,19 +67,17 @@ export class ModalDetailOrderPage implements OnInit {
   async reallyWantCancelOrder(id) {
     const alert = await this.alertController.create({
       cssClass: 'my-custom-class',
-      header: 'Confirm!',
-      message: 'Do you really want to <strong>cancel</strong> this order?',
+      header: 'Xác nhận!',
+      message: 'Bạn chắc chắn muốn <strong>hủy</strong> đơn hàng này?',
       mode: 'ios',
       backdropDismiss: true,
       buttons: [
         {
-          text: 'No, thank!',
+          text: 'Quay lại',
           role: 'cancel',
           cssClass: 'secondary',
-          handler: (blah) => {
-          }
         }, {
-          text: 'Okay',
+          text: 'Đồng ý',
           handler: () => {
             this.cancelOrder(id);
           }
@@ -94,14 +92,13 @@ export class ModalDetailOrderPage implements OnInit {
     this.loadingService.present();
     this.order.status = 'failed';
     this.orderService.delete(id).subscribe(data => {
-      // console.log(data);
       this.loadingService.dismiss();
-      this.isCanceled = 'The order is canceled';
+      this.isCanceled = 'Đã hủy đơn hàng';
     })
   }
 
   calTotalPrice() {
-    return this.order.order_details.reduce((acc, cur) => acc + cur.amount*cur.total_price , 0)
+    return this.order.order_details.reduce((acc, cur) => acc + cur.amount * cur.total_price, 0)
   }
   calTotalAmount() {
     return this.order.order_details.reduce((acc, cur) => acc + cur.amount, 0);

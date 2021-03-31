@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ModalController, PopoverController } from '@ionic/angular';
+import { Router } from '@angular/router';
+import { AlertController, ModalController, PopoverController } from '@ionic/angular';
 import { AccountService, PATTERN } from '../@app-core/http';
-import { PopupComponent } from '../@modular/popup/popup.component';
-import { ModalPasswordComponent } from '../@modular/modal-password/modal-password.component'
-import { LoadingService, ToastService } from '../@app-core/utils';
+import { CameraService, ImageService, LoadingService, ToastService } from '../@app-core/utils';
+import { ChangepasswordPage } from '../changepassword/changepassword.page';
 
 @Component({
   selector: 'app-account',
@@ -12,6 +12,9 @@ import { LoadingService, ToastService } from '../@app-core/utils';
   styleUrls: ['./account.page.scss'],
 })
 export class AccountPage implements OnInit {
+  image_avatar: any;
+  avatar = '';
+  headerCustom = { title: 'Thông tin cá nhân' };
   activatedInput = false;
   loadedData = false;
   form: FormGroup;
@@ -31,9 +34,9 @@ export class AccountPage implements OnInit {
       { type: 'required', message: 'Email is required.' },
       { type: 'pattern', message: 'Email is invalid.' },
     ],
-    full_address: [
-      { type: 'required', message: 'Address is required.' }
-    ]
+    // full_address: [
+    //   { type: 'required', message: 'Address is required.' }
+    // ]
   }
 
   constructor(
@@ -42,22 +45,29 @@ export class AccountPage implements OnInit {
     private accountService: AccountService,
     private passwordModal: ModalController,
     private loadingService: LoadingService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    public imageService: ImageService,
+    private alertCtrl: AlertController,
+    private cameraService: CameraService,
+    private router:Router
   ) { }
-  img_url = 'assets/img/user.png';
   ngOnInit() {
     this.initForm();
     this.getData();
+
+  }
+  ngDoCheck() {
+    this.avatar = localStorage.getItem('avatar')
   }
 
   ionViewWillEnter() {
-    if(localStorage.getItem('img_url')) {
-      this.img_url = localStorage.getItem('img_url');
-    }
+    //  this.imageService.getImage();
+    this.avatar = localStorage.getItem('avatar')
   }
 
   initForm() {
     this.form = this.fb.group({
+      avatar: new FormControl(''),
       full_name: new FormControl('', Validators.required),
       birthday: new FormControl(''),
       phone_number: new FormControl('', Validators.compose([
@@ -68,28 +78,63 @@ export class AccountPage implements OnInit {
         Validators.required,
         Validators.pattern(PATTERN.EMAIL)
       ])),
-      full_address: new FormControl('', Validators.required),
+      // full_address: new FormControl('', Validators.required),
     });
   }
 
-  async presentPopover(ev: any) {
-    const popover = await this.popoverController.create({
-      component: PopupComponent,
-      cssClass: 'my-custom-class',
-      event: ev,
-      translucent: true
+  async avatarSetting() {
+    let alertAvatarSetting = await this.alertCtrl.create({
+      message: 'Cài đặt ảnh đại diện',
+      mode: 'ios',
+      buttons: [
+        {
+          text: 'Xem ảnh đại diện',
+          handler: () => {
+            this.cameraService.viewAvatar();
+          }
+        },
+        {
+          text:"Cập nhật ảnh đại diện",
+          handler:()=>{
+      this.router.navigateByUrl('/account-setting/change-avatar');
+          }
+        },
+        // {
+        //   text: 'Chọn từ thư viện',
+        //   handler: () => {
+
+        //     this.cameraService.getAvatarUpload(this.image_avatar);
+        //   }
+        // },
+        // {
+        //   text: 'Chụp ảnh mới',
+        //   handler: () => {
+        //     this.cameraService.getAvatarTake(this.image_avatar);
+        //   }
+        // },
+        {
+          text: 'Xóa ảnh đại diện',
+          handler: () => {
+            this.cameraService.removeAvatar();
+          }
+        },
+        {
+          text: 'Đóng',
+          role: 'destructive',
+        },
+      ]
     });
-    return await popover.present();
+    await alertAvatarSetting.present();
   }
 
   async openModalPassword(ev: any) {
     const popover = await this.passwordModal.create({
-      component: ModalPasswordComponent,
+      component: ChangepasswordPage,
       cssClass: 'modalPassword',
     });
     return await popover.present();
   }
-  
+
   activateInput() {
     this.activatedInput = true;
     this.lastForm = this.form.value;
@@ -111,10 +156,11 @@ export class AccountPage implements OnInit {
   updateInfo() {
     this.loadingService.present();
     let data = this.form.value;
-    this.accountService.updateProfile(data).subscribe(() => {
+    this.accountService.updateProfile(data).subscribe((data) => {
+      localStorage.setItem('fullname', data.app_user.full_name);
       this.activatedInput = false;
       this.loadingService.dismiss();
-      this.toastService.present('Updated successfully!');
+      this.toastService.present('Cập nhật thành công !', 'top', 2000, 'dark');
     });
   }
 

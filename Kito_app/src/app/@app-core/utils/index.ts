@@ -3,3 +3,9 @@ export * from './connectivity.service';
 export * from './loading.service';
 export * from './date-time.service';
 export * from './toast.service';
+export * from './speech-recognition.service';
+export * from './audio-manager.service';
+export * from './onesignal.service'
+export * from './geolocation.service';
+export * from './camera.service';
+export * from './image.service'

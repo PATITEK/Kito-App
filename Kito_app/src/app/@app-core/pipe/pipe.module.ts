@@ -1,10 +1,12 @@
 import { NgModule } from '@angular/core';
+import { DayPipe } from './pipiday.pipe';
+
 import { SearchPipe } from './search.pipe';
 
 @NgModule({
     imports: [],
-    exports: [SearchPipe],
-    declarations: [SearchPipe],
+    exports: [SearchPipe,DayPipe],
+    declarations: [SearchPipe,DayPipe],
     providers: [],
 })
 export class PipeModule { }

@@ -7,34 +7,43 @@ import { Router } from '@angular/router';
   styleUrls: ['./catechism-class.page.scss'],
 })
 export class CatechismClassPage implements OnInit {
+  headerCustom = {title: 'Lớp học giáo lý'};
+
   catechismList = [
     {
-      id: '1',
-      name: 'Giáo lý lớp 1-12',
-      thumbImage: 'assets/img/catechism-menu-1.svg'
+      name: 'Giáo lý Hồng Ân',
+      thumbImage: 'assets/img/catechism-menu-1.svg',
+      desUrl: 'main/catechism-class/catechism'
     },
     {
-      id: '2',
       name: 'Giáo lý hôn nhân',
-      thumbImage: 'assets/img/catechism-menu-2.svg'
+      thumbImage: 'assets/img/catechism-menu-2.svg',
+      desUrl: 'main/catechism-class/catechism-marriage'
+    },
+    {
+      name: 'Giáo lý dự tòng',
+      thumbImage: 'assets/img/catechism-menu-4.svg',
+      desUrl: 'main/catechism-class/catechism-marriage'
+    },
+    {
+      name: 'Đố vui giáo lý',
+      thumbImage: 'assets/img/catechism-menu-3.svg',
+      desUrl: '/questionares'
     }
   ]
 
   constructor(
-    private router: Router
+    private router: Router,
   ) { }
 
   ngOnInit() {
   }
 
   goToCatechismDetail(catechism) {
-    const data = {
-      id: catechism.id
-    }
-    // this.router.navigate([''], {
-    //   queryParams: {
-    //     data: JSON.stringify(data)
-    //   }
-    // })
+    this.router.navigate([catechism.desUrl], {
+      queryParams: {
+        data: catechism.name
+      }
+    })
   }
 }

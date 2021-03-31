@@ -1,3 +1,4 @@
+
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
@@ -7,29 +8,6 @@ const routes: Routes = [
   {
     path: '',
     component: MainPage,
-    children: [
-      {
-        path: 'chabad',
-        loadChildren: () => import('./chabad/chabad.module').then(m => m.ChabadPageModule)
-      },
-      {
-        path: 'people',
-        loadChildren: () => import('./people/people.module').then(m => m.PeoplePageModule)
-      },
-      {
-        path: 'shopping',
-        loadChildren: () => import('./shopping/shopping.module').then(m => m.ShoppingPageModule)
-      },
-      {
-        path: 'event',
-        loadChildren: () => import('./event/event.module').then( m => m.EventPageModule)
-      },
-    ]
-  },
-  {
-    path: '',
-    redirectTo: '',
-    pathMatch: 'full'
   },
   {
     path: 'catechism-class',
@@ -39,6 +17,39 @@ const routes: Routes = [
     path: 'tonggiaophan',
     loadChildren: () => import('./tonggiaophan/tonggiaophan.module').then( m => m.TonggiaophanPageModule)
   },
+  {
+    path: 'prayer-time',
+    loadChildren: () => import('./prayer-time/prayer-time.module').then( m => m.PrayerTimePageModule)
+  },
+  {
+    path: 'store',
+    loadChildren: () => import('./store/store.module').then( m => m.StorePageModule)
+  },
+ 
+  {
+    path: 'calendars',
+    loadChildren: () => import('./calendar/calendar.module').then( m => m.CalendarPageModule)
+  },
+  {
+    path: '',
+    redirectTo: '',
+    pathMatch: 'full'
+  },
+  {
+    path: 'calendar',
+    loadChildren: () => import('./calendar/calendar.module').then( m => m.CalendarPageModule)
+  },
+  {
+    path: 'hymn-music',
+    loadChildren: () => import('./hymn-music/hymn-music.module').then( m => m.HymnMusicPageModule)
+  },
+  {
+    path: 'hymn-video',
+    loadChildren: () => import('./hymn-video/hymn-video.module').then( m => m.HymnVideoPageModule)
+  },
+
+
+
 ];
 
 @NgModule({
