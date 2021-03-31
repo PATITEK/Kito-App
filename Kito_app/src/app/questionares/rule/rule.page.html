@@ -3,8 +3,21 @@
 </ion-header>
 
 <ion-content>
-  <ion-buttons *ngFor="let rule of rules">
-    <ion-label>{{rule.rule}}</ion-label>
-  </ion-buttons>
-  <ion-img src="../../assets/img/questionares/rule.svg"></ion-img>
+  <center>
+    <h3 class="title-ques">LUẬT CHƠI</h3>
+  </center>
+  <div class="rule-cover">
+    <ion-buttons *ngFor="let rule of rules">
+      <ion-label>{{rule.rule}}</ion-label>
+    </ion-buttons>
+    <img src="assets/img/questionares/support.gif" />
+  </div>
+  <div class="background-gif">
+    <div class="img-star1">
+      <img src="assets/img/questionares/star.gif" alt="" srcset="" />
+    </div>
+    <div class="img-star2">
+      <img src="assets/img/questionares/star.gif" alt="" srcset="" />
+    </div>
+  </div>
 </ion-content>

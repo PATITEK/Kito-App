@@ -3,35 +3,45 @@
 </ion-header>
 
 <ion-content>
- <center>
+  <center>
     <h3 class="title-ques">ĐỐ VUI GIÁO LÝ</h3>
- </center>
- <div class="list-menu-ques">
-  <div class="menu-item">
-    <img src="assets/img/questionares/cloud1.png" alt="" srcset="">
-  </div >
-  <div class="menu-item item-right">
-    <img src="assets/img/questionares/cloud3.png" alt="" srcset="">
-  </div>
-    <div class="menu-item">
-      <img src="assets/img/questionares/cloud2.png" alt="" srcset="">
+  </center>
+  <div class="list-menu-ques">
+    <div (click)="goToChooseQuestionType('topic')" class="menu-item active-effect">
+      <img src="assets/img/questionares/cloud1.png" alt="" srcset="" />
+      <p class="choose-text">Theo chủ đề</p>
     </div>
-    <div class="menu-item">
-      <img src="assets/img/questionares/cloud4.png" alt="" srcset="">
-    </div>  
- </div>
- <div class="background-gif" >
-  <div class="img-star1">
-    <img src="assets/img/questionares/star.gif" alt="" srcset="">
+    <div (click)="goToChooseQuestionType('level')" class="menu-item item-right active-effect">
+      <img src="assets/img/questionares/cloud2.png" alt="" srcset="" />
+      <p class="choose-text">Theo cấp độ</p>
+    </div>
+    <div (click)="rule()" class="menu-item active-effect">
+      <img src="assets/img/questionares/cloud3.png" alt="" srcset="" />
+      <p class="choose-text">Luật chơi</p>
+    </div>
+    <div (click)="rank()" class="menu-item active-effect">
+      <img src="assets/img/questionares/cloud4.png" alt="" srcset="" />
+      <p class="choose-text">Bảng xếp hạng</p>
+    </div>
   </div>
-  <div class="img-star2">
-    <img src="assets/img/questionares/star2.gif" alt="" srcset="">
+  <div class="background-gif">
+    <div class="img-star1">
+      <img src="assets/img/questionares/star.gif" alt="" srcset="" />
+    </div>
+    <div class="img-star2">
+      <img src="assets/img/questionares/star2.gif" alt="" srcset="" />
+    </div>
+    <div class="img-star3">
+      <img src="assets/img/questionares/star.gif" alt="" srcset="" />
+    </div>
+    <div class="img-star4">
+      <img src="assets/img/questionares/star2.gif" alt="" srcset="" />
+    </div>
+    <div class="img-star3">
+      <img src="assets/img/questionares/bubble.gif" alt="" srcset="" />
+    </div>
+    <div class="img-star4">
+      <img src="assets/img/questionares/bubble.gif" alt="" srcset="" />
+    </div>
   </div>
-  <div class="img-star3">
-    <img src="assets/img/questionares/star.gif" alt="" srcset="">
-  </div>
-  <div class="img-star4">
-    <img src="assets/img/questionares/star2.gif" alt="" srcset="">
-  </div>
- </div>
 </ion-content>
