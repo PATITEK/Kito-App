@@ -54,7 +54,6 @@ export class StorePage implements OnInit {
 
   ionViewWillEnter() {
     this.getCart();
-
     const parishId = localStorage.getItem('tempParishId');
     if (parishId) {
       if (parishId !== this.pageRequestCategories.parish_id) {

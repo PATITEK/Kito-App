@@ -2,8 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SearchBarNavComponent } from './search-bar-nav.component';
 import { IonicModule } from '@ionic/angular';
-import { FormsModule } from '@angular/forms';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     SearchBarNavComponent
@@ -15,6 +14,6 @@ import { FormsModule } from '@angular/forms';
   ],
   exports: [
     SearchBarNavComponent
-  ]
+  ],
 })
 export class SearchBarNavModule { }

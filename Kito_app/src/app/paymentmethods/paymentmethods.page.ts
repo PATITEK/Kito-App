@@ -5,7 +5,6 @@ import { DonateService, OrderService } from '../@app-core/http';
 import { LoadingService, ToastService } from '../@app-core/utils';
 import { PaymentupComponent } from '../@modular/paymentup/paymentup.component';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
-declare var Stripe;
 
 @Component({
   selector: 'app-paymentmethods',
