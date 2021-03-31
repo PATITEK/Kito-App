@@ -3,7 +3,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { IonSlides } from '@ionic/angular';
 import { forkJoin } from 'rxjs';
-import { CalendarService } from 'src/app/@app-core/http';
+import { CalendarService, LOADING } from 'src/app/@app-core/http';
 import { IPageCalendar } from 'src/app/@app-core/http/calendar/calendar.DTO';
 
 @Component({
@@ -47,7 +47,7 @@ export class CalendarPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.loadingService.present();
+    this.loadingService.present(LOADING.WAITING);
     this.getYear(this.currentDate.getFullYear(), true);
   }
 

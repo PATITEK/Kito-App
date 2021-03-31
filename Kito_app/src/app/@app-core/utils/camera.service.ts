@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { LoadingService, ToastService } from 'src/app/@app-core/utils';
 import { Camera } from '@ionic-native/camera/ngx';
-import { AccountService } from '../http';
+import { AccountService, LOADING } from '../http';
 import { PopoverController } from '@ionic/angular';
 import { PopoverimageComponent } from '../../@modular/popoverimage/popoverimage.component';
 
@@ -19,7 +19,7 @@ export class CameraService {
 
     ) { }
     public getAvatarUpload(image_avatar) {
-        this.loadingService.present('Chờ trong giây lát...');
+        this.loadingService.present(LOADING.WAITING);
         const options = {
             destinationType: this.camera.DestinationType.DATA_URL,
             encodingType: this.camera.EncodingType.JPEG,
@@ -55,7 +55,7 @@ export class CameraService {
         })
     }
     public getAvatarTake(image_avatar) {
-        this.loadingService.present('Chờ trong giây lát...');
+        this.loadingService.present(LOADING.WAITING);
         const options = {
             destinationType: this.camera.DestinationType.DATA_URL,
             encodingType: this.camera.EncodingType.JPEG,
@@ -109,7 +109,7 @@ export class CameraService {
     }
 
     async viewAvatar() {
-        this.loadingService.present();
+        this.loadingService.present(LOADING.WAITING);
         const popoverImage = await this.popoverController.create({
             component: PopoverimageComponent,
             cssClass: 'image_popover_css',
@@ -124,7 +124,7 @@ export class CameraService {
             this.toastService.present('Bạn chưa có ảnh đại diện', 'top', 2000, 'dark');
         }
         else {
-            this.loadingService.present();
+            this.loadingService.present(LOADING.WAITING);
             this.image_null = {
                 "thumb_image": {
                     "url": null

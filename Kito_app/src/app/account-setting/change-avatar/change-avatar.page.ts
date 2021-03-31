@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AlertController } from '@ionic/angular';
-import { AccountService } from 'src/app/@app-core/http';
+import { AlertController, NavController, Platform } from '@ionic/angular';
+import { AccountService, LOADING } from 'src/app/@app-core/http';
 import { CameraService, LoadingService, ToastService } from 'src/app/@app-core/utils';
 
 @Component({
@@ -19,7 +19,9 @@ export class ChangeAvatarPage implements OnInit {
     private cameraService: CameraService,
     private toastService: ToastService,
     public loadingService: LoadingService,
-    private router:Router
+    private router:Router,
+    private platform: Platform,
+    private navController: NavController,
   ) {
     
 
@@ -34,6 +36,7 @@ export class ChangeAvatarPage implements OnInit {
  
   ngOnInit() {
     this.getData();
+    
 
   }
   activeAvatar(item) {
@@ -45,8 +48,13 @@ export class ChangeAvatarPage implements OnInit {
 }
  getData()
  {
+   this.loadingService.present(LOADING.WAITING)
    this.accoutnService.getArrayAvatar().subscribe((data) => {
      this.listAvatar = data.data;
+    if(this.listAvatar!=null)
+    {
+      this.loadingService.dismiss();
+    }
    });
  }
   async avatarSetting() {
@@ -58,15 +66,14 @@ export class ChangeAvatarPage implements OnInit {
         
         {
           text: 'Chọn từ thư viện',
-          handler: () => {
-
-            this.cameraService.getAvatarUpload(this.activedAvatar);
+          handler: async() => {
+            await this.cameraService.getAvatarUpload(this.activedAvatar);
             this.router.navigateByUrl('account');
           }
         },
         {
           text: 'Chụp ảnh mới',
-          handler: () => {
+          handler: async() => {
             this.cameraService.getAvatarTake(this.activedAvatar);
             this.router.navigateByUrl('account');
           }
@@ -93,7 +100,7 @@ export class ChangeAvatarPage implements OnInit {
       this.toastService.present('Cập nhật ảnh thành công !', 'top', 2000, 'dark');
     
     this.accoutnService.updateAvatar(this.activedAvatar);
-    this.router.navigateByUrl('account');
+    this.navController.back();
     
   }
 }

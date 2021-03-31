@@ -39,8 +39,13 @@ ion-avatar {
   --background: #f6c33e;
   color: white;
   --border-radius: 30px;
-  --padding-start: 20px;
-  --padding-end: 20px;
+  --padding-start: 50px;
+  --padding-end: 50px;
   --padding-top: 10px;
   --padding-bottom: 10px;
+}
+.button-submit{
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

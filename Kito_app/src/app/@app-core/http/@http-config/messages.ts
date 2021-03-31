@@ -28,3 +28,6 @@ export const ARLET = {
     PASSWORD_NOT_VALID: 'Mật khẩu không khớp, vui lòng kiểm tra lại'
   }
 };
+export const LOADING={
+  WAITING:'Vui lòng đợi trong giây lát'
+}
