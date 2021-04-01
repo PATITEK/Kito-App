@@ -8,11 +8,13 @@ import { QuestionaresService } from 'src/app/@app-core/http';
   styleUrls: ['./choose-question.page.scss'],
 })
 export class ChooseQuestionPage implements OnInit {
-  headerCustom = { title: '', background:'transparent' };
-  title;
+  title = '';
+  headerCustom = { title: '', background:'transparent', color: '#fff' };
   questions = [];
 
   questionType = '';
+
+  towel = ['towel1.png', 'towel2.png', 'towel3.png', 'towel4.png', 'towel1.png']
 
   constructor(
     private router: Router,
@@ -38,15 +40,18 @@ export class ChooseQuestionPage implements OnInit {
       })
       this.questionType = 'Chủ đề'
       this.title = 'CHỌN CHỦ ĐỀ';
-      
     }
     else if(localStorage.getItem('questionType') == 'level') {
       this.questionaresService.getLevel().subscribe((data) => {
         this.questions = data;
+        for(let i=0; i<this.questions.length; i++) {
+          this.questions[i].img = '../../../assets/img/questionares/' + this.towel[i];
+        }
       })
       this.questionType = 'Cấp độ'
       this.title = 'CHỌN CẤP ĐỘ';
     }
+    this.headerCustom.title = this.title;
     localStorage.removeItem('questionTypeName');
     if(localStorage.getItem('score')) {
       localStorage.removeItem('score');

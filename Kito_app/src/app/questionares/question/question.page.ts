@@ -218,7 +218,7 @@ export class QuestionPage implements OnInit {
     if (this.answerKey == this.questions[this.questionCounter].answer.right_answer) {
       this.score++;
       localStorage.setItem("score", JSON.stringify(this.score));
-      this.toastService.present("Đúng rồi!", "bottom", 1000, "warning");
+      this.toastService.present("Đúng rồi!", "bottom", 1000, "success");
       this.right.play();
     } else {
       this.heart--;
