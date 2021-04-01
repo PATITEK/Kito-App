@@ -1,21 +1,21 @@
 import { Injectable } from '@angular/core';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Observable, BehaviorSubject, Subject } from 'rxjs';
 import { AccountService, PERMISSIONS } from './http';
 // import * as jwt_decode from 'jwt-decode';
-
 @Injectable()
 export class StorageService {
     private userSub: BehaviorSubject<any> = new BehaviorSubject<any>(null);
-
     constructor(
-        private accountService: AccountService
+        private accountService: AccountService,
     ) { }
+  
     public clear() {
         this.userSub.next(null);
     }
     public get infoAccount(): Observable<any> {
         return this.userSub.asObservable();
     }
+
     public setInfoAccount() {
         if (localStorage.getItem('Authorization') !== null) {
             return this.accountService.getAccounts().subscribe((data: any) => {

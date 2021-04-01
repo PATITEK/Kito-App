@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { IonSlides } from '@ionic/angular';
-import { isNull, isUndefined } from 'node:util';
 import { CalendarService } from 'src/app/@app-core/http';
 import { IPageCalendar } from 'src/app/@app-core/http/calendar/calendar.DTO';
 import { DayPipe } from 'src/app/@app-core/pipe/pipiday.pipe';
