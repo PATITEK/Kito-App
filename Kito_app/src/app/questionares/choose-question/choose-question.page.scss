@@ -14,7 +14,7 @@ ion-content {
   height: calc(100% - 20px);
   overflow: scroll;
   .choose-topic {
-    border: 10px solid #ffffff;
+    border: 1.4vh solid #ffffff;
     width: 30vh;
     height: 30vh;
     display: block;
@@ -31,7 +31,7 @@ ion-content {
       bottom: 15px;
       text-align: center;
       color: #ffffff;
-      font-size: 18px;
+      font-size: 2.3vh;
     }
   }
 }
@@ -58,7 +58,7 @@ ion-content {
       bottom: 12vh;
       text-align: center;
       color: #ffffff;
-      font-size: 18px;
+      font-size: 2.3vh;
     }
   }
 }

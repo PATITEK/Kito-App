@@ -58,7 +58,6 @@
   }
 }
 .back-btn {
-  display: inline-block;
   color: #c8c8c8;
   border-radius: 50%;
   position: absolute;
@@ -305,4 +304,25 @@
 }
 .searchbar-clear-button.sc-ion-searchbar-ios {
   right: 28px !important;
+}
+
+.view-avatar-modal {
+  // sc-ion-modal-ios {
+  //   display: none;
+  // }
+
+  // .modal-wrapper {
+  //   position: absolute;
+  //   bottom: 0;
+  //   left: 0;
+  //   right: 0;
+
+  //   .ion-page {
+  //     justify-content: flex-start;
+  //   }
+  // }
+  .popover-content {
+    --min-width: 90%;
+    --min-height: 30%;
+  }
 }
