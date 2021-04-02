@@ -7,8 +7,8 @@ import { PopoverimageComponent } from '../../@modular/popoverimage/popoverimage.
 
 @Injectable()
 export class CameraService {
-
     image_null: any;
+    public popoverImage: any;
 
     constructor(
         public camera: Camera,
@@ -114,13 +114,13 @@ export class CameraService {
         }
         else {
             this.loadingService.present();
-            const popoverImage = await this.popoverController.create({
+            this.popoverImage = await this.popoverController.create({
                 component: PopoverimageComponent,
                 cssClass: 'view-avatar-modal',
                 translucent: true,
                 mode: 'md'
             });
-            return await popoverImage.present();
+            return await this.popoverImage.present();
         }
 
     }

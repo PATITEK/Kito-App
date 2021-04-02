@@ -55,7 +55,6 @@ export class AccountPage implements OnInit {
   ngOnInit() {
     this.initForm();
     this.getData();
-    this.blockBackBtn()
 
   }
   ngDoCheck() {
@@ -170,12 +169,5 @@ export class AccountPage implements OnInit {
     return JSON.stringify(this.lastForm) !== JSON.stringify(this.form.value) && this.form.valid;
   }
 
-  blockBackBtn() {
-    this.platform.ready().then(() => {
-      this.platform.backButton.subscribeWithPriority(9999, () => {
-        console.log('click')
-      });
-    });
-  }
 }
 
