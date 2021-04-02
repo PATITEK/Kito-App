@@ -144,7 +144,7 @@ export class MapPage implements OnInit {
       '<p>Khoảng cách ước tính: ' + mapMarkerInfo.distance + ' km</p>' +
       // '<p>Latitude: ' + mapMarkerInfo.lat + '</p>' +
       // '<p>Longitude: ' + mapMarkerInfo.lng + '</p>' +
-      '<ion-button id="navigate" mode="ios" style=" --background: #F6C33E; --border-radius: 15px; display: block; margin: auto; width: 18vh; height: 5vh; ">' + 'Chỉ đường tới đây' + '</ion-button>'
+      '<ion-button id="navigate" mode="ios" style=" --background: #F6C33E; --border-radius: 15px; display: block; margin: auto; --background-activated: #CC9D3E; ">' + 'Chỉ đường tới đây' + '</ion-button>'
     '</div>';
     let infoWindow = new google.maps.InfoWindow({
       content: infoWindowContent,
