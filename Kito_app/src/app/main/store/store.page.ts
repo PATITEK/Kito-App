@@ -62,7 +62,6 @@ export class StorePage implements OnInit {
         this.reset();
         this.getCategories();
       }
-      localStorage.removeItem('tempParishId');
     }
   }
 
@@ -102,6 +101,9 @@ export class StorePage implements OnInit {
       this.currentCategoryId = this.categories[0].id;
       this.getProducts();
     })
+    localStorage.removeItem('cart');
+    this.cart = [];
+    localStorage.setItem('tempParishId', this.pageRequestCategories.parish_id);
   }
 
   resetAmount() {

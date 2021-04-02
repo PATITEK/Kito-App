@@ -8,14 +8,14 @@
   </center> -->
   <div class="choose-cover-topic" *ngIf="title == 'CHỌN CHỦ ĐỀ' ">
     <ion-avatar class="choose-topic active-effect" *ngFor="let question of questions" (click)="goToQuestion(question)">
-      <img class="choose-topic-img" src="{{ question.img }}"/>
+      <img class="choose-topic-img" src="{{ question.thumb_image.url }}"/>
       <p class="choose-topic-text">{{ question.name }}</p>
     </ion-avatar>
   </div>
 
   <div class="choose-cover-level" *ngIf="title == 'CHỌN CẤP ĐỘ' ">
     <div class="choose-level active-effect" *ngFor="let question of questions" (click)="goToQuestion(question)">
-      <img class="choose-level-img" src="{{ question.img }}" />
+      <img class="choose-level-img" src="{{ question.thumb_image.url }}" />
       <p class="choose-level-text"> {{ question.name }} </p>
     </div>
   </div>

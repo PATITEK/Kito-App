@@ -48,6 +48,7 @@ export class PaymentmethodsPage implements OnInit {
   }
   async presentAlertMoMo(header: string, text: string) {
     const alert = await this.alert.create({
+      mode: 'ios',
       header: header,
       message: text,
       buttons: [

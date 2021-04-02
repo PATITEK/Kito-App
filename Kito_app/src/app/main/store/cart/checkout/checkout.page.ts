@@ -70,12 +70,13 @@ export class CheckoutPage implements OnInit {
         lng: localStorage.getItem('lng'),
         note: null,
         full_address: this.location,
+        parish_id: localStorage.getItem('tempParishId'),
         phone_number_receiver: localStorage.getItem('phone_temp'),
         order_details_attributes: this.cart.map(item => ({ product_id: item.id, amount: item.amount }))
       }
     }
     if (this.paymentMethod.id == 0) {
-      this.orderService.create(req).subscribe((data:any) => {
+      this.orderService.create(req).subscribe((data: any) => {
         this.order_id = data.order.id;
         this.loadingService.dismiss();
         this.paymentByCash();
@@ -94,9 +95,9 @@ export class CheckoutPage implements OnInit {
         }
       )
     }
-
     localStorage.removeItem('lat');
     localStorage.removeItem('lng');
+    localStorage.removeItem('cart');
   }
   paymentByCash() {
     var orderByCash = {
@@ -114,8 +115,8 @@ export class CheckoutPage implements OnInit {
       this.pageNotiService.setdataStatusNoti(datapasing);
       this.router.navigateByUrl('/page-noti');
     },
-    ()=>{
-      this.loadingService.dismiss();
-    })
+      () => {
+        this.loadingService.dismiss();
+      })
   }
 }
