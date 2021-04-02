@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./rule.page.scss'],
 })
 export class RulePage implements OnInit {
-  headerCustom = { title: '', background:'transparent' };
+  headerCustom = { title: 'LUẬT CHƠI', background:'transparent', color: '#fff' };
 
   rules = [
     {

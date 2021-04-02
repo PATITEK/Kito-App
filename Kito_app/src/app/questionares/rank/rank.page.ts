@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./rank.page.scss'],
 })
 export class RankPage implements OnInit {
-  headerCustom = { title: ' ', background:'transparent' };
+  headerCustom = { title: 'BẢNG XẾP HẠNG', background:'transparent', color: '#fff' };
   data: any = [];
   constructor() { }
 

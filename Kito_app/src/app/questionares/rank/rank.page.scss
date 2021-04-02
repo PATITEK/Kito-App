@@ -1,5 +1,7 @@
 ion-content {
   --padding-top: 80px;
+  --padding-start: 5px;
+  --padding-end: 5px;
   --background: linear-gradient(180deg, #b11100 0%, #321d00 100%);
   --overflow: hidden;
 }
@@ -27,12 +29,12 @@ ul {
     .stt-rank {
       color: white;
       font-size: 20px;
-      flex-basis: 15%;
+      flex-basis: 13%;
       text-align: center;
     }
     .rank-img {
-        width: 7vh;
-        height: 7vh;
+        width: 6vh;
+        height: 6vh;
     }
     .rank-info {
       flex-basis: 85%;
