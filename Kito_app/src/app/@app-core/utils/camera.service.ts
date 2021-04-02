@@ -44,7 +44,7 @@ export class CameraService {
                     })
                     this.loadingService.dismiss();
                     this.accountService.getAccounts().subscribe();
-                    this.toastService.present('Cập nhật ảnh thành công !', 'top', 2000,'dark');
+                    this.toastService.present('Cập nhật ảnh thành công !', 'top', 2000, 'dark');
                 })
             } else {
             }
@@ -80,14 +80,14 @@ export class CameraService {
                     })
                     this.loadingService.dismiss();
                     this.accountService.getAccounts().subscribe();
-                    this.toastService.present('Cập nhật ảnh thành công !', 'top', 2000,'dark');
+                    this.toastService.present('Cập nhật ảnh thành công !', 'top', 2000, 'dark');
                 })
             } else {
             }
         }).catch((err) => {
             console.error(err)
             this.loadingService.dismiss();
-            this.toastService.present('Xảy ra lỗi, vui lòng thử lại sau !', 'top', 2000,'dark');
+            this.toastService.present('Xảy ra lỗi, vui lòng thử lại sau !', 'top', 2000, 'dark');
 
         })
     }
@@ -109,14 +109,20 @@ export class CameraService {
     }
 
     async viewAvatar() {
-        this.loadingService.present();
-        const popoverImage = await this.popoverController.create({
-            component: PopoverimageComponent,
-            cssClass: 'image_popover_css',
-            translucent: true,
-            mode: 'md'
-        });
-        return await popoverImage.present();
+        if (localStorage.getItem('avatar') == 'https://i.imgur.com/edwXSJa.png') {
+            this.toastService.present('Bạn chưa có ảnh đại diện', 'top', 2000, 'dark');
+        }
+        else {
+            this.loadingService.present();
+            const popoverImage = await this.popoverController.create({
+                component: PopoverimageComponent,
+                cssClass: 'image_popover_css',
+                translucent: true,
+                mode: 'md'
+            });
+            return await popoverImage.present();
+        }
+
     }
 
     removeAvatar() {

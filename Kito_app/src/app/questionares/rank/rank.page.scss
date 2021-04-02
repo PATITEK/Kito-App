@@ -20,7 +20,7 @@ ul {
   position: relative;
   display: flex;
   flex-direction: column;
-  height: calc(100% - 45px);
+  height: calc(100% - 15px);
   padding-bottom: 20px;
   li {
     display: flex;
@@ -29,7 +29,7 @@ ul {
     .stt-rank {
       color: white;
       font-size: 20px;
-      flex-basis: 13%;
+      flex-basis: 6vh;
       text-align: center;
     }
     .rank-img {

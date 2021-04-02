@@ -17,9 +17,9 @@ export class OrdersHistoryPage implements OnInit {
   lastedData: any;
   constructor(private orderService: OrderService,
     private loadingService: LoadingService,
-    private modalController: ModalController,) { 
-      this.init();
-    }
+    private modalController: ModalController,) {
+    this.init();
+  }
 
   ngOnInit() {
     this.getDataOrders();
@@ -31,7 +31,7 @@ export class OrdersHistoryPage implements OnInit {
       orders: {
         pageRequest: {
           page: 1,
-          per_page: 6,
+          per_page: 1000,
         },
         array: [],
         loadedData: false
@@ -42,6 +42,15 @@ export class OrdersHistoryPage implements OnInit {
   getDataOrders(func?) {
     let orders = this.data.orders;
     this.orderService.getAll(orders.pageRequest).subscribe(data => {
+      for (let i = 0; i < data.orders.length; i++) {
+        for (let j = 0; j < i; j++) {
+          if (data.orders[i].id < data.orders[j].id) {
+            let temp = data.orders[i].id;
+            data.orders[i].id = data.orders[j].id,
+              data.orders[j].id = temp;
+          }
+        }
+      }
       this.loadingService.dismiss();
       orders.array = orders.array.concat(data.orders);
       this.lastedData = orders.array[orders.array.length - 1];
