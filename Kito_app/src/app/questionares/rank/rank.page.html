@@ -2,7 +2,10 @@
 <ion-content>
   <ul>
     <li *ngFor="let item of data">
-      <span class="stt-rank" *ngIf="item.index != 1 && item.index != 2 && item.index != 3">
+      <span class="stt-rank" *ngIf="item.index != 1 && item.index != 2 && item.index != 3 && item.index < 10">
+        0{{item.index}}
+      </span>
+      <span class="stt-rank" *ngIf="item.index != 1 && item.index != 2 && item.index != 3 && item.index >= 10">
         {{item.index}}
       </span>
       <img class="rank-img" src="../../../assets/img/questionares/1st.svg" *ngIf="item.index==1"/>
@@ -10,11 +13,11 @@
       <img class="rank-img" src="../../../assets/img/questionares/3rd.svg" *ngIf="item.index==3"/>
       <div class="rank-info">
         <ion-avatar class="avatar">
-          <img src="assets/img/avatar.png" alt="">
+          <img src="https://i.imgur.com/edwXSJa.png" alt="">
         </ion-avatar>
         <span class="name three-dots-3">{{ item.name }}</span>
         <div class="rank-point">
-          <img src="assets/img/rank/cup.svg" alt="">
+          <ion-icon name="trophy"></ion-icon>
           <ion-label>{{ item.point }}</ion-label>
         </div>
       </div>

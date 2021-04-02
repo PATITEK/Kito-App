@@ -24,6 +24,7 @@ export class HymnMusicPage implements OnInit {
   shuffledFavoriteSongs = [];
 
   activeSong = null;
+  activeLyric = null;
   player: Howl = null;
   progress = 0;
   progressInterval = null;
@@ -211,6 +212,9 @@ export class HymnMusicPage implements OnInit {
 
   toggleHasModal(bool) {
     this.hasModal = bool;
+    this.hymnMusicService.getDetail(this.activeSong.id).subscribe((data: any) => {
+      this.activeLyric = data.song.lyric;
+    })
   }
 
   toggleMixed() {

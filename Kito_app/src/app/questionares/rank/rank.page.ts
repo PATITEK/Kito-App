@@ -13,7 +13,7 @@ export class RankPage implements OnInit {
   ngOnInit() {
     for(let i=0; i<=12; i++) {
       this.data.push({
-        name: 'Hoang An Pede' + i,
+        name: 'Hoang An Pede ' + i,
         index: i+1,
         point: 100000
       })

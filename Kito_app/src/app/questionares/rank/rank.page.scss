@@ -38,7 +38,7 @@ ul {
     }
     .rank-info {
       flex-basis: 85%;
-      border: 2px solid #ffffff;
+      // border: 2px solid #ffffff;
       box-sizing: border-box;
       border-radius: 20px;
       padding: 5px 10px;
@@ -58,11 +58,12 @@ ul {
         align-items: center;
       }
       .rank-point {
-        color: #ffffff;
+        color: yellow;
         display: flex;
         justify-content: center;
         align-items: center;
-        img {
+        ion-icon {
+          color: yellow;
           padding: 0 10px;
         }
       }
