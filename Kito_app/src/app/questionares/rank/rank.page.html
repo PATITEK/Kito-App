@@ -1,8 +1,5 @@
 <app-header class="header" [headerCustom]="headerCustom"></app-header>
-<ion-content class="ion-padding">
-  <center class="ion-text-center">
-    <h3 class="title">BẢNG XẾP HẠNG</h3>
-  </center>
+<ion-content>
   <ul>
     <li *ngFor="let item of data">
       <span class="stt-rank" *ngIf="item.index != 1 && item.index != 2 && item.index != 3">

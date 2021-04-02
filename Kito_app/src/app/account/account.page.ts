@@ -94,7 +94,7 @@ export class AccountPage implements OnInit {
           }
         },
         {
-          text:"Cập nhật ảnh đại diện",
+          text:"Chọn ảnh đại diện",
           handler:()=>{
       this.router.navigateByUrl('/account-setting/change-avatar');
           }

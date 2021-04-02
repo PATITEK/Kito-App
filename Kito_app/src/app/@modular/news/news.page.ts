@@ -46,11 +46,11 @@ export class NewsPage implements OnInit {
   ngOnInit() {
     this.loading.present();
     this.getParams();
-   
-   }
+
+  }
   ionViewWillEnter() {
     const parishId = localStorage.getItem('tempParishId');
-    if(parishId) {
+    if (parishId) {
       this.pageRequestParish.parish_id = parishId;
       this.news = [];
       this.pageRequestParish.page = 1;
@@ -59,7 +59,7 @@ export class NewsPage implements OnInit {
     }
     localStorage.removeItem('tempParishId');
   }
-  
+
   goToNewsDetail(item) {
     const data = {
       id: item.id,
@@ -168,13 +168,13 @@ export class NewsPage implements OnInit {
   getParams() {
     let url = window.location.href;
     if (url.includes('?')) {
-    this.route.queryParams.subscribe(params => {
-      this.dataParams = JSON.parse(params['data']);
-      this.pageRequestDioceseNews.diocese_id = this.dataParams.id;
-      this.getData();
-    }).unsubscribe();
+      this.route.queryParams.subscribe(params => {
+        this.dataParams = JSON.parse(params['data']);
+        this.pageRequestDioceseNews.diocese_id = this.dataParams.id;
+        this.getData();
+      }).unsubscribe();
+    }
   }
-}
   loadMoreData(event) {
     this.getData(() => {
       event.target.complete();

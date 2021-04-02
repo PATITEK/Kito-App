@@ -88,10 +88,8 @@ var SearchBarNavComponent = /** @class */ (function () {
         });
     };
     SearchBarNavComponent.prototype.ngDoCheck = function () {
-        console.log(this.input);
     };
     SearchBarNavComponent.prototype.ngOnChanges = function (changes) {
-        console.log(changes);
     };
     SearchBarNavComponent.prototype.startVoiceRecord = function () {
         var _this = this;
