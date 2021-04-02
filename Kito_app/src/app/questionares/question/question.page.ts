@@ -188,7 +188,7 @@ export class QuestionPage implements OnInit {
     if (this.timer == 0) {
       this.stopTimer();
       this.openCompleteQuestion();
-      this.toastService.present("Hết giờ rồi!", "bottom", 1000, "danger");
+      this.toastService.present("Hết giờ rồi!", "top", 1000, "danger");
     }
   }
 
@@ -218,11 +218,11 @@ export class QuestionPage implements OnInit {
     if (this.answerKey == this.questions[this.questionCounter].answer.right_answer) {
       this.score++;
       localStorage.setItem("score", JSON.stringify(this.score));
-      this.toastService.present("Đúng rồi!", "bottom", 1000, "success");
+      this.toastService.present("Đúng rồi!", "top", 1000, "success");
       this.right.play();
     } else {
       this.heart--;
-      this.toastService.present("Sai rồi!", "bottom", 1000, "danger");
+      this.toastService.present("Sai rồi!", "top", 1000, "danger");
       this.wrong.play();
     }
     if (this.questionCounter >= 10 || this.heart == 0 || this.score == 10) {

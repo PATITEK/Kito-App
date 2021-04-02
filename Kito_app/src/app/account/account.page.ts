@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AlertController, ModalController, PopoverController } from '@ionic/angular';
+import { AlertController, ModalController, Platform, PopoverController } from '@ionic/angular';
 import { AccountService, PATTERN } from '../@app-core/http';
 import { CameraService, ImageService, LoadingService, ToastService } from '../@app-core/utils';
 import { ChangepasswordPage } from '../changepassword/changepassword.page';
@@ -49,11 +49,13 @@ export class AccountPage implements OnInit {
     public imageService: ImageService,
     private alertCtrl: AlertController,
     private cameraService: CameraService,
-    private router:Router
+    private router:Router,
+    private platform: Platform,
   ) { }
   ngOnInit() {
     this.initForm();
     this.getData();
+    this.blockBackBtn()
 
   }
   ngDoCheck() {
@@ -166,6 +168,14 @@ export class AccountPage implements OnInit {
 
   canUpdate() {
     return JSON.stringify(this.lastForm) !== JSON.stringify(this.form.value) && this.form.valid;
+  }
+
+  blockBackBtn() {
+    this.platform.ready().then(() => {
+      this.platform.backButton.subscribeWithPriority(9999, () => {
+        console.log('click')
+      });
+    });
   }
 }
 

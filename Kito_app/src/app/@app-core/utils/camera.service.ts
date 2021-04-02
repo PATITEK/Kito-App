@@ -116,7 +116,7 @@ export class CameraService {
             this.loadingService.present();
             const popoverImage = await this.popoverController.create({
                 component: PopoverimageComponent,
-                cssClass: 'image_popover_css',
+                cssClass: 'view-avatar-modal',
                 translucent: true,
                 mode: 'md'
             });
