@@ -66,7 +66,7 @@
   <ion-buttons class="footer-inner">
     <ion-buttons class="footer-left" (click)="toggleHasModal(true)">
       <ion-avatar class="avatar">
-        <img onerror="this.src='assets/img/avatar.png'" [src]="activeSong.thumb_image?.url" />
+        <img onerror="this.src='https://i.imgur.com/edwXSJa.png'" [src]="activeSong.thumb_image?.url" />
       </ion-avatar>
       <div class="active-tract-info">
         <div class="active-track-name three-dots-1">{{ activeSong.name }}</div>
@@ -90,13 +90,13 @@
     <div class="name">{{ activeSong.name }}</div>
     <div class="author">{{ activeSong.artist }}</div>
     <ion-avatar class="avatar">
-      <img onerror="this.src='assets/img/avatar.png'" [src]="activeSong.thumb_image?.url" />
+      <img onerror="this.src='https://i.imgur.com/edwXSJa.png'" [src]="activeSong.thumb_image?.url" />
     </ion-avatar>
   </div>
 
   <div class="modal-content">
     <div class="lyrics">
-      <div *ngFor="let lyric of activeSong.lyrics">{{ lyric }}</div>
+      <div>{{ activeLyric }}</div>
     </div>
   </div>
 
