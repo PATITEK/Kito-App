@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { DioceseNewsService, IPageRequest, ParishesService, VaticanService } from 'src/app/@app-core/http';
 import { IPageParishes } from 'src/app/@app-core/http/parishes/parishes.DTO';
 import { LoadingService } from 'src/app/@app-core/utils';
+import { IPageVatican } from 'src/app/@app-core/http/vatican/vatican.DTO';
 
 @Component({
   selector: 'app-news',
@@ -15,8 +16,9 @@ export class NewsPage implements OnInit {
 
   headerCustom = { title: 'Tin tức' };
   news = [];
-  pageRequestVatican: IPageRequest = {
+  pageRequestVatican: IPageVatican = {
     page: 1,
+    category_id: '',
     per_page: 10
   }
   pageRequestDioceseNews: IPageParishes = {
@@ -32,7 +34,10 @@ export class NewsPage implements OnInit {
   dataParams = null;
   check = false;
   newsParish = false;
-
+  vatican = false;
+  listCate = []
+  idActive;
+  displayCate = false;
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -40,13 +45,10 @@ export class NewsPage implements OnInit {
     private dioceseNewsService: DioceseNewsService,
     private parishesService: ParishesService,
     private loading: LoadingService,
-
   ) { }
-
   ngOnInit() {
     this.loading.present();
     this.getParams();
-
   }
   ionViewWillEnter() {
     const parishId = localStorage.getItem('tempParishId');
@@ -58,6 +60,13 @@ export class NewsPage implements OnInit {
       this.getData();
     }
     localStorage.removeItem('tempParishId');
+    this.vaticanService.getCategory().subscribe(data => {
+      this.listCate = data.vatican_news_categories
+      this.idActive = data.vatican_news_categories[0].id;
+    })
+  }
+  ionViewWillLeave() {
+    localStorage.removeItem('voice');
   }
   ionViewWillLeave() {
     localStorage.removeItem('voice');
@@ -117,6 +126,8 @@ export class NewsPage implements OnInit {
     else {
       switch (this.dataParams.type.detail) {
         case 'vatican':
+          this.vatican = true;
+          this.pageRequestVatican.category_id = this.idActive;
           this.vaticanService.getAll(this.pageRequestVatican).subscribe(data => {
             this.loading.dismiss();
             data.vatican_news.forEach(element => {
@@ -134,6 +145,16 @@ export class NewsPage implements OnInit {
           break;
       }
     }
+  }
+  changeCate(c) {
+    this.idActive = c.id;
+    this.pageRequestVatican.category_id = c.id;
+    this.reset();
+    this.getData();
+    this.displayCate = false;
+  }
+  showCate() {
+    this.displayCate = true;
   }
   search(value: string) {
     if (typeof value != 'string') {

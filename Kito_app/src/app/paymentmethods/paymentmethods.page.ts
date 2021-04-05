@@ -69,14 +69,15 @@ export class PaymentmethodsPage implements OnInit {
     await alert.present();
   }
   goMomo() {
-    if (this.dataParam.type) {
+    if (this.dataParam.type_page == 'order') {
       const orderParam = {
-        "donation": {
+        order_payment: {
           "app_link": "no link",
           "order_id": this.dataParam.order_id,
         }
       }
       this.loading.present('Vui lòng chờ...');
+      console.log(orderParam)
       this.orderService.paymentOrder_Momo(orderParam).subscribe((data) => {
         this.openMomoPopUp();
       },
@@ -85,10 +86,23 @@ export class PaymentmethodsPage implements OnInit {
           this.toart.present('Hãy thử lại sau', 'top', 2000, 'dark')
         })
     }
-    else {
+    else if(this.dataParam.type_page == 'pray') {
+    this.dataParam.pray_log["app_link"] ="no link";
+      this.loading.present('Vui lòng chờ...');
+      this.dataParam.pray_log.payment_type = 'momo';
+      this.donateService.prayByMoMo(this.dataParam).subscribe((data) => {
+        this.payment = data;
+        this.openMomoPopUp();
+      },
+        () => {
+          this.loading.dismiss();
+          this.toart.present('Hãy thử lại sau', 'top', 2000, 'dark');
+        })
+    }
+    else if(this.dataParam.type_page == 'donate'){
+      this.dataParam.donation["app_link"] ="no link";
       this.loading.present('Vui lòng chờ...');
       this.dataParam.donation.payment_type = 'momo';
-      this.dataParam.donation['app_link'] = "no link";
       this.donateService.donateByMoMo(this.dataParam).subscribe((data) => {
         this.payment = data;
         this.openMomoPopUp();

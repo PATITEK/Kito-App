@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AccountService, AuthService, DonateService, IPageRequest, ParishesService } from '../@app-core/http';
-import { ImageService, LoadingService } from '../@app-core/utils';
+import { DonateService, IPageRequest, ParishesService } from '../@app-core/http';
+import { LoadingService } from '../@app-core/utils';
 import { ToastController } from '@ionic/angular';
 import { DioceseService } from '../@app-core/http/diocese';
 
@@ -151,7 +151,7 @@ export class DonatePage implements OnInit {
     }
     this.amount = parseInt(this.amount);
     var donate = {
-      "donation": {
+      donation: {
         "email": localStorage.getItem('email'),
         "token": "",
         "amount": this.amount,
@@ -159,7 +159,8 @@ export class DonatePage implements OnInit {
         "source_type": this.source_type,
         "source_id": this.source_id,
         "payment_type": ''
-      }
+      },
+      type_page :'donate'
     }
     this.router.navigate(['paymentmethods'], {
       queryParams: {

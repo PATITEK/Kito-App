@@ -8,7 +8,42 @@ ion-content {
   --padding-top: calc(80px + 45px);
   --padding-start: 16px;
   --padding-end: 16px;
+  ion-icon {
+    font-size: 20px;
+    padding: 5px 0;
+    color: #828282;
+    right: 16px;
+    top: 105px;
+    float: right;
+    z-index: 99;
+  }
+  .setting {
+    text-align: center;
+    min-width: 170px;
+    border-radius: 8px;
+    overflow: hidden;
+    display: inline-block;
+    position: fixed;
+    top: 154px;
+    right: 16px;
+    background: #fff;
+    z-index: 99;
+    color: #424242;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
+    ion-buttons {
+      padding: 3px 6px;
+      font-size: 14px; 
+    }
+    ion-label {
+      color: #828282;
+      line-height: 20px;
+    }
+    .active-color {
+      color: var(--main-color);
+    }
+  }
 }
+
 
 .current {
   color: #424242;

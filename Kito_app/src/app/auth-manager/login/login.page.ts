@@ -117,7 +117,7 @@ export class LoginPage implements OnInit {
     // this.oneSignal.startOneSignal();
     // this.oneSignal.setUpOneSignal();
   }
-  onSelectChange() {
+  onSelectChange(event) {
     this.pageRequestParishes.diocese_id = this.formSignUp.get('dioceses').value;
     this.parishes.getAllWithDioceseId(this.pageRequestParishes).subscribe(data => {
       this.listParishes = data.parishes;

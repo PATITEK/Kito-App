@@ -15,7 +15,7 @@ export class ModalFoodComponent implements OnInit {
   ngOnInit() {
     this.data = {
       order_id: this.order_id,
-      type: 'order',
+      type_page: 'order',
       token: '',
     }
    }

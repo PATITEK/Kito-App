@@ -49,6 +49,10 @@ export const APICONFIG = {
     DONATE_VISA: `/app/donation_logs/visa_master`,
     DONATE_MOMO: `/app/donation_logs/momo`
   },
+  PRAY: {
+    PRAY_VISA: `/app/pray_logs/visa_master`,
+    PRAY_MOMO: `/app/pray_logs/momo`
+  },
   HISTORY: {
     GET_SERVICES: `/app/attention_logs/service_history`,
     GET_EVENTS: `/app/attention_logs/event_history`
@@ -64,6 +68,7 @@ export const APICONFIG = {
   },
   VATICAN: {
     GET: `/app/vatican_news`,
+    GET_CATE: `/app/vatican_news/categories`,
     GET_DETAIL: id => `/app/vatican_news/${id}`
   },
   POPE: {
@@ -101,8 +106,8 @@ export const APICONFIG = {
     FAVORITE: `app/songs/favourite`,
     UNFAVORITE: `app/songs/unfavourite`,
   },
-  IMAGE_PROFILE:{
-    GET_ALL:`app/app_users/default_avatar`
+  IMAGE_PROFILE: {
+    GET_ALL: `app/app_users/default_avatar`
   }
 };
 

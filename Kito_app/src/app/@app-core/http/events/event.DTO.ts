@@ -1,6 +1,6 @@
 import { IPageRequest } from "../global";
 
 export interface IPageEvent extends IPageRequest {
-  cal_date?: string;
+  calendar_id?: string;
   parish_id?: string;
 }
