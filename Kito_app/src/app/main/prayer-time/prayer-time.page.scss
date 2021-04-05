@@ -82,7 +82,7 @@ ion-content {
 
 .date-list {
   justify-content: space-around;
-  padding: 0 0 15px;
+  padding: 0 0 10px;
 
   .date-item {
     flex-direction: column;
@@ -115,7 +115,7 @@ ion-content {
 ion-slides {
   min-height: 100%;
   background: #f5f5f5;
-  padding: 10px 5px;
+  padding: 10px 5px 15px 5px;
 
   ion-slide {
     flex-direction: column;
