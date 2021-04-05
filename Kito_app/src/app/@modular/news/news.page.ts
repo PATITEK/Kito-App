@@ -68,9 +68,6 @@ export class NewsPage implements OnInit {
   ionViewWillLeave() {
     localStorage.removeItem('voice');
   }
-  ionViewWillLeave() {
-    localStorage.removeItem('voice');
-  }
   goToNewsDetail(item) {
     const data = {
       id: item.id,
