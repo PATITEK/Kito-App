@@ -38,6 +38,7 @@ export class NewsPage implements OnInit {
   listCate = []
   idActive;
   displayCate = false;
+  toggle = true;
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -152,6 +153,15 @@ export class NewsPage implements OnInit {
   }
   showCate() {
     this.displayCate = true;
+    if(this.toggle) {
+        this.toggle = false;
+    }
+    else {
+      this.toggle =true;
+    }
+  }
+  checkShowCate(): boolean {
+    return this.toggle == false && this.displayCate == true
   }
   search(value: string) {
     if (typeof value != 'string') {
