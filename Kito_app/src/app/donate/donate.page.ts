@@ -151,7 +151,7 @@ export class DonatePage implements OnInit {
     }
     this.amount = parseInt(this.amount);
     var donate = {
-      "donation": {
+      donation: {
         "email": localStorage.getItem('email'),
         "token": "",
         "amount": this.amount,
@@ -159,7 +159,8 @@ export class DonatePage implements OnInit {
         "source_type": this.source_type,
         "source_id": this.source_id,
         "payment_type": ''
-      }
+      },
+      type_page :'donate'
     }
     this.router.navigate(['paymentmethods'], {
       queryParams: {

@@ -20,7 +20,7 @@ export class PrayerTimePage implements OnInit {
   };
 
   pageReq: IPageEvent = {
-    cal_date: null,
+    calendar_id: null,
     parish_id: null
   }
 
@@ -92,22 +92,19 @@ export class PrayerTimePage implements OnInit {
       for (let i = 0; i < 7; i++) {
         this.dateList[i].name = data.calendars[i].mass_name;
         this.dateList[i].color = data.calendars[i].shirt_color.color_code;
+        this.pageReq.calendar_id = data.calendars[i].id;
+        this.eventsService.getAll(this.pageReq).subscribe(data => {
+          if (!data.events.length) {
+            return;
+          }
+          data.events.forEach(event => {
+            event.start_time = new Date(event.start_time);
+            event.name = event.start_time.getHours() >= 12 ? 'Lễ tối' : 'Lễ sáng';
+          });
+          this.dateList[i].events = data.events;
+        })
       }
     })
-
-    for (let i = 0; i < 7; i++) {
-      this.pageReq.cal_date = this.dateList[i].date;
-      this.eventsService.getAll(this.pageReq).subscribe(data => {
-        if (!data.events.length) {
-          return;
-        }
-        data.events.forEach(event => {
-          event.start_time = new Date(event.start_time);
-          event.name = event.start_time.getHours() >= 12 ? 'Lễ tối' : 'Lễ sáng';
-        });
-        this.dateList[i].events = data.events;
-      })
-    }
   }
 
   getData(parishId) {
@@ -138,7 +135,8 @@ export class PrayerTimePage implements OnInit {
     const data = {
       dateList: this.dateList,
       dateItem: dateItem,
-      eventId: event.id
+      eventId: event.id,
+      dateActive: this.activeDateItemId
     }
     this.router.navigate(['main/prayer-time/prayer-detail'], {
       queryParams: {

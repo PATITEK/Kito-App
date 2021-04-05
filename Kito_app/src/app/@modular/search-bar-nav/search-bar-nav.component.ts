@@ -43,15 +43,8 @@ export class SearchBarNavComponent implements OnInit, OnChanges {
     })
     return;
   }
-  
-  ngAfterContentChecked() {
-  //  console.log(this.input);
-   
-  }
   startVoiceRecord() {
     this.speechRecognition.startListening().subscribe((matches: Array<string>) => {
-      // console.log(matches[0]);
-      
       this.input= matches[0];
     })
     
@@ -60,7 +53,4 @@ export class SearchBarNavComponent implements OnInit, OnChanges {
   changeInput(value) {
     this.output.emit(value);
   }
-  // getValue(value) {
-  //   value = this.input;
-  // }
 }

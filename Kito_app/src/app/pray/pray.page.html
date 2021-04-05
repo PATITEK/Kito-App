@@ -19,6 +19,12 @@
       </ion-item-group>
   </ion-item-group>
  <ion-item-group class="group__donate">
+  <ion-label>Thông tin đi lễ:</ion-label>
+  <ion-item>
+    <ion-label position="floating">Vui lòng chọn ngày:</ion-label>
+    <ion-datetime displayFormat="DD/MM/YYYY"  formControlName ="day" min="2021-04-01" [(ngModel)]="myDate" ></ion-datetime>
+  </ion-item>
+  
     <ion-label> Nhập số tiền đóng góp:</ion-label>
     <ion-item-group>
       <ion-img src="assets/img/dola.svg"></ion-img>
