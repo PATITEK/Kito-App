@@ -39,7 +39,6 @@ export class PrayerDetailPage implements OnInit {
       this.dateList.forEach(dateItem => dateItem.date = new Date(dateItem.date));
       this.eventsService.getDetail(JSON.parse(params['data']).eventId).subscribe(data => {
         this.event = data.event;
-        console.log(this.event)
       })
       this.dateItem = this.data.dateItem;
       this.dateItem.date = new Date(this.dateItem.date)
