@@ -60,7 +60,7 @@ export class MapPage implements OnInit {
     this.map = new google.maps.Map(document.getElementById("map") as HTMLElement, {
       center: this.center,
       zoom: 15,
-      disableDefaultUI: true,
+      // disableDefaultUI: true,
     });
   }
 
@@ -138,13 +138,13 @@ export class MapPage implements OnInit {
     let infoWindowContent =
       '<div *ngIf=" markers.length != null ">' +
       '<h3 style=" display: block; text-align: center; ">' + mapMarkerInfo.name + '</h3>' +
-      '<img style=" height: 120px; width: 100%; display: block; border-radius: 12px; " src=' + mapMarkerInfo.url + '>' +
-      '<h5 style=" display: block; text-align: center; ">' + mapMarkerInfo.priest_name + '</h5>' +
-      '<h5>' + mapMarkerInfo.address + '</h5>' +
+      '<img style=" height: 120px; width: 100%; display: block; margin: auto; border-radius: 12px; " src=' + mapMarkerInfo.url + '>' +
+      '<h5 style=" display: block; text-align: center; font-size: 17px; ">' + mapMarkerInfo.priest_name + '</h5>' +
+      '<h6>' + mapMarkerInfo.address + '</h6>' +
       '<p>Khoảng cách ước tính: ' + mapMarkerInfo.distance + ' km</p>' +
       // '<p>Latitude: ' + mapMarkerInfo.lat + '</p>' +
       // '<p>Longitude: ' + mapMarkerInfo.lng + '</p>' +
-      '<ion-button id="navigate" style=" --background: #F6C33E; --border-radius: 10px; display: block; ">' + 'Chỉ đường tới đây' + '</ion-button>'
+      '<ion-button id="navigate" mode="ios" style=" --background: #F6C33E; --border-radius: 15px; display: block; margin: auto; --background-activated: #CC9D3E; ">' + 'Chỉ đường tới đây' + '</ion-button>'
     '</div>';
     let infoWindow = new google.maps.InfoWindow({
       content: infoWindowContent,

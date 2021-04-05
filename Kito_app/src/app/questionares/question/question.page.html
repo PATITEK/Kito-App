@@ -1,4 +1,5 @@
-<ion-header class="ion-no-border" *ngIf="questions.length > 0">
+<ion-content class="ion-padding" *ngIf="questions.length > 0">
+  <!-- <ion-label style="color: white">right for test: {{ questions[this.questionCounter].answer.right_answer }}</ion-label> -->
   <ion-buttons class="header-option">
     <ion-icon
       size="large"
@@ -25,9 +26,6 @@
         <ion-row>
           <ion-label class="question-type">{{ questionTypeName }}</ion-label>
         </ion-row>
-        <ion-label class="question-counter"
-          >{{ questionCounter+1 }}/10 câu</ion-label
-        >
       </ion-col>
     </ion-buttons>
     <ion-icon
@@ -44,10 +42,9 @@
       <ion-label>{{ timer }}s</ion-label>
     </ion-buttons>
   </ion-buttons>
-</ion-header>
-
-<ion-content class="ion-padding" *ngIf="questions.length > 0">
-  <!-- <ion-label>right for test: {{ questions[this.questionCounter].answer.right_answer }}</ion-label> -->
+  <center>
+    <ion-label class="question-counter">{{ questionCounter+1 }}/10 câu</ion-label>
+  </center>
   <ion-buttons class="question-cover">
     <ion-label
       class="question"
@@ -55,9 +52,9 @@
       >{{ questions[questionCounter].question }}</ion-label
     >
   </ion-buttons>
-  <ion-buttons class="question-cover">
+  <ion-buttons class="question-img-cover">
     <img
-      class="question-img"
+    class="question-img"
       *ngIf="questions[questionCounter].thumb_image.url != '' "
       src="https://www.forescout.com/wp-content/uploads/2019/04/fs-cyber-bob-blog-feaured-img-10-questions.png"
     />
@@ -126,6 +123,14 @@
       </ion-col>
     </ion-row>
   </ion-grid>
+  <div class="background-gif">
+    <div class="img-star2">
+      <img src="assets/img/questionares/star2.gif" alt="" srcset="" />
+    </div>
+    <div class="img-star4">
+      <img src="assets/img/questionares/star2.gif" alt="" srcset="" />
+    </div>
+  </div>
 </ion-content>
 
 <ion-buttons class="modal" *ngIf="hasModal" [ngClass]="{'has-modal': hasModal}">
@@ -145,6 +150,14 @@
     <ion-buttons *ngFor="let rule of rules">
       <ion-label class="rule-content">{{rule.rule}}</ion-label>
     </ion-buttons>
-    <ion-img src="../../assets/img/questionares/rule.svg"></ion-img>
+    <ion-img src="../../assets/img/questionares/support.gif"></ion-img>
+  </div>
+  <div class="background-gif">
+    <div class="img-star2">
+      <img src="assets/img/questionares/star2.gif" alt="" srcset="" />
+    </div>
+    <div class="img-star4">
+      <img src="assets/img/questionares/star2.gif" alt="" srcset="" />
+    </div>
   </div>
 </ion-buttons>

@@ -40,16 +40,17 @@ export class NewsPage implements OnInit {
     private dioceseNewsService: DioceseNewsService,
     private parishesService: ParishesService,
     private loading: LoadingService,
+
   ) { }
 
   ngOnInit() {
     this.loading.present();
     this.getParams();
 
-   }
+  }
   ionViewWillEnter() {
     const parishId = localStorage.getItem('tempParishId');
-    if(parishId) {
+    if (parishId) {
       this.pageRequestParish.parish_id = parishId;
       this.news = [];
       this.pageRequestParish.page = 1;
@@ -168,19 +169,18 @@ export class NewsPage implements OnInit {
   getParams() {
     let url = window.location.href;
     if (url.includes('?')) {
-    this.route.queryParams.subscribe(params => {
-      this.dataParams = JSON.parse(params['data']);
-      this.pageRequestDioceseNews.diocese_id = this.dataParams.id;
-      this.getData();
-    }).unsubscribe();
+      this.route.queryParams.subscribe(params => {
+        this.dataParams = JSON.parse(params['data']);
+        this.pageRequestDioceseNews.diocese_id = this.dataParams.id;
+        this.getData();
+      }).unsubscribe();
+    }
   }
-}
   loadMoreData(event) {
     this.getData(() => {
       event.target.complete();
     });
   }
-
   imgNotFound(item) {
     !item?.thumb_image?.url && (item.thumb_image = { url: "https://i.imgur.com/UKNky29.jpg" });
   }

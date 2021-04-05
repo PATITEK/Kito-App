@@ -54,7 +54,6 @@ export class StorePage implements OnInit {
 
   ionViewWillEnter() {
     this.getCart();
-
     const parishId = localStorage.getItem('tempParishId');
     if (parishId) {
       if (parishId !== this.pageRequestCategories.parish_id) {
@@ -63,7 +62,6 @@ export class StorePage implements OnInit {
         this.reset();
         this.getCategories();
       }
-      localStorage.removeItem('tempParishId');
     }
   }
 
@@ -103,6 +101,9 @@ export class StorePage implements OnInit {
       this.currentCategoryId = this.categories[0].id;
       this.getProducts();
     })
+    localStorage.removeItem('cart');
+    this.cart = [];
+    localStorage.setItem('tempParishId', this.pageRequestCategories.parish_id);
   }
 
   resetAmount() {

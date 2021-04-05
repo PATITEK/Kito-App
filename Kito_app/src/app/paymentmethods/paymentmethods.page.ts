@@ -5,7 +5,6 @@ import { DonateService, OrderService } from '../@app-core/http';
 import { LoadingService, ToastService } from '../@app-core/utils';
 import { PaymentupComponent } from '../@modular/paymentup/paymentup.component';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
-declare var Stripe;
 
 @Component({
   selector: 'app-paymentmethods',
@@ -49,6 +48,7 @@ export class PaymentmethodsPage implements OnInit {
   }
   async presentAlertMoMo(header: string, text: string) {
     const alert = await this.alert.create({
+      mode: 'ios',
       header: header,
       message: text,
       buttons: [

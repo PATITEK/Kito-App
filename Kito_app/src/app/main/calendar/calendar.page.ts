@@ -153,7 +153,6 @@ export class CalendarPage implements OnInit {
   }
 
   toggleHasModal() {
-    console.log('object')
     this.hasModal = !this.hasModal;
   }
 

@@ -1,26 +1,44 @@
 <app-header class="header" [headerCustom]="headerCustom"></app-header>
-<ion-content class="ion-padding">
-  <div class="ion-text-center">
-    <h3 class="title">BẢNG XẾP HẠNG</h3>
-  </div>
+<ion-content>
   <ul>
-    <li *ngFor="let item of numSequence(12);let i = index">
-      <div class="stt-rank">
-        {{i+1}}
-      </div>
+    <li *ngFor="let item of data">
+      <span class="stt-rank" *ngIf="item.index != 1 && item.index != 2 && item.index != 3 && item.index < 10">
+        0{{item.index}}
+      </span>
+      <span class="stt-rank" *ngIf="item.index != 1 && item.index != 2 && item.index != 3 && item.index >= 10">
+        {{item.index}}
+      </span>
+      <img class="rank-img" src="../../../assets/img/questionares/1st.svg" *ngIf="item.index==1"/>
+      <img class="rank-img" src="../../../assets/img/questionares/2nd.svg" *ngIf="item.index==2"/>
+      <img class="rank-img" src="../../../assets/img/questionares/3rd.svg" *ngIf="item.index==3"/>
       <div class="rank-info">
-        <div class="avatar-name">
-        <ion-avatar>
-          <img src="assets/img/avatar.png" alt="">
-          </ion-avatar>
-          <ion-lable>Hoang An</ion-lable>
+        <ion-avatar class="avatar">
+          <img src="https://i.imgur.com/edwXSJa.png" alt="">
+        </ion-avatar>
+        <span class="name three-dots-3">{{ item.name }}</span>
+        <div class="rank-point">
+          <ion-icon name="trophy"></ion-icon>
+          <ion-label>{{ item.point }}</ion-label>
         </div>
-
-          <div class="rank-point">
-            <img src="assets/img/rank/cup.svg" alt="">
-            <ion-lable>100 000</ion-lable>
-          </div>
       </div>
     </li>
   </ul>
+
+  <div class="background-gif">
+    <div class="img-star2">
+      <img src="assets/img/questionares/bubble.gif" alt="" srcset="" />
+    </div>
+    <div class="img-star2">
+      <img src="assets/img/questionares/star2.gif" alt="" srcset="" />
+    </div>
+    <div class="img-star4">
+      <img src="assets/img/questionares/star2.gif" alt="" srcset="" />
+    </div>
+    <div class="img-star3">
+      <img src="assets/img/questionares/bubble.gif" alt="" srcset="" />
+    </div>
+    <div class="img-star4">
+      <img src="assets/img/questionares/bubble.gif" alt="" srcset="" />
+    </div>
+  </div>
 </ion-content>

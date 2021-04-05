@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 
@@ -22,8 +23,9 @@ export class CompleteQuestionPage implements OnInit {
       routerLink: 'main/catechism-class'
     }
   ]
-
-  constructor( private modalCtrl: ModalController ) { }
+  constructor( private modalCtrl: ModalController,
+    
+    private route:Router) { }
 
   ngOnInit() {
     this.loadAudios();
@@ -61,7 +63,8 @@ export class CompleteQuestionPage implements OnInit {
     this.lose.pause();
   }
 
-  async closeCompleteQuestion() {
+  async closeCompleteQuestion(value) {
+    this.route.navigateByUrl(value);
     await this.modalCtrl.dismiss();
   }
 

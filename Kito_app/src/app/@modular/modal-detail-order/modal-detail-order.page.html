@@ -20,7 +20,7 @@
     <ion-list class="food-detail-cover">
       <ion-buttons *ngFor="let order_detail of order.order_details" class="food-detail">
         <img src="{{fakeImg}}" /> 
-        <span class="food-name">{{order_detail.food_name}}</span>
+        <span class="food-name">{{order_detail.product_name}}</span>
         <ion-buttons class="amount" lines="none">
           <span>x {{order_detail.amount}}</span>
         </ion-buttons>

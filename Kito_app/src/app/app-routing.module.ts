@@ -46,11 +46,13 @@ const routes: Routes = [
   },
   {
     path: 'account',
-    loadChildren: () => import('./account/account.module').then(m => m.AccountPageModule)
+    loadChildren: () => import('./account/account.module').then(m => m.AccountPageModule),
+    canActivate: [AuthGuard],
   },
   {
     path: 'account-setting',
-    loadChildren: () => import('./account-setting/account-setting.module').then(m => m.AccountSettingPageModule)
+    loadChildren: () => import('./account-setting/account-setting.module').then(m => m.AccountSettingPageModule),
+    canActivate: [AuthGuard],
   },
   {
     path: 'slide',
@@ -89,11 +91,13 @@ const routes: Routes = [
   },
   {
     path: 'map',
-    loadChildren: () => import('./@modular/map/map.module').then(m => m.MapPageModule)
+    loadChildren: () => import('./@modular/map/map.module').then(m => m.MapPageModule),
+    canActivate: [AuthGuard],
   },
   {
     path: 'statistic',
-    loadChildren: () => import('./statistic/statistic.module').then(m => m.StatisticPageModule)
+    loadChildren: () => import('./statistic/statistic.module').then(m => m.StatisticPageModule),
+    canActivate: [AuthGuard],
   },
   {
     path: 'questionares',

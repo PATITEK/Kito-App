@@ -59,22 +59,6 @@ export class QuestionPage implements OnInit {
     private QuestionaresService: QuestionaresService
   ) {
     this.loadAudio();
-    // for (let i = 1; i <= 12; i++) {
-    //   this.questions.questions.push({
-    //     id: 1729,
-    //     question_topic_id: 33,
-    //     answer: {
-    //       a: " Thợ mộc" + i,
-    //       b: "Thợ mỏ" + i,
-    //       c: " Thợ làm than" + i,
-    //       d: i + 1,
-    //     },
-    //     question: " 1 + " + i + " = ?",
-    //     img_url: null,
-    //     level: 1,
-    //     right: "d",
-    //   });
-    // }
     this.checkQuestionType();
     this.loadingService.dismiss();
   }
@@ -204,7 +188,7 @@ export class QuestionPage implements OnInit {
     if (this.timer == 0) {
       this.stopTimer();
       this.openCompleteQuestion();
-      this.toastService.present("Hết giờ rồi!", "bottom", 1000, "danger");
+      this.toastService.present("Hết giờ rồi!", "top", 1000, "danger");
     }
   }
 
@@ -234,11 +218,11 @@ export class QuestionPage implements OnInit {
     if (this.answerKey == this.questions[this.questionCounter].answer.right_answer) {
       this.score++;
       localStorage.setItem("score", JSON.stringify(this.score));
-      this.toastService.present("Đúng rồi!", "bottom", 1000, "warning");
+      this.toastService.present("Đúng rồi!", "top", 1000, "success");
       this.right.play();
     } else {
       this.heart--;
-      this.toastService.present("Sai rồi!", "bottom", 1000, "danger");
+      this.toastService.present("Sai rồi!", "top", 1000, "danger");
       this.wrong.play();
     }
     if (this.questionCounter >= 10 || this.heart == 0 || this.score == 10) {
