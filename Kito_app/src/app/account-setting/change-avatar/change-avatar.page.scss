@@ -18,11 +18,11 @@ ion-content {
     margin: 5px 10px;
   }
   @media screen and (max-height: 569px) {
-      .avatar-item {
-        width: calc(72vw / 3);
-        height: calc(72vw / 3);
-      }
+    .avatar-item {
+      width: calc(72vw / 3);
+      height: calc(72vw / 3);
     }
+  }
 }
 ion-avatar {
   transition: all 0.1s;
@@ -35,12 +35,9 @@ ion-avatar {
   padding: 5px;
 }
 .btn-ok {
-  --padding: 20px 35px;
   --background: #f6c33e;
-  color: white;
   --border-radius: 30px;
-  --padding-start: 20px;
-  --padding-end: 20px;
-  --padding-top: 10px;
-  --padding-bottom: 10px;
+  display: block;
+  margin: auto;
+  width: 15vh;
 }
