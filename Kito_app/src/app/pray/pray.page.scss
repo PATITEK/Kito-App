@@ -4,6 +4,7 @@
     --padding-top: 0;
     --background: var(--gray-color);
     --padding-top: 80px;
+    color: #828282;
     .wrapper {
       margin-bottom: 54px;
     .title {
@@ -23,7 +24,6 @@
         .header__address {
           color: #CC9D3E;
           text-decoration: underline;
-          // color: var(--gray-color8a);
         }
         .header__title-user {
           font-size: 16px;
@@ -84,6 +84,19 @@
       border-radius: 30px;
       color: #828282;
       box-shadow: 0 4px 2px -2px rgb(180, 176, 176);
+      ion-item {
+        color: #828282;
+        --background: #f5f5f5;
+        font-size: 16px;
+        --border-width: 0;
+        --padding-start: 0;
+        ion-label {
+        font-size: 21px;
+        }
+        ion-datetime {
+          text-align: right;
+        }
+      }
       .require {
         color: var(--main-color);
       }

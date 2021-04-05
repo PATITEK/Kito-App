@@ -31,9 +31,15 @@ export class PaymentPage implements OnInit {
     this.route.queryParams.subscribe(params => {
       this.data =  JSON.parse(params['data']);
     })
-    this.amount = this.data.donation.amount;
-    this.purpose = this.data.donation.note;
-    
+    if(this.data.type_page == 'pray') {
+      this.amount = this.data.pray_log.amount;
+      this.purpose = this.data.pray_log.note;
+    }
+    else {
+      this.amount = this.data.donation.amount;
+      this.purpose = this.data.donation.note;
+    }
+   
   }
   async presentToast(message, color) {
     const toast = await this.toastController.create({
@@ -50,11 +56,27 @@ export class PaymentPage implements OnInit {
       des: 'Cảm ơn sự đóng góp của bạn!',
       routerLink: '/main/chabad'
     }
-    this.donateService.donateByVisa(this.data).subscribe((data) => {
-      this.loadingService.dismiss()
-         this.pageNotiService.setdataStatusNoti(datapasing);
-        this.router.navigateByUrl('/page-noti');
-      
-    })
+    if(this.data.type_page == 'pray') {
+      const pray_log = {
+        "pray_log" : this.data.pray_log
+      }
+      this.donateService.prayByVisa(pray_log).subscribe((data) => {
+        this.loadingService.dismiss()
+           this.pageNotiService.setdataStatusNoti(datapasing);
+          this.router.navigateByUrl('/page-noti');
+        
+      })
+    }else {
+      const donation_log = {
+        "donation" : this.data.donation
+      }
+      this.donateService.donateByVisa(donation_log).subscribe((data) => {
+        this.loadingService.dismiss()
+           this.pageNotiService.setdataStatusNoti(datapasing);
+          this.router.navigateByUrl('/page-noti');
+        
+      })
+    }
   }
+   
 }

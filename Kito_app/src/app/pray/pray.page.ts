@@ -37,6 +37,7 @@ export class PrayPage implements OnInit {
   x: any;
   amount: any;
   setamount = 0;
+  public myDate = new Date().toISOString();
   constructor(
     public formBuilder: FormBuilder,
     private route: ActivatedRoute,
@@ -51,6 +52,9 @@ export class PrayPage implements OnInit {
   ) {
     this.frmPray = this.formBuilder.group({
       note: new FormControl('', Validators.compose([
+        Validators.required,
+      ])),
+      day: new FormControl('', Validators.compose([
         Validators.required,
       ])),
       amount: new FormControl('', [])
@@ -150,23 +154,26 @@ export class PrayPage implements OnInit {
     }
     this.amount = parseInt(this.amount);  
     var result = {
-      "donation": {
+      pray_log: {
         "amount": this.amount,
+        "app_link": "no link",
+        "email": localStorage.getItem('email'),
         "note": this.frmPray.get('note').value,
         "source_type": this.source_type,
         "source_id": this.source_id,
-      }
+        "pray_date": this.frmPray.get('day').value
+      },
+      type_page: 'pray'
     }
     if (this.amount == 0) {
-      result.donation['payment_type'] = 'visa_master';
-      this.donateService.donateByVisa(result).subscribe((data) => {
+      result.pray_log['payment_type'] = 'visa_master';
+      this.donateService.prayByVisa(result.pray_log).subscribe((data) => {
         this.presentToast('Pray successfully!');
       })
     }
     else {
-      result.donation['email'] = localStorage.getItem('email');
-      result.donation['token'] = '';
-      result.donation['payment_type'] = '';
+      result.pray_log['token'] = '';
+      result.pray_log['payment_type'] = '';
       this.router.navigate(['paymentmethods'], {
         queryParams: {
           data: JSON.stringify(result)

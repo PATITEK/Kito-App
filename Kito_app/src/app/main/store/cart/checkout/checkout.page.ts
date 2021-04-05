@@ -77,6 +77,7 @@ export class CheckoutPage implements OnInit {
     }
     if (this.paymentMethod.id == 0) {
       this.orderService.create(req).subscribe((data: any) => {
+        console.log(data)
         this.order_id = data.order.id;
         this.loadingService.dismiss();
         this.paymentByCash();
@@ -101,7 +102,7 @@ export class CheckoutPage implements OnInit {
   }
   paymentByCash() {
     var orderByCash = {
-      "donation": {
+      order_payment: {
         "order_id": this.order_id
       }
     }
