@@ -42,10 +42,8 @@
       <ion-label>{{ timer }}s</ion-label>
     </ion-buttons>
   </ion-buttons>
-  <center>
-    <ion-label class="question-counter">{{ questionCounter+1 }}/10 câu</ion-label>
-  </center>
   <ion-buttons class="question-cover">
+    <p class="question-counter">{{ questionCounter+1 }}/10 câu</p>
     <ion-label
       class="question"
       *ngIf="questions[questionCounter].question != '' "

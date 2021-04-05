@@ -167,12 +167,12 @@
             {{item.name}}
           </ion-select-option>
         </ion-select>
-        <ng-container *ngFor="let validation of validationSignUpMessages.dioceses">
+        <!-- <ng-container *ngFor="let validation of validationSignUpMessages.dioceses">
           <div class="error-message"
             *ngIf="formSignUp.get('dioceses').hasError(validation.type) && (formSignUp.get('dioceses').dirty || formSignUp.get('dioceses').touched)">
             {{ validation.message }}
           </div>
-       </ng-container>
+       </ng-container> -->
         <ion-label class="label">Giáo xứ</ion-label>
         <ion-select mode='ios' class="select mr-bottom" formControlName="parish_id">
           <ion-select-option  [value]="item.id" *ngFor="let item of listParishes">

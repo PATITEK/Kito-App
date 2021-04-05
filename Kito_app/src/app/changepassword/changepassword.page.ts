@@ -87,7 +87,7 @@ export class ChangepasswordPage implements OnInit {
    
   }
 
-  async closeModalPassword(ev: any) {
+  async closeModalPassword() {
     this.passwordModal.dismiss();
   }
   

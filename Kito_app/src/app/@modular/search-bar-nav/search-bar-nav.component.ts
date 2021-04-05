@@ -1,6 +1,5 @@
 import { Component, EventEmitter, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { ModalController, Platform } from '@ionic/angular';
-import { ModalMenuComponent } from '../modal-menu/modal-menu.component';
 import { SpeechRecognition } from '@ionic-native/speech-recognition/ngx'
 
 @Component({
@@ -31,13 +30,6 @@ export class SearchBarNavComponent implements OnInit, OnChanges {
     if (!value) {
       this.searchBar.setFocus();
     }
-  }
-  async openModalMenu() {
-    const popover = await this.modalCtrl.create({
-      component: ModalMenuComponent,
-      cssClass: 'modalMenu',
-    });
-    return await popover.present();
   }
   startVoice() {
     this.PlatForm.ready().then(() => {
