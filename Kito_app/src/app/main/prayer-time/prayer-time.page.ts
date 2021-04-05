@@ -82,6 +82,7 @@ export class PrayerTimePage implements OnInit {
 
   getParish() {
     this.parishService.getDetail(this.pageReq.parish_id).subscribe(data => {
+      console.log(data)
       this.loading.dismiss();
       this.parish = data.parish;
     })
