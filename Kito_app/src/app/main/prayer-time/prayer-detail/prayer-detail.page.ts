@@ -16,7 +16,8 @@ export class PrayerDetailPage implements OnInit {
   dateItem: any;
   dateActive: any;
   event = {
-    description: ''
+    description: '',
+    prayers: ''
   }
 
   constructor(
