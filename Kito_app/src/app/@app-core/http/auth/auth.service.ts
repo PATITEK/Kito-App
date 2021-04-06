@@ -19,8 +19,6 @@ export class AuthService {
     private router: Router,
     private storage: StorageService,
     public toastController: ToastController,
-    private loadingService: LoadingService,
-    private toastService: ToastService
   ) { }
   public get receiveData(): Observable<any> {
     return this.data.asObservable();
@@ -34,13 +32,6 @@ export class AuthService {
         return result;
       }),
       catchError((errorRes: any) => {
-        if(errorRes.error.messages) {
-          this.toastService.present(errorRes.error.errors, 'top',1000,'dark')
-        }
-        else if(errorRes.error.errors) {
-          this.toastService.present(errorRes.error.errors, 'top',1000,'dark')
-        }
-        this.loadingService.dismiss();
         throw errorRes.error;
       }));
 
@@ -55,13 +46,6 @@ export class AuthService {
         
       }),
       catchError((errorRes: any) => {
-        if(errorRes.error.errors ){
-          this.toastService.present(errorRes.error.errors, 'top',1000,'dark');
-        }
-        else if(errorRes.error.messages) {
-          this.toastService.present(errorRes.error.errors, 'top',1000,'dark');
-        }
-        this.loadingService.dismiss();
         throw errorRes.error;
       }
       ));
@@ -72,7 +56,6 @@ export class AuthService {
         return result;
       }),
       catchError((errorRes: any) => {
-        this.toastService.present(errorRes.error.errors, 'top',1000,'dark')
         throw errorRes.error;
       }
       ));
@@ -96,20 +79,8 @@ export class AuthService {
         return result;
       }),
       catchError((errorRes: any) => {
-        localStorage.clear();
-        this.storage.clear();
-        if(errorRes.error.errors) {
-          this.presentToast(errorRes.error.errors);
-        }
-        else if(errorRes.error.message) {
-          this.presentToast(errorRes.error.errors);
-        }
-        else {
-          this.presentToast('Xảy ra lỗi, vui lòng kiểm tra lại!');
-        }
         throw errorRes.error;
-      })
-      );
+      }));
   }
   logout() {
     localStorage.clear();
@@ -122,11 +93,9 @@ export class AuthService {
         this.storage.clear();
         localStorage.setItem('Authorization', result.token);
         this.storage.setInfoAccount();
-        this.router.navigate(['main/chabad']);
         return result;
       }),
       catchError((errorRes: any) => {
-        this.toastService.present('Vui lòng kiểm tra lại thông tin', 'top',1000,'dark');
         throw errorRes.error;
       }));
   }
@@ -138,12 +107,5 @@ export class AuthService {
       catchError((errorRes: any) => {
         throw errorRes.error;
       }))
-  }
-  async presentToast(message: string) {
-    const toast = await this.toastController.create({
-      message: message,
-      duration: 1500
-    });
-    toast.present();
   }
 }

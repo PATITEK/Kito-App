@@ -4,7 +4,6 @@ import { NativeGeocoder, NativeGeocoderOptions, NativeGeocoderResult } from '@io
 import { LoadingService } from './loading.service';
 import { ModalController, Platform } from '@ionic/angular';
 import { MapPage } from '../../@modular/map/map.page'
-
 interface Location {
     lat: number;
     lng: number;
@@ -32,7 +31,7 @@ export class GeolocationService {
         public nativeGeocoder: NativeGeocoder,
         public loadingService: LoadingService,
         public PlatForm: Platform,
-        public modalCtrl: ModalController
+        public modalCtrl: ModalController,
     ) { }
 
     ngOnInit() { }
@@ -41,19 +40,16 @@ export class GeolocationService {
         this.PlatForm.ready().then(() => {
             this.loadingService.present();
             this.geolocation.getCurrentPosition().then((resp) => {
-                
                 this.centerService.lat = resp.coords.latitude;
                 this.centerService.lng = resp.coords.longitude;
                 this.getGeoEncoder(this.centerService.lat, this.centerService.lng);
                 this.loadingService.dismiss();
             })
-                .catch((err) => {
-                    this.loadingService.dismiss();
-                    console.error(err);
-                })
+            .catch((err) => {
+                throw err
+            })
         })
     }
-
     getGeoEncoder(latitude, longitude) {
         this.nativeGeocoder.reverseGeocode(latitude, longitude, this.geoEncoderOptions)
             .then((result: NativeGeocoderResult[]) => {
@@ -63,9 +59,9 @@ export class GeolocationService {
             })
             .catch((err: any) => {
                 console.error(err, ': because chay tren dien thoai real moi dc =))');
+                throw err;
             });
     }
-
     generateAddress(addressObj) {
         let obj = [];
         let address = "";

@@ -23,8 +23,7 @@ export class ChangepasswordPage implements OnInit {
     private router: Router,
     private loadService: LoadingService,
     private passwordModal: ModalController,
-    private toastService: ToastService,
-    private authService: AuthService) { 
+    private authService: AuthService) {
     this.formSubmit = this.formBuilder.group({
       passwordcurrent: new FormControl('', Validators.required),
       passwordnew: new FormControl('', Validators.required),
@@ -36,8 +35,8 @@ export class ChangepasswordPage implements OnInit {
   }
   async openModal(ev: any) {
     const popover = await this.passwordModal.create({
-     component: ChangepasswordPage,
-       cssClass: 'modalPassword',
+      component: ChangepasswordPage,
+      cssClass: 'modalPassword',
     });
     return await popover.present();
   }
@@ -45,14 +44,14 @@ export class ChangepasswordPage implements OnInit {
     this.passwordModal.dismiss();
   }
   onSubmit() {
-     const cp = this.formSubmit.value.passwordcurrent;
+    const cp = this.formSubmit.value.passwordcurrent;
     const pn = this.formSubmit.value.passwordnew;
     const pc = this.formSubmit.value.passwordconfirm;
-    if(pn.length < 6){
-        this.checkpn = true;
-        this.messagepn = 'Mật khẩu ít nhất 6 kí tự.'
+    if (pn.length < 6) {
+      this.checkpn = true;
+      this.messagepn = 'Mật khẩu ít nhất 6 kí tự.'
     }
-    else if(pn !=  pc) {
+    else if (pn != pc) {
       this.check = true;
       this.checkpn = false;
       this.message = 'Mật khẩu không trùng khớp!'
@@ -71,24 +70,14 @@ export class ChangepasswordPage implements OnInit {
       }
       this.dismissModal()
       this.loadService.present()
-      this.authService.resetPassword(ps).subscribe(data=> {
+      this.authService.resetPassword(ps).subscribe(data => {
         this.pageNotiService.setdataStatusNoti(datapasing);
         this.router.navigateByUrl('/page-noti');
         this.loadService.dismiss();
-      },
-      (data)=> {
-        this.loadService.dismiss();
-        this.count++;
-        this.toastService.present('Mật khẩu bạn nhập sai, vui lòng kiểm tra lại !', 'top', 2000, 'dark');
-        if(this.count == 3) {
-        }
       })
     }
-   
   }
-
   async closeModalPassword() {
     this.passwordModal.dismiss();
   }
-  
 }

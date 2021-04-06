@@ -118,7 +118,7 @@ export class PaymentupComponent implements OnInit {
               this.pageNotiService.setdataStatusNoti(datapasing);
               this.router.navigateByUrl('/page-noti');
             },
-            ()=> {
+            (error: any)=> {
               this.loadingService.dismiss();
               this.toart.present('Hãy thử lại sau', 'top', 1000, 'dark');
             }) 

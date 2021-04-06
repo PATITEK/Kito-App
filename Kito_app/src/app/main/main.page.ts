@@ -1,9 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService, IPageRequest, VaticanService } from '../@app-core/http';
+import { AuthService, VaticanService } from '../@app-core/http';
 import { AlertController, IonInfiniteScroll, ModalController, NavController, Platform, ToastController } from '@ionic/angular';
 import { AccountService } from '../@app-core/http/account/account.service';
 import { GeolocationService, LoadingService, OneSignalService, ToastService } from '../@app-core/utils';
+import { IPageVatican } from '../@app-core/http/vatican/vatican.DTO';
 
 @Component({
   selector: 'app-main',
@@ -166,11 +167,12 @@ export class MainPage implements OnInit {
   }
 
   getVatican() {
-    const pageRequest: IPageRequest = {
+    const pageRequest: IPageVatican = {
       page: 1,
       per_page: 4
     }
     this.vaticanService.getAll(pageRequest).subscribe(data => {
+      console.log(data)
       this.loading.dismiss();
       data.vatican_news.forEach(v => v.type = this.vaticanList.type);
       this.vaticanList.items = data.vatican_news;

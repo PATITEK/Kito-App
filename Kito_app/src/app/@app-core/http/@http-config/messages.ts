@@ -15,7 +15,7 @@ export const FAIL = {
 
 export const STATUS = {
   SUCCESS: 'Thành công!',
-  FAIL: 'Lỗi!',
+  FAIL: 'Lỗi, vui lòng kiểm tra lại!',
   WARNING: 'Cảnh báo!'
 };
 
@@ -28,3 +28,20 @@ export const ARLET = {
     PASSWORD_NOT_VALID: 'Mật khẩu không khớp, vui lòng kiểm tra lại'
   }
 };
+export const TOARST = {
+    COLOR: {
+        primary: 'primary',
+        secondary: 'secondary',
+        tertiary: 'tertiary',
+        success: 'success',
+        warning: 'warning',
+        danger: 'danger',
+        light: 'light',
+        medium: 'medium',
+        dark: 'dark'
+      },
+    POSITION: {
+        bottom: 'bottom',
+        top: 'top'
+    }
+}
