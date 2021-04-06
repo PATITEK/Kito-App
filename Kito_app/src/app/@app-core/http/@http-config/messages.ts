@@ -12,7 +12,10 @@ export const SUCCESS = {
 export const FAIL = {
   LOGOUT: 'Đăng xuất thất bại',
 };
-
+export const LOADING={
+  REGIEST:"Đang đăng ký",
+  UNREGIEST:"Đang hủy đăng ký"
+}
 export const STATUS = {
   SUCCESS: 'Thành công!',
   FAIL: 'Lỗi!',
@@ -28,3 +31,7 @@ export const ARLET = {
     PASSWORD_NOT_VALID: 'Mật khẩu không khớp, vui lòng kiểm tra lại'
   }
 };
+export const DOCTRINE_CLASSES={
+  REGIEST:"Đăng ký thành công",
+  UNREGIEST:"Đã hủy đăng ký",
+}
