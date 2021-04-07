@@ -83,6 +83,16 @@ export const APICONFIG = {
     GET: `/app/diocese_news`,
     GET_DETAIL: id => `/app/diocese_news/${id}`
   },
+  DOCTRINE_CLASSES: {
+    GET: `/app/doctrine_classes/marriage`,
+    GET_DETAIL: id => `/app/doctrine_classes/marriage/${id}`,
+    REGISTER:`/app/doctrine_classes/register`,
+    UNREGISTER: `/app/doctrine_classes/unregister`,
+  },
+  CATECKISM: {
+    GET: `/app/doctrine_classes/catechism`,
+    GET_DETAIL: id => `/app/doctrine_classes/catechism/${id}`
+  },
   STORE: {
     GET_ALL_CATEGORIES: `/app/categories`,
     GET_ALL_PRODUCTS: `/app/products`,

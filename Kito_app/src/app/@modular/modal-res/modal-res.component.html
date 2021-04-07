@@ -1,0 +1,13 @@
+<ion-content>
+  <ion-item-group *ngIf="type" class="ion-label">Đăng Ký</ion-item-group>
+  <ion-item-group *ngIf="!type" class="ion-label">Hủy Đăng Ký</ion-item-group>
+  <ion-item-group>
+    <ion-label class="btn-cancel" (click)="dismissModal()">
+      HỦY
+    </ion-label>
+    <ion-label (click)="submit()" class="btn-agreement">
+      ĐỒNG Ý
+    </ion-label>
+    
+  </ion-item-group>
+</ion-content>

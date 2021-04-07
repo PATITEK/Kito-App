@@ -64,6 +64,7 @@ const routes: Routes = [
     loadChildren: () => import('./@modular/modal-detail-order/modal-detail-order.module').then(m => m.ModalDetailOrderPageModule),
     canActivate: [AuthGuard],
   },
+  
   {
     path: 'dioceses',
     loadChildren: () => import('./dioceses/dioceses.module').then(m => m.DiocesesPageModule),
@@ -106,6 +107,11 @@ const routes: Routes = [
   },
   { path: '', redirectTo: '/main', pathMatch: 'full' },
   { path: '**', redirectTo: 'main' },
+  // {
+  //   path: 'popup-registe',
+  //   loadChildren: () => import('./@modular/popup-registe/popup-registe.module').then( m => m.PopupRegistePageModule)
+  // },
+
 
 ];
 @NgModule({
