@@ -12,9 +12,9 @@ export const SUCCESS = {
 export const FAIL = {
   LOGOUT: 'Đăng xuất thất bại',
 };
-export const LOADING={
-  REGIEST:"Đang đăng ký",
-  UNREGIEST:"Đang hủy đăng ký"
+export const LOADING = {
+  REGIEST: "Đang đăng ký",
+  UNREGIEST: "Đang hủy đăng ký"
 }
 export const STATUS = {
   SUCCESS: 'Thành công!',
@@ -33,22 +33,24 @@ export const ARLET = {
 };
 
 export const TOARST = {
-    COLOR: {
-        primary: 'primary',
-        secondary: 'secondary',
-        tertiary: 'tertiary',
-        success: 'success',
-        warning: 'warning',
-        danger: 'danger',
-        light: 'light',
-        medium: 'medium',
-        dark: 'dark'
-      },
-    POSITION: {
-        bottom: 'bottom',
-        top: 'top'
-    }
-export const DOCTRINE_CLASSES={
-  REGIEST:"Đăng ký thành công",
-  UNREGIEST:"Đã hủy đăng ký",
+  COLOR: {
+    primary: 'primary',
+    secondary: 'secondary',
+    tertiary: 'tertiary',
+    success: 'success',
+    warning: 'warning',
+    danger: 'danger',
+    light: 'light',
+    medium: 'medium',
+    dark: 'dark'
+  },
+  POSITION: {
+    bottom: 'bottom',
+    top: 'top'
+  }
 }
+export const DOCTRINE_CLASSES = {
+    REGIEST: "Đăng ký thành công",
+    UNREGIEST: "Đã hủy đăng ký",
+  }
+

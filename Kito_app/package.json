@@ -117,7 +117,8 @@
       }
     },
     "platforms": [
-      "browser"
+      "browser",
+      "android"
     ]
   }
 }
