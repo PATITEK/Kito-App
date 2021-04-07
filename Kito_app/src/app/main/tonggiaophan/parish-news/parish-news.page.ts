@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IPageRequest, VaticanService } from 'src/app/@app-core/http';
 import { PopeService } from 'src/app/@app-core/http/pope';
+import { IPageVatican } from 'src/app/@app-core/http/vatican/vatican.DTO';
 
 @Component({
   selector: 'app-parish-news',
@@ -22,9 +23,10 @@ export class ParishNewsPage implements OnInit {
       type: { general: 'story', detail: 'pope' }
     }
   ]
-  pageRequest: IPageRequest = {
+  pageRequest: IPageVatican = {
+    category_id: 2,
     page: 1,
-    per_page: 4
+    per_page: 4,
   }
 
   constructor(

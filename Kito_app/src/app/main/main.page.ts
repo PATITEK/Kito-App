@@ -1,11 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService, VaticanService } from '../@app-core/http';
-import { AlertController, IonInfiniteScroll, ModalController, NavController, Platform, ToastController } from '@ionic/angular';
+import { AlertController, IonInfiniteScroll, ModalController, NavController, Platform } from '@ionic/angular';
 import { AccountService } from '../@app-core/http/account/account.service';
-import { GeolocationService, LoadingService, OneSignalService, ToastService } from '../@app-core/utils';
+import { GeolocationService, OneSignalService, ToastService } from '../@app-core/utils';
 import { IPageVatican } from '../@app-core/http/vatican/vatican.DTO';
-
+import { ORTHER } from '../@app-core/http/@http-config/messages'
 @Component({
   selector: 'app-main',
   templateUrl: './main.page.html',
@@ -70,7 +70,6 @@ export class MainPage implements OnInit {
   ]
 
   vaticanList = {
-    // heading: '',
     items: [],
     type: { general: 'news', detail: 'vatican' }
   }
@@ -85,9 +84,7 @@ export class MainPage implements OnInit {
     private authService: AuthService,
     public modalCtrl: ModalController,
     public vaticanService: VaticanService,
-    private loading: LoadingService,
     private platform: Platform,
-    private alertController: AlertController,
     private toarst: ToastService,
     private navController: NavController,
     private geolocationSerivce: GeolocationService,
@@ -114,7 +111,6 @@ export class MainPage implements OnInit {
     })
   }
   ngOnInit() {
-    this.loading.present();
     this.OneSignalService.startOneSignal();
     this.getVatican();
     this.reTakeLocation();
@@ -122,7 +118,7 @@ export class MainPage implements OnInit {
       if(this.router.url === '/main') {
         this.count++;
         if(this.count == 1) {
-          this.toarst.present('Nhấn lần nữa để thoát!','bottom', 1000,'dark');
+          this.toarst.presentSuccess(ORTHER.CLICK);
         }
         else {
             navigator['app'].exitApp();
@@ -141,39 +137,38 @@ export class MainPage implements OnInit {
     this.geolocationSerivce.getCurrentLocation();
     this.location = this.geolocationSerivce.customerLocation.address;
   }
-  async presentAlert() {
-    this.alertPresented = true;
-    const alert = await this.alertController.create({
-      cssClass: 'logout-alert',
-      message: 'Bạn có muốn thoát app ?',
-      buttons: [
-        {
-          text: 'Đồng ý',
-          handler: () => {
-            navigator['app'].exitApp();
-          }
-        },
-        {
-          text: 'Hủy',
+  // async presentAlert() {
+  //   this.alertPresented = true;
+  //   const alert = await this.alertController.create({
+  //     cssClass: 'logout-alert',
+  //     message: ORTHER.EXIT,
+  //     buttons: [
+  //       {
+  //         text: ALERT_MESSAGE.AGRRE,
+  //         handler: () => {
+  //           navigator['app'].exitApp();
+  //         }
+  //       },
+  //       {
+  //         text: ALERT_MESSAGE.CANCLE,
           
-          handler: () => {
-            this.alertPresented = false;
-            return;
-          }
-        },
-      ]
-    });
-    await alert.present();
-  }
+  //         handler: () => {
+  //           this.alertPresented = false;
+  //           return;
+  //         }
+  //       },
+  //     ]
+  //   });
+  //   await alert.present();
+  // }
 
   getVatican() {
     const pageRequest: IPageVatican = {
       page: 1,
-      per_page: 4
+      per_page: 4,
+      category_id: 2
     }
     this.vaticanService.getAll(pageRequest).subscribe(data => {
-      console.log(data)
-      this.loading.dismiss();
       data.vatican_news.forEach(v => v.type = this.vaticanList.type);
       this.vaticanList.items = data.vatican_news;
     })

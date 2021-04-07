@@ -73,7 +73,6 @@ export class NewPasswordPage implements OnInit {
       this.authService.newPassword(dataSubmit).subscribe((data) => {
         this.pageNotiService.setdataStatusNoti(datapasing);
         this.router.navigateByUrl('/page-noti');
-        this.loadingService.dismiss();
       })
     }    
   }

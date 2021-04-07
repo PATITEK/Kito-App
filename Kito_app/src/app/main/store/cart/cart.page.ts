@@ -4,7 +4,8 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { DateTimeService, GeolocationService } from 'src/app/@app-core/utils';
-
+import { AlertService } from 'src/app/@app-core/utils/alert.service';
+import { ALERT_MESSAGE, ORTHER } from '../../../@app-core/http/@http-config/messages'
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.page.html',
@@ -43,7 +44,7 @@ export class CartPage implements OnInit {
     public formBuilder: FormBuilder,
     private router: Router,
     private geolocationSerivce: GeolocationService,
-    private alert: AlertController
+    private alertController: AlertController
   ) { 
     this.frm = this.formBuilder.group({
       address: new FormControl('', Validators.compose([
@@ -59,24 +60,24 @@ export class CartPage implements OnInit {
     this.phone_number = localStorage.getItem('phoneNumber');
     this.location = localStorage.getItem('location');
     if(!localStorage.getItem('location')) {
-      this.presentAlert('Cập nhật', 'Lấy địa chỉ của bạn!');
+      this.presentAlert();
     }
     
   }
-  async presentAlert(header: string, text: string) {
-    const alert = await this.alert.create({
-      header: header,
-      message: text,
+  async presentAlert() {
+    const alert = await this.alertController.create({
+      header: ALERT_MESSAGE.CONTI,
+      message: ALERT_MESSAGE.QUESTION_CONTI,
       buttons: [
         {
-          text: 'Hủy',
+          text: ALERT_MESSAGE.CANCLE,
           role: 'cancel',
           cssClass: 'secondary',
           handler: () => {
             this.reTakeLocation();
           }
         }, {
-          text: 'Đồng ý',
+          text: ALERT_MESSAGE.AGRRE,
           handler: () => {
             this.reTakeLocation();
           }

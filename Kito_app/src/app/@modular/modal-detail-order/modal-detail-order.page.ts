@@ -1,8 +1,9 @@
-import { Component, OnInit, Input, NgModule } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { OrderService } from 'src/app/@app-core/http';
-import { DateTimeService, LoadingService } from 'src/app/@app-core/utils';
+import { DateTimeService, LoadingService, ToastService } from 'src/app/@app-core/utils';
 import { AlertController } from '@ionic/angular';
+import { ALERT_MESSAGE } from '../../@app-core/http/@http-config/messages'
 @Component({
   selector: 'app-modal-detail-order',
   templateUrl: './modal-detail-order.page.html',
@@ -14,33 +15,19 @@ export class ModalDetailOrderPage implements OnInit {
   setOrderItemId() {
     localStorage.setItem('orderItemId', this.data.order.id);
   }
-
-  order = {
-    id: 0,
-    status: '',
-    note: '',
-    full_address: '',
-    phone_number_receiver: '',
-    created_at: '',
-    order_details: []
-  }
-
-  loadedData = false;
-
-  isCanceled = '';
-
+  order: any;
   fakeImg = 'https://res.cloudinary.com/baodang359/image/upload/v1616123967/kito-music/MDC319_avatar_bqms50.jpg';
-
   constructor(
     private orderService: OrderService,
     private dateTimeService: DateTimeService,
     public modalController: ModalController,
     private loadingService: LoadingService,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private toarstService: ToastService
   ) { }
 
+
   ngOnInit() {
-    this.loadingService.present();
     this.getData(this.data.order.id);
   }
 
@@ -54,46 +41,14 @@ export class ModalDetailOrderPage implements OnInit {
   getData(id) {
     this.orderService.getDetail(id).subscribe(data => {
       this.order = data.order;
-      this.loadedData = true;
-      if (data.order.status == 'pending') {
-        this.isCanceled = 'Hủy đơn hàng';
-      } else if (data.order.status == 'failed') {
-        this.isCanceled = 'Đã hủy đơn hàng';
-      }
-      this.loadingService.dismiss();
     })
   }
-
-  async reallyWantCancelOrder(id) {
-    const alert = await this.alertController.create({
-      cssClass: 'my-custom-class',
-      header: 'Xác nhận!',
-      message: 'Bạn chắc chắn muốn <strong>hủy</strong> đơn hàng này?',
-      mode: 'ios',
-      backdropDismiss: true,
-      buttons: [
-        {
-          text: 'Quay lại',
-          role: 'cancel',
-          cssClass: 'secondary',
-        }, {
-          text: 'Đồng ý',
-          handler: () => {
-            this.cancelOrder(id);
-          }
-        }
-      ]
-    });
-
-    await alert.present();
-  }
-
   cancelOrder(id) {
     this.loadingService.present();
     this.order.status = 'failed';
     this.orderService.delete(id).subscribe(data => {
-      this.loadingService.dismiss();
-      this.isCanceled = 'Đã hủy đơn hàng';
+      this.toarstService.presentSuccess();
+      this.modalController.dismiss();
     })
   }
 

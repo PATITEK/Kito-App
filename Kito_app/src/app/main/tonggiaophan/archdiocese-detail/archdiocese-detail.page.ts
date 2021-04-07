@@ -72,7 +72,6 @@ export class ArchdioceseDetailPage implements OnInit {
 
   getBishops() {
     this.bishopService.getAll(this.pageRequest).subscribe(data => {
-      this.loadingService.dismiss();
         data.bishop_infos.forEach(d => {
         d.type = { general: 'story', detail: 'bishop' };
       });

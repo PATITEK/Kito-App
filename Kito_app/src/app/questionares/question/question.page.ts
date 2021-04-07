@@ -6,7 +6,7 @@ import { AlertController, ModalController } from "@ionic/angular";
 import { BehaviorSubject } from "rxjs";
 import { ToastService } from "src/app/@app-core/utils";
 import { CompleteQuestionPage } from "../complete-question/complete-question.page";
-
+import { GAME, ALERT_MESSAGE, ORTHER } from "../../@app-core/http/@http-config/messages"
 @Component({
   selector: "app-question",
   templateUrl: "./question.page.html",
@@ -14,39 +14,33 @@ import { CompleteQuestionPage } from "../complete-question/complete-question.pag
 })
 export class QuestionPage implements OnInit {
   musicType = true;
-
   questionTypeName = "";
   heart = 3;
   score = 0;
-
   questionCounter = 0;
   answerValue = "";
   answerKey = "";
-
   time: BehaviorSubject<string> = new BehaviorSubject("00:00");
   timer: number;
   forTimer: any;
-
   questions = [];
-
   soundtrack1 = new Audio();
   right = new Audio();
   wrong = new Audio();
-
   hasModal = false;
 
   rules = [
     {
-      rule: 'Người chơi chọn chủ đề hoặc cấp độ để bắt đầu trò chơi.'
+      rule: GAME.RULES.R1
     },
     {
-      rule: 'Mỗi lượt chơi sẽ có 10 câu hỏi với 4 đáp án A, B, C, D (thời gian là 120s/10 câu). Người chơi chọn 1 trong 4 đáp án để trả lời câu hỏi.'
+      rule: GAME.RULES.R2
     },
     {
-      rule: 'Người chơi có 3 mạng, mỗi câu trả lời sai sẽ bị trừ 1 mạng. Đến khi hết 3 mạng sẽ kết thúc trò chơi.'
+      rule: GAME.RULES.R3
     },
     {
-      rule: 'Điểm sau khi kết thúc sẽ được tích lũy vào bảng xếp hạng.'
+      rule: GAME.RULES.R4
     }
   ]
 
@@ -67,27 +61,26 @@ export class QuestionPage implements OnInit {
     this.soundtrack1.play();
     localStorage.setItem("score", "0");
   }
-
   ionViewDidLeave() {
     this.stopTimer();
   }
 
   async questionSetting() {
     let alertQuestionSetting = await this.alertCtrl.create({
-      message: "Lựa chọn",
+      message: ALERT_MESSAGE.TEXT_OPTIONS,
       mode: "ios",
       buttons: [
         {
-          text: "Tiếp tục",
+          text: ALERT_MESSAGE.CONTI,
         },
         {
-          text: "Quay lại",
+          text: ALERT_MESSAGE.BACK,
           handler: () => {
             this.router.navigate(["questionares/choose-question"]);
           },
         },
         {
-          text: "Thoát",
+          text: ALERT_MESSAGE.EXIT,
           role: "destructive",
           handler: () => {
             this.questionQuit();
@@ -101,14 +94,14 @@ export class QuestionPage implements OnInit {
 
   async questionQuit() {
     let alertQuestionSetting = await this.alertCtrl.create({
-      message: "Bạn có muốn thoát?",
+      message: ORTHER.EXIT,
       mode: "ios",
       buttons: [
         {
-          text: "Hủy",
+          text: ALERT_MESSAGE.CANCLE,
         },
         {
-          text: "Thoát",
+          text: ALERT_MESSAGE.EXIT,
           role: "destructive",
           handler: () => {
             localStorage.removeItem("questionType");
@@ -188,7 +181,7 @@ export class QuestionPage implements OnInit {
     if (this.timer == 0) {
       this.stopTimer();
       this.openCompleteQuestion();
-      this.toastService.present("Hết giờ rồi!", "top", 1000, "danger");
+      this.toastService.presentSuccess(GAME.OVERTIME);
     }
   }
 
@@ -218,11 +211,11 @@ export class QuestionPage implements OnInit {
     if (this.answerKey == this.questions[this.questionCounter].answer.right_answer) {
       this.score++;
       localStorage.setItem("score", JSON.stringify(this.score));
-      this.toastService.present("Đúng rồi!", "top", 1000, "success");
+      this.toastService.presentSuccess(GAME.TRUE);
       this.right.play();
     } else {
       this.heart--;
-      this.toastService.present("Sai rồi!", "top", 1000, "danger");
+      this.toastService.presentFail(GAME.FAIL);
       this.wrong.play();
     }
     if (this.questionCounter >= 10 || this.heart == 0 || this.score == 10) {

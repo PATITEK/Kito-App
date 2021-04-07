@@ -91,7 +91,6 @@ export class NewsPage implements OnInit {
         case 'dioceseNews':
           this.headerCustom.title = 'Tin tức Giáo phận';
           this.dioceseNewsService.getAll(this.pageRequestDioceseNews).subscribe(data => {
-            this.loading.dismiss();
             data.diocese_news.forEach(element => {
               element.type = this.dataParams.type;
               element.time = element.created_at.slice(11, 16);
@@ -109,7 +108,6 @@ export class NewsPage implements OnInit {
           this.newsParish = true;
           this.headerCustom.title = 'Tin tức Giáo xứ ';
           this.parishesService.getAllNewsByParish(this.pageRequestParish).subscribe(data => {
-            this.loading.dismiss();
             data.parish_news.forEach(element => {
               element.type = this.dataParams.type;
               element.time = element.created_at.slice(11, 16)
@@ -130,7 +128,6 @@ export class NewsPage implements OnInit {
         case 'vatican':
           this.vatican = true;
           this.vaticanService.getAll(this.pageRequestVatican).subscribe(data => {
-            this.loading.dismiss();
             data.vatican_news.forEach(element => {
               element.type = this.dataParams.type
               element.time = element.created_at.slice(11, 16)

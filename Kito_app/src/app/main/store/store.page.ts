@@ -1,10 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { AlertController, IonContent, IonInfiniteScroll, ModalController } from '@ionic/angular';
+import { IonContent, IonInfiniteScroll, ModalController } from '@ionic/angular';
 import { IPageCategory, IPageProduct, StoreService } from 'src/app/@app-core/http';
 import { DateTimeService } from 'src/app/@app-core/utils';
+import { AlertService } from 'src/app/@app-core/utils/alert.service';
 import { AddStoreComponent } from 'src/app/@modular/add-store/add-store.component';
-
+import { ORTHER } from '../../@app-core/http/@http-config/messages'
 @Component({
   selector: 'app-store',
   templateUrl: './store.page.html',
@@ -45,7 +46,7 @@ export class StorePage implements OnInit {
     private router: Router,
     private modalController: ModalController,
     private storeService: StoreService,
-    private alertController: AlertController
+    private alertService: AlertService
   ) { }
 
   ngOnInit() {
@@ -207,27 +208,9 @@ export class StorePage implements OnInit {
   onScrollContent(event) {
     this.setHasSetting(false);
   }
-
-  async alertGoToOtherStore() {
-    const alert = await this.alertController.create({
-      header: 'Xem cửa hàng khác',
-      mode: 'ios',
-      buttons: [
-        {
-          text: 'Hủy',
-          role: 'cancel'
-        },
-        {
-          text: 'Đồng ý',
-          handler: () => {
-            this.router.navigateByUrl('main/store/choose-store');
-          }
-        }
-      ]
-    })
-    await alert.present();
+  alertGoToOtherStore() {
+    this.alertService.present(ORTHER.STORE_ORTHER)
   }
-
   search(value: string) {
     if (typeof value !== 'string') {
       return

@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DonateService, EventsService, IPageEvent, AccountService, IPageRequest, AuthService, ParishesService } from '../@app-core/http';
-import { DateTimeService, ImageService, LoadingService } from '../@app-core/utils';
-import { ToastController } from '@ionic/angular';
+import { DonateService, ParishesService } from '../@app-core/http';
+import { ImageService, LoadingService, ToastService } from '../@app-core/utils';
 import { DioceseService } from '../@app-core/http/diocese';
 
 @Component({
@@ -44,10 +43,10 @@ export class PrayPage implements OnInit {
     private router: Router,
     public donateService: DonateService,
     public loadingService: LoadingService,
-    public toastController: ToastController,
     public parishesService: ParishesService,
     public imageService: ImageService,
     private diocesesService: DioceseService,
+    private toarstService: ToastService
 
   ) {
     this.frmPray = this.formBuilder.group({
@@ -60,13 +59,7 @@ export class PrayPage implements OnInit {
       amount: new FormControl('', [])
     });
   }
-  async presentToast(message) {
-    const toast = await this.toastController.create({
-      message: message,
-      duration: 1500
-    });
-    toast.present();
-  }
+  
   ngOnInit() {
     this.loadingService.present();
     this.name = localStorage.getItem('fullname');
@@ -90,7 +83,6 @@ export class PrayPage implements OnInit {
       this.level = 'Linh';
       this.source_type = 'Parish';
       this.parishesService.getDetail(this.source_id).subscribe((data: any) => {
-        this.loadingService.dismiss();
         this.getData = data.parish;
         this.bishop_name = this.getData.priest_name;
         this.img = this.getData.thumb_image.url
@@ -99,9 +91,7 @@ export class PrayPage implements OnInit {
     if (this.data && this.data.source_type == 'Diocese') {
       this.source_type = this.data.source_type;
       this.level = 'Giám'
-      this.loadingService.dismiss();
       this.diocesesService.getDetail(this.source_id).subscribe((data: any) => {
-        this.loadingService.dismiss();
         this.getData = data.diocese;
         this.bishop_name = this.getData.bishop_name;
         this.img = this.getData.thumb_image.url;
@@ -111,7 +101,6 @@ export class PrayPage implements OnInit {
       this.source_type = this.data.source_type;
       this.level = 'Linh'
       this.parishesService.getDetail(this.source_id).subscribe((data: any) => {
-        this.loadingService.dismiss();
         this.getData = data.parish;
         this.bishop_name = this.getData.priest_name;
         this.img = this.getData.thumb_image.url
@@ -164,13 +153,10 @@ export class PrayPage implements OnInit {
       },
       type_page: 'pray'
     }
-    console.log(this.amount)
     if (this.amount == 0) {
-      
       result.pray_log['payment_type'] = 'visa_master';
       this.donateService.prayByVisa(result.pray_log).subscribe((data) => {
-        console.log(data)
-        this.presentToast('Xin lễ thành công!');
+        this.toarstService.presentSuccess();
       })
     }
     else {

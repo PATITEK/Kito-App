@@ -38,9 +38,7 @@ export class MyParishPage implements OnInit {
   }
   myPrish() {
     this.parishService.getDetail(this.id_parish).subscribe(data => {
-      this.loadingService.dismiss()
       this.data = data.parish;
-      // this.imgnotFound(data.parish);
       this.img = data.parish.thumb_image.url;
     })
   }

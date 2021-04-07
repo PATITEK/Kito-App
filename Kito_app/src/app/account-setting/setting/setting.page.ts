@@ -44,9 +44,6 @@ export class SettingPage implements OnInit {
         if (this.countApi >= 2) {
           this.loadingService.dismiss();
         }
-      },
-      () => {
-        this.loadingService.dismiss();
       })
     this.parishService.getDetail(localStorage.getItem('parish_id')).subscribe(
       data => {
@@ -55,9 +52,6 @@ export class SettingPage implements OnInit {
         if (this.countApi >= 2) {
           this.loadingService.dismiss();
         }
-      },
-      () => {
-        this.loadingService.dismiss();
       })
   }
 

@@ -2,13 +2,10 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { APICONFIG } from '../@http-config/api';
 import { catchError, map } from 'rxjs/operators';
-// import { ToastrService } from 'ngx-toastr';
-// import { SUCCESS } from '../@http-config/messages';
 import { Router } from '@angular/router';
 import { StorageService } from 'src/app/@app-core/storage.service';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { ToastController } from '@ionic/angular';
-import { LoadingService, ToastService } from '../../utils';
 
 @Injectable()
 export class AuthService {
@@ -16,7 +13,6 @@ export class AuthService {
 
   constructor(
     private http: HttpClient,
-    private router: Router,
     private storage: StorageService,
     public toastController: ToastController,
   ) { }
@@ -65,10 +61,7 @@ export class AuthService {
       map((result) => {
         return result;
       }),
-      catchError((errorRes: any) => {
-        throw errorRes.error;
-      }
-      ));
+      catchError((errorRes: any) => {throw errorRes.error}));
   }
   public login(req) {
     return this.http.post(`${APICONFIG.AUTH.LOGIN}`, req).pipe(

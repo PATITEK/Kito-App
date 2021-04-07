@@ -87,20 +87,15 @@ export class SelectDiocesePage implements OnInit {
                     () => {
                       this.setItem(item, 'diocese_id');
                       this.setItem(parish, 'parish_id');
-                      this.loadingService.dismiss();
                       this.goBack();
-                    }, (err) => {
-                      this.loadingService.dismiss();
-                    }
-                  )
+                    })
                 }
-              }, () => {
-                this.loadingService.dismiss();
+              },
+              (error) => {
                 this.goBack();
+                throw error
               }
-            ), () => {
-              this.loadingService.dismiss();
-            }
+            )
           })
         } else {
           this.goBack();
@@ -113,12 +108,8 @@ export class SelectDiocesePage implements OnInit {
           this.accountService.updateProfile({ parish_id: item.id }).subscribe(
             () => {
               this.setItem(item, 'parish_id');
-              this.loadingService.dismiss();
               this.goBack();
-            }, () => {
-              this.loadingService.dismiss();
-            }
-          )
+            })
         } else {
           this.goBack();
         }

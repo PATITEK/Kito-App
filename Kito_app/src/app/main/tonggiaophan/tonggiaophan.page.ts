@@ -32,7 +32,6 @@ export class TonggiaophanPage implements OnInit {
   }
   getAllDiocese() {
     this.diocesesService.getAll(this.pageRequest).subscribe(data => {
-      this.loading.dismiss();
       data.dioceses.forEach(diocese => {
         let hasNull = false;
         for (let i in diocese) {

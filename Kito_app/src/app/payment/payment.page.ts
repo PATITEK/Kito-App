@@ -61,7 +61,6 @@ export class PaymentPage implements OnInit {
         "pray_log" : this.data.pray_log
       }
       this.donateService.prayByVisa(pray_log).subscribe((data) => {
-        this.loadingService.dismiss()
            this.pageNotiService.setdataStatusNoti(datapasing);
           this.router.navigateByUrl('/page-noti');
         
@@ -71,10 +70,8 @@ export class PaymentPage implements OnInit {
         "donation" : this.data.donation
       }
       this.donateService.donateByVisa(donation_log).subscribe((data) => {
-        this.loadingService.dismiss()
            this.pageNotiService.setdataStatusNoti(datapasing);
           this.router.navigateByUrl('/page-noti');
-        
       })
     }
   }

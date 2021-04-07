@@ -44,7 +44,6 @@ export class DiocesesPage implements OnInit {
   
   getAll(){
       this.diocesesService.getAll(this.pageResult).subscribe((data: any) => {
-        this.loadingService.dismiss()
         this.dataDiocese = data.dioceses;
         this.pageResult.total_objects = data.meta.pagination.total_objects || 1;
       });

@@ -9,13 +9,15 @@ ion-content {
   --padding-start: 16px;
   --padding-end: 16px;
   ion-icon {
-    font-size: 26px;
-    padding: 5px 0;
+    font-size: 16px;
     color: #828282;
     right: 16px;
     top: 105px;
     float: right;
     z-index: 99;
+  }
+  .bar {
+    font-size: 26px;
   }
   .setting {
     text-align: center;
@@ -28,7 +30,7 @@ ion-content {
     z-index: 99;
     color: #424242;
     position: absolute;
-    top: 160px;
+    top: 150px;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
     ion-buttons {
       padding: 4px 6px;
@@ -43,7 +45,7 @@ ion-content {
     }
   }
   .not-found {
-    margin-top: 20px;
+    margin-top: 40px;
     text-align: center;
   }
 }

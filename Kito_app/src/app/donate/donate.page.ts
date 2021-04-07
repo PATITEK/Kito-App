@@ -85,7 +85,6 @@ export class DonatePage implements OnInit {
       this.source_type = 'Parish';
       this.level = 'Linh'
       this.parishService.getDetail(this.source_id).subscribe((data: any) => {
-        this.loadingService.dismiss();
         this.getData = data.parish;
         this.bishop_name = this.getData.priest_name;
         this.img = this.getData.thumb_image.url;
@@ -94,9 +93,7 @@ export class DonatePage implements OnInit {
     if (this.data && this.data.source_type == 'Diocese') {
       this.source_type = this.data.source_type;
       this.level = 'Giám'
-      this.loadingService.dismiss();
       this.diocesesService.getDetail(this.source_id).subscribe((data: any) => {
-        this.loadingService.dismiss();
         this.getData = data.diocese;
         this.bishop_name = this.getData.bishop_name;
         this.img = this.getData.thumb_image.url
@@ -106,7 +103,6 @@ export class DonatePage implements OnInit {
       this.source_type = this.data.source_type;
       this.level = 'Linh'
       this.parishService.getDetail(this.source_id).subscribe((data: any) => {
-        this.loadingService.dismiss();
         this.getData = data.parish;
         this.bishop_name = this.getData.priest_name;
         this.img = this.getData.thumb_image.url;
@@ -121,8 +117,7 @@ export class DonatePage implements OnInit {
     else return `url(${this.img})`
   }
   callChangeDot() {
-  
-    let data=this.frmDonate.get('amount').value;
+    let data = this.frmDonate.get('amount').value;
     data = data.replace(/[^0-9]/gm, '');
     data = data.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
     this.frmDonate.controls['amount'].setValue(data);

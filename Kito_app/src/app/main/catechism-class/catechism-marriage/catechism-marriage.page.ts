@@ -23,7 +23,6 @@ export class CatechismMarriagePage implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private doctrineService: DoctrineService,
-    private loadingService: LoadingService,
     private modalController: ModalController
   ) { }
 
@@ -33,7 +32,6 @@ export class CatechismMarriagePage implements OnInit {
   getDataName() {
     this.route.queryParams.subscribe(data => {
       this.headerCustom = { title: data.data };
-
       if (data.id === "1") {
         this.doctrineService.getAll(this.pageResult).subscribe((data: any) => {
           this.list = data.doctrine_classes;
@@ -69,12 +67,12 @@ export class CatechismMarriagePage implements OnInit {
       }
     }
     );
-
-   modal.present();
-    modal.onDidDismiss().then(() => {
+    modal.present();
+    modal.onDidDismiss().then(()=> {
       this.getDataName();
-     })
-
-    
+    })
+    modal.onWillDismiss().then(() => {
+      this.getDataName();
+    })
   }
 }

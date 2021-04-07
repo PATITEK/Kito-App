@@ -4,7 +4,6 @@ import { Camera } from '@ionic-native/camera/ngx';
 import { AccountService } from '../http';
 import { PopoverController } from '@ionic/angular';
 import { PopoverimageComponent } from '../../@modular/popoverimage/popoverimage.component';
-
 @Injectable()
 export class CameraService {
     image_null: any;
@@ -19,7 +18,7 @@ export class CameraService {
 
     ) { }
     public getAvatarUpload(image_avatar) {
-        this.loadingService.present('Chờ trong giây lát...');
+        this.loadingService.present();
         const options = {
             destinationType: this.camera.DestinationType.DATA_URL,
             encodingType: this.camera.EncodingType.JPEG,
@@ -42,19 +41,15 @@ export class CameraService {
                     localStorage.setItem('avatar', image_avatar.app_user.avatar)
                     this.accountService.updateAvatar({ "thumb_image": { "url": image_avatar.app_user.avatar } }).subscribe(data => {
                     })
-                    this.loadingService.dismiss();
                     this.accountService.getAccounts().subscribe();
-                    this.toastService.present('Cập nhật ảnh thành công !', 'top', 2000, 'dark');
+                    this.toastService.presentSuccess();
                 })
             } else {
             }
-        }).catch((err) => {
-            console.error(err)
-            this.loadingService.dismiss();
-        })
+        }).catch((error) => { throw error })
     }
     public getAvatarTake(image_avatar) {
-        this.loadingService.present('Chờ trong giây lát...');
+        this.loadingService.present();
         const options = {
             destinationType: this.camera.DestinationType.DATA_URL,
             encodingType: this.camera.EncodingType.JPEG,
@@ -77,16 +72,12 @@ export class CameraService {
                     localStorage.setItem('avatar', image_avatar.app_user.avatar)
                     this.accountService.updateAvatar({ "thumb_image": { "url": image_avatar.app_user.avatar } }).subscribe(data => {
                     })
-                    this.loadingService.dismiss();
                     this.accountService.getAccounts().subscribe();
-                    this.toastService.present('Cập nhật ảnh thành công !', 'top', 2000, 'dark');
+                    this.toastService.presentSuccess();
                 })
-            } else {
             }
-        }).catch((err) => {
-            console.error(err)
-            this.loadingService.dismiss();
-        })
+        }).catch(error => { throw error })
+
     }
 
     dataURItoBlob(dataURI) {
@@ -107,7 +98,7 @@ export class CameraService {
 
     async viewAvatar() {
         if (localStorage.getItem('avatar') == 'https://i.imgur.com/edwXSJa.png') {
-            this.toastService.present('Bạn chưa có ảnh đại diện', 'top', 2000, 'dark');
+            this.toastService.presentSuccess('Bạn chưa có ảnh đại diện');
         }
         else {
             this.loadingService.present();
@@ -124,7 +115,7 @@ export class CameraService {
 
     removeAvatar() {
         if (localStorage.getItem('avatar') == 'https://i.imgur.com/edwXSJa.png') {
-            this.toastService.present('Bạn chưa có ảnh đại diện', 'top', 2000, 'dark');
+            this.toastService.presentSuccess('Bạn chưa có ảnh đại diện');
         }
         else {
             this.loadingService.present();
@@ -136,15 +127,9 @@ export class CameraService {
             this.accountService.updateAvatar(this.image_null).subscribe(
                 (data: any) => {
                     localStorage.setItem('avatar', 'https://i.imgur.com/edwXSJa.png')
-                    this.loadingService.dismiss();
-                    this.toastService.present('Xóa ảnh thành công !', 'top', 2000, 'dark');
+                    this.toastService.presentSuccess();
                 },
-                (data: any) => {
-                    this.loadingService.dismiss();
-                    if (data.error) {
-                        throw data.error
-                    }
-                }
+                (error => { throw error })
             )
         }
     }

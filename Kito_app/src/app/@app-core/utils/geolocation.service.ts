@@ -26,16 +26,13 @@ export class GeolocationService {
     };
 
     centerService: google.maps.LatLngLiteral = { lat: 10.847949, lng: 106.786794 };
-
     constructor(public geolocation: Geolocation,
         public nativeGeocoder: NativeGeocoder,
         public loadingService: LoadingService,
         public PlatForm: Platform,
         public modalCtrl: ModalController,
     ) { }
-
     ngOnInit() { }
-
     getCurrentLocation() {
         this.PlatForm.ready().then(() => {
             this.loadingService.present();
@@ -43,11 +40,8 @@ export class GeolocationService {
                 this.centerService.lat = resp.coords.latitude;
                 this.centerService.lng = resp.coords.longitude;
                 this.getGeoEncoder(this.centerService.lat, this.centerService.lng);
-                this.loadingService.dismiss();
             })
-            .catch((err) => {
-                throw err
-            })
+            .catch(error => { throw error })
         })
     }
     getGeoEncoder(latitude, longitude) {
@@ -57,10 +51,7 @@ export class GeolocationService {
                 localStorage.setItem('lat', this.centerService.lat.toString());
                 localStorage.setItem('lng', this.centerService.lng.toString());
             })
-            .catch((err: any) => {
-                console.error(err, ': because chay tren dien thoai real moi dc =))');
-                throw err;
-            });
+            .catch(error => { throw error})
     }
     generateAddress(addressObj) {
         let obj = [];

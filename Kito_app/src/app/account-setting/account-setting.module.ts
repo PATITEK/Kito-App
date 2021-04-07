@@ -8,6 +8,7 @@ import { AccountSettingPageRoutingModule } from './account-setting-routing.modul
 
 import { AccountSettingPage } from './account-setting.page';
 import { HeaderModule } from '../@modular/header/header.module';
+import { AlertService } from '../@app-core/utils/alert.service';
 
 @NgModule({
   imports: [
@@ -16,6 +17,9 @@ import { HeaderModule } from '../@modular/header/header.module';
     IonicModule,
     AccountSettingPageRoutingModule,
     HeaderModule
+  ],
+  providers: [
+    AlertService
   ],
   declarations: [AccountSettingPage]
 })

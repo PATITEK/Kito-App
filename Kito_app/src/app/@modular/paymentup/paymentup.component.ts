@@ -22,7 +22,6 @@ export class PaymentupComponent implements OnInit {
     public toastController: ToastController,
     private orderService: OrderService,
     private pageNotiService: PageNotiService,
-    private toart: ToastService
 
   ) { }
 
@@ -84,7 +83,6 @@ export class PaymentupComponent implements OnInit {
           routerLink: '/main/chabad'
         }
           if(this.data.type_page == 'pray') {
-            this.loadingService.dismiss();
             this.data.pray_log.token = result.source.id;
             this.data.pray_log.payment_type = 'visa_master';
             this.router.navigate(['/payment'], {
@@ -94,7 +92,6 @@ export class PaymentupComponent implements OnInit {
             },)
           }
           else if(this.data.type_page == 'donate') {
-            this.loadingService.dismiss();
             console.log(this.data.donation)
             this.data.donation.token = result.source.id;
             this.data.donation.payment_type = 'visa_master';
@@ -114,14 +111,9 @@ export class PaymentupComponent implements OnInit {
           }
         }
          this.orderService.paymentOrder_Visa(paramOrder).subscribe((data)=>{
-              this.loadingService.dismiss();
               this.pageNotiService.setdataStatusNoti(datapasing);
               this.router.navigateByUrl('/page-noti');
-            },
-            (error: any)=> {
-              this.loadingService.dismiss();
-              this.toart.present('Hãy thử lại sau', 'top', 1000, 'dark');
-            }) 
+            })
           }
           this.dismissModal();
         }

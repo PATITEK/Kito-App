@@ -17,48 +17,25 @@
   <ion-item-group class="event-list-container">
     <ion-list class="event-list">
       <ion-item-group
+        *ngFor="let item of orders; let i = index;"
         class="event"
-        (click)="openOrderDetailModal(lastedData)"
-        *ngIf="lastedData != null"
+        (click)="openOrderDetailModal(item)"
       >
-        <ion-label style="color: #f6c33e">Đơn hàng gần đây</ion-label>
+      <ion-label class="order-last" *ngIf = "i == 0 && infiniteScroll.disabled == true">Đơn hàng gần đây</ion-label>
+
         <ion-buttons class="ion-align-items-start ion-justify-content-between">
-          <h3 class="event-name">ID đơn hàng: {{lastedData.id}}</h3>
-          <img class="triangle" src="assets/icon/triangle.svg" />
-        </ion-buttons>
-        <span
-          class="event-time"
-          [ngClass]="{ 'ion-label': lastedData.status == 'pending' }"
-        >
-          Trạng thái: {{ lastedData.status }}
-        </span>
-        <span class="event-time">
-          Tạo lúc: {{ lastedData.created_at.substring(0, 10) }}
-        </span>
-      </ion-item-group>
-      <ion-item-group
-        *ngFor="let order of data.orders.array | slice:0:data.orders.array.length-1"
-        class="event"
-        (click)="openOrderDetailModal(order)"
-      >
-        <ion-buttons class="ion-align-items-start ion-justify-content-between">
-          <h3 class="event-name">ID đơn hàng: {{ order.id }}</h3>
+          <h3 class="event-name">ID đơn hàng: {{ item.id }}</h3>
           <img class="triangle" src="assets/icon/triangle.svg" />
         </ion-buttons>
         <span class="event-time">
-          Trạng thái: {{ order.status }}
+          Trạng thái: {{ item.status }}
         </span>
         <span class="event-time">
-          Tạo lúc: {{ order.created_at.substring(0, 10) }}
+          Tạo lúc: {{ item.created_at.substring(0, 10) }}
         </span>
       </ion-item-group>
-      <ion-infinite-scroll
-        *ngIf="data.orders.array.length != 0 && !data.orders.loadedData"
-        (ionInfinite)="loadMoreDataOrders($event)"
-      >
-        <ion-infinite-scroll-content
-          loadingSpinner="lines"
-        ></ion-infinite-scroll-content>
+      <ion-infinite-scroll  #infiniteScroll (ionInfinite)="loadMoreData($event)">
+        <ion-infinite-scroll-content loadingSpinner ="lines"></ion-infinite-scroll-content>
       </ion-infinite-scroll>
     </ion-list>
   </ion-item-group>

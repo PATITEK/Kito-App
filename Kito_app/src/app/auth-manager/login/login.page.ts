@@ -1,18 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService, IPageRequest, PATTERN } from 'src/app/@app-core/http';
+import { AuthService, IPageRequest, PATTERN, PASSWORD,REQUIRED, NAME, EMAIL,VALID } from 'src/app/@app-core/http';
 import { ToastController } from '@ionic/angular';
-import { defaultCoreCipherList } from 'constants';
 import { LoadingService, OneSignalService } from 'src/app/@app-core/utils';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastService } from 'src/app/@app-core/utils';
 import { DioceseService } from 'src/app/@app-core/http/diocese';
 import { ParishesService } from 'src/app/@app-core/http/parishes';
 import { IPageParishes } from 'src/app/@app-core/http/parishes/parishes.DTO';
-
-
-
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -31,44 +26,44 @@ export class LoginPage implements OnInit {
   showSpinner = false;
   validationLoginMessages = {
     phone_number: [
-      { type: 'required', message: 'Hãy nhập số điện thoại' },
+      { type: 'required', message: REQUIRED.REQUIRED },
     ],
     password: [
-      { type: 'required', message: 'Hãy nhập mật khẩu' }
+      { type: 'required', message: REQUIRED.REQUIRED }
     ],
   }
 
   validationSignUpMessages = {
     full_name: [
-      { type: 'required', message: 'Hãy nhập tên' },
-      { type: 'pattern', message: 'Tên không thể chứa ký tự đặc biệt' },
+      { type: 'required', message: REQUIRED.REQUIRED },
+      { type: 'pattern', message: NAME.NOT_SPEC_CHAR },
     ],
     email: [
-      { type: 'required', message: 'Hãy nhập email' },
-      { type: 'pattern', message: 'Email không hợp lệ' },
+      { type: 'required', message: REQUIRED.REQUIRED },
+      { type: 'pattern', message: EMAIL.NOT_VALID },
     ],
     phone_number: [
-      { type: 'required', message: 'Hãy nhập số điện thoại' },
-      { type: 'pattern', message: 'Số điện thoại không hợp lệ' },
+      { type: 'required', message: REQUIRED.REQUIRED },
+      { type: 'pattern', message: VALID.NOT_VALID },
     ],
     age: [
-      { type: 'required', message: 'Hãy nhập tuổi' }
+      { type: 'required', message: REQUIRED.REQUIRED}
     ],
     country_code: [
-      { type: 'required', message: 'Hãy nhập mã quốc gia' },
+      { type: 'required', message: REQUIRED.REQUIRED },
     ],
     province: [
-      { type: 'required', message: 'Hãy nhập tỉnh' },
+      { type: 'required', message: REQUIRED.REQUIRED },
     ],
     district: [
-      { type: 'required', message: 'Hãy nhập quận' },
+      { type: 'required', message: REQUIRED.REQUIRED },
     ],
     full_address: [
-      { type: 'required', message: 'Hãy nhập địa chỉ' },
+      { type: 'required', message: REQUIRED.REQUIRED },
     ],
     password: [
-      { type: 'required', message: 'Hãy nhập mật khẩu' },
-      { type: 'minLength', message: 'Mật khẩu phải dài tối thiểu 6 ký tự' },
+      { type: 'required', message: REQUIRED.REQUIRED },
+      { type: 'minLength', message: PASSWORD.MIN_LENGTH },
     ],
   }
 
@@ -84,7 +79,6 @@ export class LoginPage implements OnInit {
     public toastController: ToastController,
     private formBuilder: FormBuilder,
     private toastService: ToastService,
-    private loadingService: LoadingService,
     private diocese: DioceseService,
     private oneSignal: OneSignalService,
     private parishes: ParishesService
@@ -131,7 +125,6 @@ export class LoginPage implements OnInit {
     this.formSignUp = this.formBuilder.group({
       full_name: new FormControl('', Validators.compose([
         Validators.required,
-        // Validators.pattern(PATTERN.NAME)
       ])),
       sex: new FormControl('male'),
       email: new FormControl('', Validators.compose([
@@ -152,8 +145,6 @@ export class LoginPage implements OnInit {
         Validators.required
       ])),
       country_code: new FormControl(''),
-      // province: new FormControl('Ho Chi Minh'),
-      // district: new FormControl('Thu Duc'),
       full_address: new FormControl('', Validators.required),
       password: new FormControl('', Validators.compose([
         Validators.required,
@@ -205,7 +196,7 @@ export class LoginPage implements OnInit {
       this.markFormGroupTouched(this.formSignUp);
     } else if (!this.checkMatchConfirmedPassword()) {
       this.showSpinner = false;
-      this.toastService.present('Confirmed password not match', 'top', 2000, 'dark');
+      this.toastService.presentFail(PASSWORD.NOT_MATCH);
     } else {
       let data = this.formSignUp.value;
       data.phone_number = data.phone_number.length == 10 ? data.phone_number.substring(1, 10) : data.phone_number;

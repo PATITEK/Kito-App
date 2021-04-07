@@ -120,7 +120,6 @@ export class HymnMusicPage implements OnInit {
         this.loadedSong = true;
       }
       this.shuffleSongs();
-      this.loadingService.dismiss();
     })
   }
 
@@ -193,20 +192,17 @@ export class HymnMusicPage implements OnInit {
         this.hymnMusicService.unfavorite(song.id).subscribe(() => {
           song.favourite = !song.favourite;
           this.favoriteSongs = this.favoriteSongs.filter(favoriteSong => favoriteSong.id !== song.id);
-          this.loadingService.dismiss();
         })
       } else {
         this.shuffleFavoriteSongs();
         this.hymnMusicService.favorite(song.id).subscribe(() => {
           song.favourite = !song.favourite;
           this.favoriteSongs.push(song);
-          this.loadingService.dismiss();
         });
       }
     } else {
       this.hymnMusicService.unfavorite(song.id).subscribe(() => {
         this.favoriteSongs = this.favoriteSongs.filter(favoriteSong => favoriteSong.id !== song.id);
-        this.loadingService.dismiss();
       });
     }
   }

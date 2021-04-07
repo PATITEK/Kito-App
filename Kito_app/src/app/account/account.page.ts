@@ -5,7 +5,7 @@ import { AlertController, ModalController, PopoverController } from '@ionic/angu
 import { AccountService, PATTERN } from '../@app-core/http';
 import { CameraService, ImageService, LoadingService, ToastService } from '../@app-core/utils';
 import { ChangepasswordPage } from '../changepassword/changepassword.page';
-
+import { ALERT_PHOTO, ALERT_MESSAGE } from '../@app-core/http/@http-config/messages'
 @Component({
   selector: 'app-account',
   templateUrl: './account.page.html',
@@ -51,7 +51,6 @@ export class AccountPage implements OnInit {
   ngOnInit() {
     this.initForm();
     this.getData();
-
   }
   ngDoCheck() {
     this.avatar = localStorage.getItem('avatar')
@@ -79,30 +78,30 @@ export class AccountPage implements OnInit {
 
   async avatarSetting() {
     let alertAvatarSetting = await this.alertCtrl.create({
-      message: 'Cài đặt ảnh đại diện',
+      message: ALERT_PHOTO.SETTING ,
       mode: 'ios',
       buttons: [
         {
-          text: 'Xem ảnh đại diện',
+          text: ALERT_PHOTO.SEE,
           handler: () => {
             this.cameraService.viewAvatar();
           }
         },
         {
-          text: "Thay đổi ảnh đại diện",
+          text: ALERT_PHOTO.CHANGE,
           handler: () => {
             this.router.navigateByUrl('/account-setting/change-avatar');
           }
         },
 
         {
-          text: 'Xóa ảnh đại diện',
+          text: ALERT_PHOTO.REMOVE,
           handler: () => {
             this.cameraService.removeAvatar();
           }
         },
         {
-          text: 'Đóng',
+          text: ALERT_MESSAGE.CLOSE,
           role: 'destructive',
         },
       ]
@@ -132,7 +131,6 @@ export class AccountPage implements OnInit {
       data.app_user.birthday;
       this.form.patchValue(data.app_user);
       this.loadedData = true;
-      this.loadingService.dismiss();
     });
   }
 
@@ -142,8 +140,7 @@ export class AccountPage implements OnInit {
     this.accountService.updateProfile(data).subscribe((data) => {
       localStorage.setItem('fullname', data.app_user.full_name);
       this.activatedInput = false;
-      this.loadingService.dismiss();
-      this.toastService.present('Cập nhật thành công !', 'top', 2000, 'dark');
+      this.toastService.presentSuccess();
     });
   }
 

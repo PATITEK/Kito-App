@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { catchError } from 'rxjs/operators';
-import { AuthService, PATTERN } from 'src/app/@app-core/http';
+import { AuthService, ORTHER } from 'src/app/@app-core/http';
 import { LoadingService, ToastService } from 'src/app/@app-core/utils';
 
 @Component({
@@ -13,21 +12,18 @@ export class ForgotPasswordPage implements OnInit {
   email: any = {
     email : ''
   }
-
   constructor(
     private router: Router,
     private toastService: ToastService,
     private authService: AuthService,
     private loadingService: LoadingService
   ) { }
-
   ngOnInit() {
   }
   goToVerification() {
       this.loadingService.present();
       this.authService.forgotPassword({email: this.email.email}).subscribe((data) => {
-        this.toastService.present('Vui lòng kiểm tra mã OTP vừa gửi đến mail của bạn.', 'top',1000, 'dark');
-        this.loadingService.dismiss();
+        this.toastService.presentSuccess(ORTHER.CHECK);
         this.router.navigateByUrl('auth-manager/verification');
       })
   }

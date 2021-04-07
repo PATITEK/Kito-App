@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController, ModalController, PopoverController } from '@ionic/angular';
 import { AccountService } from '../@app-core/http/account/account.service';
-import { GeolocationService, ImageService } from '../@app-core/utils';
+import { GeolocationService } from '../@app-core/utils';
+import { AlertService } from '../@app-core/utils/alert.service';
 import { PopuplogoutComponent } from '../@modular/popuplogout/popuplogout.component';
 
 @Component({
@@ -14,55 +15,17 @@ export class AccountSettingPage implements OnInit {
   headerCustom = { title: 'Thiết lập tài khoản' };
   name = localStorage.getItem('fullname') || '';
   avatar = '';
-
-  // list = [
-  //   {
-  //     name: 'Thông tin cá nhân',
-  //     ionUrl: 'assets/icon/user.svg',
-  //     desUrl: 'account'
-  //   },
-  //   {
-  //     name: 'Thống kê',
-  //     ionUrl: 'assets/icon/statistic.svg',
-  //     desUrl: 'statistic'
-  //   },
-  //   {
-  //     name: 'Phương thức thanh toán',
-  //     ionUrl: 'assets/icon/wallet.svg',
-  //     desUrl: 'paymentmethods'
-  //   },
-  //   {
-  //     name: 'Cài đặt',
-  //     ionUrl: 'assets/icon/setting.svg',
-  //     desUrl: 'account-setting/setting'
-  //   },
-  //   {
-  //     name: 'Giới thiệu',
-  //     ionUrl: 'assets/icon/user.svg',
-  //     desUrl: 'account-setting/introduce'
-  //   },
-  //   {
-  //     name: 'Thông tin cá nhân',
-  //     ionUrl: 'assets/icon/user.svg',
-  //     desUrl: 'account'
-  //   },
-  // ]
-
   constructor(
     public modalController: ModalController,
-    private popoverController: PopoverController,
     private router: Router,
-    private accountService: AccountService,
-    private imageService: ImageService,
     private geolocationService: GeolocationService,
-    private alertCtrl: AlertController,
+    private alertService: AlertService,
   ) { }
 
   ngOnInit() {
   }
 
   ionViewWillEnter() {
-    // this.imageService.getImage();
     this.avatar = localStorage.getItem('avatar')
   }
   routerLink(path) {
@@ -78,13 +41,9 @@ export class AccountSettingPage implements OnInit {
   }
 
   async openModalGoogleMap() {
-    if(localStorage.getItem('diocese_id')) this.geolocationService.openModalGoogleMap();
+    if (localStorage.getItem('diocese_id')) this.geolocationService.openModalGoogleMap();
     else {
-      let alert = await this.alertCtrl.create({
-        message: 'Hãy chọn giáo phận của bạn trong cài đặt.',
-        mode: 'ios'
-      })
-      await alert.present();
+      this.alertService.present();
     }
   }
 }

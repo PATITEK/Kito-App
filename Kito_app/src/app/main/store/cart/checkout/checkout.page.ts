@@ -64,6 +64,11 @@ export class CheckoutPage implements OnInit {
   }
   confirm() {
     this.loadingService.present();
+    const datapasing: IDataNoti = {
+      title: 'THÀNH CÔNG!',
+      des: 'Đơn hàng đặt thành công!',
+      routerLink: '/main/chabad'
+    }
     const req = {
       order: {
         lat: localStorage.getItem('lat'),
@@ -77,22 +82,17 @@ export class CheckoutPage implements OnInit {
     }
     if (this.paymentMethod.id == 0) {
       this.orderService.create(req).subscribe((data: any) => {
-        console.log(data)
         this.order_id = data.order.id;
-        this.loadingService.dismiss();
-        this.paymentByCash();
+        this.pageNotiService.setdataStatusNoti(datapasing);
+        this.router.navigateByUrl('/page-noti');
       })
     }
     else {
       this.orderService.create(req).subscribe(
         (data: any) => {
           this.order_id = data.order.id;
-          this.loadingService.dismiss();
           this.openModalSuccess();
           this.modalCtrl.dismiss();
-        },
-        () => {
-          this.loadingService.dismiss();
         }
       )
     }
@@ -100,24 +100,5 @@ export class CheckoutPage implements OnInit {
     localStorage.removeItem('lng');
     localStorage.removeItem('cart');
   }
-  paymentByCash() {
-    var orderByCash = {
-      order_payment: {
-        "order_id": this.order_id
-      }
-    }
-    const datapasing: IDataNoti = {
-      title: 'THÀNH CÔNG!',
-      des: 'Đơn hàng đặt thành công!',
-      routerLink: '/main/chabad'
-    }
-    this.orderService.paymentOrder_Cash(orderByCash).subscribe(data => {
-      this.loadingService.dismiss();
-      this.pageNotiService.setdataStatusNoti(datapasing);
-      this.router.navigateByUrl('/page-noti');
-    },
-      () => {
-        this.loadingService.dismiss();
-      })
-  }
+ 
 }

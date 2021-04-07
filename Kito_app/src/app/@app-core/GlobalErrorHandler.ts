@@ -10,8 +10,8 @@ export class GlobalErrorHandler implements ErrorHandler {
         private toarstSerivce: ToastService
     ) { }
     handleError(error) {
-        console.log(error.message)
         this.loadingService.dismiss();
-        this.toarstSerivce.present(error.message, TOARST.POSITION.top, '', TOARST.COLOR.dark);
+        // console.log(error);
+        this.toarstSerivce.presentFail(error.message, TOARST.POSITION.top, TOARST.COLOR.dark);
     }
 }

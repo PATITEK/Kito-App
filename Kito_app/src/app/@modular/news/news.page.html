@@ -5,7 +5,7 @@
   <app-search-bar-nav (output)="search($event)"></app-search-bar-nav>
   <span class="current" *ngIf="newsParish" (click)="goToOtherParishes()"> Giáo xứ khác >>
   </span>
-  <ion-icon name="menu-outline" *ngIf="vatican" (click)="showCate()"></ion-icon>
+  <ion-icon class="bar" name="menu-outline" *ngIf="vatican" (click)="showCate()"></ion-icon>
   <ion-list class="setting" *ngIf= "checkShowCate()">
      <ion-label>Danh mục</ion-label>
     <ion-buttons *ngFor ="let c of listCate" (click)="changeCate(c)" 

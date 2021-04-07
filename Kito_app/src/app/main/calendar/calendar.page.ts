@@ -75,7 +75,6 @@ export class CalendarPage implements OnInit {
           day.lunar_date = new Date(day.lunar_date);
           day.isSolemnity = Math.floor(Math.random() * 3) === 1;
         })
-
         // remove redundant weeks
         while (true) {
           if (!this.checkRightMonthAndYear(month[month.length - 7].date, month[7].date)) {
@@ -97,7 +96,7 @@ export class CalendarPage implements OnInit {
         this.loadingService.dismiss();
       })
     }, () => {
-      this.loadingService.dismiss();
+      
     })
   }
 

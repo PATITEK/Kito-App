@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController, IonInfiniteScroll } from '@ionic/angular';
 import { IPageRequest, ParishesService } from 'src/app/@app-core/http';
-
+import { ORTHER, ALERT_MESSAGE } from '../../../@app-core/http/@http-config/messages'
 @Component({
   selector: 'app-choose-store',
   templateUrl: './choose-store.page.html',
@@ -44,15 +44,15 @@ export class ChooseStorePage implements OnInit {
 
   async alertChooseStore(item) {
     const alert = await this.alertController.create({
-      header: `Vào cửa hàng ${item.name}`,
+      header: ORTHER.IN_STORE +`${item.name}`,
       mode: 'ios',
       buttons: [
         {
-          text: 'Hủy',
+          text: ALERT_MESSAGE.CANCLE,
           role: 'cancel'
         },
         {
-          text: 'Đồng ý',
+          text: ALERT_MESSAGE.AGRRE,
           handler: () => {
             localStorage.setItem('tempParishId', item.id);
             this.router.navigateByUrl('main/store');

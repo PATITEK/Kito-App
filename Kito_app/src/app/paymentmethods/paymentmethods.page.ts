@@ -5,7 +5,7 @@ import { DonateService, OrderService } from '../@app-core/http';
 import { LoadingService, ToastService } from '../@app-core/utils';
 import { PaymentupComponent } from '../@modular/paymentup/paymentup.component';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
-
+import { WAITING } from '../@app-core/http/@http-config/messages'
 @Component({
   selector: 'app-paymentmethods',
   templateUrl: './paymentmethods.page.html',
@@ -76,41 +76,29 @@ export class PaymentmethodsPage implements OnInit {
           "order_id": this.dataParam.order_id,
         }
       }
-      this.loading.present('Vui lòng chờ...');
+      this.loading.present(WAITING.WAIT);
       console.log(orderParam)
       this.orderService.paymentOrder_Momo(orderParam).subscribe((data) => {
         this.openMomoPopUp();
-      },
-        () => {
-          this.loading.dismiss();
-          this.toart.present('Hãy thử lại sau', 'top', 2000, 'dark')
-        })
+      })
     }
     else if(this.dataParam.type_page == 'pray') {
     this.dataParam.pray_log["app_link"] ="no link";
-      this.loading.present('Vui lòng chờ...');
+      this.loading.present(WAITING.WAIT);
       this.dataParam.pray_log.payment_type = 'momo';
       this.donateService.prayByMoMo(this.dataParam).subscribe((data) => {
         this.payment = data;
         this.openMomoPopUp();
-      },
-        () => {
-          this.loading.dismiss();
-          this.toart.present('Hãy thử lại sau', 'top', 2000, 'dark');
-        })
+      })
     }
     else if(this.dataParam.type_page == 'donate'){
       this.dataParam.donation["app_link"] ="no link";
-      this.loading.present('Vui lòng chờ...');
+      this.loading.present(WAITING.WAIT);
       this.dataParam.donation.payment_type = 'momo';
       this.donateService.donateByMoMo(this.dataParam).subscribe((data) => {
         this.payment = data;
         this.openMomoPopUp();
-      },
-        () => {
-          this.loading.dismiss();
-          this.toart.present('Hãy thử lại sau', 'top', 2000, 'dark');
-        })
+      })
     }
   }
   openMomoPopUp() {

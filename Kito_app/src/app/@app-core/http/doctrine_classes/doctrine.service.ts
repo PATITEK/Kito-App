@@ -12,9 +12,7 @@ export class DoctrineService {
   constructor(
     private http: HttpClient,
     private toastService:ToastService
-    
     ) { }
-
   public getAll(request: IPageRequest) {
     return this.http.get<any>(`${APICONFIG.DOCTRINE_CLASSES.GET}?${(requestQuery(request))}`).pipe(
       map((result) => {
@@ -49,7 +47,6 @@ export class DoctrineService {
   public register(payload) {
     return this.http.post<any>(`${APICONFIG.DOCTRINE_CLASSES.REGISTER}`, payload).pipe(
       map((result) => {
-        this.toastService.present(DOCTRINE_CLASSES.REGIEST);
         return result;
       }),
       catchError((errorRes) => { throw errorRes.error; }));
@@ -57,7 +54,6 @@ export class DoctrineService {
   public unregister(payload) {
     return this.http.post<any>(`${APICONFIG.DOCTRINE_CLASSES.UNREGISTER}`, payload).pipe(
       map((result) => {
-        this.toastService.present(DOCTRINE_CLASSES.UNREGIEST);
         return result;
       }),
       catchError((errorRes) => { throw errorRes.error; }));

@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { AccountService } from 'src/app/@app-core/http';
 import { CameraService, LoadingService, ToastService } from 'src/app/@app-core/utils';
-
+import { ALERT_PHOTO, ALERT_MESSAGE } from '../../@app-core/http/@http-config/messages'
 @Component({
   selector: 'app-change-avatar',
   templateUrl: './change-avatar.page.html',
@@ -38,11 +38,11 @@ export class ChangeAvatarPage implements OnInit {
   }
   async avatarSetting() {
     let alertAvatarSetting = await this.alertCtrl.create({
-      message: 'Cài đặt ảnh đại diện',
+      message: ALERT_PHOTO.SETTING,
       mode: 'ios',
       buttons: [
         {
-          text: 'Chọn từ thư viện',
+          text: ALERT_PHOTO.CHOOSE_LIB,
           handler: () => {
 
             this.cameraService.getAvatarUpload(this.activedAvatar);
@@ -50,30 +50,27 @@ export class ChangeAvatarPage implements OnInit {
           }
         },
         {
-          text: 'Chụp ảnh mới',
+          text: ALERT_PHOTO.TAKE,
           handler: () => {
             this.cameraService.getAvatarTake(this.activedAvatar);
             this.router.navigateByUrl('account');
           }
         },
-
         {
-          text: 'Đóng',
+          text: ALERT_MESSAGE.CLOSE,
           role: 'destructive',
         },
       ]
     });
     await alertAvatarSetting.present();
-
   }
   updateAvatar() {
-    this.loadingService.present("Đợi trong giây lát")
+    this.loadingService.present()
     localStorage.setItem('avatar', this.activedAvatar)
     this.accoutnService.updateAvatar({ "thumb_image": { "url": this.activedAvatar } }).subscribe(data => {
     })
-    this.loadingService.dismiss();
     this.accoutnService.getAccounts().subscribe();
-    this.toastService.present('Cập nhật ảnh thành công !', 'top', 2000, 'dark');
+    this.toastService.presentSuccess();
     this.accoutnService.updateAvatar(this.activedAvatar);
     this.router.navigateByUrl('account');
 
