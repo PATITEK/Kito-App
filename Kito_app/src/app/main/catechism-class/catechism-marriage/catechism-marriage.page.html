@@ -18,9 +18,9 @@
           <span class="room">{{ item.room_detail.name }}</span>
         </ion-buttons>
 
-        <span (click)="register(item.id)" *ngIf="!item.register" class="btn" [ngClass]="{'btn--disabled': !item.available}">{{ item.available ? 'Đăng ký'
+        <span (click)="openModalRegister(item.id,true)" *ngIf="!item.register" class="btn" [ngClass]="{'btn--disabled': !item.available}">{{ item.available ? 'Đăng ký'
           : 'Hết' }}</span>
-          <span (click)="unregister(item.id)" *ngIf="item.register" class="btn" >Đã Đăng Ký</span>
+          <span (click)="openModalRegister(item.id,false)" *ngIf="item.register" class="btn" [ngClass]="{'btn--success': item.register}" >Đã Đăng Ký</span>
       </div>
     </ion-buttons>
   </div>
