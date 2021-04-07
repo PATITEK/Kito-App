@@ -1,30 +1,17 @@
 import { LoadingService } from './utils/loading.service';
-
 import { ErrorHandler, Injectable, Injector, Inject } from '@angular/core';
-import { STATUS } from './http';
-
-
+import { ToastService } from './utils';
+import { TOARST } from './http/@http-config/messages'
 @Injectable()
 export class GlobalErrorHandler implements ErrorHandler {
     constructor(
         @Inject(Injector) private readonly injector: Injector,
-        private loadingService: LoadingService
+        private loadingService: LoadingService,
+        private toarstSerivce: ToastService
     ) { }
     handleError(error) {
-        console.log(error, 'error');
+        console.log(error.message)
         this.loadingService.dismiss();
-        // this.toastrService.error(error.error, STATUS.FAIL, { onActivateTick: true });
-        // if (error.fields && error.fields.length > 0) {
-        //     this.toastrService.error(error.fields[0].message || error.fields, STATUS.FAIL, { onActivateTick: true });
-        // } else if (error.message) {
-        //     this.toastrService.error(error.error, STATUS.FAIL, { onActivateTick: true });
-        // }
+        this.toarstSerivce.present(error.message, TOARST.POSITION.top, '', TOARST.COLOR.dark);
     }
-    /**
-     * Need to get ToastrService from injector rather than constructor injection to avoid cyclic dependency error
-     * @returns {} 
-     */
-    // private get toastrService(): ToastrService {
-    //     return this.injector.get(ToastrService);
-    // }
 }

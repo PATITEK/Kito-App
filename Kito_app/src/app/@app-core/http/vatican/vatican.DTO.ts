@@ -3,5 +3,5 @@ import { IPageRequest } from "../global/global.DTO";
 
 
 export interface IPageVatican extends IPageRequest {
-  category_id?: string;
+  category_id?: number;
 }

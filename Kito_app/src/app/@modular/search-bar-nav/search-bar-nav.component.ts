@@ -7,23 +7,17 @@ import { SpeechRecognition } from '@ionic-native/speech-recognition/ngx'
   templateUrl: './search-bar-nav.component.html',
   styleUrls: ['./search-bar-nav.component.scss'],
 })
-export class SearchBarNavComponent implements OnInit, OnChanges {
+export class SearchBarNavComponent implements OnInit {
   @ViewChild('searchBar') searchBar: any;
   @Output() output = new EventEmitter<string>();
   input = '';
   hiddenSearchBar = true;
   constructor(
-    private modalCtrl: ModalController,
     public PlatForm: Platform,
     private speechRecognition: SpeechRecognition
   ) {
   }
-  
   ngOnInit() {
-    
-  }
-  ngOnChanges(){
-
   }
   toggleHideSearchBar(value) {
     this.hiddenSearchBar = value;
@@ -37,8 +31,7 @@ export class SearchBarNavComponent implements OnInit, OnChanges {
         async  () => {
           await this.startVoiceRecord();
           this.searchBar.setFocus();
-        },
-        () => console.error('Denied, only working on devices')
+        }
       )
     })
     return;
@@ -47,9 +40,7 @@ export class SearchBarNavComponent implements OnInit, OnChanges {
     this.speechRecognition.startListening().subscribe((matches: Array<string>) => {
       this.input= matches[0];
     })
-    
   }
-
   changeInput(value) {
     this.output.emit(value);
   }

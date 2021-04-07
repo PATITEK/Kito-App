@@ -6,7 +6,7 @@
       <img [src]="parish?.thumb_image?.url">
     </div>
 
-    <div class="parish-name">{{ parish?.name }}</div>
+    <div class="parish-name" *ngIf="!parish">{{ parish?.name }}</div>
     <ion-buttons class="parish-address-box active-effect">
       <span class="parish-address" (click)="goToMap()">{{ parish?.address }}</span>
       <ion-icon name="navigate" (click)="goToMap()"></ion-icon>

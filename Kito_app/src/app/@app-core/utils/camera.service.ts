@@ -51,7 +51,6 @@ export class CameraService {
         }).catch((err) => {
             console.error(err)
             this.loadingService.dismiss();
-            this.toastService.present('Xảy ra lỗi, vui lòng thử lại sau !', 'top', 2000, 'dark');
         })
     }
     public getAvatarTake(image_avatar) {
@@ -87,8 +86,6 @@ export class CameraService {
         }).catch((err) => {
             console.error(err)
             this.loadingService.dismiss();
-            this.toastService.present('Xảy ra lỗi, vui lòng thử lại sau !', 'top', 2000, 'dark');
-
         })
     }
 
@@ -145,7 +142,7 @@ export class CameraService {
                 (data: any) => {
                     this.loadingService.dismiss();
                     if (data.error) {
-                        this.toastService.present('Lỗi rồi !', 'top', 2000, 'dark');
+                        throw data.error
                     }
                 }
             )

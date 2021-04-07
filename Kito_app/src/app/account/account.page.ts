@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AlertController, ModalController, Platform, PopoverController } from '@ionic/angular';
+import { AlertController, ModalController, PopoverController } from '@ionic/angular';
 import { AccountService, PATTERN } from '../@app-core/http';
 import { CameraService, ImageService, LoadingService, ToastService } from '../@app-core/utils';
 import { ChangepasswordPage } from '../changepassword/changepassword.page';
@@ -34,9 +34,6 @@ export class AccountPage implements OnInit {
       { type: 'required', message: 'Email is required.' },
       { type: 'pattern', message: 'Email is invalid.' },
     ],
-    // full_address: [
-    //   { type: 'required', message: 'Address is required.' }
-    // ]
   }
 
   constructor(
@@ -49,8 +46,7 @@ export class AccountPage implements OnInit {
     public imageService: ImageService,
     private alertCtrl: AlertController,
     private cameraService: CameraService,
-    private router:Router,
-    private platform: Platform,
+    private router: Router,
   ) { }
   ngOnInit() {
     this.initForm();
@@ -62,7 +58,6 @@ export class AccountPage implements OnInit {
   }
 
   ionViewWillEnter() {
-    //  this.imageService.getImage();
     this.avatar = localStorage.getItem('avatar')
   }
 
@@ -79,7 +74,6 @@ export class AccountPage implements OnInit {
         Validators.required,
         Validators.pattern(PATTERN.EMAIL)
       ])),
-      // full_address: new FormControl('', Validators.required),
     });
   }
 
@@ -95,24 +89,12 @@ export class AccountPage implements OnInit {
           }
         },
         {
-          text:"Thay đổi ảnh đại diện",
-          handler:()=>{
-      this.router.navigateByUrl('/account-setting/change-avatar');
+          text: "Thay đổi ảnh đại diện",
+          handler: () => {
+            this.router.navigateByUrl('/account-setting/change-avatar');
           }
         },
-        // {
-        //   text: 'Chọn từ thư viện',
-        //   handler: () => {
 
-        //     this.cameraService.getAvatarUpload(this.image_avatar);
-        //   }
-        // },
-        // {
-        //   text: 'Chụp ảnh mới',
-        //   handler: () => {
-        //     this.cameraService.getAvatarTake(this.image_avatar);
-        //   }
-        // },
         {
           text: 'Xóa ảnh đại diện',
           handler: () => {
