@@ -60,7 +60,7 @@ export class MapPage implements OnInit {
     this.map = new google.maps.Map(document.getElementById("map") as HTMLElement, {
       center: this.center,
       zoom: 15,
-      // disableDefaultUI: true,
+      disableDefaultUI: true,
     });
   }
 
