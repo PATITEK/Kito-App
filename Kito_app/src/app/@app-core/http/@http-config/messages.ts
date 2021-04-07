@@ -53,4 +53,3 @@ export const DOCTRINE_CLASSES = {
     REGIEST: "Đăng ký thành công",
     UNREGIEST: "Đã hủy đăng ký",
   }
-
