@@ -28,24 +28,24 @@ export class CatechismMarriagePage implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.route.queryParams.subscribe(data => {
+      this.headerCustom = { title: data.data };
+      this.id=data.id
+    })
     this.getDataName();
   }
   getDataName() {
-    this.route.queryParams.subscribe(data => {
-      this.headerCustom = { title: data.data };
-
-      if (data.id === "1") {
-        this.doctrineService.getAll(this.pageResult).subscribe((data: any) => {
-          this.list = data.doctrine_classes;
-        })
-      }
-      else {
-        this.doctrineService.getCateckism(this.pageResult).subscribe((data: any) => {
-          this.list = data.doctrine_classes;
-        })
-      }
-
-    })
+    if (this.id === "1") {
+      this.doctrineService.getAll(this.pageResult).subscribe((data: any) => {
+        this.list = data.doctrine_classes;
+      })
+      return
+    }
+    
+      this.doctrineService.getCateckism(this.pageResult).subscribe((data: any) => {
+        this.list = data.doctrine_classes;
+      })
+    
   }
 
   formatTime(date) {
@@ -69,11 +69,12 @@ export class CatechismMarriagePage implements OnInit {
       }
     }
     );
-
-   modal.present();
-    modal.onDidDismiss().then(() => {
+    
+    modal.present();
+    await modal.onDidDismiss().then(() => {
       this.getDataName();
-     })
+    })
+     
 
     
   }
