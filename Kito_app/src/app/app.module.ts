@@ -22,6 +22,7 @@ import { OneSignal } from '@ionic-native/onesignal/ngx';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { NativeGeocoder, NativeGeocoderOptions, NativeGeocoderResult } from '@ionic-native/native-geocoder/ngx';
 import { NativePageTransitions } from '@ionic-native/native-page-transitions/ngx';
+import { CommonModule } from '@angular/common';
 
 // import { IonicSwipeAllModule } from 'ionic-swipe-all';
 @NgModule({
@@ -29,6 +30,7 @@ import { NativePageTransitions } from '@ionic-native/native-page-transitions/ngx
   entryComponents: [],
   imports: [
     BrowserModule, 
+    CommonModule,
     IonicModule.forRoot(), 
     AppRoutingModule,
     CoreModule.forRoot(),

@@ -12,7 +12,10 @@ export const SUCCESS = {
 export const FAIL = {
   LOGOUT: 'Đăng xuất thất bại',
 };
-
+export const LOADING = {
+  REGIEST: "Đang đăng ký",
+  UNREGIEST: "Đang hủy đăng ký"
+}
 export const STATUS = {
   SUCCESS: 'Thành công!',
   FAIL: 'Lỗi, vui lòng kiểm tra lại!',
@@ -28,20 +31,25 @@ export const ARLET = {
     PASSWORD_NOT_VALID: 'Mật khẩu không khớp, vui lòng kiểm tra lại'
   }
 };
+
 export const TOARST = {
-    COLOR: {
-        primary: 'primary',
-        secondary: 'secondary',
-        tertiary: 'tertiary',
-        success: 'success',
-        warning: 'warning',
-        danger: 'danger',
-        light: 'light',
-        medium: 'medium',
-        dark: 'dark'
-      },
-    POSITION: {
-        bottom: 'bottom',
-        top: 'top'
-    }
+  COLOR: {
+    primary: 'primary',
+    secondary: 'secondary',
+    tertiary: 'tertiary',
+    success: 'success',
+    warning: 'warning',
+    danger: 'danger',
+    light: 'light',
+    medium: 'medium',
+    dark: 'dark'
+  },
+  POSITION: {
+    bottom: 'bottom',
+    top: 'top'
+  }
 }
+export const DOCTRINE_CLASSES = {
+    REGIEST: "Đăng ký thành công",
+    UNREGIEST: "Đã hủy đăng ký",
+  }

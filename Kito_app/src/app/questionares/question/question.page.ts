@@ -66,7 +66,6 @@ export class QuestionPage implements OnInit {
   ngOnInit() {
     this.soundtrack1.play();
     localStorage.setItem("score", "0");
-    this.startTimer(120);
   }
 
   ionViewDidLeave() {
@@ -147,6 +146,7 @@ export class QuestionPage implements OnInit {
       });
       localStorage.removeItem('idLevel');
     }
+    this.startTimer(120);
   }
 
   setMusicType() {

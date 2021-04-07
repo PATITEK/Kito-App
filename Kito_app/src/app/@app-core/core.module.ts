@@ -1,7 +1,7 @@
 import { HymnMusicService } from './http/hymn-music/hymn-music.service';
 import { NgModule, ModuleWithProviders, ErrorHandler } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AuthService, AccountService, GlobalService, EventsService, OrderService, VaticanService, CourseService, CalendarService } from './http';
+import { AuthService, AccountService, GlobalService, EventsService, OrderService, VaticanService, CourseService, CalendarService, DoctrineService } from './http';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { IntercepterService } from './http-interceptor';
 import { API_URL } from './http/@http-config';
@@ -43,6 +43,7 @@ export class CoreModule {
         OrderService,
         DioceseService,
         VaticanService,
+        DoctrineService,
         PopeService,
         CourseService,
         CalendarService,
