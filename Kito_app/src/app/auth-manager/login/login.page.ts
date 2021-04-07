@@ -186,12 +186,13 @@ export class LoginPage implements OnInit {
         "password": dataFormLogin.password
       }
       this.authService.login(dataSubmit).subscribe(
-        (data: any) => {
+        () => {
           this.showSpinner = false;
           this.router.navigate(['main/chabad']);
         },
-        (data: any) => {
+        (error: any) => {
           this.showSpinner = false;
+          throw error
         }
       );
     }
@@ -224,8 +225,9 @@ export class LoginPage implements OnInit {
       this.authService.signup(submitData).subscribe(
         (data) => {
         },
-        (data: any) => {
+        (error: any) => {
           this.showSpinner = false;
+          throw error;
         }
       );
     }

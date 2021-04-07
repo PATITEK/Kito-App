@@ -31,7 +31,7 @@
     </ion-buttons>
   </div>
 
-  <ion-list class="sub-news">
+  <ion-list class="sub-news" *ngIf="news.length">
     <ng-container *ngFor="let item of news; let i = index;">
       <ion-buttons *ngIf="i != 0" class="sub-news-item" (click)="goToNewsDetail(item)">
         <div class="img-container">
@@ -53,7 +53,9 @@
       </ion-buttons>
     </ng-container>
   </ion-list>
-
+  <ion-list *ngIf="!news.length" class="not-found">
+    Không tìm thấy 
+  </ion-list>
   <ion-infinite-scroll #infiniteScroll (ionInfinite)="loadMoreData($event)">
     <ion-infinite-scroll-content loadingSpinner="lines"></ion-infinite-scroll-content>
   </ion-infinite-scroll>

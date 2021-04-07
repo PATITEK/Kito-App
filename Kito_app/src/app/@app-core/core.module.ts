@@ -14,6 +14,7 @@ import { HistoryService } from './http/history';
 import { DioceseService } from './http/diocese';
 import { PopeService } from './http/pope';
 
+
 @NgModule({
   declarations: [],
   imports: [
@@ -26,6 +27,7 @@ export class CoreModule {
     return {
       ngModule: CoreModule,
       providers: [
+      ToastService,
         { provide: API_URL, useValue: environment.apiUrl },
         { provide: HTTP_INTERCEPTORS, useClass: IntercepterService, multi: true },
         { provide: ErrorHandler, useClass: GlobalErrorHandler },
@@ -38,7 +40,6 @@ export class CoreModule {
         LoadingService,
         DateTimeService,
         HistoryService,
-        ToastService,
         OrderService,
         DioceseService,
         VaticanService,

@@ -29,7 +29,8 @@ export class HymnMusicPage implements OnInit {
   progress = 0;
   progressInterval = null;
   hasModal = false;
-
+  hDisplay: any;
+  mDisplay: any;
   mixed = false;
   REPEATING_TYPE = {
     NONE: 0,
@@ -61,7 +62,6 @@ export class HymnMusicPage implements OnInit {
     clearInterval(this.progressInterval);
     this.player && this.player.unload();
   }
-
   search(value: string) {
     if (typeof value != 'string') {
       return;
@@ -69,7 +69,6 @@ export class HymnMusicPage implements OnInit {
     else if (!value) {
       delete this.pageRequestSongs.search;
     }
-
     else {
       this.pageRequestSongs.search = value;
     }
@@ -95,10 +94,12 @@ export class HymnMusicPage implements OnInit {
     const m = Math.floor(d % 3600 / 60);
     const s = Math.floor(d % 3600 % 60);
 
-    const hDisplay = h > 0 ? h + ':' : '';
-    const mDisplay = m > 0 ? m + ':' : '0:';
-    const sDisplay = s > 0 ? s + '' : '0';
-    return hDisplay + mDisplay + sDisplay;
+    this.hDisplay = h > 0 ? h : '';
+     var mDisplay = m > 0 ? m : '';
+     mDisplay =  mDisplay > 9 ?  mDisplay: '0' + mDisplay+ ':';
+     var sDisplay = s > 0 ? s :'';
+    sDisplay = sDisplay > 9 ? sDisplay: '0' + sDisplay;
+    return this.hDisplay +  mDisplay + sDisplay;
   }
 
   shuffleSongs() {
@@ -270,13 +271,15 @@ export class HymnMusicPage implements OnInit {
     let newValue = +this.range.value;
     let duration = this.player.duration();
     this.player.seek(duration * (newValue / 100));
+ 
+
   }
 
   updateProgress() {
     clearInterval(this.progressInterval);
     this.progressInterval = setInterval(() => {
       const seek = this.player.seek();
-      this.progress = (<any>seek / this.player.duration()) * 100 || 0;
+       this.progress = (<any>seek / this.player.duration()) * 100 || 0;
     }, 1000)
   }
 

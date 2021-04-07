@@ -18,7 +18,7 @@ export class NewsPage implements OnInit {
   news = [];
   pageRequestVatican: IPageVatican = {
     page: 1,
-    category_id: '',
+    category_id: 2,
     per_page: 10
   }
   pageRequestDioceseNews: IPageParishes = {
@@ -62,8 +62,12 @@ export class NewsPage implements OnInit {
     }
     localStorage.removeItem('tempParishId');
     this.vaticanService.getCategory().subscribe(data => {
-      this.listCate = data.vatican_news_categories
-      this.idActive = data.vatican_news_categories[0].id;
+      this.listCate = data.vatican_news_categories;
+      this.listCate.forEach(e => {
+        if(e.name === 'Vatican') {
+          this.idActive = e.id;
+        }
+      })
     })
   }
   ionViewWillLeave() {
@@ -125,7 +129,6 @@ export class NewsPage implements OnInit {
       switch (this.dataParams.type.detail) {
         case 'vatican':
           this.vatican = true;
-          this.pageRequestVatican.category_id = this.idActive;
           this.vaticanService.getAll(this.pageRequestVatican).subscribe(data => {
             this.loading.dismiss();
             data.vatican_news.forEach(element => {
@@ -182,6 +185,9 @@ export class NewsPage implements OnInit {
       }
       else if (this.dataParams.type.detail == 'parish_news') {
         this.pageRequestParish.search = value;
+      }
+      else if( this.dataParams.type.detail == 'vatican') {
+        this.pageRequestVatican.search = value;
       }
     }
     this.reset();

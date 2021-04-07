@@ -9,7 +9,7 @@ ion-content {
   --padding-start: 16px;
   --padding-end: 16px;
   ion-icon {
-    font-size: 20px;
+    font-size: 26px;
     padding: 5px 0;
     color: #828282;
     right: 16px;
@@ -23,24 +23,28 @@ ion-content {
     border-radius: 8px;
     overflow: hidden;
     display: inline-block;
-    position: fixed;
-    top: 154px;
     right: 16px;
     background: #fff;
     z-index: 99;
     color: #424242;
+    position: absolute;
+    top: 160px;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
     ion-buttons {
-      padding: 3px 6px;
-      font-size: 14px; 
+      padding: 4px 6px;
+      font-size: 16px; 
     }
     ion-label {
       color: #828282;
-      line-height: 20px;
+      line-height: 22px;
     }
     .active-color {
       color: var(--main-color);
     }
+  }
+  .not-found {
+    margin-top: 20px;
+    text-align: center;
   }
 }
 
@@ -76,7 +80,7 @@ ion-content {
     right: 0;
     bottom: 0;
     background: rgba(#424242, 0.5);
-    padding: 10px 5px 5px;
+    padding: 0px 6px 2px;
     z-index: 1;
     color: #fff;
     justify-content: space-between;
@@ -99,7 +103,7 @@ ion-content {
       }
       .time-box {
         justify-content: flex-end;
-        width: 120px;
+        min-width: 126px;
       }
     }
   }
