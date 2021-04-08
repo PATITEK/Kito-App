@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { DoctrineService, IPageRequest, LOADING } from 'src/app/@app-core/http';
 import { LoadingService } from 'src/app/@app-core/utils';
 import { ModalController } from '@ionic/angular';
-import { ModalResComponent } from 'src/app/@modular/modal-res/modal-res.component';
+import { ModalResComponent } from '../../../@modular/modal-res/modal-res.component';
 
 @Component({
   selector: 'app-catechism-marriage',

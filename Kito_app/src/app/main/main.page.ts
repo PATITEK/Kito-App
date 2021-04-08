@@ -172,7 +172,7 @@ export class MainPage implements OnInit {
       per_page: 4
     }
     this.vaticanService.getAll(pageRequest).subscribe(data => {
-      console.log(data)
+      // console.log(data)
       this.loading.dismiss();
       data.vatican_news.forEach(v => v.type = this.vaticanList.type);
       this.vaticanList.items = data.vatican_news;

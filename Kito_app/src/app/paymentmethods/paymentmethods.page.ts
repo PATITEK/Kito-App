@@ -77,7 +77,7 @@ export class PaymentmethodsPage implements OnInit {
         }
       }
       this.loading.present('Vui lòng chờ...');
-      console.log(orderParam)
+      // console.log(orderParam)
       this.orderService.paymentOrder_Momo(orderParam).subscribe((data) => {
         this.openMomoPopUp();
       },

@@ -20,6 +20,6 @@ import { ModalResComponent } from 'src/app/@modular/modal-res/modal-res.componen
     HeaderModule,
     SearchBarNavModule
   ],
-  declarations: [CatechismMarriagePage,ModalResComponent]
+  declarations: [CatechismMarriagePage]
 })
 export class CatechismMarriagePageModule {}

@@ -95,7 +95,7 @@ export class PaymentupComponent implements OnInit {
           }
           else if(this.data.type_page == 'donate') {
             this.loadingService.dismiss();
-            console.log(this.data.donation)
+            // console.log(this.data.donation)
             this.data.donation.token = result.source.id;
             this.data.donation.payment_type = 'visa_master';
             this.router.navigate(['/payment'], {
