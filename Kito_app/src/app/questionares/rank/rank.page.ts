@@ -25,7 +25,6 @@ export class RankPage implements OnInit {
         ranker.index = i;
         i++;
       }
-      console.log(this.ranking)
     })
   }
 }
