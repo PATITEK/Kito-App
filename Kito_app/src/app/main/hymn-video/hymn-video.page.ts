@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { LoadingService } from 'src/app/@app-core/utils';
+import { HymnMusicService } from './../../@app-core/http/hymn-music/hymn-music.service';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { NavController } from '@ionic/angular';
+import { NavController, IonInfiniteScroll, IonContent } from '@ionic/angular';
+import { IPageRequest } from 'src/app/@app-core/http';
 
 @Component({
   selector: 'app-hymn-video',
@@ -8,37 +11,75 @@ import { NavController } from '@ionic/angular';
   styleUrls: ['./hymn-video.page.scss'],
 })
 export class HymnVideoPage implements OnInit {
+  @ViewChild('infiniteScrollVideos') infinityScroll: IonInfiniteScroll;
+  @ViewChild(IonContent) ionContent: IonContent;
   headerCustom = { title: 'Video bài giảng' };
   trustedVideoUrlArray: SafeResourceUrl[] = [];
-  array_of_objects = [
-    { vid_link: "https://www.youtube.com/embed/emRXBr5JvoY" },
-    { vid_link: "https://www.youtube.com/embed/AavMDUQvt1A" },
-    { vid_link: "https://www.youtube.com/embed/U4ogK0MIzqk" }
-  ]
+  pageRequestVideos: IPageRequest = {
+    page: 1,
+    per_page: 4,
+  }
+  videos = [];
 
   constructor(
     public navCtrl: NavController,
-    private domSanitizer: DomSanitizer
+    private domSanitizer: DomSanitizer,
+    private hymnVideoService: HymnMusicService,
+    private LoadingService: LoadingService
   ) { }
 
   ngOnInit() {
+    this.LoadingService.present();
+    this.getVideos();
   }
 
-  ionViewWillEnter() {
-    for (let i of this.array_of_objects) {
-      this.trustedVideoUrlArray.push({
-        trustLink: this.domSanitizer.bypassSecurityTrustResourceUrl(i.vid_link),
-        thumb_img: 'https://2.bp.blogspot.com/-hhEVNDoN318/Wo4Zu0UcdPI/AAAAAAAAMGA/k7nrBreMFGwbApbYxv2EizYjVS8TYaC_wCLcBGAs/s1600/FB_IMG_1519220705942.jpg',
-        avatar: 'https://hdgmvietnam.com/Admin/Upload/Image/peter-and-paul-st.jpg',
-        title: 'Những sai lầm khi cầu nguyện',
-        sub_title: 'Giáo Hội Công Giáo',
-        views: '1000',
-        time: '17:15  03.02.2021'
-      })
+  getVideos(func?) {
+    this.hymnVideoService.getAllLectureVideo(this.pageRequestVideos).subscribe(data => {
+      this.videos = this.videos.concat(data.lecture_videos)
+      this.pageRequestVideos.page++;
+      func && func();
+      if (this.videos.length >= data.meta.pagination.total_objects) {
+        this.infinityScroll.disabled = true;
+      }
+      let tempVideos = this.videos.slice(this.videos.length - 4, this.videos.length);
+      for (let video of tempVideos) {
+        this.trustedVideoUrlArray.push({
+          id: video.id,
+          trustLink: this.domSanitizer.bypassSecurityTrustResourceUrl(video.url.replace('watch?v=', 'embed/')),
+          title: video.name,
+
+          // avatar: 'https://hdgmvietnam.com/Admin/Upload/Image/peter-and-paul-st.jpg',
+          // sub_title: 'Giáo Hội Công Giáo',
+          // views: '1000',
+          // time: '17:15  03.02.2021'
+        })
+      }
+      setTimeout(() => {
+        this.LoadingService.dismiss();
+      }, 500)
+    })
+  }
+
+  loadMoreVideos(event) {
+    this.getVideos(() => {
+      event.target.complete();
+    });
+  }
+
+  search(value: string) {
+    if (typeof value != 'string') {
+      return;
     }
-  }
-
-  goToYoutube() {
-
+    else if (!value) {
+      delete this.pageRequestVideos.search;
+    }
+    else {
+      this.pageRequestVideos.search = value;
+    }
+    this.pageRequestVideos.page = 1;
+    this.videos = [];
+    this.getVideos();
+    this.infinityScroll.disabled = false;
+    this.ionContent.scrollToTop(0);
   }
 }

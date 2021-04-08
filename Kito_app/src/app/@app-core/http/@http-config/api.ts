@@ -118,6 +118,9 @@ export const APICONFIG = {
   },
   IMAGE_PROFILE: {
     GET_ALL: `app/app_users/default_avatar`
+  },
+  VIDEO: {
+    GET_ALL: `app/lecture_videos`,
   }
 };
 
