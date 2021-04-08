@@ -99,6 +99,8 @@ ion-content {
       ion-buttons {
         ion-icon {
           margin-right: 3px;
+          color: #ffffff;
+          width: 16px;
         }
       }
       .time-box {
@@ -148,7 +150,7 @@ ion-content {
 
       .item-title {
         color: #002d63;
-        font-size: 14px;
+        font-size: 16px;
         margin: 0;
         text-align: left;
       }
@@ -160,10 +162,12 @@ ion-content {
         ion-buttons {
           .eye {
             margin-right: 2px;
+            font-size: 16px;
           }
 
           .time {
             margin-right: 2px;
+            font-size: 16px;
           }
         }
       }

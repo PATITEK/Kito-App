@@ -1,3 +1,4 @@
+import { QuestionaresService } from 'src/app/@app-core/http';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -6,17 +7,25 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./rank.page.scss'],
 })
 export class RankPage implements OnInit {
-  headerCustom = { title: 'BẢNG XẾP HẠNG', background:'transparent', color: '#fff' };
-  data: any = [];
-  constructor() { }
+  headerCustom = { title: 'BẢNG XẾP HẠNG', background: 'transparent', color: '#fff' };
+  ranking: any = [];
+  constructor(
+    private QuestionaresService: QuestionaresService
+  ) { }
 
   ngOnInit() {
-    for(let i=0; i<=12; i++) {
-      this.data.push({
-        name: 'Hoang An Pede ' + i,
-        index: i+1,
-        point: 100000
-      })
-    }
+    this.getRanking();
+  }
+
+  getRanking() {
+    this.QuestionaresService.getRanking().subscribe((data) => {
+      this.ranking = data.app_users;
+      let i = 1;
+      for(let ranker of this.ranking) {
+        ranker.index = i;
+        i++;
+      }
+      console.log(this.ranking)
+    })
   }
 }

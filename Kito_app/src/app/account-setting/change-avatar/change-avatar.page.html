@@ -15,5 +15,5 @@
       </ion-avatar>
     </div>
   </div>
-  <ion-button (click)="updateAvatar()" class="btn-ok">Xác Nhận</ion-button>
+  <ion-button *ngIf="activedAvatar != null" (click)="updateAvatar()" class="btn-ok">Xác Nhận</ion-button>
 </ion-content>

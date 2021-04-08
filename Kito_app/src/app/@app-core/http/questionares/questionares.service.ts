@@ -64,4 +64,26 @@ export class QuestionaresService {
             })
         );
     }
+
+    public updateScore(score: any) {
+        return this.http.put(`${APICONFIG.QUESTIONARES.UPDATE_SCORE}`, score).pipe(
+            map((result: any) => {
+                return result;
+            }),
+            catchError((errorRes) => {
+                throw errorRes.error;
+            })
+        )
+    }
+
+    public getRanking() {
+        return this.http.get<any>(`${APICONFIG.QUESTIONARES.RANKING}`).pipe(
+            map((result) => {
+                return result;
+            }),
+            catchError((errorRes: any) => {
+                throw errorRes.error;
+            })
+        );
+    }
 }
