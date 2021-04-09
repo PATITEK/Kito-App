@@ -9,7 +9,6 @@ import { CatechismMarriagePageRoutingModule } from './catechism-marriage-routing
 import { CatechismMarriagePage } from './catechism-marriage.page';
 import { HeaderModule } from 'src/app/@modular/header/header.module';
 import { SearchBarNavModule } from 'src/app/@modular/search-bar-nav/search-bar-nav.module';
-import { ModalResComponent } from 'src/app/@modular/modal-res/modal-res.component';
 
 @NgModule({
   imports: [

@@ -67,6 +67,7 @@ export class CartPage implements OnInit {
     const alert = await this.alert.create({
       header: header,
       message: text,
+      mode: 'ios',
       buttons: [
         {
           text: 'Hủy',

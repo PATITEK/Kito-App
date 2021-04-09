@@ -59,7 +59,6 @@ export class NewsDetailPage implements OnInit {
           this.dioceseService.getDetail(dataParams.id).subscribe(data => {
             this.loading.dismiss();
             this.data = data.diocese;
-            // console.log(this.data)
           })
           break;
         case 'parish':
