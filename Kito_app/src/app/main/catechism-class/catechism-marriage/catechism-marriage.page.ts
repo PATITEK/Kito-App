@@ -2,8 +2,8 @@ import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { DoctrineService, IPageRequest, LOADING } from 'src/app/@app-core/http';
 import { LoadingService } from 'src/app/@app-core/utils';
-import { ModalController } from '@ionic/angular';
-import { ModalResComponent } from '../../../@modular/modal-res/modal-res.component';
+import { AlertController } from '@ionic/angular';
+import { ALERT_MESSAGE, ORTHER } from '../../../@app-core/http/@http-config/messages'
 
 @Component({
   selector: 'app-catechism-marriage',
@@ -23,8 +23,8 @@ export class CatechismMarriagePage implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private doctrineService: DoctrineService,
-    private modalController: ModalController,
-    private loadingService: LoadingService
+    private loadingService: LoadingService,
+    private alertController: AlertController
   ) { }
 
   ngOnInit() {
@@ -34,6 +34,7 @@ export class CatechismMarriagePage implements OnInit {
     })
     this.getDataName();
   }
+
   getDataName() {
     if (this.id === "1") {
       this.doctrineService.getAll(this.pageResult).subscribe((data: any) => {
@@ -41,11 +42,10 @@ export class CatechismMarriagePage implements OnInit {
       })
       return
     }
-    
-      this.doctrineService.getCateckism(this.pageResult).subscribe((data: any) => {
-        this.list = data.doctrine_classes;
-      })
-    
+    this.doctrineService.getCateckism(this.pageResult).subscribe((data: any) => {
+      this.list = data.doctrine_classes;
+    })
+
   }
 
   formatTime(date) {
@@ -58,17 +58,59 @@ export class CatechismMarriagePage implements OnInit {
     var strTime = hours + 'h' + ':' + minutes
     return strTime
   }
-  async openModalRegister(item, type) {
-    const modal = await this.modalController.create({
-      component: ModalResComponent,
-      swipeToClose: true,
-      cssClass: 'modalFood',
-      componentProps: {
-        id: item,
-        type: type
+
+  register(id) {
+    this.loadingService.present(LOADING.REGIEST)
+    let data = {
+      "register_detail": {
+        "doctrine_class_id": id
       }
     }
-    );
-    modal.present();
+    this.doctrineService.register(data).subscribe((data) => {
+      this.ngOnInit();
+      this.loadingService.dismiss();
+    })
+
+  }
+  unregister(id) {
+    this.loadingService.present(LOADING.UNREGIEST);
+    let data = {
+      "register_detail": {
+        "doctrine_class_id": id
+      }
+    }
+    this.doctrineService.unregister(data).subscribe((data) => {
+      this.ngOnInit();
+      this.loadingService.dismiss();
+    })
+
+  }
+  submit(type, id) {
+    if (type === true) {
+      this.register(id);
+    }
+    else {
+      this.unregister(id);
+    }
+  }
+
+  async openAlertRegister(id, type, text) {
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: text + ORTHER.CLASS,
+      mode: 'ios',
+      buttons: [
+        {
+          text: ALERT_MESSAGE.CLOSE,
+        },
+        {
+          text: text,
+          handler: () => {
+            this.submit(type, id);
+          }
+        }
+      ]
+    });
+    await alert.present();
   }
 }

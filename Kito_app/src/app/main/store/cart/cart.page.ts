@@ -36,7 +36,7 @@ export class CartPage implements OnInit {
   hasPaymentModal = false;
   paymentSelectElement: any;
   phone_number = null;
-  location;
+  address;
   phone_temp;
   frm: FormGroup;
   constructor(
@@ -58,16 +58,17 @@ export class CartPage implements OnInit {
   ngOnInit() {
     this.getCart();
     this.phone_number = localStorage.getItem('phoneNumber');
-    this.location = localStorage.getItem('location');
-    if(!localStorage.getItem('location')) {
-      this.presentAlert();
+    this.address = localStorage.getItem('address');
+    if(!localStorage.getItem('address')) {
+      this.presentAlert(ALERT_MESSAGE.NOTI, ORTHER.GET_ADDRESS);
     }
     
   }
-  async presentAlert() {
+  async presentAlert(header: string, text: string) {
     const alert = await this.alertController.create({
-      header: ALERT_MESSAGE.CONTI,
-      message: ALERT_MESSAGE.QUESTION_CONTI,
+      header: header,
+      message: text,
+      mode: 'ios',
       buttons: [
         {
           text: ALERT_MESSAGE.CANCLE,
@@ -87,12 +88,12 @@ export class CartPage implements OnInit {
     await alert.present();
   }
   check(): boolean {
-    return !this.cart.length || this.location == null;
+    return !this.cart.length || this.address == null;
   }
   reTakeLocation() {
     this.geolocationSerivce.getCurrentLocation();
-    this.location = this.geolocationSerivce.customerLocation.address;
-    localStorage.setItem('location', this.location)
+    this.address = this.geolocationSerivce.customerLocation.address;
+    localStorage.setItem('address', this.address)
   }
 
   ionViewDidEnter() {
@@ -162,13 +163,13 @@ export class CartPage implements OnInit {
   }
 
   goToCheckout() {
-    if(localStorage.getItem(this.location)) {
-      localStorage.removeItem('location');
+    if(localStorage.getItem(this.address)) {
+      localStorage.removeItem('address');
     }
     if(localStorage.getItem(this.phone_temp)) {
       localStorage.removeItem('phone_temp');
     }
-    localStorage.setItem('location', this.location);
+    localStorage.setItem('address', this.address);
     localStorage.setItem('phone_temp', this.phone_number);
     const data = {
       paymentMethod: this.paymentMethods[this.currentPaymentMethodId]

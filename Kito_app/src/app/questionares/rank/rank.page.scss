@@ -33,12 +33,11 @@ ul {
       text-align: center;
     }
     .rank-img {
-        width: 6vh;
-        height: 6vh;
+      width: 6vh;
+      height: 6vh;
     }
     .rank-info {
       flex-basis: 85%;
-      // border: 2px solid #ffffff;
       box-sizing: border-box;
       border-radius: 20px;
       padding: 5px 10px;
@@ -53,17 +52,18 @@ ul {
       }
       .name {
         color: #ffffff;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        position: absolute;
+        left: 13vh;
+        margin-top: 1vh;
+        width: 20vh;
       }
       .rank-point {
-        color: yellow;
+        color: #ffff00;
         display: flex;
         justify-content: center;
         align-items: center;
         ion-icon {
-          color: yellow;
+          color: #ffff00;
           padding: 0 10px;
         }
       }

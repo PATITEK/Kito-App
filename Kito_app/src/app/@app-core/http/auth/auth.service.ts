@@ -86,6 +86,7 @@ export class AuthService {
         this.storage.clear();
         localStorage.setItem('Authorization', result.token);
         this.storage.setInfoAccount();
+        this.router.navigate(['/main']);
         return result;
       }),
       catchError((errorRes: any) => {

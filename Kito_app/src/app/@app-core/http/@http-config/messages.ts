@@ -77,7 +77,8 @@ export const ORTHER = {
   STORE_ORTHER: "Bạn có muốn xem ở cửa hàng khác?",
   GET_ADDRESS: "Lấy địa chỉ của bạn",
   IN_STORE: "Vào cửa hàng",
-  MOMO: "Tiếp tục thanh toán qua Momo"
+  MOMO: "Tiếp tục thanh toán qua Momo",
+  CLASS: "Lớp học"
 
 }
 export const GAME = {

@@ -199,9 +199,7 @@ export class LoginPage implements OnInit {
       this.toastService.presentFail(PASSWORD.NOT_MATCH);
     } else {
       let data = this.formSignUp.value;
-      data.phone_number = data.phone_number.length == 10 ? data.phone_number.substring(1, 10) : data.phone_number;
-      // data.phone_number = `+${this.formSignUp.value.country_code}${data.phone_number}`;
-      data.phone_number = `+${84}${data.phone_number}`; // BE checked multi language, till now just only use 84
+      data.phone_number = '+84' + data.phone_number;
       let submitData = {
         "full_name": data.full_name,
         "sex": data.sex,
@@ -215,6 +213,7 @@ export class LoginPage implements OnInit {
       }
       this.authService.signup(submitData).subscribe(
         (data) => {
+          // console.log(data)
         },
         (error: any) => {
           this.showSpinner = false;

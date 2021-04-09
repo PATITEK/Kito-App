@@ -9,8 +9,6 @@ import { CatechismMarriagePageRoutingModule } from './catechism-marriage-routing
 import { CatechismMarriagePage } from './catechism-marriage.page';
 import { HeaderModule } from 'src/app/@modular/header/header.module';
 import { SearchBarNavModule } from 'src/app/@modular/search-bar-nav/search-bar-nav.module';
-import { ModalResComponent } from 'src/app/@modular/modal-res/modal-res.component';
-import { ModalService } from 'src/app/@app-core/utils/modal.service';
 
 @NgModule({
   imports: [
@@ -20,9 +18,6 @@ import { ModalService } from 'src/app/@app-core/utils/modal.service';
     CatechismMarriagePageRoutingModule,
     HeaderModule,
     SearchBarNavModule
-  ],
-  providers: [
-    ModalService
   ],
   declarations: [CatechismMarriagePage]
 })

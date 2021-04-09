@@ -1,5 +1,5 @@
 <app-header class="header" [headerCustom]="headerCustom"></app-header>
-<ion-content>
+<ion-content *ngIf="ranking.length > 0">
   <ul>
     <li *ngFor="let ranker of ranking">
       <span class="stt-rank" *ngIf="ranker.index != 1 && ranker.index != 2 && ranker.index != 3 && ranker.index < 10">
@@ -13,12 +13,12 @@
       <img class="rank-img" src="../../../assets/img/questionares/3rd.svg" *ngIf="ranker.index==3"/>
       <div class="rank-info">
         <ion-avatar class="avatar">
-          <img src="https://i.imgur.com/edwXSJa.png" alt="">
+          <img src="{{ ranker.thumb_image.url }}" alt="">
         </ion-avatar>
-        <span class="name three-dots-3">{{ ranker.full_name }}</span>
+        <ion-label class="name three-dots-3">{{ ranker.full_name }}</ion-label>
         <div class="rank-point">
-          <ion-icon name="trophy"></ion-icon>
           <ion-label>{{ ranker.score }}</ion-label>
+          <ion-icon name="trophy"></ion-icon>
         </div>
       </div>
     </li>
