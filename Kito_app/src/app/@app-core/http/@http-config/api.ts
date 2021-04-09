@@ -104,20 +104,25 @@ export const APICONFIG = {
     GET_QUES_TOPIC: topic => `/app/questions/by_topic?topic=${topic}`,
     GET_QUES_LEVEL: level => `/app/questions/by_level?level=${level}`,
     CHECK_ANSWER: answerKey => `/${answerKey}`,
+    UPDATE_SCORE: `/app/games/score`,
+    RANKING: `/app/games/rankings`,
   },
   COURSE: {
     GET_COURSE_GROUP: `/app/course_groups`,
     GET_COURSE_ID: `/app/courses`
   },
   MUSIC: {
-    GET_ALL: `app/songs`,
-    GET_DETAIL: id => `app/songs/${id}`,
-    GET_ALL_FAVORITE: `app/songs/favourite_songs`,
-    FAVORITE: `app/songs/favourite`,
-    UNFAVORITE: `app/songs/unfavourite`,
+    GET_ALL: `/app/songs`,
+    GET_DETAIL: id => `/app/songs/${id}`,
+    GET_ALL_FAVORITE: `/app/songs/favourite_songs`,
+    FAVORITE: `/app/songs/favourite`,
+    UNFAVORITE: `/app/songs/unfavourite`,
   },
   IMAGE_PROFILE: {
-    GET_ALL: `app/app_users/default_avatar`
+    GET_ALL: `/app/app_users/default_avatar`
+  },
+  VIDEO: {
+    GET_ALL: `/app/lecture_videos`,
   }
 };
 

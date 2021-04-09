@@ -1,7 +1,7 @@
 import { IonInfiniteScroll } from '@ionic/angular';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DioceseNewsService, IPageRequest, ParishesService, VaticanService } from 'src/app/@app-core/http';
+import { DioceseNewsService, ParishesService, VaticanService } from 'src/app/@app-core/http';
 import { IPageParishes } from 'src/app/@app-core/http/parishes/parishes.DTO';
 import { LoadingService } from 'src/app/@app-core/utils';
 import { IPageVatican } from 'src/app/@app-core/http/vatican/vatican.DTO';
@@ -45,10 +45,10 @@ export class NewsPage implements OnInit {
     private vaticanService: VaticanService,
     private dioceseNewsService: DioceseNewsService,
     private parishesService: ParishesService,
-    private loading: LoadingService,
+    private loadingService: LoadingService,
   ) { }
   ngOnInit() {
-    this.loading.present();
+    this.loadingService.present();
     this.getParams();
   }
   ionViewWillEnter() {
@@ -91,6 +91,7 @@ export class NewsPage implements OnInit {
         case 'dioceseNews':
           this.headerCustom.title = 'Tin tức Giáo phận';
           this.dioceseNewsService.getAll(this.pageRequestDioceseNews).subscribe(data => {
+            this.loadingService.dismiss();
             data.diocese_news.forEach(element => {
               element.type = this.dataParams.type;
               element.time = element.created_at.slice(11, 16);
@@ -108,6 +109,7 @@ export class NewsPage implements OnInit {
           this.newsParish = true;
           this.headerCustom.title = 'Tin tức Giáo xứ ';
           this.parishesService.getAllNewsByParish(this.pageRequestParish).subscribe(data => {
+            this.loadingService.dismiss()
             data.parish_news.forEach(element => {
               element.type = this.dataParams.type;
               element.time = element.created_at.slice(11, 16)
@@ -128,6 +130,7 @@ export class NewsPage implements OnInit {
         case 'vatican':
           this.vatican = true;
           this.vaticanService.getAll(this.pageRequestVatican).subscribe(data => {
+            this.loadingService.dismiss()
             data.vatican_news.forEach(element => {
               element.type = this.dataParams.type
               element.time = element.created_at.slice(11, 16)
@@ -157,7 +160,7 @@ export class NewsPage implements OnInit {
         this.toggle = false;
     }
     else {
-      this.toggle =true;
+      this.toggle = true;
     }
   }
   checkShowCate(): boolean {

@@ -2,20 +2,20 @@
   <app-header [headerCustom]="headerCustom"></app-header>
 </ion-header>
 
-<ion-content *ngIf="trustedVideoUrlArray.length > 0">
-  <app-search-bar-nav></app-search-bar-nav>
+<ion-content *ngIf="trustedVideoUrlArray.length">
+  <app-search-bar-nav (output)="search($event)"></app-search-bar-nav>
 
   <div class="main-news" *ngFor="let i of trustedVideoUrlArray">
     <iframe class="main-watch" [src]="i.trustLink" frameborder="0" allowfullscreen></iframe>
     <ion-buttons class="text-box">
-      <ion-avatar>
+      <!-- <ion-avatar>
         <img src="{{ i.avatar }}" />
-      </ion-avatar>
+      </ion-avatar> -->
       <ion-col>
         <p class="item-title three-dots-2">{{ i.title }}</p>
-        <p class="item-title-bottom three-dots-2">{{ i.sub_title }}</p>
+        <!-- <p class="item-title-bottom three-dots-2">{{ i.sub_title }}</p> -->
       </ion-col>
-      <ion-buttons class="right-box text">
+      <!-- <ion-buttons class="right-box text">
         <ion-buttons>
           <ion-icon name="eye"></ion-icon>
           <ion-label>{{ i.views }}</ion-label>
@@ -24,7 +24,10 @@
           <ion-icon name="time"></ion-icon>
           <ion-label>{{ i.time }}</ion-label>
         </ion-buttons>
-      </ion-buttons>
+      </ion-buttons> -->
     </ion-buttons>
   </div>
+  <ion-infinite-scroll #infiniteScroll (ionInfinite)="loadMoreData($event)">
+    <ion-infinite-scroll-content loadingSpinner="lines"></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content>

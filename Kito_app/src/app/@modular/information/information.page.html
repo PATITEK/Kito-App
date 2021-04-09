@@ -1,7 +1,6 @@
 <ion-header>
   <app-header [headerCustom]="headerCustom"></app-header>
 </ion-header>
-
 <ion-content [ngClass]="{'disable-scroll': !list.length}">
   <app-search-bar-nav (output)="search($event)"></app-search-bar-nav>
 

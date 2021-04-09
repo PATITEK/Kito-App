@@ -70,6 +70,7 @@ export class PaymentPage implements OnInit {
         "donation" : this.data.donation
       }
       this.donateService.donateByVisa(donation_log).subscribe((data) => {
+        this.loadingService.dismiss();
            this.pageNotiService.setdataStatusNoti(datapasing);
           this.router.navigateByUrl('/page-noti');
       })

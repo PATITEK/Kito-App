@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { IonContent, IonSlides } from '@ionic/angular';
 import { CourseService } from 'src/app/@app-core/http/course';
 import { IPageCourse } from 'src/app/@app-core/http/course/course.DTO';
+import { LoadingService } from 'src/app/@app-core/utils';
 
 @Component({
   selector: 'app-catechism',
@@ -26,7 +27,8 @@ export class CatechismPage implements OnInit {
   };
 
   constructor(
-    private coursesService: CourseService
+    private coursesService: CourseService,
+    private loadingService: LoadingService
   ) { }
 
   ngOnInit() {
@@ -37,7 +39,6 @@ export class CatechismPage implements OnInit {
     this.coursesService.getGroup().subscribe((data: any) => {
       this.menuItems = data.course_groups;
       this.currentMenuItemId = this.menuItems[0].id;
-
       this.menuItems.forEach(menuItem => {
         this.pageResult.course_group_id = menuItem.id;
         menuItem.list = [];

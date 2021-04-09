@@ -119,7 +119,7 @@ export class QuestionPage implements OnInit {
     if (localStorage.getItem("idTopic")) {
       this.QuestionaresService.getQuesTopic(JSON.parse(localStorage.getItem('idTopic'))).subscribe((data) => {
         this.questions = data.questions;
-        
+
         this.questions.push({
           question: '',
           answer: {
@@ -129,7 +129,7 @@ export class QuestionPage implements OnInit {
             d: '',
             right_answer: ''
           },
-          thumb_image:{url: ''}
+          thumb_image: { url: '' }
         })
       });
       localStorage.removeItem('idTopic')
@@ -180,6 +180,7 @@ export class QuestionPage implements OnInit {
 
     if (this.timer == 0) {
       this.stopTimer();
+      this.updateScore();
       this.openCompleteQuestion();
       this.toastService.presentSuccess(GAME.OVERTIME);
     }
@@ -219,6 +220,7 @@ export class QuestionPage implements OnInit {
       this.wrong.play();
     }
     if (this.questionCounter >= 10 || this.heart == 0 || this.score == 10) {
+      this.updateScore();
       this.openCompleteQuestion();
       this.stopTimer();
       this.soundtrack1.pause();
@@ -240,5 +242,9 @@ export class QuestionPage implements OnInit {
 
   toggleHasModal(bool) {
     this.hasModal = bool;
+  }
+
+  updateScore() {
+    this.QuestionaresService.updateScore({ app_user: { score: this.score }});
   }
 }

@@ -63,6 +63,7 @@ export class ArchdioceseDetailPage implements OnInit {
 
   getDioceseNews() {
     this.dioceseNewsService.getAll(this.pageRequest).subscribe(data => {
+      this.loadingService.dismiss();
       data.diocese_news.forEach(d => {
         d.type = { general: 'news', detail: 'dioceseNews' };
       });

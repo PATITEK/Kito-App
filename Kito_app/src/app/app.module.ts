@@ -23,6 +23,7 @@ import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { NativeGeocoder, NativeGeocoderOptions, NativeGeocoderResult } from '@ionic-native/native-geocoder/ngx';
 import { NativePageTransitions } from '@ionic-native/native-page-transitions/ngx';
 import { CommonModule } from '@angular/common';
+import { AlertService } from './@app-core/utils/alert.service';
 
 // import { IonicSwipeAllModule } from 'ionic-swipe-all';
 @NgModule({
@@ -52,11 +53,12 @@ import { CommonModule } from '@angular/common';
     AudioManagement,
     AudioManagerService,
     OneSignal,
-    OneSignalService,
     Geolocation,
     GeolocationService,
     NativeGeocoder,
     NativePageTransitions,
+    AlertService,
+    OneSignalService,
   ],
   bootstrap: [AppComponent]
 })

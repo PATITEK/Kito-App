@@ -9,6 +9,7 @@ import { AccountSettingPageRoutingModule } from './account-setting-routing.modul
 import { AccountSettingPage } from './account-setting.page';
 import { HeaderModule } from '../@modular/header/header.module';
 import { AlertService } from '../@app-core/utils/alert.service';
+import { ModalService } from '../@app-core/utils/modal.service';
 
 @NgModule({
   imports: [
@@ -19,7 +20,8 @@ import { AlertService } from '../@app-core/utils/alert.service';
     HeaderModule
   ],
   providers: [
-    AlertService
+    AlertService,
+    ModalService
   ],
   declarations: [AccountSettingPage]
 })

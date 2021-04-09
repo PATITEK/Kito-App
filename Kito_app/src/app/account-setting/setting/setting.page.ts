@@ -61,7 +61,6 @@ export class SettingPage implements OnInit {
         type: 'language',
         title: "Ngôn ngữ",
         icon: "assets/img/setting/language.svg",
-        // name: JSON.parse(localStorage.getItem('language')).name,
         routerLink: '/account-setting/setting/setting-languages'
       },
       {

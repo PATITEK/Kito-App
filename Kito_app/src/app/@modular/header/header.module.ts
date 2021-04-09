@@ -15,6 +15,7 @@ import { IonicModule } from '@ionic/angular';
   ],
   exports: [
     HeaderComponent
-  ]
+  ],
+  
 })
 export class HeaderModule { }

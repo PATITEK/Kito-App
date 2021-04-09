@@ -19,11 +19,6 @@ export class ModalFoodComponent implements OnInit {
       token: '',
     }
    }
-  dismiss() {
-    this.modalCtrl.dismiss({
-      'dismissed': true
-    });
-  }
   continute () {
     this.router.navigate(['paymentmethods'], {
       queryParams: {

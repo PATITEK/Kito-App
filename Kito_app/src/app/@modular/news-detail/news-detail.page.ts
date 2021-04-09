@@ -44,39 +44,46 @@ export class NewsDetailPage implements OnInit {
       switch (dataParams.type.detail) {
         case 'vatican':
           this.vaticanService.getDetail(dataParams.id).subscribe(data => {
+            this.loading.dismiss();
             this.data = data.vatican_news;
           })
           break;
         case 'pope':
           this.popeService.getDetail(dataParams.id).subscribe(data => {
+            this.loading.dismiss();
             this.data = data.pope_info;
           })
           break;
         case 'diocese':
           this.map = true;
           this.dioceseService.getDetail(dataParams.id).subscribe(data => {
+            this.loading.dismiss();
             this.data = data.diocese;
           })
           break;
         case 'parish':
           this.map = true;
           this.parishService.getDetail(dataParams.id).subscribe(data => {
+            this.loading.dismiss();
             this.map = true;
             this.data = data.parish;
           })
           break;
         case 'parish_news':
           this.parishService.getParishNewsByid(dataParams.id).subscribe(data => {
+            this.loading.dismiss();
             this.data = data.parish_news;
           })
           break;
         case 'dioceseNews':
           this.dioceseNewsService.getDetail(dataParams.id).subscribe(data => {
+            this.loading.dismiss();
             this.data = data.diocese_news;
           })
           break;
         case 'bishop':
           this.bishopService.getDetail(dataParams.id).subscribe(data => {
+            this.loading.dismiss();
             this.data = data.bishop_info;
           })
           break;

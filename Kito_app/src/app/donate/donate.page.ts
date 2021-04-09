@@ -76,6 +76,7 @@ export class DonatePage implements OnInit {
     let url = window.location.href;
     if (url.includes('?')) {
       this.route.queryParams.subscribe(params => {
+        this.loadingService.dismiss();
         this.data = JSON.parse(params['data']);
         this.source_id = this.data.id;
       });
@@ -85,6 +86,7 @@ export class DonatePage implements OnInit {
       this.source_type = 'Parish';
       this.level = 'Linh'
       this.parishService.getDetail(this.source_id).subscribe((data: any) => {
+        this.loadingService.dismiss();
         this.getData = data.parish;
         this.bishop_name = this.getData.priest_name;
         this.img = this.getData.thumb_image.url;
@@ -94,6 +96,7 @@ export class DonatePage implements OnInit {
       this.source_type = this.data.source_type;
       this.level = 'Giám'
       this.diocesesService.getDetail(this.source_id).subscribe((data: any) => {
+        this.loadingService.dismiss();
         this.getData = data.diocese;
         this.bishop_name = this.getData.bishop_name;
         this.img = this.getData.thumb_image.url
@@ -103,6 +106,7 @@ export class DonatePage implements OnInit {
       this.source_type = this.data.source_type;
       this.level = 'Linh'
       this.parishService.getDetail(this.source_id).subscribe((data: any) => {
+        this.loadingService.dismiss();
         this.getData = data.parish;
         this.bishop_name = this.getData.priest_name;
         this.img = this.getData.thumb_image.url;
@@ -125,6 +129,7 @@ export class DonatePage implements OnInit {
   }
   
   onSubmit() {
+    this.loadingService.present();
     this.amount = this.frmDonate.get('amount').value.replace(/\,/g, '');
     if (this.frmDonate.get('amount').dirty || this.frmDonate.get('amount').touched) {
       if (this.amount != undefined) {

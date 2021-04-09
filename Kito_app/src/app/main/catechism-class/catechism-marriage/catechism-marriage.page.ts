@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { DoctrineService, IPageRequest, LOADING } from 'src/app/@app-core/http';
 import { LoadingService } from 'src/app/@app-core/utils';
 import { ModalController } from '@ionic/angular';
-import { ModalResComponent } from 'src/app/@modular/modal-res/modal-res.component';
+import { ModalResComponent } from '../../../@modular/modal-res/modal-res.component';
 
 @Component({
   selector: 'app-catechism-marriage',
@@ -23,7 +23,8 @@ export class CatechismMarriagePage implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private doctrineService: DoctrineService,
-    private modalController: ModalController
+    private modalController: ModalController,
+    private loadingService: LoadingService
   ) { }
 
   ngOnInit() {
@@ -69,11 +70,5 @@ export class CatechismMarriagePage implements OnInit {
     }
     );
     modal.present();
-    modal.onDidDismiss().then(()=> {
-      this.getDataName();
-    })
-    modal.onWillDismiss().then(() => {
-      this.getDataName();
-    })
   }
 }

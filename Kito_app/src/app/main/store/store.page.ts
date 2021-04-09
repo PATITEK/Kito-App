@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { IonContent, IonInfiniteScroll, ModalController } from '@ionic/angular';
 import { IPageCategory, IPageProduct, StoreService } from 'src/app/@app-core/http';
-import { DateTimeService } from 'src/app/@app-core/utils';
+import { DateTimeService, LoadingService } from 'src/app/@app-core/utils';
 import { AlertService } from 'src/app/@app-core/utils/alert.service';
 import { AddStoreComponent } from 'src/app/@modular/add-store/add-store.component';
 import { ORTHER } from '../../@app-core/http/@http-config/messages'
@@ -46,10 +46,12 @@ export class StorePage implements OnInit {
     private router: Router,
     private modalController: ModalController,
     private storeService: StoreService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private loadingService: LoadingService
   ) { }
 
   ngOnInit() {
+    this.loadingService.present();
     this.getCategories();
   }
 
@@ -74,6 +76,7 @@ export class StorePage implements OnInit {
     this.pageRequestProducts.category_id = this.currentCategoryId;
     const tempCategoryId = this.currentCategoryId;
     this.storeService.getAllProducts(this.pageRequestProducts).subscribe(data => {
+      this.loadingService.dismiss();
       if (tempCategoryId !== this.currentCategoryId) {
         return;
       }

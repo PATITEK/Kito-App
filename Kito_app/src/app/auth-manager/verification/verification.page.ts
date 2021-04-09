@@ -83,6 +83,7 @@ export class VerificationPage implements OnInit {
     var inputstring = (`${c1}${c2}${c3}${c4}${c5}${c6}`).toString();
     this.loadingService.present();
     this.authService.checkcodePassword({code: inputstring}).subscribe((data:any)=> {
+      this.loadingService.dismiss();
       this.router.navigateByUrl("/auth-manager/new-password");
     },
     (error: any)=> {

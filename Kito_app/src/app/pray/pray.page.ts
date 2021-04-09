@@ -74,6 +74,7 @@ export class PrayPage implements OnInit {
     let url = window.location.href;
     if (url.includes('?')) {
       this.route.queryParams.subscribe(params => {
+        this.loadingService.dismiss();
         this.data = JSON.parse(params['data']);
         this.source_id = this.data.id;
       });
@@ -83,6 +84,7 @@ export class PrayPage implements OnInit {
       this.level = 'Linh';
       this.source_type = 'Parish';
       this.parishesService.getDetail(this.source_id).subscribe((data: any) => {
+        this.loadingService.dismiss();
         this.getData = data.parish;
         this.bishop_name = this.getData.priest_name;
         this.img = this.getData.thumb_image.url
@@ -92,6 +94,7 @@ export class PrayPage implements OnInit {
       this.source_type = this.data.source_type;
       this.level = 'Giám'
       this.diocesesService.getDetail(this.source_id).subscribe((data: any) => {
+        this.loadingService.dismiss();
         this.getData = data.diocese;
         this.bishop_name = this.getData.bishop_name;
         this.img = this.getData.thumb_image.url;
@@ -101,6 +104,7 @@ export class PrayPage implements OnInit {
       this.source_type = this.data.source_type;
       this.level = 'Linh'
       this.parishesService.getDetail(this.source_id).subscribe((data: any) => {
+        this.loadingService.dismiss();
         this.getData = data.parish;
         this.bishop_name = this.getData.priest_name;
         this.img = this.getData.thumb_image.url
@@ -118,8 +122,9 @@ export class PrayPage implements OnInit {
     !item?.thumb_image?.url && (item.thumb_image = { url: "https://i.imgur.com/UKNky29.jpg" });
   }
   onSubmit() {
+    this.loadingService.present();
     this.amount = this.frmPray.get('amount').value;
-    console.log(this.amount)
+    // console.log(this.amount)
     if (this.frmPray.get('amount').dirty || this.frmPray.get('amount').touched) {
       if (this.amount != undefined) {
         this.amount = this.amount.replace(/\,/g, '')
@@ -156,6 +161,7 @@ export class PrayPage implements OnInit {
     if (this.amount == 0) {
       result.pray_log['payment_type'] = 'visa_master';
       this.donateService.prayByVisa(result.pray_log).subscribe((data) => {
+        this.loadingService.dismiss();
         this.toarstService.presentSuccess();
       })
     }

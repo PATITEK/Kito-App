@@ -1,36 +1,36 @@
-<ion-content>
+<ion-content >
   <ion-item-group class="ion-text-center">
     <span class="line"></span>
   </ion-item-group>
   <ion-item-group class="body">
     <ion-buttons>
-      <h3 class="title">Chi tiết ID đơn hàng: {{ order.id }}</h3>
+      <h3 class="title">Chi tiết ID đơn hàng: {{ id }}</h3>
     </ion-buttons>
     <ion-col class="details">
-      <ion-label class="detail">• Trạng thái: {{order.status}}</ion-label>
-      <ion-label class="detail">• Ghi chú: {{order.note}}</ion-label>
-      <span class="detail">• Địa chỉ: {{order.full_address}}</span>
-      <ion-label class="detail">• Số điện thoại: {{order.phone_number_receiver}}</ion-label>
-      <ion-label class="detail">• Đã tạo lúc: {{ order.created_at.substring(0, 10) }}</ion-label>
+      <ion-label class="detail">• Trạng thái: {{order?.status}}</ion-label>
+      <ion-label class="detail">• Ghi chú: {{order?.note}}</ion-label>
+      <span class="detail">• Địa chỉ: {{order?.full_address}}</span>
+      <ion-label class="detail">• Số điện thoại: {{order?.phone_number_receiver}}</ion-label>
+      <ion-label class="detail">• Đã tạo lúc: {{ order?.created_at.substring(0, 10) }}</ion-label>
     </ion-col>
     <ion-buttons>
       <h3 class="title" style="margin-top: 20px">Tóm tắt đơn hàng: </h3>
     </ion-buttons>
     <ion-list class="food-detail-cover">
-      <ion-buttons *ngFor="let order_detail of order.order_details" class="food-detail">
-        <img src="{{order_detail?.product.thumb_image?.url}}" /> 
-        <span class="food-name">{{order_detail.product_name}}</span>
+      <ion-buttons *ngFor="let i of order?.order_details" class="food-detail">
+        <img src="{{i.product.thumb_image.url}}" /> 
+        <span class="food-name">{{i.product_name}}</span>
         <ion-buttons class="amount" lines="none">
-          <span>x   {{order_detail.amount}}</span>
+          <span>x   {{i.amount}}</span>
         </ion-buttons>
-        <span class="price">{{order_detail.product.price | number:'2.1-2'}}</span>
+        <span class="price">{{i.product.price | number:'2.1-2'}}</span>
       </ion-buttons>
     </ion-list>
     <ion-buttons class="group3-row-1">
       <ion-label class="group3-row1-total">Tổng: ({{calTotalAmount()}} mặt hàng)</ion-label>
       <ion-label class="group3-row1-prices" >{{calTotalPrice() | number:'2.1-2'}}</ion-label>
     </ion-buttons>
-    <ion-col  *ngIf = "order.status == 'pending'" >
+    <ion-col  *ngIf = "order?.status == 'pending'" >
       <ion-button (click)="cancelOrder(order.id)">Hủy đơn hàng</ion-button>
     </ion-col>
   </ion-item-group>

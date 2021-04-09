@@ -1,6 +1,7 @@
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
+import { ModalService } from 'src/app/@app-core/utils/modal.service';
 
 @Component({
   selector: 'app-complete-question',
@@ -23,8 +24,8 @@ export class CompleteQuestionPage implements OnInit {
       routerLink: 'main/catechism-class'
     }
   ]
-  constructor( private modalCtrl: ModalController,
-    
+  constructor( 
+    private modal: ModalService,
     private route:Router) { }
 
   ngOnInit() {
@@ -65,7 +66,6 @@ export class CompleteQuestionPage implements OnInit {
 
   async closeCompleteQuestion(value) {
     this.route.navigateByUrl(value);
-    await this.modalCtrl.dismiss();
+    await this.modal.dismiss(null, undefined, null);
   }
-
 }

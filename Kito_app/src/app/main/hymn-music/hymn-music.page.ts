@@ -112,6 +112,7 @@ export class HymnMusicPage implements OnInit {
 
   getSongs(func?) {
     this.hymnMusicService.getAll(this.pageRequestSongs).subscribe(data => {
+      this.loadingService.dismiss();
       this.songs = this.songs.concat(data.songs);
       this.pageRequestSongs.page++;
       func && func();
@@ -190,18 +191,21 @@ export class HymnMusicPage implements OnInit {
     if (this.checkAllSegment()) {
       if (song.favourite) {
         this.hymnMusicService.unfavorite(song.id).subscribe(() => {
+          this.loadingService.dismiss();
           song.favourite = !song.favourite;
           this.favoriteSongs = this.favoriteSongs.filter(favoriteSong => favoriteSong.id !== song.id);
         })
       } else {
         this.shuffleFavoriteSongs();
         this.hymnMusicService.favorite(song.id).subscribe(() => {
+          this.loadingService.dismiss();
           song.favourite = !song.favourite;
           this.favoriteSongs.push(song);
         });
       }
     } else {
       this.hymnMusicService.unfavorite(song.id).subscribe(() => {
+        this.loadingService.dismiss();
         this.favoriteSongs = this.favoriteSongs.filter(favoriteSong => favoriteSong.id !== song.id);
       });
     }

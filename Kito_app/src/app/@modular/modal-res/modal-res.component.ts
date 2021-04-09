@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
-import { DoctrineService, LOADING } from 'src/app/@app-core/http';
+import { DoctrineService } from 'src/app/@app-core/http';
 import { LoadingService, ToastService } from 'src/app/@app-core/utils';
+import { ModalService } from 'src/app/@app-core/utils/modal.service';
 
 @Component({
   selector: 'app-modal-res',
@@ -12,7 +12,8 @@ export class ModalResComponent implements OnInit {
 
   @Input() id: any;
   @Input() type: any;
-  constructor(private modalCtrl: ModalController,
+  constructor(
+    private modal: ModalService,
     private doctrineService: DoctrineService,
     private loadingService: LoadingService,
     private toarstService: ToastService
@@ -20,9 +21,7 @@ export class ModalResComponent implements OnInit {
 
   ngOnInit() {
   }
-  async dismissModal() {
-    await this.modalCtrl.dismiss();
-  }
+  
   register() {
     this.loadingService.present()
     let data = {
@@ -31,6 +30,7 @@ export class ModalResComponent implements OnInit {
       }
     }
     this.doctrineService.register(data).subscribe((data) => {
+      this.loadingService.dismiss();
       this.toarstService.presentSuccess();
     })
   }
@@ -42,6 +42,7 @@ export class ModalResComponent implements OnInit {
       }
     }
     this.doctrineService.unregister(data).subscribe((data) => {
+      this.loadingService.dismiss();
       this.toarstService.presentSuccess();
     })
   }
@@ -53,6 +54,6 @@ export class ModalResComponent implements OnInit {
     else{
       this.unregister();
     }
-    this.dismissModal();
+    this.modal.dismiss(null, undefined, null);
   }
 }

@@ -19,7 +19,7 @@ export class OrdersHistoryPage implements OnInit {
   lastedData: any;
   requestOrder: IPageRequest = {
     page: 1,
-    per_page: 5,
+    per_page: 100,
   }
   constructor(private orderService: OrderService,
     private modalController: ModalController,
@@ -33,21 +33,19 @@ export class OrdersHistoryPage implements OnInit {
   }
   getDataOrders(func?) {
     this.orderService.getAll(this.requestOrder).subscribe(data => {
-      console.log(data)
       this.orders = this.orders.concat(data.orders);
       this.orders.length;
       func && func();
       this.requestOrder.page++;
-      if (this.orders.length >= data.meta.pagination.total_objects) {
-        this.infiniteScroll.disabled = true;
-         console.log(this.infiniteScroll.disabled)
+      // if (this.orders.length >= data.meta.pagination.total_objects) {
+      //   this.infiniteScroll.disabled = true;
         this.orders.sort((a, b) => {
           var a_time = new Date(a.created_at);
           var b_time = new Date(b.created_at);
           return b_time.getTime() - a_time.getTime()
-        })
+        //})
        
-      }
+      })
     })
   }
   loadMoreData(event) {
@@ -62,25 +60,18 @@ export class OrdersHistoryPage implements OnInit {
       cssClass: 'event-detail-modal',
       swipeToClose: true,
       componentProps: {
-        data: {
-          order: {
-            id: order.id
-          }
-        }
+       id: order.id
       }
     });
     modal.present();
-    // modal.onWillDismiss().then(()=> {
-    //   this.reset()
-    //   this.getDataOrders();
-    //   this.infiniteScroll.disabled = false;
-    //   console.log(this.infiniteScroll.disabled)
-    // })
+    modal.onWillDismiss().then(() => {
+      this.reset();
+    })
   }
   reset() {
     console.log(1)
     this.orders = [];
-    this.infiniteScroll.disabled = false;
     this.requestOrder.page = 1;
+    this.getDataOrders();
   }
 }

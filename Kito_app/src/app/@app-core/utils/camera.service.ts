@@ -41,10 +41,10 @@ export class CameraService {
                     localStorage.setItem('avatar', image_avatar.app_user.avatar)
                     this.accountService.updateAvatar({ "thumb_image": { "url": image_avatar.app_user.avatar } }).subscribe(data => {
                     })
+                    this.loadingService.dismiss();
                     this.accountService.getAccounts().subscribe();
                     this.toastService.presentSuccess();
                 })
-            } else {
             }
         }).catch((error) => { throw error })
     }
@@ -72,6 +72,7 @@ export class CameraService {
                     localStorage.setItem('avatar', image_avatar.app_user.avatar)
                     this.accountService.updateAvatar({ "thumb_image": { "url": image_avatar.app_user.avatar } }).subscribe(data => {
                     })
+                    this.loadingService.dismiss();
                     this.accountService.getAccounts().subscribe();
                     this.toastService.presentSuccess();
                 })
@@ -126,6 +127,7 @@ export class CameraService {
             }
             this.accountService.updateAvatar(this.image_null).subscribe(
                 (data: any) => {
+                    this.loadingService.dismiss();
                     localStorage.setItem('avatar', 'https://i.imgur.com/edwXSJa.png')
                     this.toastService.presentSuccess();
                 },

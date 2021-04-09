@@ -62,6 +62,7 @@ export class MyParishPage implements OnInit {
       return;
     }
     this.popeService.getAllByParish(this.popeRequest).subscribe(data => {
+      this.loadingService.dismiss();
       this.total = data.meta.pagination.total_objects;
       !data?.pope_infos?.forEach(element => {
         // this.imgnotFound(element)

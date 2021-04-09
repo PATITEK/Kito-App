@@ -138,6 +138,7 @@ export class AccountPage implements OnInit {
     this.loadingService.present();
     let data = this.form.value;
     this.accountService.updateProfile(data).subscribe((data) => {
+      this.loadingService.dismiss();
       localStorage.setItem('fullname', data.app_user.full_name);
       this.activatedInput = false;
       this.toastService.presentSuccess();

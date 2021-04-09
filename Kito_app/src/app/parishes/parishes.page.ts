@@ -38,6 +38,7 @@ export class ParishesPage implements OnInit {
   }
   getAll() {
     this.parishesService.getAllWithDioceseId(this.pageParish).subscribe((data: any) => {
+      this.loadingService.dismiss();
       this.dataParish = data.parishes;
     });
   }

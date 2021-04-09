@@ -77,6 +77,7 @@ export const ORTHER = {
   STORE_ORTHER: "Bạn có muốn xem ở cửa hàng khác?",
   GET_ADDRESS: "Lấy địa chỉ của bạn",
   IN_STORE: "Vào cửa hàng",
+  MOMO: "Tiếp tục thanh toán qua Momo"
 
 }
 export const GAME = {
@@ -101,7 +102,8 @@ export const ALERT_MESSAGE = {
   QUESTION_CONTI: "Bạn vẫn muốn tiếp tục?",
   CONFIRM: "Xác nhận",
   QUESTION_CAN: "Bạn vẫn muốn hủy?",
-  CLOSE: "Đóng"
+  CLOSE: "Đóng",
+  NOTI: "Thông báo"
 }
 export const ALERT_PHOTO = {
   SETTING: "Cài đặt ảnh đại diện!",

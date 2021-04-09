@@ -88,6 +88,7 @@ export class PrayerTimePage implements OnInit {
 
   getEvents() {
     this.calendarService.getByWeek(new Date()).subscribe(data => {
+      this.loading.dismiss();
       for (let i = 0; i < 7; i++) {
         this.dateList[i].name = data.calendars[i].mass_name;
         this.dateList[i].color = data.calendars[i].shirt_color.color_code;

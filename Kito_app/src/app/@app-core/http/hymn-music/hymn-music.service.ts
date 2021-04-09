@@ -81,4 +81,14 @@ export class HymnMusicService {
 			}));
 	}
 
+	public getAllLectureVideo(request: IPageRequest) {
+		return this.http.get<any>(`${APICONFIG.VIDEO.GET_ALL}?${(requestQuery(request))}`).pipe(
+			map((result) => {
+				return result;
+			}),
+			catchError((errorRes: any) => {
+				throw errorRes.error;
+			})
+		)
+	}
 }

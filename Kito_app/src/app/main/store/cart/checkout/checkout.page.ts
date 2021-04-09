@@ -23,7 +23,7 @@ export class CheckoutPage implements OnInit {
     public dateTimeService: DateTimeService,
     private route: ActivatedRoute,
     private orderService: OrderService,
-    private modalCtrl: ModalController,
+    private modal: ModalController,
     private loadingService: LoadingService,
     private pageNotiService: PageNotiService,
     private router: Router,
@@ -51,7 +51,7 @@ export class CheckoutPage implements OnInit {
     return this.cart.reduce((acc, item) => acc + this.calPrice(item), 0);
   }
   async openModalSuccess() {
-    const popover = await this.modalCtrl.create({
+    const popover = await this.modal.create({
       component: ModalFoodComponent,
       cssClass: 'modalFood',
       backdropDismiss: false,
@@ -60,7 +60,7 @@ export class CheckoutPage implements OnInit {
     return await popover.present();
   }
   ionViewWillLeave() {
-    this.modalCtrl.dismiss();
+    this.modal.dismiss(null, undefined, null);
   }
   confirm() {
     this.loadingService.present();
@@ -82,6 +82,7 @@ export class CheckoutPage implements OnInit {
     }
     if (this.paymentMethod.id == 0) {
       this.orderService.create(req).subscribe((data: any) => {
+        this.loadingService.dismiss();
         this.order_id = data.order.id;
         this.pageNotiService.setdataStatusNoti(datapasing);
         this.router.navigateByUrl('/page-noti');
@@ -90,9 +91,10 @@ export class CheckoutPage implements OnInit {
     else {
       this.orderService.create(req).subscribe(
         (data: any) => {
+          this.loadingService.dismiss();
           this.order_id = data.order.id;
           this.openModalSuccess();
-          this.modalCtrl.dismiss();
+          this.modal.dismiss(null, undefined, null);
         }
       )
     }

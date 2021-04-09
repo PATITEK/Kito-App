@@ -11,7 +11,7 @@ export class GlobalErrorHandler implements ErrorHandler {
     ) { }
     handleError(error) {
         this.loadingService.dismiss();
-        // console.log(error);
+        console.log(error);
         this.toarstSerivce.presentFail(error.message, TOARST.POSITION.top, TOARST.COLOR.dark);
     }
 }

@@ -68,6 +68,7 @@ export class ChangeAvatarPage implements OnInit {
     this.loadingService.present()
     localStorage.setItem('avatar', this.activedAvatar)
     this.accoutnService.updateAvatar({ "thumb_image": { "url": this.activedAvatar } }).subscribe(data => {
+      this.loadingService.dismiss();
     })
     this.accoutnService.getAccounts().subscribe();
     this.toastService.presentSuccess();

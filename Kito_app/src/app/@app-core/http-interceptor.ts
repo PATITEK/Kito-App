@@ -30,7 +30,7 @@ export class IntercepterService implements HttpInterceptor {
       .pipe(
         map((result: any) => {
           if (result && result.status === 200) {
-            this.loading.dismiss();
+            // this.loading.dismiss();
           }
           return result;
         }),

@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService, VaticanService } from '../@app-core/http';
-import { AlertController, IonInfiniteScroll, ModalController, NavController, Platform } from '@ionic/angular';
+import { IonInfiniteScroll, NavController, Platform } from '@ionic/angular';
 import { AccountService } from '../@app-core/http/account/account.service';
 import { GeolocationService, OneSignalService, ToastService } from '../@app-core/utils';
 import { IPageVatican } from '../@app-core/http/vatican/vatican.DTO';
@@ -82,7 +82,6 @@ export class MainPage implements OnInit {
     private OneSignalService: OneSignalService,
     private accountService: AccountService,
     private authService: AuthService,
-    public modalCtrl: ModalController,
     public vaticanService: VaticanService,
     private platform: Platform,
     private toarst: ToastService,
@@ -137,31 +136,6 @@ export class MainPage implements OnInit {
     this.geolocationSerivce.getCurrentLocation();
     this.location = this.geolocationSerivce.customerLocation.address;
   }
-  // async presentAlert() {
-  //   this.alertPresented = true;
-  //   const alert = await this.alertController.create({
-  //     cssClass: 'logout-alert',
-  //     message: ORTHER.EXIT,
-  //     buttons: [
-  //       {
-  //         text: ALERT_MESSAGE.AGRRE,
-  //         handler: () => {
-  //           navigator['app'].exitApp();
-  //         }
-  //       },
-  //       {
-  //         text: ALERT_MESSAGE.CANCLE,
-          
-  //         handler: () => {
-  //           this.alertPresented = false;
-  //           return;
-  //         }
-  //       },
-  //     ]
-  //   });
-  //   await alert.present();
-  // }
-
   getVatican() {
     const pageRequest: IPageVatican = {
       page: 1,

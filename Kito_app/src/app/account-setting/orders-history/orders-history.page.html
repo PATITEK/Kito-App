@@ -21,7 +21,7 @@
         class="event"
         (click)="openOrderDetailModal(item)"
       >
-      <ion-label class="order-last" *ngIf = "i == 0 && infiniteScroll.disabled == true">Đơn hàng gần đây</ion-label>
+      <ion-label class="order-last" *ngIf = "i == 0">Đơn hàng gần đây</ion-label>
 
         <ion-buttons class="ion-align-items-start ion-justify-content-between">
           <h3 class="event-name">ID đơn hàng: {{ item.id }}</h3>
@@ -34,9 +34,9 @@
           Tạo lúc: {{ item.created_at.substring(0, 10) }}
         </span>
       </ion-item-group>
-      <ion-infinite-scroll  #infiniteScroll (ionInfinite)="loadMoreData($event)">
+      <!-- <ion-infinite-scroll  #infiniteScroll (ionInfinite)="loadMoreData($event)">
         <ion-infinite-scroll-content loadingSpinner ="lines"></ion-infinite-scroll-content>
-      </ion-infinite-scroll>
+      </ion-infinite-scroll> -->
     </ion-list>
   </ion-item-group>
 </ion-content>

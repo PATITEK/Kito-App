@@ -96,6 +96,7 @@ export class CalendarDetailComponent implements OnInit {
       this.dayDetail = tmp.getDate();
       this.pageResult.cal_date = tmp.getFullYear() + '-' + (tmp.getMonth()+1) + '-' + tmp.getDate();
       this.calemdarService.getByday(this.pageResult).subscribe((data: any) => {
+        this.loading.dismiss();
         let day = new Date(data.calendar.date);
         let tmp1 = new Date(data.calendar.lunar_date);
         let color = data.calendar.shirt_color.color_code;

@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ModalController, ToastController } from '@ionic/angular';
-import { DonateService, OrderService } from '../../@app-core/http';
-import { LoadingService, ToastService } from '../../@app-core/utils';
+import { ToastController } from '@ionic/angular';
+import { ModalService } from 'src/app/@app-core/utils/modal.service';
+import { OrderService } from '../../@app-core/http';
+import { LoadingService } from '../../@app-core/utils';
 import { IDataNoti, PageNotiService } from '../page-noti/page-noti.service';
 declare var Stripe;
 @Component({
@@ -17,7 +18,7 @@ export class PaymentupComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    public modalController: ModalController,
+    public modal: ModalService,
     public loadingService: LoadingService,
     public toastController: ToastController,
     private orderService: OrderService,
@@ -34,9 +35,7 @@ export class PaymentupComponent implements OnInit {
     }
     this.setupStripe();
   }
-  dismissModal() {
-    this.modalController.dismiss();
-  }
+ 
   setupStripe() {
     let elements = this.stripe.elements();
     var style = {
@@ -72,6 +71,7 @@ export class PaymentupComponent implements OnInit {
       this.loadingService.present();
       event.preventDefault();
       this.stripe.createSource(this.card).then(result => {
+        this.loadingService.dismiss();
         if (result.error) {
           var errorElement = document.getElementById('card-errors');
           errorElement.textContent = result.error.message;
@@ -92,7 +92,7 @@ export class PaymentupComponent implements OnInit {
             },)
           }
           else if(this.data.type_page == 'donate') {
-            console.log(this.data.donation)
+            this.loadingService.dismiss();
             this.data.donation.token = result.source.id;
             this.data.donation.payment_type = 'visa_master';
             this.router.navigate(['/payment'], {
@@ -115,27 +115,9 @@ export class PaymentupComponent implements OnInit {
               this.router.navigateByUrl('/page-noti');
             })
           }
-          this.dismissModal();
+          this.modal.dismiss(null, undefined, null);
         }
       });
-
     });
   }
-  async presentToastValid(message, color) {
-    const toast = await this.toastController.create({
-      message: message,
-      duration: 1500,
-      color: color,
-    });
-    toast.present();
-  }
-  async presentToast(message, color) {
-    const toast = await this.toastController.create({
-      message: message,
-      duration: 1000,
-      color: color,
-    });
-    toast.present();
-  }
-
 }

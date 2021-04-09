@@ -53,9 +53,6 @@ export class MapPage implements OnInit {
     this.initMap();
   }
 
-  ngAfterViewInit() {
-  }
-
   initMap(): void {
     this.map = new google.maps.Map(document.getElementById("map") as HTMLElement, {
       center: this.center,

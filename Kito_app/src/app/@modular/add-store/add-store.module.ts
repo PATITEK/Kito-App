@@ -11,6 +11,6 @@ import { AddStoreComponent } from './add-store.component';
     CommonModule,
     IonicModule
   ],
-  exports: [AddStoreComponent]
+  exports: [AddStoreComponent],
 })
 export class AddStoreModule { }

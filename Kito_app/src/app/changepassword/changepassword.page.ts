@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 import { AuthService } from 'src/app/@app-core/http';
 import { LoadingService, ToastService } from 'src/app/@app-core/utils';
+import { ModalService } from '../@app-core/utils/modal.service';
 import { IDataNoti, PageNotiService } from '../@modular/page-noti/page-noti.service';
 
 @Component({
@@ -22,7 +23,7 @@ export class ChangepasswordPage implements OnInit {
     private pageNotiService: PageNotiService,
     private router: Router,
     private loadService: LoadingService,
-    private passwordModal: ModalController,
+    private modal: ModalService,
     private authService: AuthService) {
     this.formSubmit = this.formBuilder.group({
       passwordcurrent: new FormControl('', Validators.required),
@@ -32,16 +33,6 @@ export class ChangepasswordPage implements OnInit {
   }
 
   ngOnInit() {
-  }
-  async openModal(ev: any) {
-    const popover = await this.passwordModal.create({
-      component: ChangepasswordPage,
-      cssClass: 'modalPassword',
-    });
-    return await popover.present();
-  }
-  dismissModal() {
-    this.passwordModal.dismiss();
   }
   onSubmit() {
     const cp = this.formSubmit.value.passwordcurrent;
@@ -68,7 +59,7 @@ export class ChangepasswordPage implements OnInit {
         "new_password": pn,
         "new_password_confirmation": pc
       }
-      this.dismissModal()
+      this.modal.dismiss(null, undefined, null)
       this.loadService.present()
       this.authService.resetPassword(ps).subscribe(data => {
         this.pageNotiService.setdataStatusNoti(datapasing);
@@ -76,8 +67,5 @@ export class ChangepasswordPage implements OnInit {
         this.loadService.dismiss();
       })
     }
-  }
-  async closeModalPassword() {
-    this.passwordModal.dismiss();
   }
 }

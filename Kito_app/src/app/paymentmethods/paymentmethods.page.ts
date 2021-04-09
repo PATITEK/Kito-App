@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { AlertController, ModalController } from '@ionic/angular';
 import { DonateService, OrderService } from '../@app-core/http';
-import { LoadingService, ToastService } from '../@app-core/utils';
+import { LoadingService } from '../@app-core/utils';
 import { PaymentupComponent } from '../@modular/paymentup/paymentup.component';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
-import { WAITING } from '../@app-core/http/@http-config/messages'
+import { WAITING, ALERT_MESSAGE, ORTHER } from '../@app-core/http/@http-config/messages'
 @Component({
   selector: 'app-paymentmethods',
   templateUrl: './paymentmethods.page.html',
@@ -18,14 +18,12 @@ export class PaymentmethodsPage implements OnInit {
   headerCustom = { title: 'Phương thức thanh toán', background: '#fff' }
   constructor(
     private route: ActivatedRoute,
-    private router: Router,
     public modalController: ModalController,
     private alert: AlertController,
     private orderService: OrderService,
     private loading: LoadingService,
     private iab: InAppBrowser,
     private donateService: DonateService,
-    private toart: ToastService,
 
   ) { }
 
@@ -77,7 +75,6 @@ export class PaymentmethodsPage implements OnInit {
         }
       }
       this.loading.present(WAITING.WAIT);
-      console.log(orderParam)
       this.orderService.paymentOrder_Momo(orderParam).subscribe((data) => {
         this.openMomoPopUp();
       })
@@ -103,6 +100,6 @@ export class PaymentmethodsPage implements OnInit {
   }
   openMomoPopUp() {
     this.loading.dismiss();
-    this.presentAlertMoMo('Thông báo', 'Bắt đầu thanh toán qua momo');
+    this.presentAlertMoMo(ALERT_MESSAGE.NOTI, ORTHER.MOMO);
   }
 }

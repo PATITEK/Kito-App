@@ -23,6 +23,7 @@ export class ForgotPasswordPage implements OnInit {
   goToVerification() {
       this.loadingService.present();
       this.authService.forgotPassword({email: this.email.email}).subscribe((data) => {
+        this.loadingService.dismiss();
         this.toastService.presentSuccess(ORTHER.CHECK);
         this.router.navigateByUrl('auth-manager/verification');
       })

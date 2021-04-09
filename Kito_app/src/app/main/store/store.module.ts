@@ -9,6 +9,7 @@ import { StorePageRoutingModule } from './store-routing.module';
 import { StorePage } from './store.page';
 import { HeaderModule } from 'src/app/@modular/header/header.module';
 import { SearchBarNavModule } from 'src/app/@modular/search-bar-nav/search-bar-nav.module';
+import { ModalService } from 'src/app/@app-core/utils/modal.service';
 
 @NgModule({
   imports: [
@@ -18,6 +19,9 @@ import { SearchBarNavModule } from 'src/app/@modular/search-bar-nav/search-bar-n
     StorePageRoutingModule,
     HeaderModule,
     SearchBarNavModule
+  ],
+  providers: [
+    ModalService
   ],
   declarations: [StorePage]
 })

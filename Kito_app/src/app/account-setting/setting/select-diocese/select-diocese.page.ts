@@ -79,6 +79,7 @@ export class SelectDiocesePage implements OnInit {
         if (prevDioceseId !== item.id) {
           this.loadingService.present();
           this.accountService.updateProfile({ diocese_id: item.id }).subscribe(() => {
+            this.loadingService.dismiss();
             this.parishService.getAllWithDioceseId({ page: 1, per_page: 1, diocese_id: item.id }).subscribe(
               data => {
                 const parish = data.parishes[0];
@@ -107,6 +108,7 @@ export class SelectDiocesePage implements OnInit {
           this.loadingService.present();
           this.accountService.updateProfile({ parish_id: item.id }).subscribe(
             () => {
+              this.loadingService.dismiss();
               this.setItem(item, 'parish_id');
               this.goBack();
             })
