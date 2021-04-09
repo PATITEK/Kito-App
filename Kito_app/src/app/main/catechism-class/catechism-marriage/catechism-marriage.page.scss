@@ -91,16 +91,15 @@ ion-content {
           box-shadow: none;
 
           &:active {
-            transform: translate(-50%, 50%) scale(1);
+            transform: translate(-50%, 50%) scale(0.95);
           }
         }
         &--success {
           background: #10e008;
           border-color: #10e008;
-          box-shadow: none;
 
           &:active {
-            transform: translate(-50%, 50%) scale(1);
+            transform: translate(-50%, 50%) scale(0.95);
           }
         }
       }

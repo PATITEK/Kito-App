@@ -14,7 +14,7 @@ import { IDataNoti, PageNotiService } from 'src/app/@modular/page-noti/page-noti
 export class CheckoutPage implements OnInit {
   headerCustom = { title: 'Kiểm tra đơn hàng' };
   cart = [];
-  location = '';
+  address = '';
   shipCost = 5000;
   paymentMethod;
   phone;
@@ -40,7 +40,7 @@ export class CheckoutPage implements OnInit {
 
   getCart() {
     this.cart = JSON.parse(localStorage.getItem('cart')) || [];
-    this.location = localStorage.getItem('location');
+    this.address = localStorage.getItem('address');
   }
 
   calPrice(item) {
@@ -69,7 +69,7 @@ export class CheckoutPage implements OnInit {
         lat: localStorage.getItem('lat'),
         lng: localStorage.getItem('lng'),
         note: null,
-        full_address: this.location,
+        full_address: this.address,
         parish_id: localStorage.getItem('tempParishId'),
         phone_number_receiver: localStorage.getItem('phone_temp'),
         order_details_attributes: this.cart.map(item => ({ product_id: item.id, amount: item.amount }))

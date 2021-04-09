@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService, VaticanService } from '../@app-core/http';
-import { AlertController, IonInfiniteScroll, ModalController, NavController, Platform, ToastController } from '@ionic/angular';
+import { AlertController, IonInfiniteScroll, ModalController, NavController, Platform } from '@ionic/angular';
 import { AccountService } from '../@app-core/http/account/account.service';
 import { GeolocationService, LoadingService, OneSignalService, ToastService } from '../@app-core/utils';
 import { IPageVatican } from '../@app-core/http/vatican/vatican.DTO';
@@ -78,6 +78,7 @@ export class MainPage implements OnInit {
   location;
   public alertPresented = false;
   count = 0;
+  interval: any;
   constructor(
     private router: Router,
     private OneSignalService: OneSignalService,
@@ -94,6 +95,7 @@ export class MainPage implements OnInit {
   ) { }
 
   ionViewWillEnter() {
+    clearInterval(this.interval);
     this.name = localStorage.getItem('fullname');
     this.accountService.getAccounts().subscribe(data => {
       this.name = data.app_user.full_name;
@@ -113,21 +115,24 @@ export class MainPage implements OnInit {
       }
     })
   }
+  ionViewDidEnter() {
+    this.continuousTakeLocation();
+  }
   ngOnInit() {
     this.loading.present();
     this.OneSignalService.startOneSignal();
     this.getVatican();
     this.reTakeLocation();
-    this.subscribe = this.platform.backButton.subscribeWithPriority(99999,()=>{
-      if(this.router.url === '/main') {
+    this.subscribe = this.platform.backButton.subscribeWithPriority(99999, () => {
+      if (this.router.url === '/main') {
         this.count++;
-        if(this.count == 1) {
-          this.toarst.present('Nhấn lần nữa để thoát!','bottom', 1000,'dark');
+        if (this.count == 1) {
+          this.toarst.present('Nhấn lần nữa để thoát!', 'bottom', 1000, 'dark');
         }
         else {
-            navigator['app'].exitApp();
+          navigator['app'].exitApp();
         }
-         setTimeout(()=> {
+        setTimeout(() => {
           this.count = 0;
         }, 2000);
       }
@@ -136,7 +141,27 @@ export class MainPage implements OnInit {
       }
     })
   }
- 
+
+  continuousTakeLocation() {
+    let i = 0;
+    this.interval = setInterval(() => {
+      this.geolocationSerivce.getCurrentLocationNon();
+      localStorage.setItem('location', JSON.stringify(
+        {
+          lat: this.geolocationSerivce.centerService.lat,
+          lng: this.geolocationSerivce.centerService.lng
+        }))
+        i++;
+        if(i == 9) {
+          clearInterval(this.interval);
+          this.continuousTakeLocation();
+        }
+        if(i == 299) {
+          console.clear();
+        }
+    }, 1000);
+  }
+
   reTakeLocation() {
     this.geolocationSerivce.getCurrentLocation();
     this.location = this.geolocationSerivce.customerLocation.address;
@@ -155,7 +180,7 @@ export class MainPage implements OnInit {
         },
         {
           text: 'Hủy',
-          
+
           handler: () => {
             this.alertPresented = false;
             return;
@@ -177,7 +202,7 @@ export class MainPage implements OnInit {
       this.vaticanList.items = data.vatican_news;
     })
   }
-  
+
   goToDetail(item) {
     if (item.desUrl == 'donate') {
       const data = {
