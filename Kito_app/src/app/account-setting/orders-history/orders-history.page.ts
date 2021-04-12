@@ -64,13 +64,8 @@ export class OrdersHistoryPage implements OnInit {
       }
     });
     modal.present();
-    modal.onWillDismiss().then(() => {
-      this.reset();
+    modal.onDidDismiss().then(() => {
+      this.ngOnInit();
     })
-  }
-  reset() {
-    this.orders = [];
-    this.requestOrder.page = 1;
-    this.getDataOrders();
   }
 }

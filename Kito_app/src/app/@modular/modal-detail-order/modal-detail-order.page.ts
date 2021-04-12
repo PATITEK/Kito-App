@@ -9,10 +9,10 @@ import { AlertController } from '@ionic/angular';
   styleUrls: ['./modal-detail-order.page.scss'],
 })
 export class ModalDetailOrderPage implements OnInit {
-  @Input() data;
+  @Input() id;
 
   setOrderItemId() {
-    localStorage.setItem('orderItemId', this.data.order.id);
+    localStorage.setItem('orderItemId', this.id);
   }
 
   order = {
@@ -36,12 +36,12 @@ export class ModalDetailOrderPage implements OnInit {
     private dateTimeService: DateTimeService,
     public modalController: ModalController,
     private loadingService: LoadingService,
-    private alertController: AlertController
+    private alertController: AlertController,
   ) { }
 
   ngOnInit() {
     this.loadingService.present();
-    this.getData(this.data.order.id);
+    this.getData(this.id);
   }
 
   getDayString() {
@@ -92,8 +92,10 @@ export class ModalDetailOrderPage implements OnInit {
     this.loadingService.present();
     this.order.status = 'failed';
     this.orderService.delete(id).subscribe(data => {
+      this.modalController.dismiss();
       this.loadingService.dismiss();
       this.isCanceled = 'Đã hủy đơn hàng';
+
     })
   }
 

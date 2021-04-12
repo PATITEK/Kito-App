@@ -15,7 +15,7 @@ export class ToastService {
       mode: 'ios',
       message: message,
       duration: duration || 1000,
-      position: position == null ? 'top' : position,
+      position: position ||'top',
       cssClass: 'toast-css',
       color: color,
     });
