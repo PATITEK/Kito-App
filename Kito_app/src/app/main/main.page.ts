@@ -122,7 +122,7 @@ export class MainPage implements OnInit {
       if(this.router.url === '/main') {
         this.count++;
         if(this.count == 1) {
-          this.toarst.present('Nhấn lần nữa để thoát!','bottom', 1000,'dark');
+          this.toarst.presentSuccess('Nhấn lần nữa để thoát!');
         }
         else {
             navigator['app'].exitApp();

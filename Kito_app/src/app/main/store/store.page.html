@@ -56,7 +56,9 @@
         </ion-buttons>
       </div>
     </ion-buttons>
-
+    <ion-list *ngIf="!list.length && notFound" class="not-found">
+      Không tìm thấy
+    </ion-list>
     <ion-infinite-scroll #infiniteScroll (ionInfinite)="loadMoreProducts($event)">
       <ion-infinite-scroll-content loadingSpinner="lines"></ion-infinite-scroll-content>
     </ion-infinite-scroll>

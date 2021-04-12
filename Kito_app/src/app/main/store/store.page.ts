@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController, IonContent, IonInfiniteScroll, ModalController } from '@ionic/angular';
 import { IPageCategory, IPageProduct, StoreService } from 'src/app/@app-core/http';
-import { DateTimeService } from 'src/app/@app-core/utils';
+import { DateTimeService, LoadingService } from 'src/app/@app-core/utils';
 import { AddStoreComponent } from 'src/app/@modular/add-store/add-store.component';
 
 @Component({
@@ -20,7 +20,7 @@ export class StorePage implements OnInit {
   hasSetting = false;
   categories = [];
   currentCategoryId = null;
-
+  notFound = false;
   sortType = {
     newest: 'newest',
     topSeller: 'top-seller',
@@ -45,7 +45,8 @@ export class StorePage implements OnInit {
     private router: Router,
     private modalController: ModalController,
     private storeService: StoreService,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private loadingService: LoadingService
   ) { }
 
   ngOnInit() {
@@ -70,9 +71,12 @@ export class StorePage implements OnInit {
   }
 
   getProducts(event?) {
+    this.notFound = false;
     this.pageRequestProducts.category_id = this.currentCategoryId;
     const tempCategoryId = this.currentCategoryId;
     this.storeService.getAllProducts(this.pageRequestProducts).subscribe(data => {
+      this.notFound = true;
+      this.loadingService.dismiss();
       if (tempCategoryId !== this.currentCategoryId) {
         return;
       }
@@ -94,7 +98,7 @@ export class StorePage implements OnInit {
       }
     })
   }
-
+  
   getCategories() {
     this.storeService.getAllCategories(this.pageRequestCategories).subscribe(data => {
       this.categories = data.categories;
@@ -194,6 +198,7 @@ export class StorePage implements OnInit {
   }
 
   sort(sortType = this.sortType.newest) {
+    this.loadingService.present();
     this.setHasSetting(false);
     this.pageRequestProducts.sort = sortType;
     this.reset();

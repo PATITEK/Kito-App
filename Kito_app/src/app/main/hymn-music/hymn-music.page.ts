@@ -19,7 +19,7 @@ export class HymnMusicPage implements OnInit {
   segmentValue = 'all';
 
   songs = [];
-  favoriteSongs: any[];
+  favoriteSongs = [];
   shuffledSongs = [];
   shuffledFavoriteSongs = [];
 
@@ -32,6 +32,7 @@ export class HymnMusicPage implements OnInit {
   hDisplay: any;
   mDisplay: any;
   mixed = false;
+  notFound = false;
   REPEATING_TYPE = {
     NONE: 0,
     REPEAT_ONE: 1,
@@ -40,14 +41,14 @@ export class HymnMusicPage implements OnInit {
   repeatingType = this.REPEATING_TYPE.REPEAT_ALL;
   pageRequestSongs: IPageRequest = {
     page: 1,
-    per_page: 20,
+    per_page: 16,
   }
   pageRequestFavoriteSongs: IPageRequest = {
     page: 1,
   }
 
   loadedSong = false;
-
+  notFoundSong = false;
   constructor(
     private hymnMusicService: HymnMusicService,
     private loadingService: LoadingService
@@ -68,12 +69,16 @@ export class HymnMusicPage implements OnInit {
     }
     else if (!value) {
       delete this.pageRequestSongs.search;
+      delete this.pageRequestFavoriteSongs.search
     }
     else {
       this.pageRequestSongs.search = value;
+      this.pageRequestFavoriteSongs.search = value;
     }
     this.pageRequestSongs.page = 1;
+    this.pageRequestFavoriteSongs.page = 1;
     this.songs = [];
+    this.favoriteSongs = [];
     this.getData();
     this.infinityScroll.disabled = false;
     this.ionContent.scrollToTop(0);
@@ -111,7 +116,9 @@ export class HymnMusicPage implements OnInit {
   }
 
   getSongs(func?) {
+    this.notFound = false;
     this.hymnMusicService.getAll(this.pageRequestSongs).subscribe(data => {
+      this.notFound = true;
       this.songs = this.songs.concat(data.songs);
       this.pageRequestSongs.page++;
       func && func();
@@ -125,7 +132,9 @@ export class HymnMusicPage implements OnInit {
   }
 
   getFavoriteSongs() {
+    this.notFoundSong = false;
     this.hymnMusicService.getAllFavorite(this.pageRequestFavoriteSongs).subscribe(data => {
+      this.notFoundSong = true;
       this.favoriteSongs = this.songs.concat(data.songs);
       this.shuffleFavoriteSongs();
     })

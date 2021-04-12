@@ -143,7 +143,7 @@ export class AccountPage implements OnInit {
       localStorage.setItem('fullname', data.app_user.full_name);
       this.activatedInput = false;
       this.loadingService.dismiss();
-      this.toastService.present('Cập nhật thành công !', 'top', 2000, 'dark');
+      this.toastService.presentSuccess('Cập nhật thành công !');
     });
   }
 

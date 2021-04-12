@@ -130,7 +130,6 @@ export class PrayPage implements OnInit {
   }
   onSubmit() {
     this.amount = this.frmPray.get('amount').value;
-    // console.log(this.amount)
     if (this.frmPray.get('amount').dirty || this.frmPray.get('amount').touched) {
       if (this.amount != undefined) {
         this.amount = this.amount.replace(/\,/g, '')
@@ -164,12 +163,10 @@ export class PrayPage implements OnInit {
       },
       type_page: 'pray'
     }
-    // console.log(this.amount)
     if (this.amount == 0) {
       
       result.pray_log['payment_type'] = 'visa_master';
       this.donateService.prayByVisa(result.pray_log).subscribe((data) => {
-        // console.log(data)
         this.presentToast('Xin lễ thành công!');
       })
     }

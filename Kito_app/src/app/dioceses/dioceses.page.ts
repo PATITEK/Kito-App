@@ -14,23 +14,24 @@ import { ModalDonateComponent } from '../@modular/modal-donate/modal-donate.comp
   styleUrls: ['./dioceses.page.scss'],
 })
 export class DiocesesPage implements OnInit {
-  headerCustom =  {title: 'Chọn giáo phận'};
+  headerCustom = { title: 'Chọn giáo phận' };
   dataDiocese: any = [];
   canDiocese = true;
   id;
   type_page;
-  pageResult:IPageRequest = {
+  pageResult: IPageRequest = {
     page: 1,
     per_page: 1000,
   }
   data;
+  notFound = false;
   constructor(
     private modalCtrl: ModalController,
     private diocesesService: DioceseService,
     private route: ActivatedRoute,
     private loadingService: LoadingService
-    ) { }
-    ngOnInit() { 
+  ) { }
+  ngOnInit() {
     this.loadingService.present();
     let url = window.location.href;
     if (url.includes('?')) {
@@ -41,26 +42,28 @@ export class DiocesesPage implements OnInit {
     }
     this.getAll();
   }
-  
-  getAll(){
-      this.diocesesService.getAll(this.pageResult).subscribe((data: any) => {
-        this.loadingService.dismiss()
-        this.dataDiocese = data.dioceses;
-        this.pageResult.total_objects = data.meta.pagination.total_objects || 1;
-      });
+
+  getAll() {
+    this.notFound = false;
+    this.diocesesService.getAll(this.pageResult).subscribe((data: any) => {
+      this.notFound = true;
+      this.loadingService.dismiss()
+      this.dataDiocese = data.dioceses;
+      this.pageResult.total_objects = data.meta.pagination.total_objects || 1;
+    });
+  }
+  search(value: string) {
+    if (typeof value != 'string') {
+      return;
     }
-    search(value: string) {
-      if (typeof value != 'string') {
-        return;
-      }
-      else if (!value) {
-        delete this.pageResult.search;
-      }
-      else {
-        this.pageResult.search = value;
-      }
-      this.pageResult.page = 1;
-      this.dataDiocese  = [];
-      this.getAll();
+    else if (!value) {
+      delete this.pageResult.search;
     }
+    else {
+      this.pageResult.search = value;
+    }
+    this.pageResult.page = 1;
+    this.dataDiocese = [];
+    this.getAll();
+  }
 }

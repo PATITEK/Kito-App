@@ -29,13 +29,7 @@ export class DonatePage implements OnInit {
   level;
   data;
   frmDonate: FormGroup;
-  error_messages = {
-    'amount': [
-      {
-        type: 'require', message: 'This field must have a value!'
-      }
-    ],
-  }
+ 
   dataParams;
   pageResult: IPageRequest = {
     page: 1,
@@ -121,12 +115,10 @@ export class DonatePage implements OnInit {
     else return `url(${this.img})`
   }
   callChangeDot() {
-  
     let data=this.frmDonate.get('amount').value;
     data = data.replace(/[^0-9]/gm, '');
     data = data.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
     this.frmDonate.controls['amount'].setValue(data);
-
   }
   
   onSubmit() {

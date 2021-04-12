@@ -77,13 +77,12 @@ export class PaymentmethodsPage implements OnInit {
         }
       }
       this.loading.present('Vui lòng chờ...');
-      // console.log(orderParam)
       this.orderService.paymentOrder_Momo(orderParam).subscribe((data) => {
         this.openMomoPopUp();
       },
         () => {
           this.loading.dismiss();
-          this.toart.present('Hãy thử lại sau', 'top', 2000, 'dark')
+          this.toart.presentSuccess('Hãy thử lại sau')
         })
     }
     else if(this.dataParam.type_page == 'pray') {
@@ -96,7 +95,7 @@ export class PaymentmethodsPage implements OnInit {
       },
         () => {
           this.loading.dismiss();
-          this.toart.present('Hãy thử lại sau', 'top', 2000, 'dark');
+          this.toart.presentSuccess('Hãy thử lại sau');
         })
     }
     else if(this.dataParam.type_page == 'donate'){
@@ -109,7 +108,7 @@ export class PaymentmethodsPage implements OnInit {
       },
         () => {
           this.loading.dismiss();
-          this.toart.present('Hãy thử lại sau', 'top', 2000, 'dark');
+          this.toart.presentSuccess('Hãy thử lại sau');
         })
     }
   }

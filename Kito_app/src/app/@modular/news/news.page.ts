@@ -39,6 +39,7 @@ export class NewsPage implements OnInit {
   idActive;
   displayCate = false;
   toggle = true;
+  notFound = false;
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -86,11 +87,13 @@ export class NewsPage implements OnInit {
   }
 
   getData(func?) {
+    this.notFound = false;
     if (this.dataParams.id) {
       switch (this.dataParams.type.detail) {
         case 'dioceseNews':
           this.headerCustom.title = 'Tin tức Giáo phận';
           this.dioceseNewsService.getAll(this.pageRequestDioceseNews).subscribe(data => {
+            this.notFound = true;
             this.loading.dismiss();
             data.diocese_news.forEach(element => {
               element.type = this.dataParams.type;
@@ -109,6 +112,7 @@ export class NewsPage implements OnInit {
           this.newsParish = true;
           this.headerCustom.title = 'Tin tức Giáo xứ ';
           this.parishesService.getAllNewsByParish(this.pageRequestParish).subscribe(data => {
+            this.notFound = true;
             this.loading.dismiss();
             data.parish_news.forEach(element => {
               element.type = this.dataParams.type;
@@ -130,6 +134,7 @@ export class NewsPage implements OnInit {
         case 'vatican':
           this.vatican = true;
           this.vaticanService.getAll(this.pageRequestVatican).subscribe(data => {
+            this.notFound = true;
             this.loading.dismiss();
             data.vatican_news.forEach(element => {
               element.type = this.dataParams.type
