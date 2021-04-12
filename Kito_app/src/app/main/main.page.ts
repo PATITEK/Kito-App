@@ -75,9 +75,9 @@ export class MainPage implements OnInit {
     type: { general: 'news', detail: 'vatican' }
   }
   subscribe: any;
-  location;
   public alertPresented = false;
   count = 0;
+  interval: any;
   constructor(
     private router: Router,
     private OneSignalService: OneSignalService,
@@ -94,6 +94,8 @@ export class MainPage implements OnInit {
   ) { }
 
   ionViewWillEnter() {
+    clearInterval(this.interval);
+    this.reTakeLocation();
     this.name = localStorage.getItem('fullname');
     this.accountService.getAccounts().subscribe(data => {
       this.name = data.app_user.full_name;
@@ -117,17 +119,16 @@ export class MainPage implements OnInit {
     this.loading.present();
     this.OneSignalService.startOneSignal();
     this.getVatican();
-    this.reTakeLocation();
-    this.subscribe = this.platform.backButton.subscribeWithPriority(99999,()=>{
-      if(this.router.url === '/main') {
+    this.subscribe = this.platform.backButton.subscribeWithPriority(99999, () => {
+      if (this.router.url === '/main') {
         this.count++;
-        if(this.count == 1) {
-          this.toarst.present('Nhấn lần nữa để thoát!','bottom', 1000,'dark');
+        if (this.count == 1) {
+          this.toarst.present('Nhấn lần nữa để thoát!', 'bottom', 1000, 'dark');
         }
         else {
-            navigator['app'].exitApp();
+          navigator['app'].exitApp();
         }
-         setTimeout(()=> {
+        setTimeout(() => {
           this.count = 0;
         }, 2000);
       }
@@ -136,10 +137,20 @@ export class MainPage implements OnInit {
       }
     })
   }
- 
+
   reTakeLocation() {
-    this.geolocationSerivce.getCurrentLocation();
-    this.location = this.geolocationSerivce.customerLocation.address;
+    let i = 0;
+    this.interval = setInterval(() => {
+      this.geolocationSerivce.getCurrentLocationNoLoading();
+      localStorage.setItem('address', this.geolocationSerivce.customerLocation.address);
+      localStorage.setItem('lat', this.geolocationSerivce.centerService.lat.toString());
+      localStorage.setItem('lng', this.geolocationSerivce.centerService.lng.toString());
+      if (i == 299) {
+        i = 0;
+        console.clear();
+      }
+      i++;
+    }, 1000)
   }
   async presentAlert() {
     this.alertPresented = true;
@@ -155,7 +166,7 @@ export class MainPage implements OnInit {
         },
         {
           text: 'Hủy',
-          
+
           handler: () => {
             this.alertPresented = false;
             return;
@@ -177,7 +188,7 @@ export class MainPage implements OnInit {
       this.vaticanList.items = data.vatican_news;
     })
   }
-  
+
   goToDetail(item) {
     if (item.desUrl == 'donate') {
       const data = {
