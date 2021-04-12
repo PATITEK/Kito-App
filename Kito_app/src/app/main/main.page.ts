@@ -169,7 +169,8 @@ export class MainPage implements OnInit {
   getVatican() {
     const pageRequest: IPageVatican = {
       page: 1,
-      per_page: 4
+      per_page: 4,
+      category_id: 2
     }
     this.vaticanService.getAll(pageRequest).subscribe(data => {
       this.loading.dismiss();
