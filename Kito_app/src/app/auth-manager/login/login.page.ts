@@ -84,7 +84,6 @@ export class LoginPage implements OnInit {
     public toastController: ToastController,
     private formBuilder: FormBuilder,
     private toastService: ToastService,
-    private loadingService: LoadingService,
     private diocese: DioceseService,
     private oneSignal: OneSignalService,
     private parishes: ParishesService
@@ -205,7 +204,7 @@ export class LoginPage implements OnInit {
       this.markFormGroupTouched(this.formSignUp);
     } else if (!this.checkMatchConfirmedPassword()) {
       this.showSpinner = false;
-      this.toastService.present('Confirmed password not match', 'top', 2000, 'dark');
+      this.toastService.presentSuccess('Mật khẩu không trùng khớp');
     } else {
       let data = this.formSignUp.value;
       data.phone_number = '+84' + data.phone_number;
@@ -221,9 +220,7 @@ export class LoginPage implements OnInit {
         "parish_id": data.parish_id
       }
       this.authService.signup(submitData).subscribe(
-        (data) => {
-          // console.log(data)
-        },
+        () => {},
         (error: any) => {
           this.showSpinner = false;
           throw error;

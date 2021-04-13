@@ -20,7 +20,7 @@ export class HymnVideoPage implements OnInit {
     per_page: 4,
   }
   videos = [];
-
+  notFound = false;
   constructor(
     public navCtrl: NavController,
     private domSanitizer: DomSanitizer,
@@ -34,30 +34,24 @@ export class HymnVideoPage implements OnInit {
   }
 
   getVideos(func?) {
+    this.notFound = false;
     this.hymnVideoService.getAllLectureVideo(this.pageRequestVideos).subscribe(data => {
+      this.notFound = true;
       this.videos = this.videos.concat(data.lecture_videos)
       this.pageRequestVideos.page++;
       func && func();
       if (this.videos.length >= data.meta.pagination.total_objects) {
         this.infinityScroll.disabled = true;
       }
-      let tempVideos = this.videos.slice(this.videos.length - 4, this.videos.length);
-      for (let video of tempVideos) {
-        this.trustedVideoUrlArray.push({
-          id: video.id,
-          trustLink: this.domSanitizer.bypassSecurityTrustResourceUrl(video.url.replace('watch?v=', 'embed/')),
-          title: video.name,
-
-          // avatar: 'https://hdgmvietnam.com/Admin/Upload/Image/peter-and-paul-st.jpg',
-          // sub_title: 'Giáo Hội Công Giáo',
-          // views: '1000',
-          // time: '17:15  03.02.2021'
-        })
-      }
-      setTimeout(() => {
-        this.LoadingService.dismiss();
-      }, 500)
+      this.videos.forEach((e) => {
+        e.trustLink = this.domSanitizer.bypassSecurityTrustResourceUrl(e.url.replace('watch?v=', 'embed/'))
+      })
+    setTimeout(()=> {
+      this.LoadingService.dismiss();
+    }, 1500)  
     })
+
+
   }
 
   loadMoreVideos(event) {
@@ -78,8 +72,8 @@ export class HymnVideoPage implements OnInit {
     }
     this.pageRequestVideos.page = 1;
     this.videos = [];
+    this.trustedVideoUrlArray = [];
     this.getVideos();
     this.infinityScroll.disabled = false;
-    this.ionContent.scrollToTop(0);
   }
 }

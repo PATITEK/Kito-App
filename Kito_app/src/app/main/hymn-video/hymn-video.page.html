@@ -1,18 +1,16 @@
 <ion-header>
   <app-header [headerCustom]="headerCustom"></app-header>
 </ion-header>
-
-<ion-content *ngIf="trustedVideoUrlArray.length" [ngClass]="{'disable-scroll': !videos.length}">
+<ion-content >
   <app-search-bar-nav (output)="search($event)"></app-search-bar-nav>
-
-  <div class="main-news" *ngFor="let i of trustedVideoUrlArray">
+  <div class="main-news" *ngFor="let i of videos">
     <iframe class="main-watch" [src]="i.trustLink" frameborder="0" allowfullscreen></iframe>
     <ion-buttons class="text-box">
       <!-- <ion-avatar>
         <img src="{{ i.avatar }}" />
       </ion-avatar> -->
       <ion-col>
-        <p class="item-title three-dots-2">{{ i.title }}</p>
+        <p class="item-title three-dots-2">{{ i.name }}</p>
         <!-- <p class="item-title-bottom three-dots-2">{{ i.sub_title }}</p> -->
       </ion-col>
       <!-- <ion-buttons class="right-box text">
@@ -27,7 +25,10 @@
       </ion-buttons> -->
     </ion-buttons>
   </div>
-  <ion-infinite-scroll #infiniteScrollSongs (ionInfinite)="loadMoreVideos($event)">
+  <div *ngIf="!videos.length && notFound"class="not-found">
+    Không tìm thấy
+  </div>
+  <ion-infinite-scroll #infiniteScrollVideos (ionInfinite)="loadMoreVideos($event)">
     <ion-infinite-scroll-content loadingSpinner="lines"></ion-infinite-scroll-content>
   </ion-infinite-scroll>
 </ion-content>

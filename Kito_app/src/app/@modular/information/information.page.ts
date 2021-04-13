@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { IonInfiniteScroll } from '@ionic/angular';
 import { BishopService, IPageRequest, ParishesService, PopeService } from 'src/app/@app-core/http';
 import { IPageParishes } from 'src/app/@app-core/http/parishes/parishes.DTO';
+import { LoadingService } from 'src/app/@app-core/utils';
 
 @Component({
   selector: 'app-information',
@@ -29,24 +30,29 @@ export class InformationPage implements OnInit {
     diocese_id: null
   }
   dataParams = null;
-
+  notFound = false;
   constructor(
     private route: ActivatedRoute,
     private popeService: PopeService,
     private router: Router,
     private parishService: ParishesService,
-    private bishopService: BishopService
+    private bishopService: BishopService,
+    private loadingService: LoadingService
   ) { }
 
   ngOnInit() {
+    this.loadingService.present();
     this.getParams();
   }
 
   getData(func?) {
+    this.notFound = false;
     if (this.dataParams.id) {
       switch (this.dataParams.type.detail) {
         case 'parish':
           this.parishService.getAllWithDioceseId(this.pageRequestParish).subscribe(data => {
+            this.notFound = true;
+            this.loadingService.dismiss();
             data.parishes.forEach(v => v.type = this.dataParams.type);
             this.list = this.list.concat(data.parishes);
             func && func();
@@ -58,6 +64,8 @@ export class InformationPage implements OnInit {
           break;
         case 'bishop':
           this.bishopService.getAll(this.pageRequestBishop).subscribe(data => {
+            this.notFound = true;
+            this.loadingService.dismiss();
             data.bishop_infos.forEach(v => v.type = this.dataParams.type);
             this.list = this.list.concat(data.bishop_infos);
             func && func();
@@ -72,6 +80,8 @@ export class InformationPage implements OnInit {
       switch (this.dataParams.type.detail) {
         case 'pope':
           this.popeService.getAll(this.pageRequestPope).subscribe(data => {
+            this.notFound = true;
+            this.loadingService.dismiss();
             data.pope_infos.forEach(v => v.type = this.dataParams.type);
             this.list = this.list.concat(data.pope_infos);
             func && func();
@@ -99,7 +109,6 @@ export class InformationPage implements OnInit {
       }
       else if (this.dataParams.type.detail == 'parish') {
         this.pageRequestParish.search = value;
-
       }
       else if (this.dataParams.type.detail == 'bishop') {
         this.pageRequestBishop.search = value;

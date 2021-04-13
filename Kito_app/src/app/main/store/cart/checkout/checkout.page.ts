@@ -63,7 +63,7 @@ export class CheckoutPage implements OnInit {
     this.modalCtrl.dismiss();
   }
   confirm() {
-    this.loadingService.present();
+    // this.loadingService.present();
     const req = {
       order: {
         lat: localStorage.getItem('lat'),
@@ -78,7 +78,7 @@ export class CheckoutPage implements OnInit {
     if (this.paymentMethod.id == 0) {
       this.orderService.create(req).subscribe((data: any) => {
         this.order_id = data.order.id;
-        this.loadingService.dismiss();
+        // this.loadingService.dismiss();
         this.paymentByCash();
       })
     }
@@ -86,12 +86,12 @@ export class CheckoutPage implements OnInit {
       this.orderService.create(req).subscribe(
         (data: any) => {
           this.order_id = data.order.id;
-          this.loadingService.dismiss();
+          // this.loadingService.dismiss();
           this.openModalSuccess();
           this.modalCtrl.dismiss();
         },
         () => {
-          this.loadingService.dismiss();
+          // this.loadingService.dismiss();
         }
       )
     }
@@ -111,12 +111,13 @@ export class CheckoutPage implements OnInit {
       routerLink: '/main/chabad'
     }
     this.orderService.paymentOrder_Cash(orderByCash).subscribe(data => {
-      this.loadingService.dismiss();
+      // this.loadingService.dismiss();
       this.pageNotiService.setdataStatusNoti(datapasing);
-      this.router.navigateByUrl('/page-noti');
-    },
+      setTimeout(()=> {
+        this.router.navigateByUrl('/page-noti');
+      }, 1500)},
       () => {
-        this.loadingService.dismiss();
+        // this.loadingService.dismiss();
       })
   }
 }

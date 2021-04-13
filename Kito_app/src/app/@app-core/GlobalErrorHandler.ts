@@ -12,6 +12,9 @@ export class GlobalErrorHandler implements ErrorHandler {
     handleError(error) {
         console.log(error.message)
         this.loadingService.dismiss();
-        this.toarstSerivce.present(error.message, TOARST.POSITION.top, '', TOARST.COLOR.dark);
+        if(error.message === 'Uncaught (in promise): overlay does not exist') {
+            return
+        }
+        else this.toarstSerivce.presentSuccess(error.message);
     }
 }

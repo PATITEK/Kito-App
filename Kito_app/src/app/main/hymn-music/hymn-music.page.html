@@ -30,7 +30,9 @@
       </ion-buttons>
     </ng-container>
   </ion-list>
-
+  <ion-list *ngIf = "!songs.length && notFound && segmentValue == 'all'" class="not-found">
+    Không tìm thấy
+  </ion-list>
   <ion-list class="song-list" [ngClass]="{'display-none': segmentValue != 'like'}">
     <ng-container *ngFor="let song of favoriteSongs">
       <ion-buttons class="song-cover" [ngClass]="{'active-song-cover': checkActiveSong(song)}" (click)="start(song)">
@@ -47,7 +49,9 @@
       </ion-buttons>
     </ng-container>
   </ion-list>
-
+  <ion-list *ngIf = "!favoriteSongs.length && notFoundSong && segmentValue == 'like'" class="not-found">
+    Không tìm thấy
+  </ion-list>
   <ion-infinite-scroll #infiniteScrollSongs (ionInfinite)="loadMoreSongs($event)">
     <ion-infinite-scroll-content loadingSpinner="lines"></ion-infinite-scroll-content>
   </ion-infinite-scroll>

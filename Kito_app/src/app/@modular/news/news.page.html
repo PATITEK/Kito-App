@@ -53,7 +53,7 @@
       </ion-buttons>
     </ng-container>
   </ion-list>
-  <ion-list *ngIf="!news.length" class="not-found">
+  <ion-list *ngIf="!news.length && notFound" class="not-found">
     Không tìm thấy 
   </ion-list>
   <ion-infinite-scroll #infiniteScroll (ionInfinite)="loadMoreData($event)">

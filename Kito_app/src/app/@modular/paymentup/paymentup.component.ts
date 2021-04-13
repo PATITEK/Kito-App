@@ -95,7 +95,6 @@ export class PaymentupComponent implements OnInit {
           }
           else if(this.data.type_page == 'donate') {
             this.loadingService.dismiss();
-            // console.log(this.data.donation)
             this.data.donation.token = result.source.id;
             this.data.donation.payment_type = 'visa_master';
             this.router.navigate(['/payment'], {
@@ -120,7 +119,7 @@ export class PaymentupComponent implements OnInit {
             },
             (error: any)=> {
               this.loadingService.dismiss();
-              this.toart.present('Hãy thử lại sau', 'top', 1000, 'dark');
+              this.toart.presentSuccess('Hãy thử lại sau');
             }) 
           }
           this.dismissModal();

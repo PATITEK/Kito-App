@@ -10,6 +10,7 @@ import { DioceseNewsService, DioceseService, IPageRequest } from 'src/app/@app-c
 export class SelectDiocesePage implements OnInit {
   headerCustom = {title: 'Chọn giáo phận'};
   list = [];
+  notFound = false;
   pageRequest: IPageRequest = {
     page: 1,
     per_page: 10
@@ -25,11 +26,29 @@ export class SelectDiocesePage implements OnInit {
   }
 
   getData() {
+    this.notFound = false;
     this.dioceseService.getAll(this.pageRequest).subscribe(data => {
+      this.notFound = true;
       this.list = data.dioceses;
     })
   }
-
+  search(value: string) {
+    if (typeof value != 'string') {
+      return;
+    }
+    else if (!value) {
+      delete this.pageRequest.search;
+    }
+    else {
+      this.pageRequest.search = value;
+    }
+    this.reset();
+    this.getData();
+  }
+  reset() {
+    this.list = [];
+    this.pageRequest.page = 1;
+  }
   goToSelectParish(item) {
     const data = {
       id: item.id,

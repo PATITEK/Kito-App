@@ -122,8 +122,8 @@ export class MainPage implements OnInit {
     this.subscribe = this.platform.backButton.subscribeWithPriority(99999, () => {
       if (this.router.url === '/main') {
         this.count++;
-        if (this.count == 1) {
-          this.toarst.present('Nhấn lần nữa để thoát!', 'bottom', 1000, 'dark');
+        if(this.count == 1) {
+          this.toarst.presentSuccess('Nhấn lần nữa để thoát!');
         }
         else {
           navigator['app'].exitApp();
@@ -180,7 +180,8 @@ export class MainPage implements OnInit {
   getVatican() {
     const pageRequest: IPageVatican = {
       page: 1,
-      per_page: 4
+      per_page: 4,
+      category_id: 2
     }
     this.vaticanService.getAll(pageRequest).subscribe(data => {
       this.loading.dismiss();

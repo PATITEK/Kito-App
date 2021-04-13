@@ -26,7 +26,7 @@ export class ForgotPasswordPage implements OnInit {
   goToVerification() {
       this.loadingService.present();
       this.authService.forgotPassword({email: this.email.email}).subscribe((data) => {
-        this.toastService.present('Vui lòng kiểm tra mã OTP vừa gửi đến mail của bạn.', 'top',1000, 'dark');
+        this.toastService.presentSuccess('Vui lòng kiểm tra mã OTP vừa gửi đến mail của bạn.');
         this.loadingService.dismiss();
         this.router.navigateByUrl('auth-manager/verification');
       })
