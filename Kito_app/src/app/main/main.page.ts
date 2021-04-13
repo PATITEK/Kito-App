@@ -1,10 +1,13 @@
+import { DioceseService } from './../@app-core/http/diocese/diocese.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService, VaticanService } from '../@app-core/http';
-import { AlertController, IonInfiniteScroll, ModalController, NavController, Platform, ToastController } from '@ionic/angular';
+import { AuthService, ParishesService, VaticanService } from '../@app-core/http';
+import { AlertController, IonInfiniteScroll, ModalController, NavController, Platform } from '@ionic/angular';
 import { AccountService } from '../@app-core/http/account/account.service';
 import { GeolocationService, LoadingService, OneSignalService, ToastService } from '../@app-core/utils';
 import { IPageVatican } from '../@app-core/http/vatican/vatican.DTO';
+import { IPageRequest } from 'src/app/@app-core/http/global/global.DTO';
+import { IPageParishes } from 'src/app/@app-core/http/parishes/parishes.DTO';
 
 @Component({
   selector: 'app-main',
@@ -78,6 +81,10 @@ export class MainPage implements OnInit {
   public alertPresented = false;
   count = 0;
   interval: any;
+  pageRequestDioceses: IPageRequest = {}
+  pageRequestParishes: IPageParishes = {
+    diocese_id: 0,
+  }
   constructor(
     private router: Router,
     private OneSignalService: OneSignalService,
@@ -91,11 +98,22 @@ export class MainPage implements OnInit {
     private toarst: ToastService,
     private navController: NavController,
     private geolocationSerivce: GeolocationService,
+    private diocesesService: DioceseService,
+    private parishesService: ParishesService,
   ) { }
 
   ionViewWillEnter() {
     clearInterval(this.interval);
     this.reTakeLocation();
+    this.checkAvatar();
+  }
+  ngOnInit() {
+    this.OneSignalService.startOneSignal();
+    this.getVatican();
+    this.blockBackBtn();
+  }
+
+  checkAvatar() {
     this.name = localStorage.getItem('fullname');
     this.accountService.getAccounts().subscribe(data => {
       this.name = data.app_user.full_name;
@@ -115,14 +133,12 @@ export class MainPage implements OnInit {
       }
     })
   }
-  ngOnInit() {
-    this.loading.present();
-    this.OneSignalService.startOneSignal();
-    this.getVatican();
+
+  blockBackBtn() {
     this.subscribe = this.platform.backButton.subscribeWithPriority(99999, () => {
       if (this.router.url === '/main') {
         this.count++;
-        if(this.count == 1) {
+        if (this.count == 1) {
           this.toarst.presentSuccess('Nhấn lần nữa để thoát!');
         }
         else {
@@ -139,18 +155,42 @@ export class MainPage implements OnInit {
   }
 
   reTakeLocation() {
-    let i = 0;
-    this.interval = setInterval(() => {
-      this.geolocationSerivce.getCurrentLocationNoLoading();
-      localStorage.setItem('address', this.geolocationSerivce.customerLocation.address);
-      localStorage.setItem('lat', this.geolocationSerivce.centerService.lat.toString());
-      localStorage.setItem('lng', this.geolocationSerivce.centerService.lng.toString());
-      if (i == 299) {
-        i = 0;
-        console.clear();
+    this.diocesesService.getAll(this.pageRequestDioceses).subscribe(data => {
+      const totalDioceses = data.meta.pagination.per_page;
+      for (let i = 1; i <= totalDioceses; i++) {
+        this.pageRequestParishes.diocese_id += 1;
+        this.parishesService.getAll(this.pageRequestParishes).subscribe(data => {
+          let i = 0;
+          this.interval = setInterval(() => {
+            this.geolocationSerivce.getCurrentLocationNoLoading();
+            localStorage.setItem('address', this.geolocationSerivce.customerLocation.address);
+            localStorage.setItem('lat', this.geolocationSerivce.centerService.lat.toFixed(5).toString());
+            localStorage.setItem('lng', this.geolocationSerivce.centerService.lng.toFixed(5).toString());
+            for (let parish of data.parishes) {
+              let tempDistance = this.geolocationSerivce.distanceFromUserToPointMet(
+                localStorage.getItem('lat'),
+                localStorage.getItem('lng'),
+                parish.location.lat,
+                parish.location.long,
+              )
+              parish.attention_log = {};
+              parish.attention_log.distance = tempDistance;
+              if (parish.attention_log.distance < 20) {
+                parish.attention_log.isCouldJone = true;
+              } else parish.attention_log.isCouldJoin = false;
+              console.log(data.parishes)
+            }
+            if (i == 9) {
+              i = 0;
+              console.clear();
+            }
+            i++;
+          }, 3000)
+        })
+        break;
       }
-      i++;
-    }, 1000)
+      this.pageRequestParishes.diocese_id = 0;
+    })
   }
   async presentAlert() {
     this.alertPresented = true;

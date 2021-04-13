@@ -20,7 +20,7 @@ export class MapPage implements OnInit {
   infoWindows: any = [];
 
   pageRequestParishes: IPageParishes = {
-    diocese_id: 0,
+    diocese_id: localStorage.getItem('diocese_id'),
   }
 
   pageRequestDioceses: IPageRequest = {
@@ -34,7 +34,6 @@ export class MapPage implements OnInit {
     public platform: Platform,
     private GeolocationService: GeolocationService,
     private parishesService: ParishesService,
-    private diocesesService: DioceseService,
     private geolocationService: GeolocationService,
     private DioceseService: DioceseService,
   ) { }
@@ -106,6 +105,7 @@ export class MapPage implements OnInit {
     this.pageRequestParishes.diocese_id = tempId;
     this.parishesService.getAllWithDioceseId(this.pageRequestParishes).subscribe(data => {
       this.markers = data.parishes;
+      console.log(this.markers)
       this.addMarkersToMap(this.markers);
     })
   }

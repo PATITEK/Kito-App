@@ -30,4 +30,26 @@ export class DioceseService {
       })
     );
   }
+
+  public getAttention(date: any) {
+    return this.http.get<any>(`${APICONFIG.ATTENTION_LOG.GET(date)}`).pipe(
+      map(result => {
+        return result;
+      }),
+      catchError(errorRes => {
+        throw errorRes.error;
+      })
+    );
+  }
+
+  public creatAttention(req: any) {
+    return this.http.post(`${APICONFIG.ATTENTION_LOG.CREATE}`, req).pipe(
+      map((result)=> {
+        return result;
+      }),
+      catchError((errorRes: any) => {
+        throw errorRes.error;
+      })
+    )
+  }
 }

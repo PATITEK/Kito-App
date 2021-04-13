@@ -60,6 +60,9 @@ export class ModalDetailOrderPage implements OnInit {
       } else if (data.order.status == 'failed') {
         this.isCanceled = 'Đã hủy đơn hàng';
       }
+      else if (data.order.status == 'done') {
+        this.isCanceled = 'Đã xác nhận';
+      }
       this.loadingService.dismiss();
     })
   }
