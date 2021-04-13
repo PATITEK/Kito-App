@@ -50,6 +50,18 @@ export class GeolocationService {
             })
         })
     }
+    getCurrentLocationNoLoading() {
+        this.PlatForm.ready().then(() => {
+            this.geolocation.getCurrentPosition().then((resp) => {
+                this.centerService.lat = resp.coords.latitude;
+                this.centerService.lng = resp.coords.longitude;
+                this.getGeoEncoder(this.centerService.lat, this.centerService.lng);
+            })
+            // .catch((err) => {
+            //     throw err
+            // })
+        })
+    }
     getGeoEncoder(latitude, longitude) {
         this.nativeGeocoder.reverseGeocode(latitude, longitude, this.geoEncoderOptions)
             .then((result: NativeGeocoderResult[]) => {
@@ -58,8 +70,8 @@ export class GeolocationService {
                 localStorage.setItem('lng', this.centerService.lng.toString());
             })
             .catch((err: any) => {
-                console.error(err, ': because chay tren dien thoai real moi dc =))');
-                throw err;
+                // console.error(err, ': because chay tren dien thoai real moi dc =))');
+                // throw err;
             });
     }
     generateAddress(addressObj) {
