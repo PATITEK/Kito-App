@@ -31,7 +31,7 @@
     </ion-buttons>
 
     <ion-buttons class="list">
-      <div *ngFor="let col of list" class="col main-box-shadow">
+      <div *ngFor="let col of list" class="col main-box-shadow" (click)="openAddModal(col)">
         <div class="img-container">
           <img
             onerror="this.src='https://res.cloudinary.com/baodang359/image/upload/v1616123967/kito-music/MDC319_avatar_bqms50.jpg';"
@@ -43,7 +43,7 @@
         </div>
 
         <div *ngIf="col.amount <= 0" class="add-btn">
-          <ion-buttons class="modifier-btn modifier-btn-increase active-effect" (click)="openAddModal(col)">+
+          <ion-buttons class="modifier-btn modifier-btn-increase active-effect">+
           </ion-buttons>
         </div>
 

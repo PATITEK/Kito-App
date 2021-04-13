@@ -10,9 +10,9 @@
     <ion-icon (click)="nextMonth()" name="chevron-forward-outline" [ngClass]="{'icon-disabled': checkEndMonth()}">
     </ion-icon>
 
-    <div class="filter">
+    <!-- <div class="filter">
       <ion-icon class="filter-icon" (click)="toggleHasFilter()" name="options"></ion-icon>
-    </div>
+    </div> -->
   </ion-buttons>
 
   <ion-slides #slides (ionSlideWillChange)="setHasFilter(false)" (ionSlideDrag)="setHasFilter(false)"
