@@ -104,7 +104,7 @@ export class MainPage implements OnInit {
 
   ionViewWillEnter() {
     clearInterval(this.interval);
-    this.reTakeLocation();
+    this.continuingCheckLocation();
     this.checkAvatar();
   }
   ngOnInit() {
@@ -154,13 +154,16 @@ export class MainPage implements OnInit {
     })
   }
 
-  reTakeLocation() {
+  continuingCheckLocation() {
     this.diocesesService.getAll(this.pageRequestDioceses).subscribe(data => {
       const totalDioceses = data.meta.pagination.per_page;
       for (let i = 1; i <= totalDioceses; i++) {
         this.pageRequestParishes.diocese_id += 1;
         this.parishesService.getAll(this.pageRequestParishes).subscribe(data => {
-          let i = 0;
+          let timeOut;
+          if (parseInt(localStorage.getItem('timeOut'))) {
+            timeOut = parseInt(localStorage.getItem('timeOut')) + 2;
+          } else timeOut = 0;
           this.interval = setInterval(() => {
             this.geolocationSerivce.getCurrentLocationNoLoading();
             localStorage.setItem('address', this.geolocationSerivce.customerLocation.address);
@@ -175,17 +178,33 @@ export class MainPage implements OnInit {
               )
               parish.attention_log = {};
               parish.attention_log.distance = tempDistance;
-              if (parish.attention_log.distance < 20) {
+              if (parish.attention_log.distance < 30) {
                 parish.attention_log.isCouldJone = true;
               } else parish.attention_log.isCouldJoin = false;
-              console.log(data.parishes)
             }
-            if (i == 9) {
-              i = 0;
+            if (timeOut == 99) {
               console.clear();
+            } else if (timeOut == 1200) {
+              console.log('goi api')
+              timeOut = 0;
             }
-            i++;
-          }, 3000)
+            for (let parish of data.parishes) {
+              let tempDistance = this.geolocationSerivce.distanceFromUserToPointMet(
+                localStorage.getItem('lat'),
+                localStorage.getItem('lng'),
+                parish.location.lat,
+                parish.location.long,
+              )
+              if (tempDistance - 30 <= 0) {
+                timeOut++;
+                break;
+              } else {
+                timeOut = 0;
+                break;
+              };
+            }
+            localStorage.setItem('timeOut', timeOut.toString());
+          }, 1500)
         })
         break;
       }
