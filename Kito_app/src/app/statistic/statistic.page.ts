@@ -1,3 +1,4 @@
+import { LoadingService } from './../@app-core/utils/loading.service';
 import { DioceseService } from './../@app-core/http/diocese/diocese.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { IonSlides, IonContent, IonButtons } from '@ionic/angular';
@@ -27,7 +28,8 @@ export class StatisticPage implements OnInit {
 
   constructor(
     public DateTimeService: DateTimeService,
-    private dioceseService: DioceseService
+    private dioceseService: DioceseService,
+    private loadingService: LoadingService
   ) { }
 
   ngOnInit() {
@@ -35,6 +37,7 @@ export class StatisticPage implements OnInit {
   }
 
   initData() {
+    this.loadingService.present();
     for (let year = 2020; year <= new Date().getFullYear(); year++) {
       this.years.push({
         number: year,
@@ -68,6 +71,7 @@ export class StatisticPage implements OnInit {
       year.months = months;
     })
     this.selectedMonthId = 0;
+    this.loadingService.dismiss();
   }
 
   calJoinedEvents(dates) {
