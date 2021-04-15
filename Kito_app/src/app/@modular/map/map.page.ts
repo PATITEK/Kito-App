@@ -105,7 +105,6 @@ export class MapPage implements OnInit {
     this.pageRequestParishes.diocese_id = tempId;
     this.parishesService.getAllWithDioceseId(this.pageRequestParishes).subscribe(data => {
       this.markers = data.parishes;
-      console.log(this.markers)
       this.addMarkersToMap(this.markers);
     })
   }

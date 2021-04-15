@@ -1,6 +1,8 @@
+import { DioceseService } from './../@app-core/http/diocese/diocese.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { IonSlides, IonContent, IonButtons } from '@ionic/angular';
 import { DateTimeService } from '../@app-core/utils';
+import { ClassMethod } from '@angular/compiler';
 
 @Component({
   selector: 'app-statistic',
@@ -13,30 +15,10 @@ export class StatisticPage implements OnInit {
   @ViewChild('segment', { static: false }) segment: any;
 
   headerCustom = { title: 'Thống kê' };
-  years = [
-    {
-      number: 2017,
-      months: [],
-    },
-    {
-      number: 2018,
-      months: []
-    },
-    {
-      number: 2019,
-      months: []
-    },
-    {
-      number: 2020,
-      months: []
-    },
-    {
-      number: 2021,
-      months: []
-    }
-  ]
+  years = [];
+  data: any = [];
   selectedMonthId;
-  selectedYear = this.years[this.years.length - 1].number;
+  selectedYear: any;
   hasYearOptions = false;
 
   slideOptions = {
@@ -44,7 +26,8 @@ export class StatisticPage implements OnInit {
   };
 
   constructor(
-    public DateTimeService: DateTimeService
+    public DateTimeService: DateTimeService,
+    private dioceseService: DioceseService
   ) { }
 
   ngOnInit() {
@@ -52,18 +35,30 @@ export class StatisticPage implements OnInit {
   }
 
   initData() {
+    for (let year = 2020; year <= new Date().getFullYear(); year++) {
+      this.years.push({
+        number: year,
+        months: []
+      })
+    }
+    this.selectedYear = this.years[this.years.length - 1].number;
     this.years.forEach(year => {
       let months = [];
       for (let i = 1; i <= 12; i++) {
-        const daysInMonth = this.DateTimeService.daysInMonth(i, year.number);
+        const daysInMonth = 1;
         let dates = [];
-        for (let j = 1; j <= daysInMonth; j++) {
-          dates.push({
-            number: j,
-            hasJoin: Math.floor(Math.random() * 2) == 1,
-            special: Math.floor(Math.random() * 4) == 1
-          })
-        }
+        this.dioceseService.getAttention(year.number + '-' + i + '-' + daysInMonth).subscribe((data) => {
+          this.data = data.calendars;
+          for(let data of this.data) {
+            dates.push({
+              id: data.id,
+              number: data.date.slice(8,10),
+              hasJoin: data.joined,
+              special: 0,
+              mass_type: data.mass_type,
+            })
+          }
+        })
         months.push({
           id: i - 1,
           name: `Tháng ${i}`,

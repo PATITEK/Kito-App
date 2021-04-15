@@ -1,3 +1,4 @@
+import { MainPage } from './../main/main.page';
 import { HymnMusicService } from './http/hymn-music/hymn-music.service';
 import { NgModule, ModuleWithProviders, ErrorHandler } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -47,7 +48,8 @@ export class CoreModule {
         PopeService,
         CourseService,
         CalendarService,
-        HymnMusicService
+        HymnMusicService,
+        MainPage
       ]
     };
   }

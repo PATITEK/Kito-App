@@ -178,9 +178,8 @@ export class MainPage implements OnInit {
               if (parish.attention_log.distance < 20) {
                 parish.attention_log.isCouldJone = true;
               } else parish.attention_log.isCouldJoin = false;
-              console.log(data.parishes)
             }
-            if (i == 9) {
+            if (i == 99) {
               i = 0;
               console.clear();
             }
