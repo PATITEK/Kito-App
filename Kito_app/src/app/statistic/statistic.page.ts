@@ -52,10 +52,14 @@ export class StatisticPage implements OnInit {
         let dates = [];
         this.dioceseService.getAttention(year.number + '-' + i + '-' + daysInMonth).subscribe((data) => {
           this.data = data.calendars;
-          for(let data of this.data) {
+          for (let data of this.data) {
+            let number;
+            if (data.date.slice(8, 9) == '0') {
+              number = data.date.replace(data.date.slice(8, 9), '').slice(8, 9);
+            } else number = data.date.slice(8, 10)
             dates.push({
               id: data.id,
-              number: data.date.slice(8,10),
+              number: number,
               hasJoin: data.joined,
               special: 0,
               mass_type: data.mass_type,
@@ -69,9 +73,11 @@ export class StatisticPage implements OnInit {
         })
       }
       year.months = months;
+      setTimeout(() => {
+        this.loadingService.dismiss();
+      }, 1500)
     })
     this.selectedMonthId = 0;
-    this.loadingService.dismiss();
   }
 
   calJoinedEvents(dates) {

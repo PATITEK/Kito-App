@@ -31,11 +31,11 @@ export class CartPage implements OnInit {
       id: 2
     }
   ];
-  currentPaymentMethodId = 1;
+  currentPaymentMethodId = 0;
   hasPaymentModal = false;
   paymentSelectElement: any;
   phone_number = null;
-  location;
+  address;
   phone_temp;
   frm: FormGroup;
   constructor(
@@ -57,8 +57,8 @@ export class CartPage implements OnInit {
   ngOnInit() {
     this.getCart();
     this.phone_number = localStorage.getItem('phoneNumber');
-    this.location = localStorage.getItem('location');
-    if(!localStorage.getItem('location')) {
+    this.address = localStorage.getItem('address');
+    if(!localStorage.getItem('address')) {
       this.presentAlert('Cập nhật', 'Lấy địa chỉ của bạn!');
     }
     
@@ -87,12 +87,12 @@ export class CartPage implements OnInit {
     await alert.present();
   }
   check(): boolean {
-    return !this.cart.length || this.location == null;
+    return !this.cart.length || this.address == null;
   }
   reTakeLocation() {
     this.geolocationSerivce.getCurrentLocation();
-    this.location = this.geolocationSerivce.customerLocation.address;
-    localStorage.setItem('location', this.location)
+    this.address = this.geolocationSerivce.customerLocation.address;
+    localStorage.setItem('address', this.address)
   }
 
   ionViewDidEnter() {
@@ -162,13 +162,13 @@ export class CartPage implements OnInit {
   }
 
   goToCheckout() {
-    if(localStorage.getItem(this.location)) {
-      localStorage.removeItem('location');
+    if(localStorage.getItem(this.address)) {
+      localStorage.removeItem('address');
     }
     if(localStorage.getItem(this.phone_temp)) {
       localStorage.removeItem('phone_temp');
     }
-    localStorage.setItem('location', this.location);
+    localStorage.setItem('address', this.address);
     localStorage.setItem('phone_temp', this.phone_number);
     const data = {
       paymentMethod: this.paymentMethods[this.currentPaymentMethodId]

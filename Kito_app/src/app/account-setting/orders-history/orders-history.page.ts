@@ -39,12 +39,12 @@ export class OrdersHistoryPage implements OnInit {
       this.requestOrder.page++;
       // if (this.orders.length >= data.meta.pagination.total_objects) {
       //   this.infiniteScroll.disabled = true;
-        this.orders.sort((a, b) => {
-          var a_time = new Date(a.created_at);
-          var b_time = new Date(b.created_at);
-          return b_time.getTime() - a_time.getTime()
+      this.orders.sort((a, b) => {
+        var a_time = new Date(a.created_at);
+        var b_time = new Date(b.created_at);
+        return b_time.getTime() - a_time.getTime()
         //})
-       
+
       })
     })
   }
@@ -60,7 +60,7 @@ export class OrdersHistoryPage implements OnInit {
       cssClass: 'event-detail-modal',
       swipeToClose: true,
       componentProps: {
-       id: order.id
+        id: order.id
       }
     });
     modal.present();
