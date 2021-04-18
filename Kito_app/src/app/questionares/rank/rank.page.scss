@@ -81,13 +81,14 @@ ul {
   .img-star1 {
     position: absolute;
     left: 0;
-    top: 0;
+    top: 10vh;
     z-index: 1;
+    transform: rotate(90deg);
   }
   .img-star2 {
     position: absolute;
     left: 0;
-    top: 0vh;
+    top: 10vh;
     z-index: 1;
   }
   .img-star3 {
@@ -95,10 +96,18 @@ ul {
     left: 0;
     top: 50vh;
     z-index: 1;
+    transform: rotate(90deg);
   }
   .img-star4 {
     position: absolute;
-    left: 0;
+    left: 10vh;
+    top: 50vh;
+    z-index: 1;
+    transform: rotate(90deg);
+  }
+  .img-star5 {
+    position: absolute;
+    left: 10vh;
     top: 50vh;
     z-index: 1;
   }

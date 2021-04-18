@@ -169,19 +169,19 @@ export class MainPage implements OnInit {
             localStorage.setItem('address', this.geolocationSerivce.customerLocation.address);
             localStorage.setItem('lat', this.geolocationSerivce.centerService.lat.toFixed(5).toString());
             localStorage.setItem('lng', this.geolocationSerivce.centerService.lng.toFixed(5).toString());
-            for (let parish of data.parishes) {
-              let tempDistance = this.geolocationSerivce.distanceFromUserToPointMet(
-                localStorage.getItem('lat'),
-                localStorage.getItem('lng'),
-                parish.location.lat,
-                parish.location.long,
-              )
-              parish.attention_log = {};
-              parish.attention_log.distance = tempDistance;
-              if (parish.attention_log.distance < 30) {
-                parish.attention_log.isCouldJone = true;
-              } else parish.attention_log.isCouldJoin = false;
-            }
+            // for (let parish of data.parishes) {
+            //   let tempDistance = this.geolocationSerivce.distanceFromUserToPointMet(
+            //     localStorage.getItem('lat'),
+            //     localStorage.getItem('lng'),
+            //     parish.location.lat,
+            //     parish.location.long,
+            //   )
+            //   parish.attention_log = {};
+            //   parish.attention_log.distance = tempDistance;
+            //   if (parish.attention_log.distance < 30) {
+            //     parish.attention_log.isCouldJone = true;
+            //   } else parish.attention_log.isCouldJoin = false;
+            // }
             if (timeOut == 99) {
               console.clear();
             } else if (timeOut == 1200) {

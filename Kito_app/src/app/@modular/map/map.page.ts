@@ -116,7 +116,7 @@ export class MapPage implements OnInit {
       let mapMarker = new google.maps.Marker({
         position: position,
         label: marker.name,
-        icon: 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png',
+        icon: 'assets/icon/map.png',
       });
       let mapMarkerInfo = {
         name: marker.name,
@@ -127,7 +127,7 @@ export class MapPage implements OnInit {
         lat: marker.location.lat,
         lng: marker.location.long,
       }
-
+      mapMarker.setMap(null);
       mapMarker.setMap(this.map);
       this.addInfoWindowToMarker(mapMarker, mapMarkerInfo);
     }

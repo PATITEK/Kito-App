@@ -76,7 +76,7 @@ export class GeolocationService {
             if (obj[val].length)
                 address += obj[val] + ', ';
         }
-        return address.slice(0, -2);
+        return address.slice(4, address.length - 6);
     }
 
     distanceFromUserToPoint(lat1, lon1, lat2, lon2) {
