@@ -11,7 +11,7 @@ import { DateTimeService, GeolocationService } from 'src/app/@app-core/utils';
   styleUrls: ['./cart.page.scss'],
 })
 export class CartPage implements OnInit {
-  headerCustom = {title: 'Giỏ hàng'};
+  headerCustom = { title: 'Giỏ hàng' };
   cart = [];
   shipCost = 5000;
   paymentMethods = [
@@ -37,6 +37,7 @@ export class CartPage implements OnInit {
   phone_number = null;
   address;
   phone_temp;
+  note = null;
   frm: FormGroup;
   constructor(
     public dateTimeService: DateTimeService,
@@ -44,7 +45,7 @@ export class CartPage implements OnInit {
     private router: Router,
     private geolocationSerivce: GeolocationService,
     private alert: AlertController
-  ) { 
+  ) {
     this.frm = this.formBuilder.group({
       address: new FormControl('', Validators.compose([
         Validators.required,
@@ -52,16 +53,19 @@ export class CartPage implements OnInit {
       phone_number: new FormControl('', Validators.compose([
         Validators.required,
       ])),
+      note: new FormControl('', Validators.compose([
+        Validators.required,
+      ])),
     });
-    }
+  }
   ngOnInit() {
     this.getCart();
     this.phone_number = localStorage.getItem('phoneNumber');
     this.address = localStorage.getItem('address');
-    if(!localStorage.getItem('address')) {
+    if (!localStorage.getItem('address')) {
       this.presentAlert('Cập nhật', 'Lấy địa chỉ của bạn!');
     }
-    
+
   }
   async presentAlert(header: string, text: string) {
     const alert = await this.alert.create({
@@ -108,8 +112,16 @@ export class CartPage implements OnInit {
   }
 
   changeAddress() {
-     document.getElementById('address').focus();
-    }
+    document.getElementById('address').focus();
+  }
+
+  changePhoneNumber() {
+    document.getElementById('phone_number').focus();
+  }
+
+  changeNote() {
+    document.getElementById('note').focus();
+  }
 
   decreaseAmount(item) {
     if (item.amount > 1) {
@@ -162,14 +174,15 @@ export class CartPage implements OnInit {
   }
 
   goToCheckout() {
-    if(localStorage.getItem(this.address)) {
+    if (localStorage.getItem(this.address)) {
       localStorage.removeItem('address');
     }
-    if(localStorage.getItem(this.phone_temp)) {
+    if (localStorage.getItem(this.phone_temp)) {
       localStorage.removeItem('phone_temp');
     }
     localStorage.setItem('address', this.address);
     localStorage.setItem('phone_temp', this.phone_number);
+    localStorage.setItem('note', this.note);
     const data = {
       paymentMethod: this.paymentMethods[this.currentPaymentMethodId]
     }
@@ -179,5 +192,5 @@ export class CartPage implements OnInit {
       }
     })
   }
-  
+
 }

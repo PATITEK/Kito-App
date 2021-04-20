@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ModalController, AlertController } from '@ionic/angular';
 import { OrderService } from 'src/app/@app-core/http';
-import { DateTimeService } from 'src/app/@app-core/utils';
+import { DateTimeService, LoadingService } from 'src/app/@app-core/utils';
 import { IDataNoti, PageNotiService } from 'src/app/@modular/page-noti/page-noti.service';
 
 @Component({
@@ -25,7 +25,8 @@ export class CheckoutPage implements OnInit {
     private modalCtrl: ModalController,
     private pageNotiService: PageNotiService,
     private router: Router,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private loadingService: LoadingService
   ) { }
 
   ngOnInit() {
@@ -52,11 +53,12 @@ export class CheckoutPage implements OnInit {
     this.modalCtrl.dismiss();
   }
   confirm() {
+    this.loadingService.present();
     const req = {
       order: {
         lat: localStorage.getItem('lat'),
         lng: localStorage.getItem('lng'),
-        note: null,
+        note: localStorage.getItem('note'),
         full_address: this.address,
         parish_id: localStorage.getItem('tempParishId'),
         phone_number_receiver: localStorage.getItem('phone_temp'),
@@ -67,6 +69,7 @@ export class CheckoutPage implements OnInit {
       this.orderService.create(req).subscribe((data: any) => {
         this.order_id = data.order.id;
         this.paymentByCash();
+        this.loadingService.dismiss();
       })
     }
     else {
@@ -75,14 +78,18 @@ export class CheckoutPage implements OnInit {
           this.order_id = data.order.id;
           this.alertSuccess();
           this.modalCtrl.dismiss();
+          this.loadingService.dismiss();
         },
         () => {
+          this.loadingService.dismiss();
         }
       )
     }
     localStorage.removeItem('lat');
     localStorage.removeItem('lng');
     localStorage.removeItem('cart');
+    localStorage.removeItem('phone_temp');
+    localStorage.removeItem('note');
   }
   paymentByCash() {
     var orderByCash = {

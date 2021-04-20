@@ -1,3 +1,4 @@
+import { NetworkService } from './../@app-core/utils/network.service';
 import { DioceseService } from './../@app-core/http/diocese/diocese.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
@@ -73,7 +74,6 @@ export class MainPage implements OnInit {
   ]
 
   vaticanList = {
-    // heading: '',
     items: [],
     type: { general: 'news', detail: 'vatican' }
   }
@@ -100,12 +100,14 @@ export class MainPage implements OnInit {
     private geolocationSerivce: GeolocationService,
     private diocesesService: DioceseService,
     private parishesService: ParishesService,
+    private networkService: NetworkService
   ) { }
 
   ionViewWillEnter() {
     clearInterval(this.interval);
     this.continuingCheckLocation();
     this.checkAvatar();
+    this.networkService.setSubscriptions();
   }
   ngOnInit() {
     this.OneSignalService.startOneSignal();
@@ -155,60 +157,69 @@ export class MainPage implements OnInit {
   }
 
   continuingCheckLocation() {
-    this.diocesesService.getAll(this.pageRequestDioceses).subscribe(data => {
-      const totalDioceses = data.meta.pagination.per_page;
-      for (let i = 1; i <= totalDioceses; i++) {
-        this.pageRequestParishes.diocese_id += 1;
-        this.parishesService.getAll(this.pageRequestParishes).subscribe(data => {
-          let timeOut;
-          if (parseInt(localStorage.getItem('timeOut'))) {
-            timeOut = parseInt(localStorage.getItem('timeOut')) + 2;
-          } else timeOut = 0;
-          this.interval = setInterval(() => {
-            this.geolocationSerivce.getCurrentLocationNoLoading();
-            localStorage.setItem('address', this.geolocationSerivce.customerLocation.address);
-            localStorage.setItem('lat', this.geolocationSerivce.centerService.lat.toFixed(5).toString());
-            localStorage.setItem('lng', this.geolocationSerivce.centerService.lng.toFixed(5).toString());
-            // for (let parish of data.parishes) {
-            //   let tempDistance = this.geolocationSerivce.distanceFromUserToPointMet(
-            //     localStorage.getItem('lat'),
-            //     localStorage.getItem('lng'),
-            //     parish.location.lat,
-            //     parish.location.long,
-            //   )
-            //   parish.attention_log = {};
-            //   parish.attention_log.distance = tempDistance;
-            //   if (parish.attention_log.distance < 30) {
-            //     parish.attention_log.isCouldJone = true;
-            //   } else parish.attention_log.isCouldJoin = false;
-            // }
-            if (timeOut == 99) {
-              console.clear();
-            } else if (timeOut == 1200) {
-              console.log('goi api')
-              timeOut = 0;
+    let dateObj = new Date();
+    let month: any = dateObj.getUTCMonth() + 1;
+    let day: any = dateObj.getUTCDate();
+    let year = dateObj.getUTCFullYear();
+    if (day < 10) {
+      let temp = day;
+      day = '0' + temp;
+    }
+    else if (month < 10) {
+      let temp = month;
+      month = '0' + temp;
+    }
+    let currentDay = year + "-" + month + "-" + day;
+    this.diocesesService.getAttention(currentDay).subscribe((data) => {
+      for (let calendar of data.calendars) {
+        if (calendar.date.slice(0, 10) == currentDay && calendar.joined == false) {
+          this.diocesesService.getAll(this.pageRequestDioceses).subscribe(data => {
+            const totalDioceses = data.meta.pagination.per_page;
+            for (let i = 1; i <= totalDioceses; i++) {
+              this.pageRequestParishes.diocese_id += 1;
+              this.parishesService.getAll(this.pageRequestParishes).subscribe(data => {
+                let timeOut, timeClear = 0;
+                if (parseInt(localStorage.getItem('timeOut'))) {
+                  timeOut = parseInt(localStorage.getItem('timeOut')) + 2;
+                } else timeOut = 0;
+                this.interval = setInterval(() => {
+                  this.geolocationSerivce.getCurrentLocationNoLoading();
+                  localStorage.setItem('address', this.geolocationSerivce.customerLocation.address);
+                  localStorage.setItem('lat', this.geolocationSerivce.centerService.lat.toFixed(5).toString());
+                  localStorage.setItem('lng', this.geolocationSerivce.centerService.lng.toFixed(5).toString());
+                  if (timeClear == 99) {
+                    console.clear();
+                  }
+                  if (timeOut == 1200) {
+                    console.log('goi api');
+                    clearInterval(this.interval);
+                  }
+                  for (let parish of data.parishes) {
+                    let tempDistance = this.geolocationSerivce.distanceFromUserToPointMet(
+                      localStorage.getItem('lat'),
+                      localStorage.getItem('lng'),
+                      parish.location.lat,
+                      parish.location.long,
+                    )
+                    if (tempDistance - 30 <= 0) {
+                      timeOut++;
+                      break;
+                    } else {
+                      timeOut = 0;
+                      break;
+                    };
+                  }
+                  localStorage.setItem('timeOut', timeOut.toString());
+                  timeClear++;
+                }, 1500)
+              })
+              break;
             }
-            for (let parish of data.parishes) {
-              let tempDistance = this.geolocationSerivce.distanceFromUserToPointMet(
-                localStorage.getItem('lat'),
-                localStorage.getItem('lng'),
-                parish.location.lat,
-                parish.location.long,
-              )
-              if (tempDistance - 30 <= 0) {
-                timeOut++;
-                break;
-              } else {
-                timeOut = 0;
-                break;
-              };
-            }
-            localStorage.setItem('timeOut', timeOut.toString());
-          }, 1500)
-        })
-        break;
+            this.pageRequestParishes.diocese_id = 0;
+          })
+          break;
+        }
       }
-      this.pageRequestParishes.diocese_id = 0;
     })
   }
   async presentAlert() {

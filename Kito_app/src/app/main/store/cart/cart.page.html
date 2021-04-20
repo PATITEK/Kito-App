@@ -22,6 +22,16 @@
     <ion-buttons class="address-content phone-content">
         <input formControlName ="phone_number" id="phone_number" class="address phone" type="text" [(ngModel)]="phone_number">
     </ion-buttons>
+    <div class="change-address-box">
+      <ion-label class="active-effect" (click)="changePhoneNumber()">Thay đổi</ion-label>
+    </div>
+    <ion-label class="address-title">Ghi chú:</ion-label>
+    <ion-buttons class="address-content phone-content">
+      <input formControlName ="note" id="note" class="address phone" type="text" [(ngModel)]="note">
+    </ion-buttons>
+    <div class="change-address-box">
+      <ion-label class="active-effect" (click)="changeNote()">Thêm ghi chú</ion-label>
+    </div>
   </form>
 
   </div>

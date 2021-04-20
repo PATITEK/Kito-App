@@ -1,3 +1,4 @@
+import { NetworkService } from './@app-core/utils/network.service';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
@@ -57,6 +58,7 @@ import { CommonModule } from '@angular/common';
     GeolocationService,
     NativeGeocoder,
     NativePageTransitions,
+    NetworkService
   ],
   bootstrap: [AppComponent]
 })

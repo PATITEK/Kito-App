@@ -54,7 +54,6 @@ export class ModalDetailOrderPage implements OnInit {
   getData(id) {
     this.orderService.getDetail(id).subscribe(data => {
       this.order = data.order;
-      console.log(this.order)
       this.loadedData = true;
       if (data.order.status == 'pending') {
         this.isCanceled = 'Hủy đơn hàng';
