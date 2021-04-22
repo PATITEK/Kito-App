@@ -1,3 +1,4 @@
+import { NetworkService } from './../../@app-core/utils/network.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService, IPageRequest, PATTERN } from 'src/app/@app-core/http';
@@ -86,7 +87,8 @@ export class LoginPage implements OnInit {
     private toastService: ToastService,
     private diocese: DioceseService,
     private oneSignal: OneSignalService,
-    private parishes: ParishesService
+    private parishes: ParishesService,
+    private networkService: NetworkService
   ) { }
   pageRequestDioceses: IPageRequest = {
     page: 1,
@@ -99,6 +101,7 @@ export class LoginPage implements OnInit {
   }
 
   ngOnInit() {
+    this.networkService.setSubscriptions();
     this.authService.countryCode().subscribe((data: any) => {
       this.country_codes = data.country_codes;
       this.code = data.country_codes[0].phone_code;
