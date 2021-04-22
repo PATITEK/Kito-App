@@ -43,7 +43,7 @@ export class DioceseService {
   }
 
   public creatAttention(req: any) {
-    return this.http.post(`${APICONFIG.ATTENTION_LOG.CREATE}`, req).pipe(
+    return this.http.post<any>(`${APICONFIG.ATTENTION_LOG.CREATE}`, req).pipe(
       map((result)=> {
         return result;
       }),

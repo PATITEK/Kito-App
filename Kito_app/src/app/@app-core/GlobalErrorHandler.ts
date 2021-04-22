@@ -15,7 +15,6 @@ export class GlobalErrorHandler implements ErrorHandler {
         private netWorkService: NetworkService
     ) { }
     handleError(error) {
-        this.netWorkService.setSubscriptions();
         if (error.message) console.error(error.message);
         this.loadingService.dismiss();
         if (error.message === 'Uncaught (in promise): overlay does not exist') {
@@ -29,6 +28,7 @@ export class GlobalErrorHandler implements ErrorHandler {
                 this.toarstSerivce.presentFail(error.message);
             }
         }
+        this.netWorkService.setSubscriptions();
     }
 
     async validateConfirm() {
@@ -36,6 +36,7 @@ export class GlobalErrorHandler implements ErrorHandler {
             cssClass: 'my-custom-class',
             header: 'Phiên đã hết hạn, vui lòng đăng nhập lại',
             backdropDismiss: false,
+            mode: 'ios',
             buttons: [
                 {
                     text: 'Đồng ý',
