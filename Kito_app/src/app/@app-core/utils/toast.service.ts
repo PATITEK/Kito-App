@@ -24,7 +24,7 @@ export class ToastService {
   async presentFail(message?, position?, duration?, color?) {
     const toast = await this.toastController.create({
       mode: 'ios',
-      message: message ||' Thất bại',
+      message: message,
       duration: duration || 1000,
       position: position ||'top',
       cssClass: 'toast-css',

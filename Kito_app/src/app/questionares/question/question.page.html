@@ -61,7 +61,7 @@
   <ion-grid>
     <ion-row>
       <ion-col>
-        <ion-button
+        <ion-buttons
           mode="ios"
           class="answer active-effect"
           id="answer"
@@ -71,9 +71,9 @@
           (click)="checkAnswerValue(questions[questionCounter].answer.a)"
           (click)="checkAnswerKey(questions[questionCounter].answer, answerValue)"
           >{{ questions[questionCounter].answer.a }}
-        </ion-button>
+        </ion-buttons>
 
-        <ion-button
+        <ion-buttons
           mode="ios"
           class="answer active-effect"
           id="answer"
@@ -83,9 +83,9 @@
           (click)="checkAnswerValue(questions[questionCounter].answer.b)"
           (click)="checkAnswerKey(questions[questionCounter].answer, answerValue)"
           >{{ questions[questionCounter].answer.b }}
-        </ion-button>
+        </ion-buttons>
 
-        <ion-button
+        <ion-buttons
           mode="ios"
           class="answer active-effect"
           id="answer"
@@ -95,9 +95,9 @@
           (click)="checkAnswerValue(questions[questionCounter].answer.c)"
           (click)="checkAnswerKey(questions[questionCounter].answer, answerValue)"
           >{{ questions[questionCounter].answer.c }}
-        </ion-button>
+        </ion-buttons>
 
-        <ion-button
+        <ion-buttons
           mode="ios"
           class="answer active-effect"
           id="answer"
@@ -107,7 +107,7 @@
           (click)="checkAnswerValue(questions[questionCounter].answer.d)"
           (click)="checkAnswerKey(questions[questionCounter].answer, answerValue)"
           >{{ questions[questionCounter].answer.d }}
-        </ion-button>
+        </ion-buttons>
 
         <ion-button
           mode="ios"
@@ -151,11 +151,14 @@
     <ion-img src="../../assets/img/questionares/support.gif"></ion-img>
   </div>
   <div class="background-gif">
-    <div class="img-star2">
+    <div class="img-star1">
+      <img src="assets/img/questionares/star.gif" alt="" srcset="" />
+    </div>
+    <div class="img-star1">
       <img src="assets/img/questionares/star2.gif" alt="" srcset="" />
     </div>
-    <div class="img-star4">
-      <img src="assets/img/questionares/star2.gif" alt="" srcset="" />
+    <div class="img-star2">
+      <img src="assets/img/questionares/star.gif" alt="" srcset="" />
     </div>
   </div>
 </ion-buttons>

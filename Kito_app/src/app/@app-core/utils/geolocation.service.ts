@@ -25,7 +25,7 @@ export class GeolocationService {
         address: null
     };
 
-    centerService: google.maps.LatLngLiteral = { lat: 10.847949, lng: 106.786794 };
+    centerService: google.maps.LatLngLiteral = { lat: parseInt(localStorage.getItem('lat')), lng: parseInt(localStorage.getItem('lng')) };
 
     constructor(public geolocation: Geolocation,
         public nativeGeocoder: NativeGeocoder,
@@ -45,8 +45,14 @@ export class GeolocationService {
                 this.getGeoEncoder(this.centerService.lat, this.centerService.lng);
                 this.loadingService.dismiss();
             })
-            .catch((err) => {
-                throw err
+        })
+    }
+    getCurrentLocationNoLoading() {
+        this.PlatForm.ready().then(() => {
+            this.geolocation.getCurrentPosition().then((resp) => {
+                this.centerService.lat = resp.coords.latitude;
+                this.centerService.lng = resp.coords.longitude;
+                this.getGeoEncoder(this.centerService.lat, this.centerService.lng);
             })
         })
     }
@@ -57,10 +63,7 @@ export class GeolocationService {
                 localStorage.setItem('lat', this.centerService.lat.toString());
                 localStorage.setItem('lng', this.centerService.lng.toString());
             })
-            .catch((err: any) => {
-                console.error(err, ': because chay tren dien thoai real moi dc =))');
-                throw err;
-            });
+            .catch(() => {}); // do not delete
     }
     generateAddress(addressObj) {
         let obj = [];
@@ -73,19 +76,39 @@ export class GeolocationService {
             if (obj[val].length)
                 address += obj[val] + ', ';
         }
-        return address.slice(0, -2);
+        return address.slice(4, address.length - 6);
     }
 
-    distanceFromUserToPoint(lat1: number, lng1: number, lat2: number, lng2: number) {
-        const R = 6371000;
-        const dLat = (lat2 - lat1) * (Math.PI / 180);
-        const dLon = (lng2 - lng1) * (Math.PI / 180);
-        const la1ToRad = lat1 * (Math.PI / 180);
-        const la2ToRad = lat2 * (Math.PI / 180);
-        const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.cos(la1ToRad) * Math.cos(la2ToRad) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
-        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-        const d = R * c;
-        return Math.round(d / 1000);
+    distanceFromUserToPoint(lat1, lon1, lat2, lon2) {
+        var R = 6371;
+        var dLat = this.deg2rad(lat2 - lat1);
+        var dLon = this.deg2rad(lon2 - lon1);
+        var a =
+            Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+            Math.cos(this.deg2rad(lat1)) * Math.cos(this.deg2rad(lat2)) *
+            Math.sin(dLon / 2) * Math.sin(dLon / 2)
+            ;
+        var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        var d = R * c;
+        return Math.trunc(d);
+    }
+
+    distanceFromUserToPointMet(lat1, lon1, lat2, lon2) {
+        var R = 6378100;
+        var dLat = this.deg2rad(lat2 - lat1);
+        var dLon = this.deg2rad(lon2 - lon1);
+        var a =
+            Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+            Math.cos(this.deg2rad(lat1)) * Math.cos(this.deg2rad(lat2)) *
+            Math.sin(dLon / 2) * Math.sin(dLon / 2)
+            ;
+        var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        var d = R * c;
+        return Math.round((d + Number.EPSILON) * 100) / 100;
+    }
+
+    deg2rad(deg) {
+        return deg * (Math.PI / 180)
     }
 
     public async openModalGoogleMap() {

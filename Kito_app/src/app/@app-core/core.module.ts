@@ -1,3 +1,4 @@
+import { MainPage } from './../main/main.page';
 import { HymnMusicService } from './http/hymn-music/hymn-music.service';
 import { NgModule, ModuleWithProviders, ErrorHandler } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -9,7 +10,7 @@ import { StorageService } from './storage.service';
 import { environment } from 'src/environments/environment.prod';
 import { GlobalErrorHandler } from './GlobalErrorHandler';
 import { ConnectivityService } from './utils/connectivity.service';
-import { DateTimeService, LoadingService, ToastService } from './utils';
+import { DateTimeService, LoadingService, ToastService, NetworkService } from './utils';
 import { HistoryService } from './http/history';
 import { DioceseService } from './http/diocese';
 import { PopeService } from './http/pope';
@@ -47,7 +48,9 @@ export class CoreModule {
         PopeService,
         CourseService,
         CalendarService,
-        HymnMusicService
+        HymnMusicService,
+        MainPage,
+        NetworkService
       ]
     };
   }

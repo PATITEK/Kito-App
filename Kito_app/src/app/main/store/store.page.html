@@ -43,7 +43,7 @@
         </div>
 
         <div *ngIf="col.amount <= 0" class="add-btn">
-          <ion-buttons class="modifier-btn modifier-btn-increase active-effect" (click)="openAddModal(col)">+
+          <ion-buttons (click)="openAddModal(col)" class="modifier-btn modifier-btn-increase active-effect">+
           </ion-buttons>
         </div>
 

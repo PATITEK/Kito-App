@@ -11,7 +11,7 @@
     <ion-label class="address-title">Giao hàng đến:</ion-label>
     <ion-buttons class="address-content">
       <img src="assets/icon/location.svg">
-        <input formControlName ="address" id="address" class="address" type="text" [(ngModel)]="location">
+        <input formControlName ="address" id="address" class="address" type="text" [(ngModel)]="address">
     </ion-buttons>
     
     <div class="change-address-box">
@@ -22,6 +22,16 @@
     <ion-buttons class="address-content phone-content">
         <input formControlName ="phone_number" id="phone_number" class="address phone" type="text" [(ngModel)]="phone_number">
     </ion-buttons>
+    <div class="change-address-box">
+      <ion-label class="active-effect" (click)="changePhoneNumber()">Thay đổi</ion-label>
+    </div>
+    <ion-label class="address-title">Ghi chú:</ion-label>
+    <ion-buttons class="address-content phone-content">
+      <input formControlName ="note" id="note" class="address phone" type="text" [(ngModel)]="note">
+    </ion-buttons>
+    <div class="change-address-box">
+      <ion-label class="active-effect" (click)="changeNote()">Thêm ghi chú</ion-label>
+    </div>
   </form>
 
   </div>
@@ -29,7 +39,7 @@
   <div class="list-box">
     <ion-buttons class="list-title">
       <ion-label class="title-left">Đơn hàng</ion-label>
-      <ion-label class="title-right active-effect" (click)="goBackToStore()">Thêm sản phẩm</ion-label>
+      <!-- <ion-label class="title-right active-effect" (click)="goBackToStore()">Thêm sản phẩm</ion-label> -->
     </ion-buttons>
 
     <ion-list class="list">

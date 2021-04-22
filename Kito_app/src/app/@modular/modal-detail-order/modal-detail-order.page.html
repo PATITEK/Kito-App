@@ -19,12 +19,12 @@
     </ion-buttons>
     <ion-list class="food-detail-cover">
       <ion-buttons *ngFor="let order_detail of order.order_details" class="food-detail">
-        <img src="{{fakeImg}}" /> 
-        <span class="food-name">{{order_detail.product_name}}</span>
+        <img src="{{order_detail.product.thumb_image.url}}" /> 
+        <span class="food-name">{{order_detail.product.name}}</span>
         <ion-buttons class="amount" lines="none">
           <span>x {{order_detail.amount}}</span>
         </ion-buttons>
-        <span class="price">${{order_detail.total_price | number:'2.1-2'}}</span>
+        <span class="price">${{order_detail.product.price | number:'2.1-2'}}</span>
       </ion-buttons>
     </ion-list>
     <ion-buttons class="group3-row-1">
@@ -32,7 +32,7 @@
       <ion-label class="group3-row1-prices" >${{calTotalPrice() | number:'2.1-2'}}</ion-label>
     </ion-buttons>
     <ion-col>
-      <ion-button mode="ios" (click)="reallyWantCancelOrder(order.id)" [disabled]="isCanceled == 'Đã hủy đơn hàng' ">{{isCanceled}}</ion-button>
+      <ion-button mode="ios" (click)="reallyWantCancelOrder(order.id)" [disabled]="isCanceled == 'Đã hủy đơn hàng' || isCanceled == 'Đã xác nhận' ">{{isCanceled}}</ion-button>
     </ion-col>
   </ion-item-group>
 </ion-content>

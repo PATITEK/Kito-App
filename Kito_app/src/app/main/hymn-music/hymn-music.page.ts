@@ -195,7 +195,6 @@ export class HymnMusicPage implements OnInit {
   }
 
   toggleLike(song) {
-    this.loadingService.present();
     event.stopPropagation();
     if (this.checkAllSegment()) {
       if (song.favourite) {
@@ -215,7 +214,6 @@ export class HymnMusicPage implements OnInit {
     } else {
       this.hymnMusicService.unfavorite(song.id).subscribe(() => {
         this.favoriteSongs = this.favoriteSongs.filter(favoriteSong => favoriteSong.id !== song.id);
-        this.loadingService.dismiss();
       });
     }
   }

@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ModalController } from '@ionic/angular';
+import { ModalController, AlertController } from '@ionic/angular';
 import { OrderService } from 'src/app/@app-core/http';
 import { DateTimeService, LoadingService } from 'src/app/@app-core/utils';
-import { ModalFoodComponent } from 'src/app/@modular/modal-food/modal-food.component';
 import { IDataNoti, PageNotiService } from 'src/app/@modular/page-noti/page-noti.service';
 
 @Component({
@@ -14,7 +13,7 @@ import { IDataNoti, PageNotiService } from 'src/app/@modular/page-noti/page-noti
 export class CheckoutPage implements OnInit {
   headerCustom = { title: 'Kiểm tra đơn hàng' };
   cart = [];
-  location = '';
+  address = '';
   shipCost = 5000;
   paymentMethod;
   phone;
@@ -24,10 +23,10 @@ export class CheckoutPage implements OnInit {
     private route: ActivatedRoute,
     private orderService: OrderService,
     private modalCtrl: ModalController,
-    private loadingService: LoadingService,
     private pageNotiService: PageNotiService,
     private router: Router,
-
+    private alertController: AlertController,
+    private loadingService: LoadingService
   ) { }
 
   ngOnInit() {
@@ -40,7 +39,7 @@ export class CheckoutPage implements OnInit {
 
   getCart() {
     this.cart = JSON.parse(localStorage.getItem('cart')) || [];
-    this.location = localStorage.getItem('location');
+    this.address = localStorage.getItem('address');
   }
 
   calPrice(item) {
@@ -50,26 +49,17 @@ export class CheckoutPage implements OnInit {
   calTotalPrice() {
     return this.cart.reduce((acc, item) => acc + this.calPrice(item), 0);
   }
-  async openModalSuccess() {
-    const popover = await this.modalCtrl.create({
-      component: ModalFoodComponent,
-      cssClass: 'modalFood',
-      backdropDismiss: false,
-      componentProps: { order_id: this.order_id }
-    });
-    return await popover.present();
-  }
   ionViewWillLeave() {
     this.modalCtrl.dismiss();
   }
   confirm() {
-    // this.loadingService.present();
+    this.loadingService.present();
     const req = {
       order: {
         lat: localStorage.getItem('lat'),
         lng: localStorage.getItem('lng'),
-        note: null,
-        full_address: this.location,
+        note: localStorage.getItem('note'),
+        full_address: this.address,
         parish_id: localStorage.getItem('tempParishId'),
         phone_number_receiver: localStorage.getItem('phone_temp'),
         order_details_attributes: this.cart.map(item => ({ product_id: item.id, amount: item.amount }))
@@ -78,26 +68,28 @@ export class CheckoutPage implements OnInit {
     if (this.paymentMethod.id == 0) {
       this.orderService.create(req).subscribe((data: any) => {
         this.order_id = data.order.id;
-        // this.loadingService.dismiss();
         this.paymentByCash();
+        this.loadingService.dismiss();
       })
     }
     else {
       this.orderService.create(req).subscribe(
         (data: any) => {
           this.order_id = data.order.id;
-          // this.loadingService.dismiss();
-          this.openModalSuccess();
+          this.alertSuccess();
           this.modalCtrl.dismiss();
+          this.loadingService.dismiss();
         },
         () => {
-          // this.loadingService.dismiss();
+          this.loadingService.dismiss();
         }
       )
     }
     localStorage.removeItem('lat');
     localStorage.removeItem('lng');
     localStorage.removeItem('cart');
+    localStorage.removeItem('phone_temp');
+    localStorage.removeItem('note');
   }
   paymentByCash() {
     var orderByCash = {
@@ -111,13 +103,50 @@ export class CheckoutPage implements OnInit {
       routerLink: '/main/chabad'
     }
     this.orderService.paymentOrder_Cash(orderByCash).subscribe(data => {
-      // this.loadingService.dismiss();
       this.pageNotiService.setdataStatusNoti(datapasing);
-      setTimeout(()=> {
+      setTimeout(() => {
         this.router.navigateByUrl('/page-noti');
-      }, 1500)},
+      }, 1500)
+    },
       () => {
-        // this.loadingService.dismiss();
       })
+  }
+
+  async alertSuccess() {
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Tiếp tục thanh toán',
+      backdropDismiss: false,
+      mode: 'ios',
+      buttons: [
+        {
+          text: 'Đóng',
+          cssClass: 'secondary',
+          handler: () => {
+            this.router.navigate(['/main'])
+          }
+        },
+        {
+          text: 'Tiếp tục',
+          handler: () => {
+            const data = {
+              order_id: this.order_id,
+              type_page: 'order',
+              token: '',
+            }
+            this.continute(data);
+          }
+        }
+      ]
+    });
+    await alert.present();
+  }
+
+  continute(data) {
+    this.router.navigate(['paymentmethods'], {
+      queryParams: {
+        data: JSON.stringify(data)
+      }
+    })
   }
 }

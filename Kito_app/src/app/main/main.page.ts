@@ -1,10 +1,14 @@
+import { NetworkService } from './../@app-core/utils/network.service';
+import { DioceseService } from './../@app-core/http/diocese/diocese.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService, VaticanService } from '../@app-core/http';
-import { AlertController, IonInfiniteScroll, ModalController, NavController, Platform, ToastController } from '@ionic/angular';
+import { AuthService, ParishesService, VaticanService } from '../@app-core/http';
+import { AlertController, IonInfiniteScroll, ModalController, NavController, Platform } from '@ionic/angular';
 import { AccountService } from '../@app-core/http/account/account.service';
 import { GeolocationService, LoadingService, OneSignalService, ToastService } from '../@app-core/utils';
 import { IPageVatican } from '../@app-core/http/vatican/vatican.DTO';
+import { IPageRequest } from 'src/app/@app-core/http/global/global.DTO';
+import { IPageParishes } from 'src/app/@app-core/http/parishes/parishes.DTO';
 
 @Component({
   selector: 'app-main',
@@ -70,14 +74,17 @@ export class MainPage implements OnInit {
   ]
 
   vaticanList = {
-    // heading: '',
     items: [],
     type: { general: 'news', detail: 'vatican' }
   }
   subscribe: any;
-  location;
   public alertPresented = false;
   count = 0;
+  interval: any;
+  pageRequestDioceses: IPageRequest = {}
+  pageRequestParishes: IPageParishes = {
+    diocese_id: 0,
+  }
   constructor(
     private router: Router,
     private OneSignalService: OneSignalService,
@@ -91,9 +98,27 @@ export class MainPage implements OnInit {
     private toarst: ToastService,
     private navController: NavController,
     private geolocationSerivce: GeolocationService,
+    private diocesesService: DioceseService,
+    private parishesService: ParishesService,
+    private networkService: NetworkService,
+    private toastService: ToastService
   ) { }
 
   ionViewWillEnter() {
+    clearInterval(this.interval);
+    this.continuingCheckLocation();
+    this.checkAvatar();
+  }
+  ngOnInit() {
+    this.OneSignalService.startOneSignal();
+    this.getVatican();
+    this.blockBackBtn();
+    if (this.networkService.isConnected == 'connected') {
+      this.toastService.presentSuccess('Đã kết nối!');
+    }
+  }
+
+  checkAvatar() {
     this.name = localStorage.getItem('fullname');
     this.accountService.getAccounts().subscribe(data => {
       this.name = data.app_user.full_name;
@@ -113,21 +138,18 @@ export class MainPage implements OnInit {
       }
     })
   }
-  ngOnInit() {
-    this.loading.present();
-    this.OneSignalService.startOneSignal();
-    this.getVatican();
-    this.reTakeLocation();
-    this.subscribe = this.platform.backButton.subscribeWithPriority(99999,()=>{
-      if(this.router.url === '/main') {
+
+  blockBackBtn() {
+    this.subscribe = this.platform.backButton.subscribeWithPriority(99999, () => {
+      if (this.router.url === '/main') {
         this.count++;
-        if(this.count == 1) {
+        if (this.count == 1) {
           this.toarst.presentSuccess('Nhấn lần nữa để thoát!');
         }
         else {
-            navigator['app'].exitApp();
+          this.presentAlert();
         }
-         setTimeout(()=> {
+        setTimeout(() => {
           this.count = 0;
         }, 2000);
       }
@@ -136,29 +158,102 @@ export class MainPage implements OnInit {
       }
     })
   }
- 
-  reTakeLocation() {
-    this.geolocationSerivce.getCurrentLocation();
-    this.location = this.geolocationSerivce.customerLocation.address;
+
+  continuingCheckLocation() {
+    let dateObj = new Date();
+    let currentDay = dateObj.toISOString().substr(0, 10);
+    this.diocesesService.getAttention(currentDay).subscribe((data) => {
+      for (let calendar of data.calendars) {
+        if (calendar.date.slice(0, 10) == currentDay && calendar.joined == false) {
+          this.diocesesService.getAll(this.pageRequestDioceses).subscribe(data => {
+            const totalDioceses = data.meta.pagination.per_page;
+            for (let i = 1; i <= totalDioceses; i++) {
+              this.pageRequestParishes.diocese_id += 1;
+              this.parishesService.getAll(this.pageRequestParishes).subscribe(data => {
+                let timeOut, timeClear = 0;
+                if (parseInt(localStorage.getItem('timeOut')) > 0) {
+                  timeOut = parseInt(localStorage.getItem('timeOut')) + 1;
+                } else timeOut = 0;
+                this.interval = setInterval(() => {
+                  this.geolocationSerivce.getCurrentLocationNoLoading();
+                  localStorage.setItem('address', this.geolocationSerivce.customerLocation.address);
+                  localStorage.setItem('lat', this.geolocationSerivce.centerService.lat.toFixed(5).toString());
+                  localStorage.setItem('lng', this.geolocationSerivce.centerService.lng.toFixed(5).toString());
+                  if (timeClear == 99) {
+                    console.clear();
+                  }
+                  if (timeOut == 1200) {
+                    let currentTime = dateObj.getHours() + ":" + dateObj.getMinutes();
+                    this.diocesesService.creatAttention({
+                      attention_log: {
+                        cal_time: currentDay + ' ' + currentTime,
+                        long: parseInt(localStorage.getItem('lng')),
+                        lat: parseInt(localStorage.getItem('lat'))
+                      }
+                    }).subscribe((data) => {
+                      this.presentAlertJoneEvent(data);
+                    })
+                    clearInterval(this.interval);
+                  }
+                  for (let parish of data.parishes) {
+                    let tempDistance = this.geolocationSerivce.distanceFromUserToPointMet(
+                      localStorage.getItem('lat'),
+                      localStorage.getItem('lng'),
+                      parish.location.lat,
+                      parish.location.long,
+                    )
+                    if (tempDistance - 30 <= 0) {
+                      timeOut++;
+                      break;
+                    }
+                  }
+                  localStorage.setItem('timeOut', timeOut.toString());
+                  timeClear++;
+                }, 1500)
+              })
+              break;
+            }
+            this.pageRequestParishes.diocese_id = 0;
+          })
+          break;
+        }
+      }
+    })
   }
+
+  async presentAlertJoneEvent(data) {
+    this.alertPresented = true;
+    const alert = await this.alertController.create({
+      cssClass: 'logout-alert',
+      message: 'Điểm danh tự động: ' + data,
+      mode: 'ios',
+      buttons: [
+        {
+          text: 'Đồng ý',
+        }
+      ]
+    });
+    await alert.present();
+  }
+
   async presentAlert() {
     this.alertPresented = true;
     const alert = await this.alertController.create({
       cssClass: 'logout-alert',
-      message: 'Bạn có muốn thoát app ?',
+      header: 'Bạn có muốn thoát app ?',
+      mode: 'ios',
       buttons: [
+        {
+          text: 'Hủy',
+          handler: () => {
+            this.alertPresented = false;
+            return;
+          }
+        },
         {
           text: 'Đồng ý',
           handler: () => {
             navigator['app'].exitApp();
-          }
-        },
-        {
-          text: 'Hủy',
-          
-          handler: () => {
-            this.alertPresented = false;
-            return;
           }
         },
       ]
@@ -178,7 +273,7 @@ export class MainPage implements OnInit {
       this.vaticanList.items = data.vatican_news;
     })
   }
-  
+
   goToDetail(item) {
     if (item.desUrl == 'donate') {
       const data = {

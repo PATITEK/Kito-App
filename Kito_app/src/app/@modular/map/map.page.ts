@@ -20,7 +20,7 @@ export class MapPage implements OnInit {
   infoWindows: any = [];
 
   pageRequestParishes: IPageParishes = {
-    diocese_id: 0,
+    diocese_id: localStorage.getItem('diocese_id'),
   }
 
   pageRequestDioceses: IPageRequest = {
@@ -34,7 +34,6 @@ export class MapPage implements OnInit {
     public platform: Platform,
     private GeolocationService: GeolocationService,
     private parishesService: ParishesService,
-    private diocesesService: DioceseService,
     private geolocationService: GeolocationService,
     private DioceseService: DioceseService,
   ) { }
@@ -117,7 +116,7 @@ export class MapPage implements OnInit {
       let mapMarker = new google.maps.Marker({
         position: position,
         label: marker.name,
-        icon: 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png',
+        icon: 'assets/icon/map.png',
       });
       let mapMarkerInfo = {
         name: marker.name,
@@ -128,7 +127,7 @@ export class MapPage implements OnInit {
         lat: marker.location.lat,
         lng: marker.location.long,
       }
-
+      mapMarker.setMap(null);
       mapMarker.setMap(this.map);
       this.addInfoWindowToMarker(mapMarker, mapMarkerInfo);
     }

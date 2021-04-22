@@ -102,7 +102,18 @@ ion-content {
     width: 90%;
     ion-row {
       ion-col {
-        ion-button {
+        ion-buttons {
+          border: 2px solid #ffffff;
+          width: 100%;
+          font-weight: 400;
+          margin-top: 5px;
+          border-radius: 20px;
+          word-break: keep-all;
+          font-size: 14px;
+          justify-content: center;
+          padding: 8px;
+        }
+        .confirm-btn {
           border: 2px solid #ffffff;
           --border-color: #ffffff;
           width: 100%;
@@ -114,17 +125,15 @@ ion-content {
           word-break: keep-all;
           font-size: 14px;
           --background-activated: none;
-        }
-        .answer {
-          color: #ffffff;
-        }
-        .confirm-btn {
           margin-top: 15px;
           border: #000576;
           --background: #000576;
         }
+        .answer {
+          color: #ffffff;
+        }
         .active-button {
-          --background: #000576;
+          background: #000576;
           color: #ffffff;
         }
       }
@@ -175,6 +184,8 @@ ion-content {
       display: block;
       margin: auto;
       margin-top: 30px;
+      position: relative;
+      z-index: 101;
       .rule-content {
         color: #ffffff;
         justify-content: center;
@@ -187,6 +198,8 @@ ion-content {
       display: block;
       margin: auto;
       margin-top: 50px;
+      position: relative;
+      z-index: 99;
     }
   }
   .background-gif {
@@ -224,25 +237,13 @@ ion-content {
   .img-star1 {
     position: absolute;
     left: 0;
-    top: 0;
+    top: 50vh;
     z-index: 1;
   }
   .img-star2 {
     position: absolute;
     left: 0;
-    top: 10vh;
-    z-index: 1;
-  }
-  .img-star3 {
-    position: absolute;
-    left: 0;
     top: 50vh;
-    z-index: 1;
-  }
-  .img-star4 {
-    position: absolute;
-    left: 0;
-    top: 30vh;
     z-index: 1;
   }
 }
