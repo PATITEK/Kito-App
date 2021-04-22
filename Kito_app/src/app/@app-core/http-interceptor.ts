@@ -1,6 +1,6 @@
 import { Observable, throwError } from 'rxjs';
 import { Injectable, Inject } from '@angular/core';
-import { HttpRequest, HttpErrorResponse, HttpInterceptor, HttpResponse } from '@angular/common/http';
+import { HttpRequest, HttpErrorResponse, HttpInterceptor } from '@angular/common/http';
 import { HttpHandler } from '@angular/common/http';
 import { HttpEvent } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
@@ -50,6 +50,7 @@ export class IntercepterService implements HttpInterceptor {
 
   private prepareUrl(url: string): string {
     url = this.isAbsoluteUrl(url) ? url : this.apiUrl + url;
+    console.log(url)
     return url.replace(/([^:]\/)\/+/g, '$1');
   }
 }
