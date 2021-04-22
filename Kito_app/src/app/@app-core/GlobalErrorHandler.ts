@@ -22,12 +22,12 @@ export class GlobalErrorHandler implements ErrorHandler {
         }
         else if (error.message === 'Signature has expired' || error.message === 'Signature verification raised') {
             this.validateConfirm();
+            return
         }
-        else {
-            if(error.message != null) {
+        else if(error.message != null) {
                 this.toarstSerivce.presentFail(error.message);
             }
-        }
+        
         this.netWorkService.setSubscriptions();
     }
 

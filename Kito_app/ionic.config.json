@@ -1,7 +1,8 @@
 {
   "name": "Công giáo VN",
   "integrations": {
-    "cordova": {}
+    "cordova": {},
+    "capacitor": {}
   },
   "type": "angular"
 }

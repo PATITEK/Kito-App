@@ -50,7 +50,6 @@ export class IntercepterService implements HttpInterceptor {
 
   private prepareUrl(url: string): string {
     url = this.isAbsoluteUrl(url) ? url : this.apiUrl + url;
-    console.log(url)
     return url.replace(/([^:]\/)\/+/g, '$1');
   }
 }
