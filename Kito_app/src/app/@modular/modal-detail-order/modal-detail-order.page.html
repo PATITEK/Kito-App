@@ -9,7 +9,7 @@
     </ion-buttons>
     <ion-col class="details">
       <ion-label class="detail">• Trạng thái: {{order.status}}</ion-label>
-      <ion-label class="detail">• Ghi chú: {{order.note}}</ion-label>
+      <ion-label class="detail" *ngIf="order.note != 'null' ">• Ghi chú: {{order.note}}</ion-label>
       <span class="detail">• Địa chỉ: {{order.full_address}}</span>
       <ion-label class="detail">• Số điện thoại: {{order.phone_number_receiver}}</ion-label>
       <ion-label class="detail">• Đã tạo lúc: {{ order.created_at.substring(0, 10) }}</ion-label>

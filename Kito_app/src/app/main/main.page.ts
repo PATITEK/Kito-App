@@ -105,11 +105,11 @@ export class MainPage implements OnInit {
   ) { }
 
   ionViewWillEnter() {
-    clearInterval(this.interval);
-    this.continuingCheckLocation();
+    this.autoJoinEvent();
     this.checkAvatar();
   }
   ngOnInit() {
+    this.geolocationSerivce.getCurrentLocationNoLoading();
     this.OneSignalService.startOneSignal();
     this.getVatican();
     this.blockBackBtn();
@@ -159,41 +159,38 @@ export class MainPage implements OnInit {
     })
   }
 
-  continuingCheckLocation() {
+  autoJoinEvent() {
     let dateObj = new Date();
     let currentDay = dateObj.toISOString().substr(0, 10);
     this.diocesesService.getAttention(currentDay).subscribe((data) => {
       for (let calendar of data.calendars) {
         if (calendar.date.slice(0, 10) == currentDay && calendar.joined == false) {
-          this.diocesesService.getAll(this.pageRequestDioceses).subscribe(data => {
+          this.diocesesService.getAll(this.pageRequestDioceses).subscribe((data) => {
             const totalDioceses = data.meta.pagination.per_page;
             for (let i = 1; i <= totalDioceses; i++) {
               this.pageRequestParishes.diocese_id += 1;
-              this.parishesService.getAll(this.pageRequestParishes).subscribe(data => {
+              this.parishesService.getAll(this.pageRequestParishes).subscribe((data) => {
                 let timeOut, timeClear = 0;
                 if (parseInt(localStorage.getItem('timeOut')) > 0) {
                   timeOut = parseInt(localStorage.getItem('timeOut')) + 1;
                 } else timeOut = 0;
+                clearInterval(this.interval);
                 this.interval = setInterval(() => {
                   this.geolocationSerivce.getCurrentLocationNoLoading();
-                  localStorage.setItem('address', this.geolocationSerivce.customerLocation.address);
-                  localStorage.setItem('lat', this.geolocationSerivce.centerService.lat.toFixed(5).toString());
-                  localStorage.setItem('lng', this.geolocationSerivce.centerService.lng.toFixed(5).toString());
-                  if (timeClear == 99) {
-                    console.clear();
-                  }
-                  if (timeOut == 1200) {
+                  if (timeOut >= 1200) {
                     let currentTime = dateObj.getHours() + ":" + dateObj.getMinutes();
-                    this.diocesesService.creatAttention({
-                      attention_log: {
-                        cal_time: currentDay + ' ' + currentTime,
-                        long: parseInt(localStorage.getItem('lng')),
-                        lat: parseInt(localStorage.getItem('lat'))
+                    let attention_log = {
+                      cal_time: currentDay + ' ' + currentTime,
+                      long: parseInt(localStorage.getItem('lng')),
+                      lat: parseInt(localStorage.getItem('lat'))
+                    }
+                    this.diocesesService.creatAttention({attention_log}).subscribe((data) => {
+                      clearInterval(this.interval);
+                      if (data.message == 'Thành công!') {
+                        this.presentAlertJoinEvent(data.message);
                       }
-                    }).subscribe((data) => {
-                      this.presentAlertJoneEvent(data);
+                      else localStorage.removeItem('timeOut');
                     })
-                    clearInterval(this.interval);
                   }
                   for (let parish of data.parishes) {
                     let tempDistance = this.geolocationSerivce.distanceFromUserToPointMet(
@@ -208,6 +205,9 @@ export class MainPage implements OnInit {
                     }
                   }
                   localStorage.setItem('timeOut', timeOut.toString());
+                  if (timeClear == 99) {
+                    console.clear();
+                  }
                   timeClear++;
                 }, 1500)
               })
@@ -221,15 +221,17 @@ export class MainPage implements OnInit {
     })
   }
 
-  async presentAlertJoneEvent(data) {
-    this.alertPresented = true;
+  async presentAlertJoinEvent(data) {
     const alert = await this.alertController.create({
-      cssClass: 'logout-alert',
-      message: 'Điểm danh tự động: ' + data,
+      header: 'Điểm danh tự động: ' + data,
       mode: 'ios',
+      backdropDismiss: false,
       buttons: [
         {
           text: 'Đồng ý',
+          handler: () => {
+            localStorage.removeItem('timeOut');
+          }
         }
       ]
     });
@@ -240,7 +242,7 @@ export class MainPage implements OnInit {
     this.alertPresented = true;
     const alert = await this.alertController.create({
       cssClass: 'logout-alert',
-      header: 'Bạn có muốn thoát app ?',
+      header: 'Bạn có muốn thoát ứng dụng ?',
       mode: 'ios',
       buttons: [
         {

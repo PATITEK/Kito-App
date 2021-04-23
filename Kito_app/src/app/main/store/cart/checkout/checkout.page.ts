@@ -102,14 +102,10 @@ export class CheckoutPage implements OnInit {
       des: 'Đơn hàng đặt thành công!',
       routerLink: '/main/chabad'
     }
-    this.orderService.paymentOrder_Cash(orderByCash).subscribe(data => {
+    this.orderService.paymentOrder_Cash(orderByCash).subscribe((data) => {
       this.pageNotiService.setdataStatusNoti(datapasing);
-      setTimeout(() => {
-        this.router.navigateByUrl('/page-noti');
-      }, 1500)
-    },
-      () => {
-      })
+      this.router.navigateByUrl('/page-noti');
+    })
   }
 
   async alertSuccess() {

@@ -5,15 +5,14 @@ import { LoadingService } from 'src/app/@app-core/utils';
 import { ModalDetailOrderPage } from 'src/app/@modular/modal-detail-order/modal-detail-order.page';
 
 @Component({
-  selector: 'app-orders-history',
-  templateUrl: './orders-history.page.html',
-  styleUrls: ['./orders-history.page.scss'],
+  selector: 'app-notification',
+  templateUrl: './notification.page.html',
+  styleUrls: ['./notification.page.scss'],
 })
-
-export class OrdersHistoryPage implements OnInit {
+export class NotificationPage implements OnInit {
   @ViewChild('infiniteScroll') infiniteScroll: IonInfiniteScroll;
 
-  headerCustom = { title: 'Lịch sử đặt hàng' };
+  headerCustom = { title: 'Thông báo' };
   orders = [];
   lastedData: any;
   requestOrder: IPageRequest = {
@@ -23,7 +22,8 @@ export class OrdersHistoryPage implements OnInit {
   constructor(private orderService: OrderService,
     private modalController: ModalController,
     private loadingService: LoadingService
-  ) {}
+  ) { }
+
   ngOnInit() {
   }
   ionViewWillEnter() {
@@ -42,7 +42,6 @@ export class OrdersHistoryPage implements OnInit {
         var b_time = new Date(b.created_at);
         return b_time.getTime() - a_time.getTime()
         //})
-
       })
     })
   }
