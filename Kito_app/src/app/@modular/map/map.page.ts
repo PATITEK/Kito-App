@@ -29,6 +29,8 @@ export class MapPage implements OnInit {
 
   markers: any = []
 
+  mapMarker: any;
+
   @ViewChild('map', { read: ElementRef, static: false }) mapRef: ElementRef;
   constructor(
     public platform: Platform,
@@ -44,7 +46,6 @@ export class MapPage implements OnInit {
       this.title = 'Bản đồ ' + data.diocese.name;
     })
     this.GeolocationService.getCurrentLocation();
-    this.addDataMarkerToMap();
   }
 
   ionViewWillEnter() {
@@ -61,6 +62,7 @@ export class MapPage implements OnInit {
       zoom: 15,
       disableDefaultUI: true,
     });
+    this.addDataMarkerToMap();
   }
 
   getCurrentLocation() {
@@ -68,14 +70,13 @@ export class MapPage implements OnInit {
     this.center = this.GeolocationService.centerService;
     this.initMap();
     this.addCurrenMarker();
-    this.addDataMarkerToMap();
   }
 
   addCurrenMarker() {
     let currentMarker = new google.maps.Marker({
       position: new google.maps.LatLng(this.center.lat, this.center.lng),
       label: 'Vị trí của bạn, kéo thả để thay đổi',
-      icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
+      icon: 'assets/icon/current-marker.png',
       draggable: true,
     });
     currentMarker.setMap(this.map);
@@ -101,10 +102,10 @@ export class MapPage implements OnInit {
     //   }
     //   this.pageRequestParishes.diocese_id = 0;
     // })
-    let tempId = JSON.parse(localStorage.getItem('diocese_id'))
-    this.pageRequestParishes.diocese_id = tempId;
+    this.pageRequestParishes.diocese_id = JSON.parse(localStorage.getItem('diocese_id'));
     this.parishesService.getAllWithDioceseId(this.pageRequestParishes).subscribe(data => {
       this.markers = data.parishes;
+      this.deleteMapMarkers(this.markers);
       this.addMarkersToMap(this.markers);
     })
   }
@@ -113,7 +114,7 @@ export class MapPage implements OnInit {
     for (let marker of markers) {
       let distance = this.geolocationService.distanceFromUserToPoint(this.center.lat, this.center.lng, marker.location.lat, marker.location.long);
       let position = new google.maps.LatLng(marker.location.lat, marker.location.long);
-      let mapMarker = new google.maps.Marker({
+      this.mapMarker = new google.maps.Marker({
         position: position,
         label: marker.name,
         icon: 'assets/icon/map.png',
@@ -127,10 +128,14 @@ export class MapPage implements OnInit {
         lat: marker.location.lat,
         lng: marker.location.long,
       }
-      mapMarker.setMap(null);
-      mapMarker.setMap(this.map);
-      this.addInfoWindowToMarker(mapMarker, mapMarkerInfo);
+      this.mapMarker.setMap(this.map);
+      this.addInfoWindowToMarker(this.mapMarker, mapMarkerInfo);
     }
+  }
+
+  deleteMapMarkers(mapMarkers) {
+    // mapMarkers.setMap(null);
+    mapMarkers = null
   }
 
   async addInfoWindowToMarker(marker, mapMarkerInfo) {
@@ -141,8 +146,6 @@ export class MapPage implements OnInit {
       '<h5 style=" display: block; text-align: center; font-size: 17px; ">' + mapMarkerInfo.priest_name + '</h5>' +
       '<h6>' + mapMarkerInfo.address + '</h6>' +
       '<p>Khoảng cách ước tính: ' + mapMarkerInfo.distance + ' km</p>' +
-      // '<p>Latitude: ' + mapMarkerInfo.lat + '</p>' +
-      // '<p>Longitude: ' + mapMarkerInfo.lng + '</p>' +
       '<ion-button id="navigate" mode="ios" style=" --background: #F6C33E; --border-radius: 15px; display: block; margin: auto; --background-activated: #CC9D3E; ">' + 'Chỉ đường tới đây' + '</ion-button>'
     '</div>';
     let infoWindow = new google.maps.InfoWindow({

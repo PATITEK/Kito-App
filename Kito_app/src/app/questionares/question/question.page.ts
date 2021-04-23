@@ -252,6 +252,7 @@ export class QuestionPage implements OnInit {
   }
 
   updateScore() {
-    this.QuestionaresService.updateScore({ app_user: { score: this.score }});
+    this.QuestionaresService.updateScore({ app_user: { score: this.score }}).subscribe((data) => {
+    })
   }
 }
