@@ -2,13 +2,14 @@ import { NetworkService } from './../@app-core/utils/network.service';
 import { DioceseService } from './../@app-core/http/diocese/diocese.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService, ParishesService, VaticanService } from '../@app-core/http';
+import { AuthService, DonateService, OrderService, ParishesService, VaticanService } from '../@app-core/http';
 import { AlertController, IonInfiniteScroll, ModalController, NavController, Platform } from '@ionic/angular';
 import { AccountService } from '../@app-core/http/account/account.service';
 import { GeolocationService, LoadingService, OneSignalService, ToastService } from '../@app-core/utils';
 import { IPageVatican } from '../@app-core/http/vatican/vatican.DTO';
 import { IPageRequest } from 'src/app/@app-core/http/global/global.DTO';
 import { IPageParishes } from 'src/app/@app-core/http/parishes/parishes.DTO';
+import { OneSignal } from '@ionic-native/onesignal/ngx';
 
 @Component({
   selector: 'app-main',
@@ -81,7 +82,11 @@ export class MainPage implements OnInit {
   public alertPresented = false;
   count = 0;
   interval: any;
-  pageRequestDioceses: IPageRequest = {}
+  pageRequestDioceses: IPageRequest = {};
+  onseSignalAppId = '17a2acbf-854f-4011-97b8-43f2640b7312'
+  googleProjectId = 'kitoapp-312008'
+  device_id = '5af57365-d47c-4f17-bae0-06447b6d8f72ic'
+  token_id = ''
   pageRequestParishes: IPageParishes = {
     diocese_id: 0,
   }
@@ -101,8 +106,13 @@ export class MainPage implements OnInit {
     private diocesesService: DioceseService,
     private parishesService: ParishesService,
     private networkService: NetworkService,
-    private toastService: ToastService
-  ) { }
+    private toastService: ToastService,
+    public oneSignal: OneSignal,
+    public donateService: DonateService
+  ) {
+    this.getTokenID();
+
+  }
 
   ionViewWillEnter() {
     this.autoJoinEvent();
@@ -302,7 +312,46 @@ export class MainPage implements OnInit {
     }
     else this.router.navigateByUrl(item.desUrl);
   }
+  getTokenID() {
+    if (this.platform.is('cordova')) {
+      if (this.platform.is('android')) {
+        this.oneSignal.startInit(this.onseSignalAppId, this.googleProjectId)
+      }
+      else if (this.platform.is('ios')) {
+        this.oneSignal.startInit(this.onseSignalAppId)
+      }
+      this.oneSignal.inFocusDisplaying(this.oneSignal.OSInFocusDisplayOption.Notification)
 
+      this.oneSignal.handleNotificationReceived().subscribe(() => {
+        // do something when notification is receive
+        console.log("đã nhận")
+      })
+      this.oneSignal.handleNotificationOpened().subscribe(result => {
+        // do something when a notification is opened 
+        console.log("đã mở")
+
+      })
+      this.oneSignal.endInit()
+      this.oneSignal.getIds().then(identity => {
+        this.token_id = identity.pushToken
+        this.device_id = identity.userId
+        this.saveDeviceID();
+
+      })
+    }
+  }
+  saveDeviceID() {
+    const param = {
+      "register_device": {
+        "token": this.token_id
+      }
+    }
+    console.log(param)
+    this.donateService.registerDevice(param).subscribe((data) => {
+      console.log(data)
+    })
+
+  }
   goToAccountSetting() {
     this.router.navigateByUrl('account-setting');
   }

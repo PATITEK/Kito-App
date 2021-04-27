@@ -49,4 +49,14 @@ export class DonateService {
       }));
 
   }
+  public registerDevice(req) {
+    return this.http.post(`${APICONFIG.DEVICES.REGISTER}`, req).pipe(
+        map((result) =>{
+            return result
+        }),
+        catchError((error)=>{
+            throw error
+        })
+    )
+}
 }
