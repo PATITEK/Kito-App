@@ -25,7 +25,7 @@ export class GeolocationService {
     address: null
   };
 
-  centerService: google.maps.LatLngLiteral = { lat: parseInt(localStorage.getItem('lat')), lng: parseInt(localStorage.getItem('lng')) };
+  centerService: google.maps.LatLngLiteral = { lat: parseFloat(localStorage.getItem('lat')), lng: parseFloat(localStorage.getItem('lng')) };
 
   constructor(public geolocation: Geolocation,
     public nativeGeocoder: NativeGeocoder,
@@ -43,6 +43,9 @@ export class GeolocationService {
         this.centerService.lat = resp.coords.latitude;
         this.centerService.lng = resp.coords.longitude;
         this.getGeoEncoder(this.centerService.lat, this.centerService.lng);
+        localStorage.setItem('address', this.customerLocation.address);
+        localStorage.setItem('lat', this.centerService.lat.toFixed(8).toString());
+        localStorage.setItem('lng', this.centerService.lng.toFixed(8).toString());
         this.loadingService.dismiss();
       })
     })
@@ -53,6 +56,9 @@ export class GeolocationService {
         this.centerService.lat = resp.coords.latitude;
         this.centerService.lng = resp.coords.longitude;
         this.getGeoEncoder(this.centerService.lat, this.centerService.lng);
+        localStorage.setItem('address', this.customerLocation.address);
+        localStorage.setItem('lat', this.centerService.lat.toFixed(8).toString());
+        localStorage.setItem('lng', this.centerService.lng.toFixed(8).toString());
       })
     })
   }
@@ -60,9 +66,6 @@ export class GeolocationService {
     this.nativeGeocoder.reverseGeocode(latitude, longitude, this.geoEncoderOptions)
       .then((result: NativeGeocoderResult[]) => {
         this.customerLocation.address = this.generateAddress(result[0]);
-        localStorage.setItem('address', this.customerLocation.address);
-        localStorage.setItem('lat', this.centerService.lat.toString());
-        localStorage.setItem('lng', this.centerService.lng.toString());
       })
       .catch(() => { }); // do not delete
   }

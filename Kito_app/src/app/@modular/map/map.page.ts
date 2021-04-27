@@ -112,7 +112,14 @@ export class MapPage implements OnInit {
 
   addMarkersToMap(markers) {
     for (let marker of markers) {
-      let distance = this.geolocationService.distanceFromUserToPoint(this.center.lat, this.center.lng, marker.location.lat, marker.location.long);
+      let distance: any = this.geolocationService.distanceFromUserToPoint(this.center.lat, this.center.lng, marker.location.lat, marker.location.long);
+      let tempUnit = ' km';
+      if (distance < 1) {
+        distance = this.geolocationService.distanceFromUserToPointMet(this.center.lat, this.center.lng, marker.location.lat, marker.location.long).toFixed();
+        tempUnit = ' m';
+        console.log(distance)
+      }
+      distance = distance + tempUnit;
       let position = new google.maps.LatLng(marker.location.lat, marker.location.long);
       this.mapMarker = new google.maps.Marker({
         position: position,
@@ -141,13 +148,13 @@ export class MapPage implements OnInit {
   async addInfoWindowToMarker(marker, mapMarkerInfo) {
     let infoWindowContent =
       '<div *ngIf=" markers.length != null ">' +
-      '<h3 style=" display: block; text-align: center; ">' + mapMarkerInfo.name + '</h3>' +
-      '<img style=" height: 120px; width: 100%; display: block; margin: auto; border-radius: 12px; " src=' + mapMarkerInfo.url + '>' +
-      '<h5 style=" display: block; text-align: center; font-size: 17px; ">' + mapMarkerInfo.priest_name + '</h5>' +
-      '<h6>' + mapMarkerInfo.address + '</h6>' +
-      '<p>Khoảng cách ước tính: ' + mapMarkerInfo.distance + ' km</p>' +
-      '<ion-button id="navigate" mode="ios" style=" --background: #F6C33E; --border-radius: 15px; display: block; margin: auto; --background-activated: #CC9D3E; ">' + 'Chỉ đường tới đây' + '</ion-button>'
-    '</div>';
+        '<h3 style=" display: block; text-align: center; ">' + mapMarkerInfo.name + '</h3>' +
+        '<img style=" height: 120px; width: 100%; display: block; margin: auto; border-radius: 12px; " src=' + mapMarkerInfo.url + '>' +
+        '<h5 style=" display: block; text-align: center; font-size: 17px; ">' + mapMarkerInfo.priest_name + '</h5>' +
+        '<h6>' + mapMarkerInfo.address + '</h6>' +
+        '<p>Khoảng cách ước tính: ' + mapMarkerInfo.distance +
+        '<ion-button id="navigate" mode="ios" style=" --background: #F6C33E; --border-radius: 15px; display: block; margin: auto; margin-top: 5px; --background-activated: #CC9D3E; ">' + 'Chỉ đường tới đây' + '</ion-button>'
+      '</div>';
     let infoWindow = new google.maps.InfoWindow({
       content: infoWindowContent,
     });
