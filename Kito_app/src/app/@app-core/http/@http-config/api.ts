@@ -127,6 +127,9 @@ export const APICONFIG = {
   ATTENTION_LOG: {
     GET: date => `/app/attention_logs?cal_date=${date}`,
     CREATE: `/app/attention_logs`
+  },
+  DEVICES: {
+    REGISTER: `/app/register_device`
   }
 };
 
