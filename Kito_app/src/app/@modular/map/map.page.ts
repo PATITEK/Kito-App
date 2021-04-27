@@ -117,7 +117,6 @@ export class MapPage implements OnInit {
       if (distance < 1) {
         distance = this.geolocationService.distanceFromUserToPointMet(this.center.lat, this.center.lng, marker.location.lat, marker.location.long).toFixed();
         tempUnit = ' m';
-        console.log(distance)
       }
       distance = distance + tempUnit;
       let position = new google.maps.LatLng(marker.location.lat, marker.location.long);

@@ -340,6 +340,7 @@ export class MainPage implements OnInit {
       })
     }
   }
+
   saveDeviceID() {
     const param = {
       "register_device": {
@@ -350,8 +351,8 @@ export class MainPage implements OnInit {
     this.donateService.registerDevice(param).subscribe((data) => {
       console.log(data)
     })
-
   }
+
   goToAccountSetting() {
     this.router.navigateByUrl('account-setting');
   }

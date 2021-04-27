@@ -226,7 +226,8 @@ export class QuestionPage implements OnInit {
       this.toastService.presentFail("Sai rồi!", 'top', 1000, 'danger');
       this.wrong.play();
     }
-    if (this.questionCounter >= 10 || this.heart == 0 || this.score == 10) {
+    if (this.questionCounter >= 10 || this.heart < 0 || this.score == 10) {
+      this.heart = 0;
       this.updateScore();
       this.openCompleteQuestion();
       this.stopTimer();
