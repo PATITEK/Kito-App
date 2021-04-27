@@ -175,55 +175,47 @@ export class MainPage implements OnInit {
     this.diocesesService.getAttention(currentDay).subscribe((data) => {
       for (let calendar of data.calendars) {
         if (calendar.date.slice(0, 10) == currentDay && calendar.joined == false) {
-          this.diocesesService.getAll(this.pageRequestDioceses).subscribe((data) => {
-            const totalDioceses = data.meta.pagination.per_page;
-            for (let i = 1; i <= totalDioceses; i++) {
-              this.pageRequestParishes.diocese_id += 1;
-              this.parishesService.getAll(this.pageRequestParishes).subscribe((data) => {
-                let timeOut, timeClear = 0;
-                if (parseInt(localStorage.getItem('timeOut')) > 0) {
-                  timeOut = parseInt(localStorage.getItem('timeOut')) + 1;
-                } else timeOut = 0;
-                clearInterval(this.interval);
-                this.interval = setInterval(() => {
-                  this.geolocationSerivce.getCurrentLocationNoLoading();
-                  if (timeOut >= 1200) {
-                    let currentTime = dateObj.getHours() + ":" + dateObj.getMinutes();
-                    let attention_log = {
-                      cal_time: currentDay + ' ' + currentTime,
-                      long: parseInt(localStorage.getItem('lng')),
-                      lat: parseInt(localStorage.getItem('lat'))
-                    }
-                    this.diocesesService.creatAttention({ attention_log }).subscribe((data) => {
-                      clearInterval(this.interval);
-                      if (data.message == 'Thành công!') {
-                        this.presentAlertJoinEvent(data.message);
-                      }
-                      else localStorage.removeItem('timeOut');
-                    })
+          this.parishesService.getAll(this.pageRequestParishes).subscribe((data) => {
+            let timeOut, timeClear = 0;
+            if (parseInt(localStorage.getItem('timeOut')) > 0) {
+              timeOut = parseInt(localStorage.getItem('timeOut')) + 1;
+            } else timeOut = 0;
+            clearInterval(this.interval);
+            this.interval = setInterval(() => {
+              this.geolocationSerivce.getCurrentLocationNoLoading();
+              if (timeOut >= 1200) {
+                let currentTime = dateObj.getHours() + ":" + dateObj.getMinutes();
+                let attention_log = {
+                  cal_time: currentDay + ' ' + currentTime,
+                  long: parseFloat(localStorage.getItem('lng')),
+                  lat: parseFloat(localStorage.getItem('lat'))
+                }
+                this.diocesesService.creatAttention({ attention_log }).subscribe((data) => {
+                  clearInterval(this.interval);
+                  if (data.message == 'Thành công!') {
+                    this.presentAlertJoinEvent(data.message);
                   }
-                  for (let parish of data.parishes) {
-                    let tempDistance = this.geolocationSerivce.distanceFromUserToPointMet(
-                      localStorage.getItem('lat'),
-                      localStorage.getItem('lng'),
-                      parish.location.lat,
-                      parish.location.long,
-                    )
-                    if (tempDistance - 30 <= 0) {
-                      timeOut++;
-                      break;
-                    }
-                  }
-                  localStorage.setItem('timeOut', timeOut.toString());
-                  if (timeClear == 99) {
-                    console.clear();
-                  }
-                  timeClear++;
-                }, 1500)
-              })
-              break;
-            }
-            this.pageRequestParishes.diocese_id = 0;
+                  else localStorage.removeItem('timeOut');
+                })
+              }
+              for (let parish of data.parishes) {
+                let tempDistance = this.geolocationSerivce.distanceFromUserToPointMet(
+                  localStorage.getItem('lat'),
+                  localStorage.getItem('lng'),
+                  parish.location.lat,
+                  parish.location.long,
+                )
+                if (tempDistance - 30 <= 0) {
+                  timeOut++;
+                  break;
+                }
+              }
+              localStorage.setItem('timeOut', timeOut.toString());
+              if (timeClear == 99) {
+                console.clear();
+              }
+              timeClear++;
+            }, 1500)
           })
           break;
         }
@@ -348,6 +340,7 @@ export class MainPage implements OnInit {
       })
     }
   }
+
   saveDeviceID() {
     const param = {
       "register_device": {
@@ -358,8 +351,8 @@ export class MainPage implements OnInit {
     this.donateService.registerDevice(param).subscribe((data) => {
       console.log(data)
     })
-
   }
+
   goToAccountSetting() {
     this.router.navigateByUrl('account-setting');
   }
