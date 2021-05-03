@@ -123,9 +123,6 @@ export class MainPage implements OnInit {
     this.OneSignalService.startOneSignal();
     this.getVatican();
     this.blockBackBtn();
-    if (this.networkService.isConnected == 'connected') {
-      this.toastService.presentSuccess('Đã kết nối!');
-    }
   }
 
   checkAvatar() {
@@ -172,10 +169,10 @@ export class MainPage implements OnInit {
   autoJoinEvent() {
     let dateObj = new Date();
     let currentDay = dateObj.toISOString().substr(0, 10);
-    this.diocesesService.getAttention(currentDay).subscribe((data) => {
-      for (let calendar of data.calendars) {
+    this.diocesesService.getAttention(currentDay).subscribe((dataCalendar) => {
+      for (let calendar of dataCalendar.calendars) {
         if (calendar.date.slice(0, 10) == currentDay && calendar.joined == false) {
-          this.parishesService.getAll(this.pageRequestParishes).subscribe((data) => {
+          this.parishesService.getAll(this.pageRequestParishes).subscribe((dataParishes) => {
             let timeOut, timeClear = 0;
             if (parseInt(localStorage.getItem('timeOut')) > 0) {
               timeOut = parseInt(localStorage.getItem('timeOut')) + 1;
@@ -190,7 +187,7 @@ export class MainPage implements OnInit {
                   long: parseFloat(localStorage.getItem('lng')),
                   lat: parseFloat(localStorage.getItem('lat'))
                 }
-                this.diocesesService.creatAttention({ attention_log }).subscribe((data) => {
+                this.diocesesService.creatAttention({attention_log}).subscribe((data) => {
                   clearInterval(this.interval);
                   if (data.message == 'Thành công!') {
                     this.presentAlertJoinEvent(data.message);
@@ -198,7 +195,7 @@ export class MainPage implements OnInit {
                   else localStorage.removeItem('timeOut');
                 })
               }
-              for (let parish of data.parishes) {
+              for (let parish of dataParishes.parishes) {
                 let tempDistance = this.geolocationSerivce.distanceFromUserToPointMet(
                   localStorage.getItem('lat'),
                   localStorage.getItem('lng'),
