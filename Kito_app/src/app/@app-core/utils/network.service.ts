@@ -32,7 +32,7 @@ export class NetworkService {
     }
   }
 
-  private showAlert() {
+  showAlert() {
     if (this.isConnected == 'connected') {
       this.toastService.presentSuccess('Đã kết nối!');
     }

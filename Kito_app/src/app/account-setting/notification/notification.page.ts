@@ -27,11 +27,18 @@ export class NotificationPage implements OnInit {
   ngOnInit() {
   }
   ionViewWillEnter() {
-    this.getDataOrders();
+    this.getDataNotifications();
   }
-  getDataOrders(func?) {
+  getDataNotifications(func?) {
     this.orderService.getAll(this.requestOrder).subscribe(data => {
-      this.orders = this.orders.concat(data.orders);
+      // this.orders = this.orders.concat(data.orders);
+      for(let i = 11; i >= 1; i--) {
+        this.orders.push({
+          id: i,
+          status: 'chua xem',
+          created_at: 29-i + '-04-2021'
+        })
+      }
       this.orders.length;
       func && func();
       this.requestOrder.page++;
@@ -46,18 +53,18 @@ export class NotificationPage implements OnInit {
     })
   }
   loadMoreData(event) {
-    this.getDataOrders(() => {
+    this.getDataNotifications(() => {
       event.target.complete();
     })
   }
-  async openOrderDetailModal(order) {
+  async openOrderDetailModal(notify) {
     this.loadingService.present();
     const modal = await this.modalController.create({
       component: ModalDetailOrderPage,
       cssClass: 'event-detail-modal',
       swipeToClose: true,
       componentProps: {
-        id: order.id
+        id: notify.id
       }
     });
     modal.present();
@@ -68,7 +75,7 @@ export class NotificationPage implements OnInit {
   reset() {
     this.orders = [];
     this.requestOrder.page = 1;
-    this.getDataOrders();
+    this.getDataNotifications();
   }
 
 }
