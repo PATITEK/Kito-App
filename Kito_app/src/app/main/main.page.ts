@@ -105,7 +105,6 @@ export class MainPage implements OnInit {
     private geolocationSerivce: GeolocationService,
     private diocesesService: DioceseService,
     private parishesService: ParishesService,
-    private networkService: NetworkService,
     private toastService: ToastService,
     public oneSignal: OneSignal,
     public donateService: DonateService
@@ -123,6 +122,7 @@ export class MainPage implements OnInit {
     this.OneSignalService.startOneSignal();
     this.getVatican();
     this.blockBackBtn();
+    localStorage.setItem('isRepeat', 'true');
   }
 
   checkAvatar() {
@@ -178,6 +178,9 @@ export class MainPage implements OnInit {
               timeOut = parseInt(localStorage.getItem('timeOut')) + 1;
             } else timeOut = 0;
             clearInterval(this.interval);
+            if (localStorage.getItem('isRepeat') == 'true') {
+              this.repeatAlert();
+            }
             this.interval = setInterval(() => {
               this.geolocationSerivce.getCurrentLocationNoLoading();
               if (timeOut >= 1200) {
@@ -187,7 +190,7 @@ export class MainPage implements OnInit {
                   long: parseFloat(localStorage.getItem('lng')),
                   lat: parseFloat(localStorage.getItem('lat'))
                 }
-                this.diocesesService.creatAttention({attention_log}).subscribe((data) => {
+                this.diocesesService.creatAttention({ attention_log }).subscribe((data) => {
                   clearInterval(this.interval);
                   if (data.message == 'Thành công!') {
                     this.presentAlertJoinEvent(data.message);
@@ -218,6 +221,27 @@ export class MainPage implements OnInit {
         }
       }
     })
+  }
+
+  async repeatAlert() {
+    const alert = await this.alertController.create({
+      header: 'Giữ ứng dụng luôn được bật trong vòng 30 phút để tự động điểm danh khi gần nhà thờ',
+      mode: 'ios',
+      buttons: [
+        {
+          text: 'Đồng ý',
+          handler: () => {
+          }
+        },
+        {
+          text: 'Không nhắc lại',
+          handler: () => {
+            localStorage.setItem('isRepeat', 'false')
+          }
+        }
+      ]
+    });
+    await alert.present();
   }
 
   async presentAlertJoinEvent(data) {
@@ -254,6 +278,7 @@ export class MainPage implements OnInit {
         {
           text: 'Đồng ý',
           handler: () => {
+            localStorage.removeItem('isRepeat');
             navigator['app'].exitApp();
           }
         },

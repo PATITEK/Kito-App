@@ -34,7 +34,7 @@ export class NetworkService {
 
   showAlert() {
     if (this.isConnected == 'connected') {
-      this.toastService.presentSuccess('Đã kết nối!');
+      // this.toastService.presentSuccess('Đã kết nối!');
     }
   }
 
