@@ -1,12 +1,11 @@
-
-  ion-content {
-    --overflow: scroll;
-    --padding-top: 0;
-    --background: var(--gray-color);
-    --padding-top: 80px;
-    color: #828282;
-    .wrapper {
-      margin-bottom: 54px;
+ion-content {
+  --overflow: scroll;
+  --padding-top: 0;
+  --background: var(--gray-color);
+  --padding-top: 80px;
+  color: #828282;
+  .wrapper {
+    margin-bottom: 54px;
     .title {
       text-align: center;
       ion-label {
@@ -22,7 +21,7 @@
         margin-bottom: 10px;
         justify-content: center;
         .header__address {
-          color: #CC9D3E;
+          color: #cc9d3e;
           text-decoration: underline;
         }
         .header__title-user {
@@ -91,7 +90,7 @@
         --border-width: 0;
         --padding-start: 0;
         ion-label {
-        font-size: 21px;
+          font-size: 21px;
         }
         ion-datetime {
           text-align: right;
@@ -163,14 +162,14 @@
         }
       }
     }
-   .donate__other {
-    margin: 10px;
-    color: #002D63;
-    flex: 1;
-    text-align: right;
-    margin-left: auto;
-    text-decoration: underline;
-   }
+    .donate__other {
+      margin: 10px;
+      color: #002d63;
+      flex: 1;
+      text-align: right;
+      margin-left: auto;
+      text-decoration: underline;
+    }
   }
   .footer {
     display: flex;
@@ -181,13 +180,20 @@
     background: rgb(229, 229, 229);
     bottom: 0;
     padding: 10px;
-   ion-button {
-    font-size: 17px;
-    width: 140px;
-    -webkit-appearance: none;
-    height: 34px;
-    --border-radius: 16px;
-    --background: var(--main-color);
+    ion-buttons {
+      display: block;
+
+      ion-avatar {
+        margin: auto;
+      }
+    }
+    ion-button {
+      font-size: 17px;
+      width: 140px;
+      -webkit-appearance: none;
+      height: 34px;
+      --border-radius: 16px;
+      --background: var(--main-color);
     }
   }
 }

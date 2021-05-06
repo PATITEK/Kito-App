@@ -21,7 +21,6 @@ export class PopoverimageComponent implements OnInit {
   subscribe: any;
   count = 0;
   ngOnInit() {
-    this.loadingService.dismiss();
     this.avatar = localStorage.getItem('avatar');
     this.subscribe = this.platform.backButton.subscribeWithPriority(99999, () => {
       if (this.router.url === '/account') {

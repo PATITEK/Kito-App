@@ -43,6 +43,7 @@ export class GlobalErrorHandler implements ErrorHandler {
                     handler: () => {
                         this.router.navigate(['/auth-manager/login']);
                         localStorage.clear();
+                        location.reload();
                     }
                 }
             ]

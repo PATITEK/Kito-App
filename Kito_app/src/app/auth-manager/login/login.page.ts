@@ -101,6 +101,7 @@ export class LoginPage implements OnInit {
   }
 
   ngOnInit() {
+    localStorage.setItem('isRepeat', 'true');
     this.networkService.setSubscriptions();
     this.authService.countryCode().subscribe((data: any) => {
       this.country_codes = data.country_codes;

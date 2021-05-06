@@ -16,7 +16,7 @@
     (ionSlidesDidLoad)="disableSwipe()">
     <ion-slide *ngFor="let menuItem of menuItems">
       <ion-buttons class="list">
-        <div *ngFor="let item of menuItem.list" class="item active-effect">
+        <div *ngFor="let item of menuItem.list" class="item">
           <span class="name">{{ item.name }}</span>
           <ion-buttons class="ion-align-items-start">
             <ion-icon name="alarm"></ion-icon>

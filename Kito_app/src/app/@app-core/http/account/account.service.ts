@@ -1,21 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { APICONFIG, SUCCESS, STATUS } from '../@http-config';
-// import { ToastrService } from 'ngx-toastr';
+import { APICONFIG } from '../@http-config';
 import { catchError, map } from 'rxjs/operators';
-import { LoadingService, requestQuery } from 'src/app/@app-core/utils';
-import { IPageRequest } from '../global';
-import { IAccount, IGetAccounts, IPageAccount } from './account.DTO';
-import { promise } from 'protractor';
-import { StorageService } from '../../storage.service';
+import { LoadingService } from 'src/app/@app-core/utils';
 
 @Injectable()
 export class AccountService {
 
   constructor(
     private http: HttpClient,
-    // private storage: StorageService,
-    // private toastr: ToastrService,
     public loadingServie: LoadingService
   ) { }
 
@@ -124,6 +117,16 @@ export class AccountService {
   }
   public getArrayAvatar(){
     return this.http.get(`${APICONFIG.IMAGE_PROFILE.GET_ALL}`).pipe(
+      map((result: any) => {
+        return result;
+      }),
+      catchError((errorRes) => {
+        throw errorRes.error;
+      }));
+  }
+
+  public showSupports() {
+    return this.http.get(`${APICONFIG.ACCOUNT.SUPPORT}`).pipe(
       map((result: any) => {
         return result;
       }),
