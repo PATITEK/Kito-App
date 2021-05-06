@@ -1,8 +1,7 @@
-import { NetworkService } from './../@app-core/utils/network.service';
 import { DioceseService } from './../@app-core/http/diocese/diocese.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService, DonateService, OrderService, ParishesService, VaticanService } from '../@app-core/http';
+import { AuthService, DonateService, ParishesService, VaticanService } from '../@app-core/http';
 import { AlertController, IonInfiniteScroll, ModalController, NavController, Platform } from '@ionic/angular';
 import { AccountService } from '../@app-core/http/account/account.service';
 import { GeolocationService, LoadingService, OneSignalService, ToastService } from '../@app-core/utils';
@@ -105,7 +104,6 @@ export class MainPage implements OnInit {
     private geolocationSerivce: GeolocationService,
     private diocesesService: DioceseService,
     private parishesService: ParishesService,
-    private toastService: ToastService,
     public oneSignal: OneSignal,
     public donateService: DonateService
   ) {
@@ -122,7 +120,6 @@ export class MainPage implements OnInit {
     this.OneSignalService.startOneSignal();
     this.getVatican();
     this.blockBackBtn();
-    localStorage.setItem('isRepeat', 'true');
   }
 
   checkAvatar() {
@@ -177,10 +174,10 @@ export class MainPage implements OnInit {
             if (parseInt(localStorage.getItem('timeOut')) > 0) {
               timeOut = parseInt(localStorage.getItem('timeOut')) + 1;
             } else timeOut = 0;
-            clearInterval(this.interval);
             if (localStorage.getItem('isRepeat') == 'true') {
               this.repeatAlert();
             }
+            clearInterval(this.interval);
             this.interval = setInterval(() => {
               this.geolocationSerivce.getCurrentLocationNoLoading();
               if (timeOut >= 1200) {

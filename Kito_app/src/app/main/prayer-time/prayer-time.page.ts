@@ -66,7 +66,7 @@ export class PrayerTimePage implements OnInit {
   initDateList() {
     const now = new Date();
     for (let i = 0; i < 7; i++) {
-      let nextDate = new Date(now);
+      let nextDate: any = new Date(now);
       nextDate.setDate(nextDate.getDate() + i);
       this.dateList.push({
         id: i,
@@ -75,9 +75,12 @@ export class PrayerTimePage implements OnInit {
         name: '',
         events: []
       })
-
       this.activeDateItemId = this.dateList[0].id;
     }
+  }
+
+  checkDate(date) {
+    return parseInt(date);
   }
 
   getParish() {

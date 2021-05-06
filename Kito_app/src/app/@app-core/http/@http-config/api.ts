@@ -24,7 +24,8 @@ export const APICONFIG = {
     EDIT: (id) => `/app/users/${id}`,
     DELETE: (id) => `/app/users/${id}`,
     UPDATE_PREMIUM: (id) => `/app/users/request_upgrade`,
-    CONTACT_ADMIN: `/app/interact_email/submit`
+    CONTACT_ADMIN: `/app/interact_email/submit`,
+    SUPPORT: `/app/supports`
   },
   DIOCESE: {
     GET: `/app/dioceses`,

@@ -29,7 +29,7 @@ export class DonatePage implements OnInit {
   level;
   data;
   frmDonate: FormGroup;
- 
+
   dataParams;
   pageResult: IPageRequest = {
     page: 1,
@@ -115,12 +115,12 @@ export class DonatePage implements OnInit {
     else return `url(${this.img})`
   }
   callChangeDot() {
-    let data=this.frmDonate.get('amount').value;
+    let data = this.frmDonate.get('amount').value;
     data = data.replace(/[^0-9]/gm, '');
     data = data.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
     this.frmDonate.controls['amount'].setValue(data);
   }
-  
+
   onSubmit() {
     this.amount = this.frmDonate.get('amount').value.replace(/\,/g, '');
     if (this.frmDonate.get('amount').dirty || this.frmDonate.get('amount').touched) {
@@ -152,7 +152,7 @@ export class DonatePage implements OnInit {
         "source_id": this.source_id,
         "payment_type": ''
       },
-      type_page :'donate'
+      type_page: 'donate'
     }
     this.router.navigate(['paymentmethods'], {
       queryParams: {

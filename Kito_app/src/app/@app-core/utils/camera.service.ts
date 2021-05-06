@@ -110,7 +110,6 @@ export class CameraService {
             this.toastService.presentSuccess('Bạn chưa có ảnh đại diện', 'top', 2000, 'dark');
         }
         else {
-            this.loadingService.present();
             this.popoverImage = await this.popoverController.create({
                 component: PopoverimageComponent,
                 cssClass: 'view-avatar-modal',

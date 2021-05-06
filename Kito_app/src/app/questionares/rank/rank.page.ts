@@ -19,7 +19,7 @@ export class RankPage implements OnInit {
 
   getRanking() {
     this.QuestionaresService.getRanking().subscribe((data) => {
-      this.ranking = data.app_users;
+      this.ranking = data.app_users.slice(0, 10);
       let i = 1;
       for(let ranker of this.ranking) {
         ranker.index = i;

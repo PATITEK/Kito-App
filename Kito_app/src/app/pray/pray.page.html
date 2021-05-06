@@ -41,9 +41,12 @@
  <ion-label class="donate__other" (click)="goToDioceses()">Đóng góp giáo xứ khác?</ion-label>
 </ion-item-group>
 <ion-item-group class="footer">
-    <ion-buttons>
-        {{name}}
-    </ion-buttons>
+  <ion-buttons>
+    <ion-avatar>
+      <img src="{{avatar}}" />
+    </ion-avatar>
+    <ion-label>{{name}} </ion-label>
+  </ion-buttons> 
    <ion-button type="submit"  [disabled] ="frmPray.invalid">
      Xác nhận
    </ion-button>

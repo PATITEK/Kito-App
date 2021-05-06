@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
-import { LoadingController } from '@ionic/angular';
+import { LoadingController, Platform } from '@ionic/angular';
 
 @Injectable()
 export class LoadingService {
 
   isLoading = false;
+  subscribe: any;
 
   constructor(
-    public loadingController: LoadingController
+    public loadingController: LoadingController,
+    private platform: Platform,
   ) { }
 
   async present(text?) {

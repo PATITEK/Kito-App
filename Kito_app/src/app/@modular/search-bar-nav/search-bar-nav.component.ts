@@ -1,5 +1,5 @@
-import { Component, EventEmitter, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
-import { ModalController, Platform } from '@ionic/angular';
+import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { Platform } from '@ionic/angular';
 import { SpeechRecognition } from '@ionic-native/speech-recognition/ngx'
 
 @Component({
