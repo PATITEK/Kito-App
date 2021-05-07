@@ -3,16 +3,11 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService, IPageRequest, PATTERN } from 'src/app/@app-core/http';
 import { ToastController } from '@ionic/angular';
-import { defaultCoreCipherList } from 'constants';
-import { LoadingService, OneSignalService } from 'src/app/@app-core/utils';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastService } from 'src/app/@app-core/utils';
 import { DioceseService } from 'src/app/@app-core/http/diocese';
 import { ParishesService } from 'src/app/@app-core/http/parishes';
 import { IPageParishes } from 'src/app/@app-core/http/parishes/parishes.DTO';
-
-
 
 @Component({
   selector: 'app-login',
@@ -86,7 +81,6 @@ export class LoginPage implements OnInit {
     private formBuilder: FormBuilder,
     private toastService: ToastService,
     private diocese: DioceseService,
-    private oneSignal: OneSignalService,
     private parishes: ParishesService,
     private networkService: NetworkService
   ) { }
