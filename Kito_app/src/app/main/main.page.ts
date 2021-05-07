@@ -367,8 +367,7 @@ export class MainPage implements OnInit {
       }
     }
     console.log(param)
-    this.donateService.registerDevice(param).subscribe((data) => {
-      console.log(data)
+    this.donateService.registerDevice(param).subscribe(() => {
     })
   }
 
