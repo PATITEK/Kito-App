@@ -105,8 +105,14 @@ const routes: Routes = [
     loadChildren: () => import('./questionares/questionares.module').then( m => m.QuestionaresPageModule),
     canActivate: [AuthGuard],
   },
-  { path: '', redirectTo: '/main', pathMatch: 'full' },
-  { path: '**', redirectTo: 'main' },
+  // { path: '', redirectTo: '/main', pathMatch: 'full' },
+  // { path: '**', redirectTo: 'main' },
+  {
+    path: 'community',
+    loadChildren: () => import('./community/community.module').then( m => m.CommunityPageModule),
+    canActivate: [AuthGuard],
+  },
+
   // {
   //   path: 'popup-registe',
   //   loadChildren: () => import('./@modular/popup-registe/popup-registe.module').then( m => m.PopupRegistePageModule)
