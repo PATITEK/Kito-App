@@ -105,13 +105,18 @@ const routes: Routes = [
     loadChildren: () => import('./questionares/questionares.module').then( m => m.QuestionaresPageModule),
     canActivate: [AuthGuard],
   },
-  { path: '', redirectTo: '/main', pathMatch: 'full' },
-  { path: '**', redirectTo: 'main' },
   {
     path: 'community',
     loadChildren: () => import('./community/community.module').then( m => m.CommunityPageModule),
     canActivate: [AuthGuard],
   },
+  {
+    path: 'tabbar-manager',
+    loadChildren: () => import('./tabbar-manager/tabbar-manager.module').then( m => m.TabbarManagerPageModule)
+  },
+  { path: '', redirectTo: '/tabbar-manager', pathMatch: 'full' },
+  { path: '**', redirectTo: 'tabbar-manager' },
+  
 
   // {
   //   path: 'popup-registe',
