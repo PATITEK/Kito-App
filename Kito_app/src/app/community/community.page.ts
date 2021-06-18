@@ -42,7 +42,76 @@ export class CommunityPage implements OnInit {
         content: "j wibu trigger??",
         time: "10 phút trước",
       },
-    ]
+      {
+        avatar: "../../assets/testonly/avt2.jpg",
+        username: "K0ng trúa's p0ng p0'nk",
+        content: "j wibu trigger??",
+        time: "10 phút trước",
+      },
+      {
+        avatar: "../../assets/testonly/avt2.jpg",
+        username: "K0ng trúa's p0ng p0'nk",
+        content: "j wibu trigger??",
+        time: "10 phút trước",
+      },
+      {
+        avatar: "../../assets/testonly/avt1.jpg",
+        username: "ngồi trong toa lét, gào thét tên em",
+        content: "j wibu toxic??",
+        time: "10 phút trước",
+      },
+      {
+        avatar: "../../assets/testonly/avt2.jpg",
+        username: "K0ng trúa's p0ng p0'nk",
+        content: "j wibu trigger??",
+        time: "10 phút trước",
+      },
+      {
+        avatar: "../../assets/testonly/avt1.jpg",
+        username: "wibu hạng 3",
+        content: "ưatáhi no??",
+        time: "10 phút trước",
+      },
+      {
+        avatar: "../../assets/testonly/avt2.jpg",
+        username: "K0ng trúa's p0ng p0'nk",
+        content: "j wibu trigger??",
+        time: "10 phút trước",
+      },
+      {
+        avatar: "../../assets/testonly/avt2.jpg",
+        username: "K0ng trúa's p0ng p0'nk",
+        content: "j wibu trigger??",
+        time: "10 phút trước",
+      },
+      {
+        avatar: "../../assets/testonly/avt2.jpg",
+        username: "K0ng trúa's p0ng p0'nk",
+        content: "j wibu trigger??",
+        time: "10 phút trước",
+      }
+    ],
+    commentshort:[
+      {
+        avatar: "../../assets/testonly/avt2.jpg",
+        username: "K0ng trúa's p0ng p0'nk",
+        content: "j wibu trigger??",
+        time: "10 phút trước",
+      },
+    {
+        avatar: "../../assets/testonly/avt2.jpg",
+        username: "K0ng trúa's p0ng p0'nk",
+        content: "j wibu trigger??",
+        time: "10 phút trước",
+    },
+    {
+        avatar: "../../assets/testonly/avt2.jpg",
+        username: "K0ng trúa's p0ng p0'nk",
+        content: "j wibu trigger??",
+        time: "10 phút trước",
+    }
+  ],
+  showfullcomment: false
   }
   
   
@@ -73,5 +142,12 @@ export class CommunityPage implements OnInit {
       this.post.islike = false;
     }
     else this.post.islike = true;
+  }
+  showcomment(){
+    // if(showfullcontent){
+    //   for (let index = 0; index < 3; index++) {
+    //     this.post.commentshort[index] = this.post.comments[index]
+    //   }
+    // }
   }
 }

@@ -37,15 +37,16 @@
       </div>
     </div>
     <div class="allcomment">
-      <ion-text class="subtext">Xem thêm các bình luận trước...</ion-text>
+      <ion-text class="subtext" (click)="showcomment()">Xem thêm các bình luận trước...</ion-text>
       <div class="comment" *ngFor="let comment of post.comments">
         <img class="avatar" [src]="comment.avatar"/>
-        <div>
-          <ion-text class="username">
-            {{comment.username}}
-          </ion-text>
-          <ion-text class="content">{{comment.content}}</ion-text>
-          
+        <div class="text">
+          <ion-text class="username">{{comment.username}}</ion-text>
+          <ion-text class="ion-no-margin content">{{comment.content}}</ion-text>
+          <div class="time-and-reply">
+            <ion-text class="time">{{comment.time}}</ion-text>
+            <ion-text>trả lời</ion-text>
+          </div>
         </div>
       </div>
     </div>
