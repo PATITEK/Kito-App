@@ -18,11 +18,11 @@
   </ion-tab-bar>
 </ion-tabs> -->
 <ion-tabs>
-  <ion-tab-bar slot="bottom">
-    <ion-tab-button *ngFor="let tab of footerList" [tab]="tab.tab">
+  <ion-tab-bar slot="bottom" >
+    <ion-tab-button *ngFor="let tab of footerList" (click)="setCurrentTab(tab)" [tab]="tab.tab">
       <i class="fad fa-copyright"></i>
       <ion-icon [src]="tab.imgSrc"></ion-icon>
-      <ion-label>{{tab.title}}</ion-label>
+      <ion-label *ngIf="tab.active">{{tab.title}}</ion-label>
     </ion-tab-button>
     <!-- <ion-tab-button tab="news">
       <i class="far fa-newspaper"></i>

@@ -34,7 +34,12 @@ export class TabbarManagerPage implements OnInit {
 
   ionTabsDidChange() {
   }
-
+  setCurrentTab(item) {
+    this.footerList.forEach(element => {
+      element.active = false;
+    });
+    item.active = true;
+  }
   ngOnInit() {
   }
 
