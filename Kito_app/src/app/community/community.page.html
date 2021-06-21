@@ -1,0 +1,54 @@
+<app-header  [headerCustom]="headerCustom"></app-header>
+
+<ion-content>
+  <div class="post">
+    <div class="author">
+      <img class="avatar" src="assets/testonly/avatar.jpg"/>
+      <div class="text">
+        <ion-text class="username">wibu chúa</ion-text>
+        <ion-text class="datetime">
+          <img src="assets/icon/time.svg"/>
+          9:00 31.02.2021</ion-text>
+      </div>
+    </div>
+    <div class="content">
+      <ion-text>{{post.content}}</ion-text>
+      <br/>
+      <ion-text (click)="showAll()" class="show-all">{{showfullcontenttext}}</ion-text>
+    </div>
+    <ion-img class="image" src="assets/testonly/ground.png"></ion-img>
+    <div class="button">
+      <div class="like-button">
+        <div class="name-icon" (click)="like()">
+          <img src="../../assets/icon/like.svg" *ngIf="!post.islike"/>
+          <img src="../../assets/icon/liked.svg" *ngIf="post.islike"/>
+          
+          <ion-text>Thích</ion-text>
+        </div>
+        <ion-text class="sub-text">{{post.likecount}} lượt thích</ion-text>
+      </div>
+      
+      <div class="like-button">
+        <div class="name-icon">
+          <img src="../../assets/icon/comment.svg"/>
+          <ion-text>Bình luận</ion-text>
+        </div>
+        <ion-text class="sub-text">{{post.commentcount}} bình luận</ion-text>
+      </div>
+    </div>
+    <div class="allcomment">
+      <ion-text class="subtext" (click)="showcomment()">Xem thêm các bình luận trước...</ion-text>
+      <div class="comment" *ngFor="let comment of post.comments">
+        <img class="avatar" [src]="comment.avatar"/>
+        <div class="text">
+          <ion-text class="username">{{comment.username}}</ion-text>
+          <ion-text class="ion-no-margin content">{{comment.content}}</ion-text>
+          <div class="time-and-reply">
+            <ion-text class="time">{{comment.time}}</ion-text>
+            <ion-text>trả lời</ion-text>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>
