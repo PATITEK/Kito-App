@@ -196,6 +196,7 @@ export class MainPage implements OnInit {
                 })
               }
               for (let parish of dataParishes.parishes) {
+                parish.location == null ? parish.location = [] : parish.location
                 let tempDistance = this.geolocationSerivce.distanceFromUserToPointMet(
                   localStorage.getItem('lat'),
                   localStorage.getItem('lng'),
