@@ -31,13 +31,15 @@ export class IntercepterService implements HttpInterceptor {
       catchError((res) => {
         if (res instanceof HttpErrorResponse) {
           if (res.status === 401) {
-            this.count++;
-          }
-          if(this.count == 3) {
-            this.count = 0;
-            this.router.navigateByUrl('/auth/login', { queryParams: { returnUrl: window.location.pathname } });
+            // this.count++;
+            this.router.navigateByUrl('/auth-manager/login', { queryParams: { returnUrl: window.location.pathname } });
             localStorage.clear();
           }
+          // if(this.count == 3) {
+          //   this.count = 0;
+          //   this.router.navigateByUrl('/auth/login', { queryParams: { returnUrl: window.location.pathname } });
+          //   localStorage.clear();
+          // }
           return throwError(res);
         }
     }));
