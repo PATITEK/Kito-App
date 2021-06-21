@@ -64,7 +64,7 @@ const routes: Routes = [
     loadChildren: () => import('./@modular/modal-detail-order/modal-detail-order.module').then(m => m.ModalDetailOrderPageModule),
     canActivate: [AuthGuard],
   },
-  
+
   {
     path: 'dioceses',
     loadChildren: () => import('./dioceses/dioceses.module').then(m => m.DiocesesPageModule),
@@ -72,12 +72,12 @@ const routes: Routes = [
   },
   {
     path: 'news',
-    loadChildren: () => import('./@modular/news/news.module').then( m => m.NewsPageModule),
+    loadChildren: () => import('./@modular/news/news.module').then(m => m.NewsPageModule),
     canActivate: [AuthGuard],
   },
   {
     path: 'information',
-    loadChildren: () => import('./@modular/information/information.module').then( m => m.InformationPageModule),
+    loadChildren: () => import('./@modular/information/information.module').then(m => m.InformationPageModule),
     canActivate: [AuthGuard],
   },
   {
@@ -102,21 +102,21 @@ const routes: Routes = [
   },
   {
     path: 'questionares',
-    loadChildren: () => import('./questionares/questionares.module').then( m => m.QuestionaresPageModule),
+    loadChildren: () => import('./questionares/questionares.module').then(m => m.QuestionaresPageModule),
     canActivate: [AuthGuard],
   },
   {
     path: 'community',
-    loadChildren: () => import('./community/community.module').then( m => m.CommunityPageModule),
+    loadChildren: () => import('./community/community.module').then(m => m.CommunityPageModule),
     canActivate: [AuthGuard],
   },
   {
     path: 'tabbar-manager',
-    loadChildren: () => import('./tabbar-manager/tabbar-manager.module').then( m => m.TabbarManagerPageModule)
+    loadChildren: () => import('./tabbar-manager/tabbar-manager.module').then(m => m.TabbarManagerPageModule)
   },
-  { path: '', redirectTo: '/tabbar-manager', pathMatch: 'full' },
-  { path: '**', redirectTo: 'tabbar-manager' },
-  
+  { path: '', redirectTo: '/tabbar-manager/main', pathMatch: 'full' },
+  { path: '**', redirectTo: 'tabbar-manager/main' },
+
 
   // {
   //   path: 'popup-registe',
