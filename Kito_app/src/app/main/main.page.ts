@@ -30,6 +30,7 @@ export class MainPage implements OnInit {
       name: 'Tin tức giáo xứ',
       thumbImage: 'assets/img/menu/tintuc.svg',
       desUrl: 'news',
+      fullWidth: true
     },
     {
       name: 'Chi tiết giờ lễ',
@@ -41,16 +42,16 @@ export class MainPage implements OnInit {
       thumbImage: 'assets/img/menu/lophocgiaoly.svg',
       desUrl: 'main/catechism-class',
     },
-    {
-      name: 'Đóng góp',
-      thumbImage: 'assets/img/menu/donggop.svg',
-      desUrl: 'donate',
-    },
-    {
-      name: 'Xin lễ',
-      thumbImage: 'assets/img/menu/xinle.svg',
-      desUrl: 'pray',
-    },
+    // {
+    //   name: 'Đóng góp',
+    //   thumbImage: 'assets/img/menu/donggop.svg',
+    //   desUrl: 'donate',
+    // },
+    // {
+    //   name: 'Xin lễ',
+    //   thumbImage: 'assets/img/menu/xinle.svg',
+    //   desUrl: 'pray',
+    // },
     {
       name: 'Lịch Công giáo',
       thumbImage: 'assets/img/menu/lichconggiao.svg',
@@ -196,6 +197,7 @@ export class MainPage implements OnInit {
                 })
               }
               for (let parish of dataParishes.parishes) {
+                parish.location == null ? parish.location = [] : parish.location
                 let tempDistance = this.geolocationSerivce.distanceFromUserToPointMet(
                   localStorage.getItem('lat'),
                   localStorage.getItem('lng'),
@@ -288,7 +290,7 @@ export class MainPage implements OnInit {
     const pageRequest: IPageVatican = {
       page: 1,
       per_page: 4,
-      category_id: 2
+      category_id: 9
     }
     this.vaticanService.getAll(pageRequest).subscribe(data => {
       this.loading.dismiss();
