@@ -20,3 +20,4 @@ export * from './doctrine_classes';
 export * from './course'
 export * from './calendar'
 export * from './hymn-music'
+export * from './post'

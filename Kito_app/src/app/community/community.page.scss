@@ -120,3 +120,22 @@ ion-content{
         }
     }
 }
+ion-footer{
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+    ion-row{
+        width: 90vw;
+        margin-left: 5vw;
+        ion-input{
+            width: 80%;
+            border: 1px solid #ccc;
+            border-radius: 20px;
+            font-size: 14px;
+        }
+        ion-img{
+            width: 7vw;
+            margin-left: 3vw;
+        }
+        
+    }
+}
