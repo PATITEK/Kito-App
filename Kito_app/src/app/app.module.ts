@@ -25,6 +25,7 @@ import { NativeGeocoder, NativeGeocoderOptions, NativeGeocoderResult } from '@io
 import { NativePageTransitions } from '@ionic-native/native-page-transitions/ngx';
 import { CommonModule } from '@angular/common';
 
+
 // import { IonicSwipeAllModule } from 'ionic-swipe-all';
 @NgModule({
   declarations: [AppComponent],
@@ -58,7 +59,7 @@ import { CommonModule } from '@angular/common';
     GeolocationService,
     NativeGeocoder,
     NativePageTransitions,
-    NetworkService
+    NetworkService,
   ],
   bootstrap: [AppComponent]
 })
