@@ -9,6 +9,7 @@ import { IonicModule } from '@ionic/angular';
 import { HymnMusicPageRoutingModule } from './hymn-music-routing.module';
 
 import { HymnMusicPage } from './hymn-music.page';
+import { ComfillerComponent } from 'src/app/@modular/comfiller/comfiller.component';
 
 @NgModule({
   imports: [
@@ -19,6 +20,6 @@ import { HymnMusicPage } from './hymn-music.page';
     HeaderModule,
     SearchBarNavModule
   ],
-  declarations: [HymnMusicPage]
+  declarations: [HymnMusicPage, ComfillerComponent]
 })
-export class HymnMusicPageModule {}
+export class HymnMusicPageModule { }
