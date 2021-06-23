@@ -15,7 +15,7 @@
   </ion-segment>
 
   <ion-list class="song-list" [ngClass]="{'display-none': segmentValue != 'all'}">
-    <ng-container *ngFor="let song of songs">
+    <ng-container *ngFor="let song of songs; index as i">
       <ion-buttons class="song-cover" [ngClass]="{'active-song-cover': checkActiveSong(song)}" (click)="start(song)">
         <ion-buttons class="left-box">
           <ion-icon size="large" name="musical-notes-outline" style="margin-right: 5px"></ion-icon>

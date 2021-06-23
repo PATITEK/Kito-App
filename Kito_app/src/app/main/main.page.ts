@@ -113,7 +113,7 @@ export class MainPage implements OnInit {
   }
 
   ionViewWillEnter() {
-    this.autoJoinEvent();
+    // this.autoJoinEvent();
     this.checkAvatar();
   }
   ngOnInit() {
