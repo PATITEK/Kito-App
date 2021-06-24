@@ -1,14 +1,14 @@
 <app-header  [headerCustom]="headerCustom"></app-header>
 
 <ion-content>
-  <div class="post">
+  <div class="post" *ngFor="let post of posts">
     <div class="author">
-      <img class="avatar" src="assets/testonly/avatar.jpg"/>
+      <img class="avatar" [src]="post.owner.thumb_image"/>
       <div class="text">
-        <ion-text class="username">wibu chúa</ion-text>
+        <ion-text class="username">{{post.owner.full_name}}</ion-text>
         <ion-text class="datetime">
           <img src="assets/icon/time.svg"/>
-          9:00 31.02.2021</ion-text>
+          {{post.posted_at}}</ion-text>
       </div>
     </div>
     <div class="content">
@@ -16,24 +16,24 @@
       <br/>
       <ion-text (click)="showAll()" class="show-all">{{showfullcontenttext}}</ion-text>
     </div>
-    <ion-img class="image" src="assets/testonly/ground.png"></ion-img>
+    <ion-img class="image" *ngIf="post.photos.length > 0" [src]="post.photo[0]"></ion-img>
     <div class="button">
       <div class="like-button">
-        <div class="name-icon" (click)="like()">
-          <img src="../../assets/icon/like.svg" *ngIf="!post.islike"/>
-          <img src="../../assets/icon/liked.svg" *ngIf="post.islike"/>
+        <div class="name-icon" (click)="like(post.id)">
+          <img src="../../assets/icon/like.svg" *ngIf="!post.liked"/>
+          <img src="../../assets/icon/liked.svg" *ngIf="post.liked"/>
           
           <ion-text>Thích</ion-text>
         </div>
-        <ion-text class="sub-text">{{post.likecount}} lượt thích</ion-text>
+        <ion-text class="sub-text">{{post.likes_count}} lượt thích</ion-text>
       </div>
       
       <div class="like-button">
-        <div class="name-icon">
+        <div class="name-icon" (click)="comment(post.id)">
           <img src="../../assets/icon/comment.svg"/>
           <ion-text>Bình luận</ion-text>
         </div>
-        <ion-text class="sub-text">{{post.commentcount}} bình luận</ion-text>
+        <ion-text class="sub-text">{{post.comments_count}} Bình luận</ion-text>
       </div>
     </div>
     <div class="allcomment">
@@ -50,5 +50,13 @@
         </div>
       </div>
     </div>
-  </div>
+  </div>  
 </ion-content>
+<ion-footer>
+  <ion-toolbar class="tool" *ngIf="clickComment">
+    <ion-row>
+      <ion-input placeholder="Nhập bình luận..." [NgModel]="commentContent"></ion-input>
+      <ion-img src="../../assets/icon/send.svg" (click)="sendComment()"></ion-img>
+    </ion-row>
+  </ion-toolbar>
+</ion-footer>
