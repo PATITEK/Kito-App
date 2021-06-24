@@ -49,7 +49,7 @@ export class PostService {
   }
   
   public addComment(id, content){ 
-    return this.http.post(`${APICONFIG.POST.COMMENT, id}`, content).pipe(
+    return this.http.post(`${APICONFIG.POST.COMMENT(id)}`, content).pipe(
       map((result) =>{
         return result;
       }),

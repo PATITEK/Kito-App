@@ -10,8 +10,8 @@ export class CommunityPage implements OnInit {
   
   posts: any
   clickComment = false
-  
-  
+  CommentIDSelected
+  commentContent
   showfullcontenttext = "Xem thêm..."
   constructor(
     private postService: PostService
@@ -37,8 +37,18 @@ export class CommunityPage implements OnInit {
     //   }
     // }
   }
-  comment(){
+  comment(id){
+    this.CommentIDSelected = id;
+    console.log(this.CommentIDSelected)
     if(this.clickComment) this.clickComment = false
     else this.clickComment = true;
+  }
+  sendComment(){
+    console.log("clicked!");
+    
+    this.postService.addComment(this.CommentIDSelected, this.commentContent).subscribe(() => {
+      console.log("Success!");
+      this.clickComment = false;
+    })
   }
 }
