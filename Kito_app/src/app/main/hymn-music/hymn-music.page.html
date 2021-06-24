@@ -100,7 +100,7 @@
 
   <div class="modal-content">
     <div class="lyrics" *ngIf="activeLyric != null">
-      <div>{{ activeLyric }}</div>
+      <div [innerHTML]="activeLyric"></div>
     </div>
   </div>
 

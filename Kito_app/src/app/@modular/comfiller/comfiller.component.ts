@@ -9,33 +9,33 @@ import { ModalController } from '@ionic/angular';
 export class ComfillerComponent implements OnInit {
   listFiller = [
     {
-      id: 1,
+      id: "all",
       name: "Tất cả",
       icon: "assets/img/music/allmusic.svg"
     },
     {
-      id: 2,
+      id: "name",
       name: "Bài hát",
       icon: "assets/img/music/song.svg"
     },
     {
-      id: 3,
+      id: "artist",
       name: "Nghệ sĩ",
       icon: "assets/img/music/artist.svg"
     },
     {
-      id: 4,
+      id: "song_type",
       name: "Thể loại",
       icon: "assets/img/music/category.svg"
     }
   ]
   listSort = [{
-    id: 1,
+    id: "asc",
     name: "Tên (A-Z)",
     icon: "assets/img/music/az.svg"
   },
   {
-    id: 2,
+    id: "desc",
     name: "Tên (Z-A)",
     icon: "assets/img/music/za.svg"
   },
