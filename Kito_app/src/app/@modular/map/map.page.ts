@@ -53,9 +53,6 @@ export class MapPage implements OnInit {
     this.initMap();
   }
 
-  ngAfterViewInit() {
-  }
-
   initMap(): void {
     this.map = new google.maps.Map(document.getElementById("map") as HTMLElement, {
       center: this.center,
@@ -140,7 +137,7 @@ export class MapPage implements OnInit {
           lat: marker.location.lat,
           lng: marker.location.long,
         }
-        this.addInfoWindowToMarker(this.mapMarker, mapMarkerInfo, 'https://tgpsaigon.net/Images/Articles/MainImages/25112019_161319.jpg');
+        this.addInfoWindowToMarker(this.mapMarker, mapMarkerInfo, 'https://vcdn1-vnexpress.vnecdn.net/2018/05/23/chim-bo-cau-1-1527049236.jpg?w=1200&h=0&q=100&dpr=1&fit=crop&s=ZLofFUONkZraeibrYKozJw');
       }
     }
   }
