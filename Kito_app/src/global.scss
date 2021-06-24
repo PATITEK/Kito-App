@@ -14,8 +14,8 @@
 @import "~@ionic/angular/css/flex-utils.css";
 
 :root {
-  --main-color: #EDD81F;
-  --second-color: #EDD81F;
+  --main-color: #edd81f;
+  --second-color: #edd81f;
   --third-color: #f1c56b;
   --title-color: #717171;
   --gray-color: #e5e5e5;
@@ -210,13 +210,24 @@
 }
 .modalDonate {
   --height: 200px;
-  --width: 90%;
+  --width: 100%;
   --overflow: hidden;
   .modal-wrapper {
     border-radius: 20px;
   }
 }
+.modalFiller {
+  --height: 450px;
+  --width: 92%;
+  position: absolute;
 
+  .modal-wrapper {
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;  
+    position: absolute;
+    bottom: 0;
+  }
+}
 .app-header-custom {
   .header {
     background: transparent !important;
