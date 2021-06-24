@@ -5,6 +5,7 @@ import { IonInfiniteScroll, IonRange, IonContent, ModalController } from '@ionic
 import { LoadingService } from 'src/app/@app-core/utils';
 import { IPageRequest } from 'src/app/@app-core/http';
 import { ComfillerComponent } from 'src/app/@modular/comfiller/comfiller.component';
+import { IHymnMusic } from 'src/app/@app-core/http/hymn-music/hymn-music.DTO';
 
 @Component({
   selector: 'app-hymn-music',
@@ -18,8 +19,8 @@ export class HymnMusicPage implements OnInit {
 
   headerCustom = { title: 'Nhạc Thánh ca' };
   segmentValue = 'all';
-  selectFiller;
-  selectSort;
+  selectFiller = "all";
+  selectSort = "asc";
   songs = [];
   favoriteSongs = [];
   shuffledSongs = [];
@@ -41,12 +42,16 @@ export class HymnMusicPage implements OnInit {
     REPEAT_ALL: 2
   }
   repeatingType = this.REPEATING_TYPE.REPEAT_ALL;
-  pageRequestSongs: IPageRequest = {
+  pageRequestSongs: IHymnMusic = {
     page: 1,
     per_page: 16,
+    filter: "",
+    filter_type: "asc"
   }
-  pageRequestFavoriteSongs: IPageRequest = {
+  pageRequestFavoriteSongs: IHymnMusic = {
     page: 1,
+    filter: "",
+    filter_type: "asc"
   }
 
   loadedSong = false;
@@ -120,8 +125,12 @@ export class HymnMusicPage implements OnInit {
 
   getSongs(func?) {
     this.notFound = false;
+
     this.hymnMusicService.getAll(this.pageRequestSongs).subscribe(data => {
+
+
       this.notFound = true;
+      this.songs = [];
       this.songs = this.songs.concat(data.songs);
       this.pageRequestSongs.page++;
       func && func();
@@ -136,6 +145,7 @@ export class HymnMusicPage implements OnInit {
 
   getFavoriteSongs() {
     this.notFoundSong = false;
+    this.favoriteSongs = [];
     this.hymnMusicService.getAllFavorite(this.pageRequestFavoriteSongs).subscribe(data => {
       this.notFoundSong = true;
       this.favoriteSongs = this.songs.concat(data.songs);
@@ -320,18 +330,27 @@ export class HymnMusicPage implements OnInit {
       }
     });
     popover.onDidDismiss()
-      .then((data) => {
+      .then(async (data) => {
 
-        
-        
+
+
         if (data.data?.filler) {
           this.selectFiller = data.data.filler;
+
+          if (data.data.filler == "all") {
+            this.pageRequestSongs.filter = "";
+          }
+          else {
+            this.pageRequestSongs.filter = data.data.filler;
+          }
+
+
         }
         if (data.data?.sort) {
           this.selectSort = data.data.sort;
+          this.pageRequestSongs.filter_type = data.data.sort;
         }
-
-
+        this.getData();
       });
 
     return await popover.present();
