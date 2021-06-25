@@ -12,6 +12,8 @@ export class CommunityPage implements OnInit {
   clickComment = false
   CommentIDSelected
   commentContent
+  imageurl
+  repplyCommentID
   showfullcontenttext = "Xem thêm..."
   constructor(
     private postService: PostService
@@ -20,6 +22,7 @@ export class CommunityPage implements OnInit {
   ngOnInit() {
     this.postService.getAllPosts().subscribe(data => {  
       this.posts = data.posts;
+      console.log(this.posts);
     });
   }
   showAll(){
@@ -44,11 +47,24 @@ export class CommunityPage implements OnInit {
     else this.clickComment = true;
   }
   sendComment(){
-    console.log("clicked!");
+    console.log(this.commentContent);
     
-    this.postService.addComment(this.CommentIDSelected, this.commentContent).subscribe(() => {
-      console.log("Success!");
-      this.clickComment = false;
+    this.postService.addComment(this.CommentIDSelected, this.commentContent, this.imageurl).subscribe(() => {
+      this.postService.getAllPosts().subscribe(data => {  
+        this.posts = data.posts;
+        console.log(this.posts);
+        this.clickComment = false
+      });
+    })
+  }
+
+  replyComment(id){
+    this.postService.repplycomment(this.CommentIDSelected, this.commentContent, this.imageurl, id).subscribe(() => {
+      this.postService.getAllPosts().subscribe(data => {  
+        this.posts = data.posts;
+        this.clickComment = false
+        console.log(this.posts);
+      });
     })
   }
 }

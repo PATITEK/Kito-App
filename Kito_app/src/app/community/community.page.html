@@ -37,15 +37,15 @@
       </div>
     </div>
     <div class="allcomment">
-      <ion-text class="subtext" (click)="showcomment()">Xem thêm các bình luận trước...</ion-text>
+      <!-- <ion-text class="subtext" (click)="showcomment()">Xem thêm các bình luận trước...</ion-text> -->
       <div class="comment" *ngFor="let comment of post.comments">
-        <img class="avatar" [src]="comment.avatar"/>
+        <img class="avatar" [src]="comment.app_user.thumb_image"/>
         <div class="text">
-          <ion-text class="username">{{comment.username}}</ion-text>
+          <ion-text class="username">{{comment.app_user.full_name}}</ion-text>
           <ion-text class="ion-no-margin content">{{comment.content}}</ion-text>
           <div class="time-and-reply">
-            <ion-text class="time">{{comment.time}}</ion-text>
-            <ion-text>trả lời</ion-text>
+            <ion-text class="time">{{comment.posted_at}}</ion-text>
+            <ion-text (click)="replyComment(comment.id)">trả lời</ion-text>
           </div>
         </div>
       </div>
@@ -55,7 +55,7 @@
 <ion-footer>
   <ion-toolbar class="tool" *ngIf="clickComment">
     <ion-row>
-      <ion-input placeholder="Nhập bình luận..." [NgModel]="commentContent"></ion-input>
+      <ion-input placeholder="Nhập bình luận..." [(ngModel)]="commentContent"></ion-input>
       <ion-img src="../../assets/icon/send.svg" (click)="sendComment()"></ion-img>
     </ion-row>
   </ion-toolbar>
