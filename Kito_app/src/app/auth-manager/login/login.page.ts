@@ -163,6 +163,7 @@ export class LoginPage implements OnInit {
     this.segmentValue = event.target.value;
   }
   canSubmitLogin() {
+
     return this.formLogin.valid;
   }
 
@@ -178,6 +179,7 @@ export class LoginPage implements OnInit {
       let dataFormLogin = this.formLogin.value;
       dataFormLogin.phone_number = dataFormLogin.phone_number.length == 10 ? dataFormLogin.phone_number.substring(1, 10) : dataFormLogin.phone_number;
       dataFormLogin.phone_number = `+84${dataFormLogin.phone_number}`;
+
       let dataSubmit = {
         "phone_number": dataFormLogin.phone_number,
         "password": dataFormLogin.password
@@ -196,29 +198,47 @@ export class LoginPage implements OnInit {
   }
 
   submitSignUp() {
+
+
     this.showSpinner = true;
     if (!this.canSubmitSignUp()) {
+      console.log("test1");
+      console.log(this.formSignUp.controls);
+      this.toastService.presentSuccess('Kiểm tra lại các trường');
+
       this.showSpinner = false;
       this.markFormGroupTouched(this.formSignUp);
     } else if (!this.checkMatchConfirmedPassword()) {
       this.showSpinner = false;
       this.toastService.presentSuccess('Mật khẩu không trùng khớp');
     } else {
+
       let data = this.formSignUp.value;
-      data.phone_number = '+84' + data.phone_number;
+
+      if (data.phone_number.search("0") == 0) {
+        data.phone_number = data.phone_number.substring(1);
+      }
+      // if (data.phone_number.search("+84") == 0) {
+      //   data.phone_number = '+84' + data.phone_number;
+
+      // }
+
+
+
+
       let submitData = {
         "full_name": data.full_name,
         "sex": data.sex,
         "birthday": data.age,
         "full_address": data.full_address,
-        "phone_number": data.phone_number,
+        "phone_number": '+84' + data.phone_number,
         "email": data.email,
         "password": data.password,
         "password_confirmation": data.confirmed_password,
         "parish_id": data.parish_id
       }
       this.authService.signup(submitData).subscribe(
-        () => {},
+        () => { },
         (error: any) => {
           this.showSpinner = false;
           throw error;

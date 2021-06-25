@@ -53,9 +53,6 @@ export class MapPage implements OnInit {
     this.initMap();
   }
 
-  ngAfterViewInit() {
-  }
-
   initMap(): void {
     this.map = new google.maps.Map(document.getElementById("map") as HTMLElement, {
       center: this.center,
@@ -91,26 +88,19 @@ export class MapPage implements OnInit {
   }
 
   addDataMarkerToMap() {
-    // this.diocesesService.getAll(this.pageRequestDioceses).subscribe(data => {
-    //   const totalDioceses = data.meta.pagination.per_page;
-    //   for (let i = 1; i <= totalDioceses; i++) {
-    //     this.pageRequestParishes.diocese_id += 1;
-    //     this.parishesService.getAll(this.pageRequestParishes).subscribe(data => {
-    //       this.markers = data.parishes;
-    //       this.addMarkersToMap(this.markers);
-    //     })
-    //   }
-    //   this.pageRequestParishes.diocese_id = 0;
-    // })
     this.pageRequestParishes.diocese_id = JSON.parse(localStorage.getItem('diocese_id'));
     this.parishesService.getAllWithDioceseId(this.pageRequestParishes).subscribe(data => {
-      this.markers = data.parishes;
+      for (let marker of data.parishes) {
+        if (marker.location != null) {
+          this.markers.push(marker)
+        };
+      }
       this.deleteMapMarkers(this.markers);
-      this.addMarkersToMap(this.markers);
+      data.parishes.length <= 10 ? this.addMarkersToMap(this.markers, true) : this.addMarkersToMap(this.markers, false);
     })
   }
 
-  addMarkersToMap(markers) {
+  addMarkersToMap(markers, isEligible: boolean) {
     for (let marker of markers) {
       let distance: any = this.geolocationService.distanceFromUserToPoint(this.center.lat, this.center.lng, marker.location.lat, marker.location.long);
       let tempUnit = ' km';
@@ -125,35 +115,50 @@ export class MapPage implements OnInit {
         label: marker.name,
         icon: 'assets/icon/map.png',
       });
-      let mapMarkerInfo = {
-        name: marker.name,
-        url: marker.thumb_image.url,
-        priest_name: marker.priest_name,
-        address: marker.address,
-        distance: distance,
-        lat: marker.location.lat,
-        lng: marker.location.long,
-      }
       this.mapMarker.setMap(this.map);
-      this.addInfoWindowToMarker(this.mapMarker, mapMarkerInfo);
+      if (isEligible == true) {
+        let mapMarkerInfo = {
+          name: marker.name,
+          url: marker.thumb_image.url,
+          priest_name: marker.priest_name,
+          address: marker.address,
+          distance: distance,
+          lat: marker.location.lat,
+          lng: marker.location.long,
+        }
+        this.addInfoWindowToMarker(this.mapMarker, mapMarkerInfo);
+      }
+      else {
+        let mapMarkerInfo = {
+          name: marker.name,
+          priest_name: marker.priest_name,
+          address: marker.address,
+          distance: distance,
+          lat: marker.location.lat,
+          lng: marker.location.long,
+        }
+        this.addInfoWindowToMarker(this.mapMarker, mapMarkerInfo, 'https://vcdn1-vnexpress.vnecdn.net/2018/05/23/chim-bo-cau-1-1527049236.jpg?w=1200&h=0&q=100&dpr=1&fit=crop&s=ZLofFUONkZraeibrYKozJw');
+      }
     }
   }
 
   deleteMapMarkers(mapMarkers) {
-    // mapMarkers.setMap(null);
     mapMarkers = null
   }
 
-  async addInfoWindowToMarker(marker, mapMarkerInfo) {
+  async addInfoWindowToMarker(marker, mapMarkerInfo, url?) {
+    if (url) {
+      mapMarkerInfo.url = url
+    }
     let infoWindowContent =
       '<div *ngIf=" markers.length != null ">' +
-        '<h3 style=" display: block; text-align: center; ">' + mapMarkerInfo.name + '</h3>' +
-        '<img style=" height: 120px; width: 100%; display: block; margin: auto; border-radius: 12px; " src=' + mapMarkerInfo.url + '>' +
-        '<h5 style=" display: block; text-align: center; font-size: 17px; ">' + mapMarkerInfo.priest_name + '</h5>' +
-        '<h6>' + mapMarkerInfo.address + '</h6>' +
-        '<p>Khoảng cách ước tính: ' + mapMarkerInfo.distance +
-        '<ion-button id="navigate" mode="ios" style=" --background: #F6C33E; --border-radius: 15px; display: block; margin: auto; margin-top: 5px; --background-activated: #CC9D3E; ">' + 'Chỉ đường tới đây' + '</ion-button>'
-      '</div>';
+      '<h3 style=" display: block; text-align: center; ">' + mapMarkerInfo.name + '</h3>' +
+      '<img style=" height: 120px; width: 100%; display: block; margin: auto; border-radius: 12px; " src=' + mapMarkerInfo.url + '>' +
+      '<h5 style=" display: block; text-align: center; font-size: 17px; ">' + mapMarkerInfo.priest_name + '</h5>' +
+      '<h6>' + mapMarkerInfo.address + '</h6>' +
+      '<p>Khoảng cách ước tính: ' + mapMarkerInfo.distance +
+      '<ion-button id="navigate" mode="ios" style=" --background: #F6C33E; --border-radius: 15px; display: block; margin: auto; margin-top: 5px; --background-activated: #CC9D3E; ">' + 'Chỉ đường tới đây' + '</ion-button>'
+    '</div>';
     let infoWindow = new google.maps.InfoWindow({
       content: infoWindowContent,
     });
