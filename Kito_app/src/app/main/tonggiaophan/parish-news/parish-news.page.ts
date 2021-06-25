@@ -31,14 +31,24 @@ export class ParishNewsPage implements OnInit {
 
   constructor(
     private vaticanService: VaticanService,
-    private popeService: PopeService
+    private popeService: PopeService,
+    // private categoryService:va
   ) { }
 
   ngOnInit() {
-    this.getData();
+    this.vaticanService.getCategory().subscribe((data) => {
+      data.vatican_news_categories.forEach(element => {
+        if (element.name == "Vatican") {
+          this.pageRequest.category_id = element.id;
+        }
+      });
+      this.getData();
+    })
+
   }
 
   getVatican() {
+
     this.vaticanService.getAll(this.pageRequest).subscribe(data => {
       data.vatican_news.forEach(v => v.type = this.list[0].type);
       this.list[0].items = data.vatican_news;
@@ -47,8 +57,11 @@ export class ParishNewsPage implements OnInit {
 
   getPope() {
     this.popeService.getAll(this.pageRequest).subscribe(data => {
+
       data.pope_infos.forEach(v => v.type = this.list[1].type);
       this.list[1].items = data.pope_infos;
+     
+      
     })
   }
 
@@ -56,5 +69,5 @@ export class ParishNewsPage implements OnInit {
     this.getVatican();
     this.getPope();
   }
-  
+
 }

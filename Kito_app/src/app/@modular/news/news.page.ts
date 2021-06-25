@@ -65,8 +65,10 @@ export class NewsPage implements OnInit {
     this.vaticanService.getCategory().subscribe(data => {
       this.listCate = data.vatican_news_categories;
       this.listCate.forEach(e => {
-        if(e.name === 'Vatican') {
+        if (e.name === 'Vatican') {
           this.idActive = e.id;
+          console.log(this.idActive);
+
         }
       })
     })
@@ -161,11 +163,11 @@ export class NewsPage implements OnInit {
   }
   showCate() {
     this.displayCate = true;
-    if(this.toggle) {
-        this.toggle = false;
+    if (this.toggle) {
+      this.toggle = false;
     }
     else {
-      this.toggle =true;
+      this.toggle = true;
     }
   }
   checkShowCate(): boolean {
@@ -191,7 +193,7 @@ export class NewsPage implements OnInit {
       else if (this.dataParams.type.detail == 'parish_news') {
         this.pageRequestParish.search = value;
       }
-      else if( this.dataParams.type.detail == 'vatican') {
+      else if (this.dataParams.type.detail == 'vatican') {
         this.pageRequestVatican.search = value;
       }
     }
