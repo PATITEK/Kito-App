@@ -22,6 +22,8 @@ export class MainSlideComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    console.log(this.data);
+    
    }
 
   seeMore() {
