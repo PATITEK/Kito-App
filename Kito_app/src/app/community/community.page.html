@@ -14,9 +14,14 @@
     <div class="content">
       <ion-text>{{post.content}}</ion-text>
       <br/>
-      <ion-text (click)="showAll()" class="show-all">{{showfullcontenttext}}</ion-text>
+      <ion-text (click)="showAll(post.id)" class="show-all">{{showfullcontenttext}}</ion-text>
     </div>
-    <ion-img class="image" *ngIf="post.photos.length > 0" [src]="post.photo[0]"></ion-img>
+
+    <ion-slides pager="true" [options]="slideOpts" *ngIf="post.photos">
+      <ion-slide *ngFor="let image of post.photos">
+        <ion-img class="image" *ngIf="post.photos.length > 0" [src]="image.url"></ion-img>
+      </ion-slide>
+    </ion-slides>
     <div class="button">
       <div class="like-button">
         <div class="name-icon" (click)="like(post.id)">
@@ -37,7 +42,7 @@
       </div>
     </div>
     <div class="allcomment">
-      <!-- <ion-text class="subtext" (click)="showcomment()">Xem thêm các bình luận trước...</ion-text> -->
+      <ion-text class="subtext" (click)="showcomment(post.id)">Xem thêm các bình luận trước...</ion-text>
       <div class="comment" *ngFor="let comment of post.comments">
         <img class="avatar" [src]="comment.app_user.thumb_image"/>
         <div class="text">
@@ -56,6 +61,7 @@
   <ion-toolbar class="tool" *ngIf="clickComment">
     <ion-row>
       <ion-input placeholder="Nhập bình luận..." [(ngModel)]="commentContent"></ion-input>
+      <ion-img src="../../assets/icon/photo.svg" (click)="loadImg()"></ion-img>
       <ion-img src="../../assets/icon/send.svg" (click)="sendComment()"></ion-img>
     </ion-row>
   </ion-toolbar>

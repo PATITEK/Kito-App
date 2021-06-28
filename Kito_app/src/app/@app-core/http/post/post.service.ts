@@ -79,8 +79,8 @@ export class PostService {
     )
   }
 
-  public showAllComment(){
-    return this.http.get(`${APICONFIG.POST.SHOW_MORE_COMMENTS}`).pipe(
+  public showAllComment(id){
+    return this.http.get(`${APICONFIG.POST.SHOW_MORE_COMMENTS(id)}`).pipe(
       map((result) =>{
         return result;
       }),

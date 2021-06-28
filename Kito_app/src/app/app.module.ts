@@ -24,7 +24,8 @@ import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { NativeGeocoder, NativeGeocoderOptions, NativeGeocoderResult } from '@ionic-native/native-geocoder/ngx';
 import { NativePageTransitions } from '@ionic-native/native-page-transitions/ngx';
 import { CommonModule } from '@angular/common';
-
+import { PhotoLibrary } from '@ionic-native/photo-library/ngx';
+import { ImagePicker } from '@ionic-native/image-picker/ngx';
 
 // import { IonicSwipeAllModule } from 'ionic-swipe-all';
 @NgModule({
@@ -60,6 +61,8 @@ import { CommonModule } from '@angular/common';
     NativeGeocoder,
     NativePageTransitions,
     NetworkService,
+    PhotoLibrary,
+    ImagePicker
   ],
   bootstrap: [AppComponent]
 })

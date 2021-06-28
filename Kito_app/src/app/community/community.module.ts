@@ -17,7 +17,7 @@ import { HeaderModule } from '../@modular/header/header.module';
     IonicModule,
     CommunityPageRoutingModule,
     HeaderModule,
-    ReactiveFormsModule 
+    ReactiveFormsModule,
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   declarations: [CommunityPage]

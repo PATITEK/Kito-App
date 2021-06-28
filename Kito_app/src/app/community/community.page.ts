@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { PostService } from 'src/app/@app-core/http';
+import { UploadPhotoService } from 'src/app/@app-core/utils/upload-photo.service';
 @Component({
   selector: 'app-community',
   templateUrl: './community.page.html',
@@ -15,14 +17,17 @@ export class CommunityPage implements OnInit {
   imageurl
   repplyCommentID
   showfullcontenttext = "Xem thêm..."
+  
   constructor(
-    private postService: PostService
-  ) { }
+    private postService: PostService,
+    private uploadService: UploadPhotoService,
+    private router: Router,
+    ) { }
   
   ngOnInit() {
     this.postService.getAllPosts().subscribe(data => {  
       this.posts = data.posts;
-      console.log(this.posts);
+      console.log( 'post data', this.posts);
     });
   }
   showAll(){
@@ -33,12 +38,12 @@ export class CommunityPage implements OnInit {
     });
     console.log(this.posts[0]);
   }
-  showcomment(){
-    // if(showfullcontent){
-    //   for (let index = 0; index < 3; index++) {
-    //     this.post.commentshort[index] = this.post.comments[index]
-    //   }
-    // }
+  showcomment(id){
+    // this.postService.showAllComment(id).subscribe(data=>{
+    //   console.log( data);
+    // });
+    localStorage.setItem('commentsID', id);
+    this.router.navigate(['/community/comment']);
   }
   comment(id){
     this.CommentIDSelected = id;
@@ -67,4 +72,9 @@ export class CommunityPage implements OnInit {
       });
     })
   }
+
+  loadImg(){
+    this.imageurl = this.uploadService.uploadPhoto();
+  }
+  
 }
