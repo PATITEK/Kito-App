@@ -26,7 +26,8 @@ import { NativeGeocoder, NativeGeocoderOptions, NativeGeocoderResult } from '@io
 import { NativePageTransitions } from '@ionic-native/native-page-transitions/ngx';
 import { CommonModule } from '@angular/common';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
-
+import { PhotoLibrary } from '@ionic-native/photo-library/ngx';
+import { ImagePicker } from '@ionic-native/image-picker/ngx';
 
 // import { IonicSwipeAllModule } from 'ionic-swipe-all';
 @NgModule({
@@ -63,7 +64,9 @@ import { SocialSharing } from '@ionic-native/social-sharing/ngx';
     NativePageTransitions,
     NetworkService,
     SocialSharing,
-    SocialSharingService
+    SocialSharingService,
+    PhotoLibrary,
+    ImagePicker
   ],
   bootstrap: [AppComponent]
 })
