@@ -48,8 +48,12 @@ export class PostService {
     )
   }
   
-  public addComment(id, content){ 
-    return this.http.post(`${APICONFIG.POST.COMMENT(id)}`, content).pipe(
+  public addComment(id, content, imgurl){ 
+    const params={
+      content: content,
+      photos_attributes: imgurl,
+    };
+    return this.http.post(`${APICONFIG.POST.COMMENT(id)}`, params).pipe(
       map((result) =>{
         return result;
       }),
@@ -59,8 +63,24 @@ export class PostService {
     )
   }
   
-  public showAllComment(){
-    return this.http.get(`${APICONFIG.POST.SHOW_MORE_COMMENTS}`).pipe(
+  public repplycomment(id, content, imgurl, commentID){
+    const params={
+      content: content,
+      photos_attributes: imgurl,
+      comment_id: commentID
+    };
+    return this.http.post(`${APICONFIG.POST.COMMENT(id)}`, params).pipe(
+      map((result) =>{
+        return result;
+      }),
+      catchError((error) =>{
+        throw error;
+      })
+    )
+  }
+
+  public showAllComment(id){
+    return this.http.get(`${APICONFIG.POST.SHOW_MORE_COMMENTS(id)}`).pipe(
       map((result) =>{
         return result;
       }),
