@@ -1,3 +1,4 @@
+import { SocialSharingService } from './@app-core/utils/social-sharing.service';
 import { NetworkService } from './@app-core/utils/network.service';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -24,6 +25,7 @@ import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { NativeGeocoder, NativeGeocoderOptions, NativeGeocoderResult } from '@ionic-native/native-geocoder/ngx';
 import { NativePageTransitions } from '@ionic-native/native-page-transitions/ngx';
 import { CommonModule } from '@angular/common';
+import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 import { PhotoLibrary } from '@ionic-native/photo-library/ngx';
 import { ImagePicker } from '@ionic-native/image-picker/ngx';
 
@@ -61,6 +63,8 @@ import { ImagePicker } from '@ionic-native/image-picker/ngx';
     NativeGeocoder,
     NativePageTransitions,
     NetworkService,
+    SocialSharing,
+    SocialSharingService,
     PhotoLibrary,
     ImagePicker
   ],
