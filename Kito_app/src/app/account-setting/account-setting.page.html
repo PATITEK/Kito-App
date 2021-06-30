@@ -7,9 +7,13 @@
     <div class="user" routerLink="/account">
       <div class="user-img-container active-effect">
         <ion-avatar class="user-img main-box-shadow">
-          <img [src]="avatar" alt="" *ngIf="avatar">
-          <img src="https://i.imgur.com/edwXSJa.png" alt="" *ngIf="!avatar">
-          <ion-spinner *ngIf="!avatar" class="absolute-center" name="lines"></ion-spinner>
+          <img [src]="avatar" alt="" *ngIf="avatar" />
+          <img src="https://i.imgur.com/edwXSJa.png" alt="" *ngIf="!avatar" />
+          <ion-spinner
+            *ngIf="!avatar"
+            class="absolute-center"
+            name="lines"
+          ></ion-spinner>
         </ion-avatar>
       </div>
       <ion-label class="user-name three-dots-2">{{ name }}</ion-label>
@@ -23,11 +27,11 @@
       </ion-buttons>
       <ion-buttons class="setting" routerLink="/account-setting/my-parish">
         <div class="img-container">
-         <img src="assets/img/my-parish.svg" alt="">
+          <img src="assets/img/my-parish.svg" alt="" />
         </div>
         <ion-label class="title">Thông tin giáo xứ</ion-label>
       </ion-buttons>
-      <ion-buttons class="setting" routerLink="/account-setting/notification">
+      <!-- <ion-buttons class="setting" routerLink="/account-setting/notification">
         <div class="img-container">
           <ion-buttons>
             3
@@ -35,7 +39,7 @@
           <ion-icon size="normal" name="notifications"></ion-icon>
         </div>
         <ion-label class="title">Thông báo</ion-label>
-      </ion-buttons>
+      </ion-buttons> -->
       <ion-buttons class="setting" routerLink="/statistic">
         <div class="img-container">
           <ion-icon name="stats-chart"></ion-icon>
