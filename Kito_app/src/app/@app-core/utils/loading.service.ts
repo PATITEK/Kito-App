@@ -1,22 +1,24 @@
 import { Injectable } from '@angular/core';
-import { LoadingController, Platform } from '@ionic/angular';
+import { LoadingController } from '@ionic/angular';
 
 @Injectable()
 export class LoadingService {
 
   isLoading = false;
-  subscribe: any;
 
   constructor(
-    public loadingController: LoadingController,
-    private platform: Platform,
+    public loadingController: LoadingController
   ) { }
 
-  async present(text?) {
+  async present() {
     this.isLoading = true;
     return await this.loadingController.create({
-      message: text,
+      message: '<ion-img src="/assets/icon/icon-loading.svg" alt="loading..." style="width: 10vh; height: 10vh"></ion-img>',
       mode: 'ios',
+      cssClass: 'scale-down-center',
+      showBackdrop: true,
+      keyboardClose: true,
+      spinner: null
     }).then(a => {
       a.present().then(() => {
         if (!this.isLoading) {
