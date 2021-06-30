@@ -2,7 +2,9 @@
   <app-header [headerCustom]="headerCustom"></app-header>
 </ion-header>
 
-<ion-content [ngClass]="{'disable-scroll': !songs.length}">
+<!-- <ion-content [ngClass]="{'disable-scroll': !songs.length}"> -->
+<ion-content [ngClass]="{'disable-scroll': !songs.length}"  >
+
   <app-search-bar-nav class="search-music" (output)="search($event)"></app-search-bar-nav>
   <ion-img class="filler-icon" (click)="clickFiller()" src="./assets/img/music/filler.svg"></ion-img>
   <ion-segment (ionChange)="changedSegment($event)" value="all" swipeGesture="false" mode="ios">
@@ -52,9 +54,10 @@
   <ion-list *ngIf="!favoriteSongs.length && notFoundSong && segmentValue == 'like'" class="not-found">
     Không tìm thấy
   </ion-list>
-  <ion-infinite-scroll #infiniteScrollSongs (ionInfinite)="loadMoreSongs($event)">
+  <ion-infinite-scroll #infiniteScrollSongs (ionInfinite)="loadMoreSongs($event)" threshold="100px">
     <ion-infinite-scroll-content loadingSpinner="lines"></ion-infinite-scroll-content>
   </ion-infinite-scroll>
+  
 </ion-content>
 
 <ion-footer *ngIf="activeSong" class="ion-no-border">
