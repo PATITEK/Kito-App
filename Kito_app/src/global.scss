@@ -223,7 +223,7 @@
 
   .modal-wrapper {
     border-top-left-radius: 30px;
-    border-top-right-radius: 30px;  
+    border-top-right-radius: 30px;
     position: absolute;
     bottom: 0;
   }
@@ -342,4 +342,44 @@
 .not-found {
   margin-top: 54px;
   text-align: center;
+}
+
+@-webkit-keyframes scale-down-center {
+  0% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+
+  100% {
+    -webkit-transform: scale(0.5);
+    transform: scale(0.5);
+  }
+}
+
+@keyframes scale-down-center {
+  0% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+
+  100% {
+    -webkit-transform: scale(0.5);
+    transform: scale(0.5);
+  }
+}
+
+.scale-down-center {
+  --background: transparent;
+
+  ion-img {
+    -webkit-animation: scale-down-center 0.6s
+      cubic-bezier(0.175, 0.885, 0.32, 1.275) infinite alternate both;
+    animation: scale-down-center 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275)
+      infinite alternate both;
+    background: white;
+    width: 30px;
+    border-radius: 50%;
+  }
+
+  min-height: 100%;
 }
