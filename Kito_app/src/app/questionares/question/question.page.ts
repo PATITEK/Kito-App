@@ -211,7 +211,7 @@ export class QuestionPage implements OnInit {
   }
 
   checkAnswerKey(object, value) {
-    this.answerKey = Object.keys(object).find((key) => object[key] === value);
+    this.answerKey = (Object.keys(object).find((key) => object[key] === value)).toUpperCase();
   }
 
   btnConfirm() {

@@ -9,13 +9,13 @@ ion-content {
     background: #fff;
     z-index: 10;
     ion-segment-button {
-        font-size: 15px;
-        --color-checked: var(--white-color);
-        --color: #828282;
-        --border-radius: 10px;
-        &::part(indicator-background) {
-          background: #f6c33e;
-        }
+      font-size: 15px;
+      --color-checked: var(--white-color);
+      --color: #828282;
+      --border-radius: 10px;
+      &::part(indicator-background) {
+        background: #f6c33e;
+      }
     }
     .intro {
       // box-shadow: inset 3px 4px 4px #f4f5f8;
@@ -47,7 +47,6 @@ ion-content {
       font-weight: 500;
     }
     span {
-      display: flex;
       text-align: left;
       color: #828282;
     }
