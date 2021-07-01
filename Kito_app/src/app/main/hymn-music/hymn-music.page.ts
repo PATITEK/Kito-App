@@ -1,9 +1,11 @@
 import { HymnMusicService } from './../../@app-core/http/hymn-music/hymn-music.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Howl } from 'howler'
-import { IonInfiniteScroll, IonRange, IonContent } from '@ionic/angular';
+import { IonInfiniteScroll, IonRange, IonContent, ModalController } from '@ionic/angular';
 import { LoadingService } from 'src/app/@app-core/utils';
 import { IPageRequest } from 'src/app/@app-core/http';
+import { ComfillerComponent } from 'src/app/@modular/comfiller/comfiller.component';
+import { IHymnMusic } from 'src/app/@app-core/http/hymn-music/hymn-music.DTO';
 
 @Component({
   selector: 'app-hymn-music',
@@ -12,12 +14,13 @@ import { IPageRequest } from 'src/app/@app-core/http';
 })
 export class HymnMusicPage implements OnInit {
   @ViewChild('range', { static: false }) range: IonRange;
-  @ViewChild('infiniteScrollSongs') infinityScroll: IonInfiniteScroll;
+  @ViewChild('infiniteScrollSongs', {static: false}) infinityScroll: IonInfiniteScroll;
   @ViewChild(IonContent) ionContent: IonContent;
-
+  
   headerCustom = { title: 'Nhạc Thánh ca' };
   segmentValue = 'all';
-
+  selectFiller = "all";
+  selectSort = "asc";
   songs = [];
   favoriteSongs = [];
   shuffledSongs = [];
@@ -39,19 +42,24 @@ export class HymnMusicPage implements OnInit {
     REPEAT_ALL: 2
   }
   repeatingType = this.REPEATING_TYPE.REPEAT_ALL;
-  pageRequestSongs: IPageRequest = {
+  pageRequestSongs: IHymnMusic = {
     page: 1,
     per_page: 16,
+    filter: "",
+    filter_type: "asc"
   }
-  pageRequestFavoriteSongs: IPageRequest = {
+  pageRequestFavoriteSongs: IHymnMusic = {
     page: 1,
+    filter: "",
+    filter_type: "asc"
   }
 
   loadedSong = false;
   notFoundSong = false;
   constructor(
     private hymnMusicService: HymnMusicService,
-    private loadingService: LoadingService
+    private loadingService: LoadingService,
+    private modalCtrl: ModalController
   ) { }
 
   ngOnInit() {
@@ -100,11 +108,11 @@ export class HymnMusicPage implements OnInit {
     const s = Math.floor(d % 3600 % 60);
 
     this.hDisplay = h > 0 ? h : '';
-     var mDisplay = m > 0 ? m : '';
-     mDisplay =  mDisplay > 9 ?  mDisplay: '0' + mDisplay+ ':';
-     var sDisplay = s > 0 ? s :'';
-    sDisplay = sDisplay > 9 ? sDisplay: '0' + sDisplay;
-    return this.hDisplay +  mDisplay + sDisplay;
+    var mDisplay = m > 0 ? m : '';
+    mDisplay = mDisplay > 9 ? mDisplay : '0' + mDisplay + ':';
+    var sDisplay = s > 0 ? s : '';
+    sDisplay = sDisplay > 9 ? sDisplay : '0' + sDisplay;
+    return this.hDisplay + mDisplay + sDisplay;
   }
 
   shuffleSongs() {
@@ -119,6 +127,7 @@ export class HymnMusicPage implements OnInit {
     this.notFound = false;
     this.hymnMusicService.getAll(this.pageRequestSongs).subscribe(data => {
       this.notFound = true;
+      this.songs = [];
       this.songs = this.songs.concat(data.songs);
       this.pageRequestSongs.page++;
       func && func();
@@ -127,12 +136,15 @@ export class HymnMusicPage implements OnInit {
         this.loadedSong = true;
       }
       this.shuffleSongs();
+      console.log(data);
+      console.log(this.infinityScroll.disabled);
       this.loadingService.dismiss();
     })
   }
 
   getFavoriteSongs() {
     this.notFoundSong = false;
+    this.favoriteSongs = [];
     this.hymnMusicService.getAllFavorite(this.pageRequestFavoriteSongs).subscribe(data => {
       this.notFoundSong = true;
       this.favoriteSongs = this.songs.concat(data.songs);
@@ -278,7 +290,7 @@ export class HymnMusicPage implements OnInit {
     let newValue = +this.range.value;
     let duration = this.player.duration();
     this.player.seek(duration * (newValue / 100));
- 
+
 
   }
 
@@ -286,7 +298,7 @@ export class HymnMusicPage implements OnInit {
     clearInterval(this.progressInterval);
     this.progressInterval = setInterval(() => {
       const seek = this.player.seek();
-       this.progress = (<any>seek / this.player.duration()) * 100 || 0;
+      this.progress = (<any>seek / this.player.duration()) * 100 || 0;
     }, 1000)
   }
 
@@ -304,5 +316,42 @@ export class HymnMusicPage implements OnInit {
         event.target.complete();
       });
     }
+  }
+
+  async clickFiller() {
+    const popover = await this.modalCtrl.create({
+      component: ComfillerComponent,
+      swipeToClose: true,
+      cssClass: 'modalFiller',
+      componentProps: {
+        fillerItem: this.selectFiller,
+        sortItem: this.selectSort
+      }
+    });
+    popover.onDidDismiss()
+      .then(async (data) => {
+
+
+
+        if (data.data?.filler) {
+          this.selectFiller = data.data.filler;
+
+          if (data.data.filler == "all") {
+            this.pageRequestSongs.filter = "";
+          }
+          else {
+            this.pageRequestSongs.filter = data.data.filler;
+          }
+
+
+        }
+        if (data.data?.sort) {
+          this.selectSort = data.data.sort;
+          this.pageRequestSongs.filter_type = data.data.sort;
+        }
+        this.getData();
+      });
+
+    return await popover.present();
   }
 }

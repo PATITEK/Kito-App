@@ -52,9 +52,9 @@
   </ion-buttons>
   <ion-buttons class="question-img-cover">
     <img
-    class="question-img"
-      *ngIf="questions[questionCounter].thumb_image.url != '' "
-      src="https://www.forescout.com/wp-content/uploads/2019/04/fs-cyber-bob-blog-feaured-img-10-questions.png"
+      class="question-img"
+      *ngIf="questions[questionCounter].thumb_image.url != null "
+      src="{{ questions[questionCounter].thumb_image.url }}"
     />
   </ion-buttons>
 

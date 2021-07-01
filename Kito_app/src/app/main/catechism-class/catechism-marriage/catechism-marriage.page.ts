@@ -59,7 +59,7 @@ export class CatechismMarriagePage implements OnInit {
   }
 
   register(id) {
-    this.loadingService.present(LOADING.REGIEST)
+    this.loadingService.present()
     let data = {
       "register_detail": {
         "doctrine_class_id": id
@@ -72,7 +72,7 @@ export class CatechismMarriagePage implements OnInit {
 
   }
   unregister(id) {
-    this.loadingService.present(LOADING.UNREGIEST);
+    this.loadingService.present();
     let data = {
       "register_detail": {
         "doctrine_class_id": id

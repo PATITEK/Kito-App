@@ -2,9 +2,11 @@
   <app-header [headerCustom]="headerCustom"></app-header>
 </ion-header>
 
-<ion-content [ngClass]="{'disable-scroll': !songs.length}">
-  <app-search-bar-nav (output)="search($event)"></app-search-bar-nav>
+<!-- <ion-content [ngClass]="{'disable-scroll': !songs.length}"> -->
+<ion-content [ngClass]="{'disable-scroll': !songs.length}"  >
 
+  <app-search-bar-nav class="search-music" (output)="search($event)"></app-search-bar-nav>
+  <ion-img class="filler-icon" (click)="clickFiller()" src="./assets/img/music/filler.svg"></ion-img>
   <ion-segment (ionChange)="changedSegment($event)" value="all" swipeGesture="false" mode="ios">
     <ion-segment-button value="all" class="intro">
       <ion-label>TẤT CẢ</ion-label>
@@ -15,7 +17,7 @@
   </ion-segment>
 
   <ion-list class="song-list" [ngClass]="{'display-none': segmentValue != 'all'}">
-    <ng-container *ngFor="let song of songs">
+    <ng-container *ngFor="let song of songs; index as i">
       <ion-buttons class="song-cover" [ngClass]="{'active-song-cover': checkActiveSong(song)}" (click)="start(song)">
         <ion-buttons class="left-box">
           <ion-icon size="large" name="musical-notes-outline" style="margin-right: 5px"></ion-icon>
@@ -30,7 +32,7 @@
       </ion-buttons>
     </ng-container>
   </ion-list>
-  <ion-list *ngIf = "!songs.length && notFound && segmentValue == 'all'" class="not-found">
+  <ion-list *ngIf="!songs.length && notFound && segmentValue == 'all'" class="not-found">
     Không tìm thấy
   </ion-list>
   <ion-list class="song-list" [ngClass]="{'display-none': segmentValue != 'like'}">
@@ -49,12 +51,13 @@
       </ion-buttons>
     </ng-container>
   </ion-list>
-  <ion-list *ngIf = "!favoriteSongs.length && notFoundSong && segmentValue == 'like'" class="not-found">
+  <ion-list *ngIf="!favoriteSongs.length && notFoundSong && segmentValue == 'like'" class="not-found">
     Không tìm thấy
   </ion-list>
-  <ion-infinite-scroll #infiniteScrollSongs (ionInfinite)="loadMoreSongs($event)">
+  <ion-infinite-scroll #infiniteScrollSongs (ionInfinite)="loadMoreSongs($event)" threshold="100px">
     <ion-infinite-scroll-content loadingSpinner="lines"></ion-infinite-scroll-content>
   </ion-infinite-scroll>
+  
 </ion-content>
 
 <ion-footer *ngIf="activeSong" class="ion-no-border">
@@ -69,9 +72,9 @@
   </ion-buttons>
   <ion-buttons class="footer-inner">
     <ion-buttons class="footer-left" (click)="toggleHasModal(true)">
-      <ion-avatar class="avatar">
+      <!-- <ion-avatar class="avatar">
         <img onerror="this.src='https://i.imgur.com/edwXSJa.png'" [src]="activeSong.thumb_image?.url" />
-      </ion-avatar>
+      </ion-avatar> -->
       <div class="active-tract-info">
         <div class="active-track-name three-dots-1">{{ activeSong.name }}</div>
         <div class="active-track-author three-dots-1">{{ activeSong.artist }}</div>
@@ -100,7 +103,7 @@
 
   <div class="modal-content">
     <div class="lyrics" *ngIf="activeLyric != null">
-      <div>{{ activeLyric }}</div>
+      <div [innerHTML]="activeLyric"></div>
     </div>
   </div>
 

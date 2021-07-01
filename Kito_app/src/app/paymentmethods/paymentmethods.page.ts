@@ -76,7 +76,7 @@ export class PaymentmethodsPage implements OnInit {
           "order_id": this.dataParam.order_id,
         }
       }
-      this.loading.present('Vui lòng chờ...');
+      this.loading.present();
       this.orderService.paymentOrder_Momo(orderParam).subscribe((data) => {
         this.openMomoPopUp();
       },
@@ -87,7 +87,7 @@ export class PaymentmethodsPage implements OnInit {
     }
     else if(this.dataParam.type_page == 'pray') {
     this.dataParam.pray_log["app_link"] ="no link";
-      this.loading.present('Vui lòng chờ...');
+      this.loading.present();
       this.dataParam.pray_log.payment_type = 'momo';
       this.donateService.prayByMoMo(this.dataParam).subscribe((data) => {
         this.payment = data;
@@ -100,7 +100,7 @@ export class PaymentmethodsPage implements OnInit {
     }
     else if(this.dataParam.type_page == 'donate'){
       this.dataParam.donation["app_link"] ="no link";
-      this.loading.present('Vui lòng chờ...');
+      this.loading.present();
       this.dataParam.donation.payment_type = 'momo';
       this.donateService.donateByMoMo(this.dataParam).subscribe((data) => {
         this.payment = data;

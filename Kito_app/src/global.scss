@@ -14,12 +14,13 @@
 @import "~@ionic/angular/css/flex-utils.css";
 
 :root {
-  --main-color: #f6c33e;
-  --second-color: #cc9d3e;
+  --main-color: #edd81f;
+  --second-color: #edd81f;
   --third-color: #f1c56b;
   --title-color: #717171;
   --gray-color: #e5e5e5;
   --gray-color8a: #8a8a8a;
+  --gray-50: #505050;
   --white-color: #fff;
   --black-color: #000;
 }
@@ -209,13 +210,24 @@
 }
 .modalDonate {
   --height: 200px;
-  --width: 90%;
+  --width: 100%;
   --overflow: hidden;
   .modal-wrapper {
     border-radius: 20px;
   }
 }
+.modalFiller {
+  --height: 450px;
+  --width: 92%;
+  position: absolute;
 
+  .modal-wrapper {
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+    position: absolute;
+    bottom: 0;
+  }
+}
 .app-header-custom {
   .header {
     background: transparent !important;
@@ -330,4 +342,44 @@
 .not-found {
   margin-top: 54px;
   text-align: center;
+}
+
+@-webkit-keyframes scale-down-center {
+  0% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+
+  100% {
+    -webkit-transform: scale(0.5);
+    transform: scale(0.5);
+  }
+}
+
+@keyframes scale-down-center {
+  0% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+
+  100% {
+    -webkit-transform: scale(0.5);
+    transform: scale(0.5);
+  }
+}
+
+.scale-down-center {
+  --background: transparent;
+
+  ion-img {
+    -webkit-animation: scale-down-center 0.6s
+      cubic-bezier(0.175, 0.885, 0.32, 1.275) infinite alternate both;
+    animation: scale-down-center 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275)
+      infinite alternate both;
+    background: white;
+    width: 30px;
+    border-radius: 50%;
+  }
+
+  min-height: 100%;
 }

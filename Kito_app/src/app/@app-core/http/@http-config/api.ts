@@ -131,6 +131,13 @@ export const APICONFIG = {
   },
   DEVICES: {
     REGISTER: `/app/register_device`
+  },
+  POST: {
+    GET_ALL: `/app/posts`,
+    GET_ID: (id) => `/app/posts/${id}`,
+    LIKE: (id) => `/app/posts/${id}/add_like`,
+    COMMENT: (id) => `/app/posts/${id}/add_comment`,
+    SHOW_MORE_COMMENTS: (id) => `/app/posts/${id}/show_more_comment`
   }
 };
 

@@ -23,6 +23,7 @@ export class ChangepasswordPage implements OnInit {
     private router: Router,
     private loadService: LoadingService,
     private passwordModal: ModalController,
+    private toastService:ToastService,
     private authService: AuthService) {
     this.formSubmit = this.formBuilder.group({
       passwordcurrent: new FormControl('', Validators.required),
@@ -47,6 +48,11 @@ export class ChangepasswordPage implements OnInit {
     const cp = this.formSubmit.value.passwordcurrent;
     const pn = this.formSubmit.value.passwordnew;
     const pc = this.formSubmit.value.passwordconfirm;
+    if(cp==pn)
+    {
+      this.toastService.presentFail("Mật khẩu mới và mật khẩu cũ không được trùng!")
+      return;
+    }
     if (pn.length < 6) {
       this.checkpn = true;
       this.messagepn = 'Mật khẩu ít nhất 6 kí tự.'

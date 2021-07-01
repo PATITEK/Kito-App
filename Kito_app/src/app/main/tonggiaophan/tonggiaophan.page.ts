@@ -37,10 +37,15 @@ export class TonggiaophanPage implements OnInit {
       this.loading.dismiss();
       data.dioceses.forEach(diocese => {
         let hasNull = false;
-        for (let i in diocese) {
-          if (diocese[i] === null) {
+        for (let i
+
+          in diocese) {
+
+          if (diocese[i] =="location"&& diocese[i] === null) {
             hasNull = true;
-            break;
+            // console.log(i);
+
+            return;
           }
         }
         !hasNull && this.dioceses.push(diocese);

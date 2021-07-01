@@ -77,13 +77,13 @@ export class CalendarPage implements OnInit {
         })
 
         // remove redundant weeks
-        while (true) {
-          if (!this.checkRightMonthAndYear(month[month.length - 7].date, month[7].date)) {
-            month.splice(month.length - 7, 7);
-          } else {
-            break;
-          }
-        }
+        // while (true) {
+        //   if (!this.checkRightMonthAndYear(month[month.length - 7].date, month[7].date)) {
+        //     month.splice(month.length - 7, 7);
+        //   } else {
+        //     break;
+        //   }
+        // }
 
         if (year >= this.currentDate.getFullYear()) {
           this.months.push(month)
