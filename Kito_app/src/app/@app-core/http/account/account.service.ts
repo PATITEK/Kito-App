@@ -96,7 +96,6 @@ export class AccountService {
         return result
       }),
       catchError((errorRes: any) => {
-        this.loadingServie.dismiss();
         throw errorRes.error;
       })
     )
@@ -110,9 +109,6 @@ export class AccountService {
       catchError((errorRes: any) => {
         throw errorRes.error;
       }),
-      catchError((errorRes: any) => {
-        throw errorRes.error;
-      })
     )
   }
   public getArrayAvatar(){

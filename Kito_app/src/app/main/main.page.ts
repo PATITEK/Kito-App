@@ -100,7 +100,7 @@ export class MainPage implements OnInit {
     private platform: Platform,
     private alertController: AlertController,
     private toarst: ToastService,
-    private navController: NavController,
+    private navController: NavController, 
     private geolocationSerivce: GeolocationService,
     private diocesesService: DioceseService,
     private parishesService: ParishesService,

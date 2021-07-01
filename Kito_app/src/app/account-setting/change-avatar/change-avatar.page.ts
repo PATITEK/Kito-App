@@ -44,7 +44,6 @@ export class ChangeAvatarPage implements OnInit {
         {
           text: 'Chọn từ thư viện',
           handler: () => {
-
             this.cameraService.getAvatarUpload(this.activedAvatar);
             this.router.navigateByUrl('account');
           }
@@ -76,6 +75,7 @@ export class ChangeAvatarPage implements OnInit {
     this.toastService.presentSuccess('Cập nhật ảnh thành công !');
     this.accoutnService.updateAvatar(this.activedAvatar);
     this.router.navigateByUrl('account');
+    console.log(this.activedAvatar)
 
   }
 }
