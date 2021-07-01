@@ -39,9 +39,6 @@ export class CommunityPage implements OnInit {
     console.log(this.posts[0]);
   }
   showcomment(id){
-    // this.postService.showAllComment(id).subscribe(data=>{
-    //   console.log( data);
-    // });
     localStorage.setItem('commentsID', id);
     this.router.navigate(['/community/comment']);
   }

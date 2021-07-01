@@ -14,9 +14,9 @@ import { IHymnMusic } from 'src/app/@app-core/http/hymn-music/hymn-music.DTO';
 })
 export class HymnMusicPage implements OnInit {
   @ViewChild('range', { static: false }) range: IonRange;
-  @ViewChild('infiniteScrollSongs') infinityScroll: IonInfiniteScroll;
+  @ViewChild('infiniteScrollSongs', {static: false}) infinityScroll: IonInfiniteScroll;
   @ViewChild(IonContent) ionContent: IonContent;
-
+  
   headerCustom = { title: 'Nhạc Thánh ca' };
   segmentValue = 'all';
   selectFiller = "all";
@@ -125,10 +125,7 @@ export class HymnMusicPage implements OnInit {
 
   getSongs(func?) {
     this.notFound = false;
-
     this.hymnMusicService.getAll(this.pageRequestSongs).subscribe(data => {
-
-
       this.notFound = true;
       this.songs = [];
       this.songs = this.songs.concat(data.songs);
@@ -139,6 +136,8 @@ export class HymnMusicPage implements OnInit {
         this.loadedSong = true;
       }
       this.shuffleSongs();
+      console.log(data);
+      console.log(this.infinityScroll.disabled);
       this.loadingService.dismiss();
     })
   }
