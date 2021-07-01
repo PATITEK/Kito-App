@@ -3,7 +3,7 @@
   <ion-label class="main-title">{{ title }}</ion-label>
   <ion-buttons class="cup-and-scores">
     <!-- <ion-icon name="trophy"></ion-icon> -->
-    <ion-label>{{ score }}/10 </ion-label>
+    <ion-label>{{ score }}/{{questionsLength}} </ion-label>
   </ion-buttons>
   <div style="position: relative; z-index: 5;">
     <ion-button mode="ios" (click)="closeCompleteQuestion(button.routerLink)" Fill="round" class="active-effect" *ngFor="let button of buttons">{{ button.name }}</ion-button>
