@@ -43,7 +43,7 @@
     </ion-buttons>
   </ion-buttons>
   <ion-buttons class="question-cover">
-    <p class="question-counter">{{ questionCounter+1 }}/10 câu</p>
+    <p class="question-counter">{{ questionCounter+1 }}/{{questionsLength}} câu</p>
     <ion-label
       class="question"
       *ngIf="questions[questionCounter].question != '' "

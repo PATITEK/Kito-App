@@ -13,7 +13,7 @@ export class RulePage implements OnInit {
       rule: 'Người chơi chọn chủ đề hoặc cấp độ để bắt đầu trò chơi.'
     },
     {
-      rule: 'Mỗi lượt chơi sẽ có 10 câu hỏi với 4 đáp án A, B, C, D (thời gian là 120s/10 câu). Người chơi chọn 1 trong 4 đáp án để trả lời câu hỏi.'
+      rule: 'Mỗi lượt chơi sẽ có một số câu hỏi với 4 đáp án A, B, C, D (thời gian là 12s/1 câu). Người chơi chọn 1 trong 4 đáp án để trả lời câu hỏi.'
     },
     {
       rule: 'Người chơi có 3 mạng, mỗi câu trả lời sai sẽ bị trừ 1 mạng. Đến khi hết 3 mạng sẽ kết thúc trò chơi.'
