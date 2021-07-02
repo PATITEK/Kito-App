@@ -50,7 +50,17 @@ export class NewsPage implements OnInit {
   ) { }
   ngOnInit() {
     this.loading.present();
-    this.getParams();
+    this.vaticanService.getCategory().subscribe((data) => {
+      data.vatican_news_categories.forEach(element => {
+        if (element.name == "Vatican") {
+          this.pageRequestVatican.category_id = element.id;
+
+        }
+      });
+      this.getParams();
+
+    })
+
   }
   ionViewWillEnter() {
     const parishId = localStorage.getItem('tempParishId');
@@ -67,7 +77,6 @@ export class NewsPage implements OnInit {
       this.listCate.forEach(e => {
         if (e.name === 'Vatican') {
           this.idActive = e.id;
-          console.log(this.idActive);
 
         }
       })
@@ -91,6 +100,8 @@ export class NewsPage implements OnInit {
   getData(func?) {
     this.notFound = false;
     if (this.dataParams.id) {
+      console.log(this.dataParams.type);
+
       switch (this.dataParams.type.detail) {
         case 'dioceseNews':
           this.headerCustom.title = 'Tin tức Giáo phận';
@@ -129,6 +140,25 @@ export class NewsPage implements OnInit {
             }
           })
           break;
+        case 'vatican':
+          this.vatican = true;
+          this.headerCustom.title = "Tin tức Vatican"
+          this.vaticanService.getAll(this.pageRequestVatican).subscribe(data => {
+            this.notFound = true;
+            this.loading.dismiss();
+            data.vatican_news.forEach(element => {
+              element.type = this.dataParams.type
+              element.time = element.created_at.slice(11, 16)
+              element.yymmdd = element.created_at.slice(0, 10);
+            });
+            this.news = this.news.concat(data.vatican_news);
+            func && func();
+            this.pageRequestVatican.page++;
+            if (this.news.length >= data.meta.pagination.total_objects) {
+              this.infiniteScroll.disabled = true;
+            }
+          })
+          break;
       }
     }
     else {
@@ -159,6 +189,8 @@ export class NewsPage implements OnInit {
     this.pageRequestVatican.category_id = c.id;
     this.reset();
     this.getData();
+
+    this.headerCustom.title = c.name;
     this.displayCate = false;
   }
   showCate() {
@@ -209,13 +241,24 @@ export class NewsPage implements OnInit {
   }
   getParams() {
     let url = window.location.href;
+
     if (url.includes('?')) {
       this.route.queryParams.subscribe(params => {
         this.dataParams = JSON.parse(params['data']);
+        console.log(this.dataParams);
+
         this.pageRequestDioceseNews.diocese_id = this.dataParams.id;
         this.getData();
       }).unsubscribe();
     }
+    // this.vaticanService.getCategory().subscribe((data) => {
+    //   data.vatican_news_categories.forEach(element => {
+    //     if (element.name == "Vatican") {
+    //       this.pageRequestVatican.category_id = element.id;
+    //     }
+    //   });
+    //   this.getData();
+    // })
   }
   loadMoreData(event) {
     this.getData(() => {
