@@ -8,15 +8,15 @@ import { Router } from '@angular/router';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
-  @Input() headerCustom: { title?: String, background?: String, color?: String};
+  @Input() headerCustom: { title?: String, background?: String, color?: String };
 
   constructor(
     private router: Router
   ) { }
 
   ngOnInit() { }
-  
+
   gotoMain() {
-    this.router.navigateByUrl('/main')
+    this.router.navigateByUrl('/tabbar-manager/main')
   }
 }

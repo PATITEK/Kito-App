@@ -2,7 +2,7 @@
   <app-header [headerCustom]="headerCustom"></app-header>
 </ion-header>
 
-<ion-content >
+<ion-content [scrollEvents]="true" (ionScroll)="onScrollContent($event)" [ngClass]="{'disable-scroll': !list.length}">
   <app-search-bar-nav (output)="search($event)"></app-search-bar-nav>
 
   <div class="segment-container">
@@ -59,8 +59,8 @@
     <ion-list *ngIf="!list.length && notFound" class="not-found">
       Không tìm thấy
     </ion-list>
-    <ion-infinite-scroll #infiniteScroll (ionInfinite)="loadMoreProducts()">
-      <ion-infinite-scroll-content loadingSpinner="bubbles"></ion-infinite-scroll-content>
+    <ion-infinite-scroll #infiniteScroll (ionInfinite)="loadMoreProducts($event)">
+      <ion-infinite-scroll-content loadingSpinner="lines"></ion-infinite-scroll-content>
     </ion-infinite-scroll>
   </div>
 

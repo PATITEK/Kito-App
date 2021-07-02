@@ -15,13 +15,15 @@ import { CompleteQuestionPage } from "../complete-question/complete-question.pag
 export class QuestionPage implements OnInit {
   musicType = true;
 
-  questionTypeName = "";
+  questionTypeName = '';
+
   heart = 3;
   score = 0;
 
   questionCounter = 0;
   answerValue = "";
   answerKey = "";
+  questionsLength = 0;
 
   time: BehaviorSubject<string> = new BehaviorSubject("00:00");
   timer: number;
@@ -40,7 +42,7 @@ export class QuestionPage implements OnInit {
       rule: 'Người chơi chọn chủ đề hoặc cấp độ để bắt đầu trò chơi.'
     },
     {
-      rule: 'Mỗi lượt chơi sẽ có 10 câu hỏi với 4 đáp án A, B, C, D (thời gian là 120s/10 câu). Người chơi chọn 1 trong 4 đáp án để trả lời câu hỏi.'
+      rule: 'Mỗi lượt chơi sẽ có một số câu hỏi với 4 đáp án A, B, C, D (thời gian là 12s/1 câu). Người chơi chọn 1 trong 4 đáp án để trả lời câu hỏi.'
     },
     {
       rule: 'Người chơi có 3 mạng, mỗi câu trả lời sai sẽ bị trừ 1 mạng. Đến khi hết 3 mạng sẽ kết thúc trò chơi.'
@@ -60,15 +62,18 @@ export class QuestionPage implements OnInit {
   ) {
     this.loadAudio();
     this.checkQuestionType();
-    this.loadingService.dismiss();
+    this.loadingService.present();
   }
 
   ngOnInit() {
+  }
+
+  ionViewWillEnter() {
     this.soundtrack1.play();
     localStorage.setItem("score", "0");
   }
 
-  ionViewDidLeave() {
+  ionViewWillLeave() {
     this.stopTimer();
   }
 
@@ -122,31 +127,34 @@ export class QuestionPage implements OnInit {
   }
 
   checkQuestionType() {
-    this.questionTypeName = localStorage.getItem("questionTypeName");
+    this.questionTypeName = localStorage.getItem('questionTypeName');
     if (localStorage.getItem("idTopic")) {
-      this.QuestionaresService.getQuesTopic(JSON.parse(localStorage.getItem('idTopic'))).subscribe((data) => {
-        this.questions = data.questions;
-
-        this.questions.push({
-          question: '',
-          answer: {
-            a: '',
-            b: '',
-            c: '',
-            d: '',
-            right_answer: ''
-          },
-          thumb_image: { url: '' }
-        })
-      });
-      localStorage.removeItem('idTopic')
+      this.setUpQuestion('idTopic')
     } else if (localStorage.getItem("idLevel")) {
-      this.QuestionaresService.getQuesLevel(JSON.parse(localStorage.getItem('idLevel'))).subscribe((data) => {
-        this.questions = data.questions;
-      });
-      localStorage.removeItem('idLevel');
+      this.setUpQuestion('idLevel')
     }
-    this.startTimer(120);
+  }
+
+  setUpQuestion(idString) {
+    this.QuestionaresService.getQuesTopic(JSON.parse(localStorage.getItem(idString))).subscribe((data) => {
+      this.questions = data.questions;
+      this.loadingService.dismiss();
+      this.questionsLength = data.questions.length;
+      localStorage.setItem('questionsLength', this.questionsLength.toString());
+      this.startTimer(data.questions.length*12);
+      this.questions.push({
+        question: '',
+        answer: {
+          a: '',
+          b: '',
+          c: '',
+          d: '',
+          right_answer: ''
+        },
+        thumb_image: { url: '' }
+      })
+    });
+    localStorage.removeItem(idString)
   }
 
   setMusicType() {
@@ -215,6 +223,7 @@ export class QuestionPage implements OnInit {
   }
 
   btnConfirm() {
+    console.log(this.questionCounter)
     this.answerValue = "";
     if (this.answerKey == this.questions[this.questionCounter].answer.right_answer) {
       this.score++;
@@ -226,17 +235,16 @@ export class QuestionPage implements OnInit {
       this.toastService.presentFail("Sai rồi!", 'top', 1000, 'danger');
       this.wrong.play();
     }
-    if (this.questionCounter >= 10 || this.heart < 0 || this.score == 10) {
+    if (this.questionCounter >= this.questionsLength - 1 || this.heart < 0 || this.score == this.questionsLength) {
       this.heart = 0;
       this.updateScore();
       this.openCompleteQuestion();
       this.stopTimer();
       this.soundtrack1.pause();
     }
-    if (this.questionCounter <= 10) {
+    if (this.questionCounter <= this.questionsLength) {
       this.questionCounter++;
     }
-
   }
 
   async openCompleteQuestion() {
@@ -253,7 +261,7 @@ export class QuestionPage implements OnInit {
   }
 
   updateScore() {
-    this.QuestionaresService.updateScore({ app_user: { score: this.score }}).subscribe((data) => {
+    this.QuestionaresService.updateScore({ app_user: { score: this.score } }).subscribe((data) => {
     })
   }
 }

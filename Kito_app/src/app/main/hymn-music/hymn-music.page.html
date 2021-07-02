@@ -3,7 +3,7 @@
 </ion-header>
 
 <!-- <ion-content [ngClass]="{'disable-scroll': !songs.length}"> -->
-<ion-content [ngClass]="{'disable-scroll': !songs.length}"  >
+<ion-content [ngClass]="{'disable-scroll': !songs.length}">
 
   <app-search-bar-nav class="search-music" (output)="search($event)"></app-search-bar-nav>
   <ion-img class="filler-icon" (click)="clickFiller()" src="./assets/img/music/filler.svg"></ion-img>
@@ -57,7 +57,7 @@
   <ion-infinite-scroll #infiniteScrollSongs (ionInfinite)="loadMoreSongs($event)" threshold="100px">
     <ion-infinite-scroll-content loadingSpinner="lines"></ion-infinite-scroll-content>
   </ion-infinite-scroll>
-  
+
 </ion-content>
 
 <ion-footer *ngIf="activeSong" class="ion-no-border">
@@ -97,7 +97,7 @@
     <div class="name">{{ activeSong.name }}</div>
     <div class="author">{{ activeSong.artist }}</div>
     <ion-avatar class="avatar">
-      <img onerror="this.src='https://i.imgur.com/edwXSJa.png'" [src]="activeSong.thumb_image?.url" />
+      <img onerror="this.src='assets/img/logo/logo.jpg'" [src]="activeSong.thumb_image?.url" />
     </ion-avatar>
   </div>
 
