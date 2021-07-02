@@ -137,6 +137,7 @@ export class QuestionPage implements OnInit {
 
   setUpQuestion(idString) {
     this.QuestionaresService.getQuesTopic(JSON.parse(localStorage.getItem(idString))).subscribe((data) => {
+      console.log(data.questions)
       this.questions = data.questions;
       this.loadingService.dismiss();
       this.questionsLength = data.questions.length;
