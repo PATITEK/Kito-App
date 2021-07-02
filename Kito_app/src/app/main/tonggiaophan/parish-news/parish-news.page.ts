@@ -15,6 +15,7 @@ export class ParishNewsPage implements OnInit {
     {
       heading: 'Tin tức Vatican',
       items: [],
+      category_id: 2,
       type: { general: 'news', detail: 'vatican' }
     },
     {
@@ -28,7 +29,11 @@ export class ParishNewsPage implements OnInit {
     per_page: 4,
     category_id: 2
   }
-
+  pageRequestPope: IPageVatican = {
+    page: 1,
+    per_page: 4,
+    // category_id: 2
+  }
   constructor(
     private vaticanService: VaticanService,
     private popeService: PopeService,
@@ -41,6 +46,10 @@ export class ParishNewsPage implements OnInit {
         if (element.name == "Vatican") {
           this.pageRequest.category_id = element.id;
         }
+        // if (element.name == "Đức Giáo Hoàng") {
+        //   this.pageRequestPope.category_id = element.id
+        // }
+
       });
       this.getData();
     })
@@ -52,16 +61,17 @@ export class ParishNewsPage implements OnInit {
     this.vaticanService.getAll(this.pageRequest).subscribe(data => {
       data.vatican_news.forEach(v => v.type = this.list[0].type);
       this.list[0].items = data.vatican_news;
+      this.list[0].category_id = this.pageRequest.category_id
     })
   }
 
   getPope() {
-    this.popeService.getAll(this.pageRequest).subscribe(data => {
+    this.popeService.getAll(this.pageRequestPope).subscribe(data => {
 
       data.pope_infos.forEach(v => v.type = this.list[1].type);
       this.list[1].items = data.pope_infos;
-     
-      
+
+
     })
   }
 
