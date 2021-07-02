@@ -29,16 +29,17 @@ export class StorePage implements OnInit {
   }
   pageRequestCategories: IPageCategory = {
     page: 1,
-    per_page: 20,
+    per_page: 100,
     parish_id: localStorage.getItem('parish_id')
   }
   pageRequestProducts: IPageProduct = {
     page: 1,
-    per_page: 6,
+    per_page: 2,
     category_id: this.currentCategoryId,
     search: '',
     sort: this.sortType.newest
   }
+
 
   constructor(
     public dateTimeService: DateTimeService,
@@ -70,13 +71,15 @@ export class StorePage implements OnInit {
     this.resetAmount();
   }
 
-  getProducts(event?) {
+  getProducts() {
     this.notFound = false;
     this.pageRequestProducts.category_id = this.currentCategoryId;
     const tempCategoryId = this.currentCategoryId;
+    console.log(this.pageRequestProducts)
     this.storeService.getAllProducts(this.pageRequestProducts).subscribe(data => {
       this.notFound = true;
       this.loadingService.dismiss();
+      this.infinityScroll.complete();
       if (tempCategoryId !== this.currentCategoryId) {
         return;
       }
@@ -86,20 +89,42 @@ export class StorePage implements OnInit {
       })
       this.list = this.list.concat(data.products);
       this.pageRequestProducts.page++;
-
-      this.infinityScroll.disabled = false;
       if (this.list.length >= data.meta.pagination.total_objects) {
+        console.log(2)
         this.infinityScroll.disabled = true;
-        this.infinityScroll.complete();
-      }
+      } 
 
-      if (event) {
-        event.target.complete();
-      }
+      // if (event) {
+      //   console.log(1)
+
+      //   event.target.complete();
+      // }
     })
   }
   
+  loadMoreProducts() {
+    this.getProducts();
+  }
+
+  changeCategory(category) {
+    this.setHasSetting(false);
+    if (this.currentCategoryId !== category.id) {
+      this.currentCategoryId = category.id;
+        this.reset()
+
+    //  this.ionContent.scrollToTop(0).then(() => {
+        this.getProducts();
+     // })
+    }
+  }
+  reset() {
+    this.list = [];
+    this.pageRequestProducts.page = 1;
+    this.infinityScroll.disabled = false;
+  }
+
   getCategories() {
+    console.log(1)
     this.storeService.getAllCategories(this.pageRequestCategories).subscribe(data => {
       this.categories = data.categories;
       this.currentCategoryId = this.categories[0].id;
@@ -139,17 +164,6 @@ export class StorePage implements OnInit {
     this.router.navigateByUrl('main/store/cart');
   }
 
-  changeCategory(category) {
-    this.setHasSetting(false);
-    if (this.currentCategoryId !== category.id) {
-      this.pageRequestProducts.page = 1;
-      this.currentCategoryId = category.id;
-      this.list = [];
-      this.ionContent.scrollToTop(0).then(() => {
-        this.getProducts();
-      })
-    }
-  }
 
   async openAddModal(item) {
     const modal = await this.modalController.create({
@@ -205,11 +219,7 @@ export class StorePage implements OnInit {
     this.getProducts();
   }
 
-  loadMoreProducts(event) {
-    this.getProducts(event);
-  }
-
-  onScrollContent(event) {
+  onScrollContent() {
     this.setHasSetting(false);
   }
 
@@ -246,9 +256,5 @@ export class StorePage implements OnInit {
     this.getProducts();
   }
 
-  reset() {
-    this.list = [];
-    this.pageRequestProducts.page = 1;
-    this.infinityScroll.disabled = false;
-  }
+ 
 }
