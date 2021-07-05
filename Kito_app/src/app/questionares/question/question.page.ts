@@ -60,15 +60,15 @@ export class QuestionPage implements OnInit {
     private loadingService: LoadingService,
     private QuestionaresService: QuestionaresService
   ) {
-    this.loadAudio();
-    this.checkQuestionType();
-    this.loadingService.present();
+
   }
 
   ngOnInit() {
   }
 
   ionViewWillEnter() {
+    this.loadingService.present();
+    this.checkQuestionType();
     this.soundtrack1.play();
     localStorage.setItem("score", "0");
   }
@@ -126,22 +126,40 @@ export class QuestionPage implements OnInit {
     await alertQuestionSetting.present();
   }
 
-  checkQuestionType() {
+  async checkQuestionType() {
+
+    if (localStorage.getItem("idTopic") == null && localStorage.getItem('idLevel') == null) {
+      await this.loadingService.dismiss();
+
+      this.router.navigateByUrl('questionares');
+      return;
+    }
+
     this.questionTypeName = localStorage.getItem('questionTypeName');
     if (localStorage.getItem("idTopic")) {
-      this.setUpQuestion('idTopic')
-    } else if (localStorage.getItem("idLevel")) {
-      this.setUpQuestion('idLevel')
+      this.setUpQuestion('idTopic');
+      this.loadAudio();
+
+      return;
+    }
+    if (localStorage.getItem("idLevel")) {
+
+      this.setUpQuestion('idLevel');
+      this.loadAudio();
+
+      return;
     }
   }
 
   setUpQuestion(idString) {
+
     this.QuestionaresService.getQuesTopic(JSON.parse(localStorage.getItem(idString))).subscribe((data) => {
+
       this.questions = data.questions;
       this.loadingService.dismiss();
       this.questionsLength = data.questions.length;
       localStorage.setItem('questionsLength', this.questionsLength.toString());
-      this.startTimer(data.questions.length*12);
+      this.startTimer(data.questions.length * 12);
       this.questions.push({
         question: '',
         answer: {

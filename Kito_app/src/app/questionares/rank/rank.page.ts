@@ -21,9 +21,9 @@ export class RankPage implements OnInit {
     this.QuestionaresService.getRanking().subscribe((data) => {
       this.ranking = data.app_users.slice(0, 10);
       let i = 1;
-      for(let ranker of this.ranking) {
+      for (let ranker of this.ranking) {
         ranker.index = i;
-        if(ranker.thumb_image == null || ranker.thumb_image.url == null ) {
+        if (ranker.thumb_image == null || ranker.thumb_image.url == null) {
           ranker.thumb_image = {};
           ranker.thumb_image.url = 'https://i.imgur.com/edwXSJa.png';
         }
