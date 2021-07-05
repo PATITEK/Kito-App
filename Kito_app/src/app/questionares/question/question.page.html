@@ -28,11 +28,11 @@
       <ion-label>{{ timer }}s</ion-label>
     </ion-buttons>
   </ion-buttons>
-  <!-- <ion-buttons class="question-cover">
-    <p class="question-counter">{{ questionCounter+1 }}/{{questionsLength}} câu</p>
+  <ion-buttons class="question-cover">
+    <!-- <p class="question-counter">{{ questionCounter+1 }}/{{questionsLength}} câu</p> -->
     <ion-label class="question" *ngIf="questions[questionCounter].question != '' ">{{
       questions[questionCounter].question }}</ion-label>
-  </ion-buttons> -->
+  </ion-buttons>
   <ion-buttons class="question-img-cover">
     <img class="question-img" *ngIf="questions[questionCounter].thumb_image.url != null "
       src="{{ questions[questionCounter].thumb_image.url }}" />
