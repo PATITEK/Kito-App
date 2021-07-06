@@ -87,7 +87,7 @@ export const APICONFIG = {
   DOCTRINE_CLASSES: {
     GET: `/app/doctrine_classes/marriage`,
     GET_DETAIL: id => `/app/doctrine_classes/marriage/${id}`,
-    REGISTER:`/app/doctrine_classes/register`,
+    REGISTER: `/app/doctrine_classes/register`,
     UNREGISTER: `/app/doctrine_classes/unregister`,
   },
   CATECKISM: {
@@ -124,6 +124,8 @@ export const APICONFIG = {
   },
   VIDEO: {
     GET_ALL: `/app/lecture_videos`,
+    GET_BIBEL_SONG: `/app/bible_songs`,
+    GET_BIBLE_SONG_DETAIL: id => `/app/bible_songs/${id}`,
   },
   ATTENTION_LOG: {
     GET: date => `/app/attention_logs?cal_date=${date}`,

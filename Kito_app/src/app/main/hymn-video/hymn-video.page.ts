@@ -4,6 +4,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { NavController, IonInfiniteScroll, IonContent } from '@ionic/angular';
 import { IPageRequest } from 'src/app/@app-core/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-hymn-video',
@@ -13,24 +14,33 @@ import { IPageRequest } from 'src/app/@app-core/http';
 export class HymnVideoPage implements OnInit {
   @ViewChild('infiniteScrollVideos') infinityScroll: IonInfiniteScroll;
   @ViewChild(IonContent) ionContent: IonContent;
-  headerCustom = { title: 'Video bài giảng' };
+  headerCustom = { title: 'Video bài giảng & Sách tiếng nói' };
   trustedVideoUrlArray: SafeResourceUrl[] = [];
   pageRequestVideos: IPageRequest = {
     page: 1,
     per_page: 4,
   }
+  pageRequestMusic: IPageRequest = {
+    page: 1,
+    per_page: 4,
+  }
   videos = [];
+  music = [];
+  segmentValue = 'video';
+
   notFound = false;
   constructor(
     public navCtrl: NavController,
     private domSanitizer: DomSanitizer,
     private hymnVideoService: HymnMusicService,
-    private LoadingService: LoadingService
+    private LoadingService: LoadingService,
+    private router: Router
   ) { }
 
   ngOnInit() {
     this.LoadingService.present();
     this.getVideos();
+    this.getBiBlesSong();
   }
 
   getVideos(func?) {
@@ -46,18 +56,40 @@ export class HymnVideoPage implements OnInit {
       this.videos.forEach((e) => {
         e.trustLink = this.domSanitizer.bypassSecurityTrustResourceUrl(e.url.replace('watch?v=', 'embed/'))
       })
-    setTimeout(()=> {
-      this.LoadingService.dismiss();
-    }, 1500)  
+      setTimeout(() => {
+        this.LoadingService.dismiss();
+      }, 1500)
     })
 
 
   }
+  getBiBlesSong(func?) {
+    this.notFound = false;
+    this.hymnVideoService.getAllBibleSong(this.pageRequestMusic).subscribe((data) => {
+      data.bible_songs.forEach(element => {
+        this.music.push(element)
+      });
+      this.pageRequestMusic.page++
+      func && func();
+      if (this.videos.length >= data.meta.pagination.total_objects) {
+        this.infinityScroll.disabled = true;
+      }
+      setTimeout(() => {
+        this.LoadingService.dismiss();
+      }, 1500)
 
+
+    })
+  }
   loadMoreVideos(event) {
     this.getVideos(() => {
       event.target.complete();
     });
+  }
+  loadMoreMusic(event) {
+    this.getBiBlesSong(() => {
+      event.target.complete();
+    })
   }
 
   search(value: string) {
@@ -75,5 +107,13 @@ export class HymnVideoPage implements OnInit {
     this.trustedVideoUrlArray = [];
     this.getVideos();
     this.infinityScroll.disabled = false;
+  }
+  changedSegment(event) {
+
+    this.segmentValue = event.target.value;
+
+  }
+  gotoBibleSongDetail(id) {
+    this.router.navigate(['main/hymn-video/BibleSongdetail/' + id]);
   }
 }

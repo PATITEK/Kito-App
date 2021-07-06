@@ -201,6 +201,8 @@ export class HymnMusicPage implements OnInit {
   }
 
   start(song) {
+    console.log(song);
+
     this.activeSong = song;
     if (this.player) {
       this.player.stop();
@@ -211,7 +213,6 @@ export class HymnMusicPage implements OnInit {
       html5: true,
       onplay: () => {
 
-        this.timeFlag = 0;
         this.updateProgress();
         let maxTime = this.player.duration();
         let heightLyric = this.lyricContent.nativeElement.offsetHeight;
@@ -263,9 +264,7 @@ export class HymnMusicPage implements OnInit {
 
 
   }
-  gotoScroll() {
 
-  }
   togglePlayer() {
     if (this.player.playing()) {
       this.player.pause();

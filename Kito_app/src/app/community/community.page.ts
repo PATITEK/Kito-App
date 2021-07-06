@@ -9,7 +9,7 @@ import { UploadPhotoService } from 'src/app/@app-core/utils/upload-photo.service
 })
 export class CommunityPage implements OnInit {
   headerCustom = { title: 'Cộng đồng giáo dân' }
-  
+
   posts: any
   clickComment = false
   CommentIDSelected
@@ -17,42 +17,42 @@ export class CommunityPage implements OnInit {
   imageurl
   repplyCommentID
   showfullcontenttext = "Xem thêm..."
-  
+
   constructor(
     private postService: PostService,
     private uploadService: UploadPhotoService,
     private router: Router,
-    ) { }
-  
+  ) { }
+
   ngOnInit() {
-    this.postService.getAllPosts().subscribe(data => {  
+    this.postService.getAllPosts().subscribe(data => {
       this.posts = data.posts;
-      console.log( 'post data', this.posts);
+      console.log('post data', this.posts);
     });
   }
-  showAll(){
-    
+  showAll() {
+
   }
-  like(id){
-    this.postService.addLike(id).subscribe(()=>{
+  like(id) {
+    this.postService.addLike(id).subscribe(() => {
     });
     console.log(this.posts[0]);
   }
-  showcomment(id){
+  showcomment(id) {
     localStorage.setItem('commentsID', id);
     this.router.navigate(['/community/comment']);
   }
-  comment(id){
+  comment(id) {
     this.CommentIDSelected = id;
     console.log(this.CommentIDSelected)
-    if(this.clickComment) this.clickComment = false
+    if (this.clickComment) this.clickComment = false
     else this.clickComment = true;
   }
-  sendComment(){
+  sendComment() {
     console.log(this.commentContent);
-    
+
     this.postService.addComment(this.CommentIDSelected, this.commentContent, this.imageurl).subscribe(() => {
-      this.postService.getAllPosts().subscribe(data => {  
+      this.postService.getAllPosts().subscribe(data => {
         this.posts = data.posts;
         console.log(this.posts);
         this.clickComment = false
@@ -60,9 +60,9 @@ export class CommunityPage implements OnInit {
     })
   }
 
-  replyComment(id){
+  replyComment(id) {
     this.postService.repplycomment(this.CommentIDSelected, this.commentContent, this.imageurl, id).subscribe(() => {
-      this.postService.getAllPosts().subscribe(data => {  
+      this.postService.getAllPosts().subscribe(data => {
         this.posts = data.posts;
         this.clickComment = false
         console.log(this.posts);
@@ -70,8 +70,8 @@ export class CommunityPage implements OnInit {
     })
   }
 
-  loadImg(){
+  loadImg() {
     this.imageurl = this.uploadService.uploadPhoto();
   }
-  
+
 }
