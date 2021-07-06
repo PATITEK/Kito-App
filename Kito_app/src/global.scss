@@ -92,6 +92,8 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
 }
 
 .three-dots-2 {
@@ -169,7 +171,7 @@
   z-index: 10;
 }
 .modal__logout {
-  --height: 200px;
+  --height: 300px;
   .modal-wrapper {
     position: absolute;
     bottom: 0;

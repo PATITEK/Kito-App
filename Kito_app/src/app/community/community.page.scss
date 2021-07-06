@@ -1,6 +1,7 @@
 ion-content{
     top: 80px;
     background-color: #e5e5e5;
+    --padding-bottom: 78px;
     
     .post{
         background-color: #fff;
@@ -19,6 +20,7 @@ ion-content{
             .text{
                 display: flex;
                 flex-direction: column;
+                margin-left: 10px;
                 .username{
                     font-size: 18px;
                     color: #424242, 100%;
@@ -35,6 +37,16 @@ ion-content{
             width: 90%;
             margin-left: 5%;
             padding-bottom: 12px;
+            .text-content {
+                overflow: visible !important;
+                -webkit-line-clamp: unset !important;
+            }
+            .three-dots-3 {
+                display: -webkit-box;
+                -webkit-line-clamp: 3;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+              }
             .show-all{
                 font-size: 12px;
                 color: #828282;
@@ -125,12 +137,14 @@ ion-footer{
     border-top-right-radius: 30px;
     ion-row{
         width: 90vw;
-        margin-left: 5vw;
+        margin: 0 auto;
         ion-input{
             width: 80%;
             border: 1px solid #ccc;
             border-radius: 20px;
             font-size: 14px;
+            --padding-start: 10px;
+            margin-top: 1vh;
         }
         ion-img{
             width: 7vw;

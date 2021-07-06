@@ -241,7 +241,6 @@ export class QuestionPage implements OnInit {
   }
 
   btnConfirm() {
-    console.log(this.questionCounter)
     this.answerValue = "";
     if (this.answerKey == this.questions[this.questionCounter].answer.right_answer) {
       this.score++;

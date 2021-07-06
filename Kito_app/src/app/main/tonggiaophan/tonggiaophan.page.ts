@@ -43,8 +43,6 @@ export class TonggiaophanPage implements OnInit {
 
           if (diocese[i] =="location"&& diocese[i] === null) {
             hasNull = true;
-            // console.log(i);
-
             return;
           }
         }

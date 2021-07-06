@@ -2,7 +2,7 @@
 <ion-content>
     <div class="allcomment">
         <div class="comment" *ngFor="let comment of commentData">
-            <img class="avatar" [src]="comment.app_user.thumb_image"/>
+            <img class="avatar" [src]="comment.app_user.thumb_image.url"/>
             <div class="text">
             <ion-text class="username">{{comment.app_user.full_name}}</ion-text>
             <ion-text class="ion-no-margin content">{{comment.content}}</ion-text>
