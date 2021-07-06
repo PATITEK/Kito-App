@@ -36,9 +36,17 @@ export class PostService {
   }
   
   public addLike(id: number){
-    console.log('vao');
-    
     return this.http.post(`${APICONFIG.POST.LIKE(id)}`, null).pipe(
+      map((result) =>{
+        return result;
+      }),
+      catchError((error) =>{
+        throw error;
+      })
+    )
+  }
+  public dislike(id: number){
+    return this.http.post(`${APICONFIG.POST.DIS_LIKE(id)}`, null).pipe(
       map((result) =>{
         return result;
       }),
@@ -49,7 +57,7 @@ export class PostService {
   }
   
   public addComment(id, content, imgurl){ 
-    const params={
+    const params = {
       content: content,
       photos_attributes: imgurl,
     };

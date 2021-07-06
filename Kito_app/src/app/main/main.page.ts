@@ -101,7 +101,7 @@ export class MainPage implements OnInit {
     private platform: Platform,
     private alertController: AlertController,
     private toarst: ToastService,
-    private navController: NavController,
+    private navController: NavController, 
     private geolocationSerivce: GeolocationService,
     private diocesesService: DioceseService,
     private parishesService: ParishesService,
@@ -114,7 +114,7 @@ export class MainPage implements OnInit {
 
   ionViewWillEnter() {
     // this.autoJoinEvent();
-    this.checkAvatar();
+   // this.checkAvatar();
   }
   ngOnInit() {
     this.geolocationSerivce.getCurrentLocationNoLoading();
@@ -345,11 +345,9 @@ export class MainPage implements OnInit {
 
       this.oneSignal.handleNotificationReceived().subscribe(() => {
         // do something when notification is receive
-        console.log("đã nhận")
       })
       this.oneSignal.handleNotificationOpened().subscribe(result => {
         // do something when a notification is opened 
-        console.log("đã mở")
 
       })
       this.oneSignal.endInit()
@@ -368,7 +366,6 @@ export class MainPage implements OnInit {
         "token": this.token_id
       }
     }
-    console.log(param)
     this.donateService.registerDevice(param).subscribe(() => {
     })
   }

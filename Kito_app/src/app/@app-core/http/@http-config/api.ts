@@ -138,6 +138,7 @@ export const APICONFIG = {
     GET_ALL: `/app/posts`,
     GET_ID: (id) => `/app/posts/${id}`,
     LIKE: (id) => `/app/posts/${id}/add_like`,
+    DIS_LIKE: (id) => `/app/posts/${id}/delete_like`,
     COMMENT: (id) => `/app/posts/${id}/add_comment`,
     SHOW_MORE_COMMENTS: (id) => `/app/posts/${id}/show_more_comment`
   }

@@ -202,8 +202,6 @@ export class LoginPage implements OnInit {
 
     this.showSpinner = true;
     if (!this.canSubmitSignUp()) {
-      console.log("test1");
-      console.log(this.formSignUp.controls);
       this.toastService.presentSuccess('Kiểm tra lại các trường');
 
       this.showSpinner = false;
