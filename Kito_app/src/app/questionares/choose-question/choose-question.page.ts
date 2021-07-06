@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { QuestionaresService } from 'src/app/@app-core/http';
+import { QuestionDataService } from './choose-question.service';
 
 @Component({
   selector: 'app-choose-question',
@@ -16,6 +17,7 @@ export class ChooseQuestionPage implements OnInit {
 
   constructor(
     private router: Router,
+    private questionService: QuestionDataService,
     private questionaresService: QuestionaresService
   ) { }
 
@@ -53,15 +55,18 @@ export class ChooseQuestionPage implements OnInit {
     }
   }
 
-  goToQuestion(name) {
-    if (localStorage.getItem('questionType') == 'topic') {
-      localStorage.setItem('idTopic', name.id);
-    }
-    else if (localStorage.getItem('questionType') == 'level') {
-      localStorage.setItem('idLevel', name.level);
-    }
-    localStorage.setItem('questionTypeName', this.questionType + ' ' + name.name);
-    this.router.navigate(['questionares/question']);
+  async goToQuestion(name) {
+    await this.questionService.changeMessage(name);
+    this.router.navigate(['questionares/choose-question/detail']);
+
+    // if (localStorage.getItem('questionType') == 'topic') {
+    //   localStorage.setItem('idTopic', name.id);
+    // }
+    // else if (localStorage.getItem('questionType') == 'level') {
+    //   localStorage.setItem('idLevel', name.level);
+    // }
+    // localStorage.setItem('questionTypeName', this.questionType + ' ' + name.name);
+    // this.router.navigate(['questionares/question']);
   }
 
   checkThumbImage(data) {

@@ -8,6 +8,7 @@ import { ChooseQuestionPageRoutingModule } from './choose-question-routing.modul
 
 import { ChooseQuestionPage } from './choose-question.page';
 import { HeaderModule } from 'src/app/@modular/header/header.module';
+import { ChooseQuestionDetailComponent } from './choose-question-detail/choose-question-detail.component';
 
 @NgModule({
   imports: [
@@ -17,6 +18,6 @@ import { HeaderModule } from 'src/app/@modular/header/header.module';
     ChooseQuestionPageRoutingModule,
     HeaderModule
   ],
-  declarations: [ChooseQuestionPage]
+  declarations: [ChooseQuestionPage, ChooseQuestionDetailComponent]
 })
-export class ChooseQuestionPageModule {}
+export class ChooseQuestionPageModule { }

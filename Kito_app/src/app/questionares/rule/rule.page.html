@@ -1,8 +1,7 @@
-<ion-header>
-  <app-header [headerCustom]="headerCustom"></app-header>
-</ion-header>
+<app-header class="header" [headerCustom]="headerCustom"></app-header>
 
 <ion-content>
+
   <div class="rule-cover">
     <ion-buttons *ngFor="let rule of rules">
       <ion-label>{{rule.rule}}</ion-label>

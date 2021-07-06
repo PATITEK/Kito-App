@@ -41,6 +41,9 @@
     "@ionic-native/stripe": "^5.31.1",
     "@ionic/angular": "^5.6.0",
     "brower": "0.0.2",
+    "@ngrx/core": "^1.2.0",
+    "@ngrx/effects": "^12.2.0",
+    "@ngrx/store": "^12.2.0",
     "cordova-browser": "6.0.0",
     "cordova-plugin-photo-library": "^2.3.1",
     "howler": "^2.2.1",
@@ -141,8 +144,7 @@
       }
     },
     "platforms": [
-      "browser",
-      "android"
+      "browser"
     ]
   }
 }

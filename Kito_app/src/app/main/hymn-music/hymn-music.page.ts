@@ -1,11 +1,12 @@
 import { HymnMusicService } from './../../@app-core/http/hymn-music/hymn-music.service';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { Howl } from 'howler'
-import { IonInfiniteScroll, IonRange, IonContent, ModalController } from '@ionic/angular';
+import { IonInfiniteScroll, IonRange, IonContent, ModalController, GestureController, Gesture } from '@ionic/angular';
 import { LoadingService } from 'src/app/@app-core/utils';
 import { IPageRequest } from 'src/app/@app-core/http';
 import { ComfillerComponent } from 'src/app/@modular/comfiller/comfiller.component';
 import { IHymnMusic } from 'src/app/@app-core/http/hymn-music/hymn-music.DTO';
+import { async } from '@angular/core/testing';
 
 @Component({
   selector: 'app-hymn-music',
@@ -16,11 +17,20 @@ export class HymnMusicPage implements OnInit {
   @ViewChild('range', { static: false }) range: IonRange;
   @ViewChild('infiniteScrollSongs', { static: false }) infinityScroll: IonInfiniteScroll;
   @ViewChild(IonContent) ionContent: IonContent;
+  @ViewChild('contentLyric') lyricContent: ElementRef;
+  // @ViewChild('contentLyric', { read: ElementRef }) contentLyricTouch: ElementRef
+  // @ViewChild(IonContent, { read: ElementRef })
+  // @HostListener("lyricContent:scroll", ['$event'])
+  // scrollMe(event) {
 
+  //   // this.activeLyric = false;
+  // }
   headerCustom = { title: 'Nhạc Thánh ca' };
   segmentValue = 'all';
   selectFiller = "all";
   selectSort = "asc";
+  timeFlag = 0;
+  activeScrollLyric = true;
   songs = [];
   favoriteSongs = [];
   shuffledSongs = [];
@@ -59,12 +69,23 @@ export class HymnMusicPage implements OnInit {
   constructor(
     private hymnMusicService: HymnMusicService,
     private loadingService: LoadingService,
-    private modalCtrl: ModalController
-  ) { }
+    private modalCtrl: ModalController,
+    private gestureCtrl: GestureController
+  ) {
+
+    // const gesture: Gesture = this.gestureCtrl.create({
+    //   el: this.lyricContent.nativeElement,
+    //   threshold: 15,
+    //   gestureName: 'my-gesture',
+    //   onStart: ev => this.onMoveHandler(ev)
+    // }, true);
+
+  }
 
   ngOnInit() {
     this.loadingService.present();
     this.getData();
+
   }
 
   ngOnDestroy() {
@@ -136,8 +157,6 @@ export class HymnMusicPage implements OnInit {
         this.loadedSong = true;
       }
       this.shuffleSongs();
-      console.log(data);
-      console.log(this.infinityScroll.disabled);
       this.loadingService.dismiss();
     })
   }
@@ -169,6 +188,7 @@ export class HymnMusicPage implements OnInit {
     }
   }
 
+
   onEndSong() {
     switch (this.repeatingType) {
       case this.REPEATING_TYPE.REPEAT_ONE:
@@ -184,23 +204,72 @@ export class HymnMusicPage implements OnInit {
     this.activeSong = song;
     if (this.player) {
       this.player.stop();
+
     }
     this.player = new Howl({
       src: [song.url],
       html5: true,
       onplay: () => {
+
+        this.timeFlag = 0;
         this.updateProgress();
+        let maxTime = this.player.duration();
+        let heightLyric = this.lyricContent.nativeElement.offsetHeight;
+        let InitHeight = 0;
+        let that = this;
+        let timeLoading = heightLyric / (maxTime - 20);
+        // let time = this.timeFlag;
+        let contentLyricDOM = document.querySelector('.modal-content');
+        function myLoop() {
+
+          setTimeout(function () {
+            if (!that.activeScrollLyric) {
+
+              setTimeout(() => {
+                that.activeScrollLyric = true;
+                that.timeFlag = Math.round(Number(that.player.seek()));
+                myLoop();
+              }, 2000);
+            }
+            that.timeFlag += 1;
+
+            if (that.timeFlag > 20) {
+              contentLyricDOM.scrollTop = (that.timeFlag) + timeLoading;
+              // InitHeight = (that.timeFlag - 20) + timeLoading;
+            }
+
+            if (that.timeFlag <= 20) {
+              contentLyricDOM.scrollTop = 0;
+            }
+
+
+            if (that.timeFlag < maxTime && that.player.playing() && that.activeScrollLyric) {
+
+              console.log('that.timeFlag', that.timeFlag, '/', timeLoading);
+
+
+              myLoop();
+            }
+          }, 1000)
+        }
+        myLoop();
+
       },
       onend: () => {
         this.onEndSong();
       }
     });
     this.player.play();
-  }
 
+
+  }
+  gotoScroll() {
+
+  }
   togglePlayer() {
     if (this.player.playing()) {
       this.player.pause();
+      this.timeFlag--;
     } else {
       this.player.play();
     }
@@ -226,11 +295,27 @@ export class HymnMusicPage implements OnInit {
     } else {
       this.hymnMusicService.unfavorite(song.id).subscribe(() => {
         this.favoriteSongs = this.favoriteSongs.filter(favoriteSong => favoriteSong.id !== song.id);
+        document.documentElement.scrollTop = 0;
       });
     }
   }
 
-  toggleHasModal(bool) {
+  async toggleHasModal(bool) {
+
+    const lyrictest = this.lyricContent.nativeElement;
+    const gesture = await this.gestureCtrl.create({
+      el: this.lyricContent.nativeElement,
+      gestureName: 'swipe',
+      direction: 'y',
+      onMove: ev => {
+        this.activeScrollLyric = false;
+      },
+      onEnd: ev => {
+
+      }
+    }
+    );
+    gesture.enable(true);
     this.hasModal = bool;
     this.hymnMusicService.getDetail(this.activeSong.id).subscribe((data: any) => {
       this.activeLyric = data.song.lyric;
@@ -283,8 +368,6 @@ export class HymnMusicPage implements OnInit {
 
   next() {
     const { list, index } = this.getCurrentListAndIndex();
-    console.log(list[index + 1]);
-
     this.start(index === list.length - 1 ? list[0] : list[index + 1]);
     this.activeLyric = list[index + 1].lyric;
   }
@@ -297,9 +380,11 @@ export class HymnMusicPage implements OnInit {
   }
 
   seek() {
+
     let newValue = +this.range.value;
     let duration = this.player.duration();
     this.player.seek(duration * (newValue / 100));
+    this.timeFlag = Math.round(duration * (newValue / 100));
 
 
   }

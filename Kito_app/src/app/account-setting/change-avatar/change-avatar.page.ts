@@ -75,7 +75,5 @@ export class ChangeAvatarPage implements OnInit {
     this.toastService.presentSuccess('Cập nhật ảnh thành công !');
     this.accoutnService.updateAvatar(this.activedAvatar);
     this.router.navigateByUrl('account');
-    console.log(this.activedAvatar)
-
   }
 }
