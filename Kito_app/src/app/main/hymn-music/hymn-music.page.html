@@ -101,9 +101,10 @@
     </ion-avatar>
   </div>
 
-  <div class="modal-content">
+  <div #contentLyric class="modal-content">
     <div class="lyrics" *ngIf="activeLyric != null">
-      <div [innerHTML]="activeLyric"></div>
+      <div id="content-lyric" [innerHTML]="activeLyric">
+      </div>
     </div>
   </div>
 
