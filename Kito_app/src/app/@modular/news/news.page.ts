@@ -100,8 +100,6 @@ export class NewsPage implements OnInit {
   getData(func?) {
     this.notFound = false;
     if (this.dataParams.id) {
-      console.log(this.dataParams.type);
-
       switch (this.dataParams.type.detail) {
         case 'dioceseNews':
           this.headerCustom.title = 'Tin tức Giáo phận';
@@ -245,8 +243,6 @@ export class NewsPage implements OnInit {
     if (url.includes('?')) {
       this.route.queryParams.subscribe(params => {
         this.dataParams = JSON.parse(params['data']);
-        console.log(this.dataParams);
-
         this.pageRequestDioceseNews.diocese_id = this.dataParams.id;
         this.getData();
       }).unsubscribe();

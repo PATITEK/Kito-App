@@ -13,6 +13,8 @@ import { AddStoreComponent } from 'src/app/@modular/add-store/add-store.componen
 export class StorePage implements OnInit {
   @ViewChild(IonContent) ionContent: IonContent;
   @ViewChild('infiniteScroll') infinityScroll: IonInfiniteScroll;
+  @ViewChild('infiniteScroll') infinityScrollBracelet: IonInfiniteScroll;
+
 
   headerCustom = { title: 'Cửa hàng' };
   list = [];
@@ -39,7 +41,15 @@ export class StorePage implements OnInit {
     search: '',
     sort: this.sortType.newest
   }
-
+  pageRequesBracelet: IPageProduct = {
+    page: 1,
+    per_page: 6,
+    category_id: this.currentCategoryId,
+    search: '',
+    sort: this.sortType.newest
+  }
+  listBracelet = []
+  Tab = 1
   constructor(
     public dateTimeService: DateTimeService,
     private router: Router,
@@ -95,6 +105,25 @@ export class StorePage implements OnInit {
 
       if (event) {
         event.target.complete();
+      }
+    })
+  }
+  getBracelet() {
+    this.pageRequesBracelet.category_id = this.currentCategoryId;
+    this.storeService.getAllProducts(this.pageRequesBracelet).subscribe(data => {
+      this.notFound = true;
+      this.loadingService.dismiss();
+      data.products.forEach(product => {
+        product.unit_price = 'đ';
+        product.amount = 0;
+      })
+      this.listBracelet = this.listBracelet.concat(data.products);
+      this.pageRequesBracelet.page++;
+
+      this.infinityScrollBracelet.disabled = false;
+      if (this.listBracelet.length >= data.meta.pagination.total_objects) {
+        this.infinityScrollBracelet.disabled = true;
+        this.infinityScrollBracelet.complete();
       }
     })
   }

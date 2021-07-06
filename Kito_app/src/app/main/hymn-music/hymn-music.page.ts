@@ -136,8 +136,6 @@ export class HymnMusicPage implements OnInit {
         this.loadedSong = true;
       }
       this.shuffleSongs();
-      console.log(data);
-      console.log(this.infinityScroll.disabled);
       this.loadingService.dismiss();
     })
   }
@@ -283,8 +281,6 @@ export class HymnMusicPage implements OnInit {
 
   next() {
     const { list, index } = this.getCurrentListAndIndex();
-    console.log(list[index + 1]);
-
     this.start(index === list.length - 1 ? list[0] : list[index + 1]);
     this.activeLyric = list[index + 1].lyric;
   }

@@ -112,7 +112,8 @@ const routes: Routes = [
   },
   {
     path: 'tabbar-manager',
-    loadChildren: () => import('./tabbar-manager/tabbar-manager.module').then(m => m.TabbarManagerPageModule)
+    loadChildren: () => import('./tabbar-manager/tabbar-manager.module').then(m => m.TabbarManagerPageModule),
+    canActivate: [AuthGuard]
   },
   { path: '', redirectTo: '/tabbar-manager/main', pathMatch: 'full' },
   { path: '**', redirectTo: 'tabbar-manager/main' },

@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { Camera } from '@ionic-native/camera/ngx';
 import { PopoverController } from '@ionic/angular';
 import { PopoverimageComponent } from '../../@modular/popoverimage/popoverimage.component';
+import { AccountService } from '../http';
+import { LoadingService } from './loading.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +13,8 @@ export class UploadPhotoService {
   constructor(
     public camera: Camera,
     public popoverController: PopoverController,
+    private accountService: AccountService,
+    private loadingService: LoadingService
   ) {}
   public uploadPhoto(){
     const options = {
@@ -24,7 +28,15 @@ export class UploadPhotoService {
       if(dataUrl){
         var dataUri = "data:image/jpeg;base64," + dataUrl;
         var image = this.dataURItoBlob(dataUri);
-        return image;
+        let formData = new FormData;
+        formData.append('files[]', image);
+        this.accountService.uploadPhoto(formData).subscribe((data) => {
+          this.loadingService.dismiss()
+            console.log(data)
+            //return data['data'][0]
+        })
+      }else {
+        
       }
     })
   }

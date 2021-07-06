@@ -54,9 +54,6 @@ export class ComfillerComponent implements OnInit {
   }
   selectFiller(item) {
     this.activeFiller = item.id;
-
-    console.log(this.activeFiller);
-
     this.modalCtrl.dismiss({
       filler: this.activeFiller
     });

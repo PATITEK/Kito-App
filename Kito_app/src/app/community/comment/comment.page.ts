@@ -21,7 +21,9 @@ export class CommentPage implements OnInit {
     this.id = JSON.parse(localStorage.getItem('commentsID'))
     this.postService.showAllComment(this.id).subscribe((data:any)=>{
       this.commentData = data.comments;
-      console.log(this.commentData);
+      this.commentData.forEach(element => {
+        !element?.app_user?.thumb_image?.url && (element.app_user.thumb_image = { url: "assets/img/avatar.png" });
+      });
     });
   }
 }
