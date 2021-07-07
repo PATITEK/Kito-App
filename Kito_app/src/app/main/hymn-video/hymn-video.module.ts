@@ -9,6 +9,7 @@ import { IonicModule } from '@ionic/angular';
 import { HymnVideoPageRoutingModule } from './hymn-video-routing.module';
 
 import { HymnVideoPage } from './hymn-video.page';
+import { BibleSongDetailComponent } from './bible-song-detail/bible-song-detail.component';
 
 @NgModule({
   imports: [
@@ -19,6 +20,6 @@ import { HymnVideoPage } from './hymn-video.page';
     HeaderModule,
     SearchBarNavModule
   ],
-  declarations: [HymnVideoPage]
+  declarations: [HymnVideoPage, BibleSongDetailComponent]
 })
-export class HymnVideoPageModule {}
+export class HymnVideoPageModule { }

@@ -38,7 +38,7 @@ export class CommunityPage implements OnInit {
     this.postService.getAllPosts().subscribe(data => {
       this.loadingService.dismiss()
       this.posts = data.posts;
-     
+
       this.posts.forEach(element => {
         !element?.owner?.thumb_image?.url && (element.owner.thumb_image = { url: "assets/img/avatar.png" });
         element.showAll = false
@@ -90,13 +90,13 @@ export class CommunityPage implements OnInit {
         this.getData()
         this.commentContent = ''
       })
-    } else if(this.type == 'reply') {
-      this.postService.repplycomment(this.CommentIDSelected, 
+    } else if (this.type == 'reply') {
+      this.postService.repplycomment(this.CommentIDSelected,
         this.commentContent, this.imageurl, this.commentIdReply).subscribe((data) => {
-        this.getData()
-        this.commentContent = ''
+          this.getData()
+          this.commentContent = ''
 
-      })
+        })
     }
 
 
@@ -110,11 +110,11 @@ export class CommunityPage implements OnInit {
     this.type = 'reply'
     this.CommentIDSelected = id
     this.commentIdReply = ID
-    
+
   }
   loadImg() {
     this.imageurl = this.uploadService.uploadPhoto();
-    console.log('url',this.imageurl)
+    console.log('url', this.imageurl)
     var image
     this.cameraService.getAvatarUpload(image)
   }

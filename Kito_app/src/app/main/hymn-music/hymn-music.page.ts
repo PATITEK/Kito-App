@@ -70,7 +70,7 @@ export class HymnMusicPage implements OnInit {
     private hymnMusicService: HymnMusicService,
     private loadingService: LoadingService,
     private modalCtrl: ModalController,
-    private gestureCtrl: GestureController
+    // private gestureCtrl: GestureController
   ) {
 
     // const gesture: Gesture = this.gestureCtrl.create({
@@ -201,6 +201,8 @@ export class HymnMusicPage implements OnInit {
   }
 
   start(song) {
+    console.log(song);
+
     this.activeSong = song;
     if (this.player) {
       this.player.stop();
@@ -211,7 +213,6 @@ export class HymnMusicPage implements OnInit {
       html5: true,
       onplay: () => {
 
-        this.timeFlag = 0;
         this.updateProgress();
         let maxTime = this.player.duration();
         let heightLyric = this.lyricContent.nativeElement.offsetHeight;
@@ -263,9 +264,7 @@ export class HymnMusicPage implements OnInit {
 
 
   }
-  gotoScroll() {
 
-  }
   togglePlayer() {
     if (this.player.playing()) {
       this.player.pause();
@@ -303,19 +302,19 @@ export class HymnMusicPage implements OnInit {
   async toggleHasModal(bool) {
 
     const lyrictest = this.lyricContent.nativeElement;
-    const gesture = await this.gestureCtrl.create({
-      el: this.lyricContent.nativeElement,
-      gestureName: 'swipe',
-      direction: 'y',
-      onMove: ev => {
-        this.activeScrollLyric = false;
-      },
-      onEnd: ev => {
+    // const gesture = await this.gestureCtrl.create({
+    //   el: this.lyricContent.nativeElement,
+    //   gestureName: 'swipe',
+    //   direction: 'y',
+    //   onMove: ev => {
+    //     this.activeScrollLyric = false;
+    //   },
+    //   onEnd: ev => {
 
-      }
-    }
-    );
-    gesture.enable(true);
+    //   }
+    // }
+    // );
+    // gesture.enable(true);
     this.hasModal = bool;
     this.hymnMusicService.getDetail(this.activeSong.id).subscribe((data: any) => {
       this.activeLyric = data.song.lyric;
