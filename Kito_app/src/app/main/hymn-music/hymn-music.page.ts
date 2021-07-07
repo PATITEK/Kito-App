@@ -70,7 +70,7 @@ export class HymnMusicPage implements OnInit {
     private hymnMusicService: HymnMusicService,
     private loadingService: LoadingService,
     private modalCtrl: ModalController,
-    private gestureCtrl: GestureController
+    // private gestureCtrl: GestureController
   ) {
 
     // const gesture: Gesture = this.gestureCtrl.create({
@@ -302,19 +302,19 @@ export class HymnMusicPage implements OnInit {
   async toggleHasModal(bool) {
 
     const lyrictest = this.lyricContent.nativeElement;
-    const gesture = await this.gestureCtrl.create({
-      el: this.lyricContent.nativeElement,
-      gestureName: 'swipe',
-      direction: 'y',
-      onMove: ev => {
-        this.activeScrollLyric = false;
-      },
-      onEnd: ev => {
+    // const gesture = await this.gestureCtrl.create({
+    //   el: this.lyricContent.nativeElement,
+    //   gestureName: 'swipe',
+    //   direction: 'y',
+    //   onMove: ev => {
+    //     this.activeScrollLyric = false;
+    //   },
+    //   onEnd: ev => {
 
-      }
-    }
-    );
-    gesture.enable(true);
+    //   }
+    // }
+    // );
+    // gesture.enable(true);
     this.hasModal = bool;
     this.hymnMusicService.getDetail(this.activeSong.id).subscribe((data: any) => {
       this.activeLyric = data.song.lyric;
