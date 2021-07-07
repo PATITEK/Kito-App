@@ -16,7 +16,7 @@
     </ion-segment-button>
   </ion-segment>
 
-  <ion-list class="song-list" [ngClass]="{'display-none': segmentValue != 'all'}">
+  <!-- <ion-list class="song-list" [ngClass]="{'display-none': segmentValue != 'all'}">
     <ng-container *ngFor="let song of songs; index as i">
       <ion-buttons class="song-cover" [ngClass]="{'active-song-cover': checkActiveSong(song)}" (click)="start(song)">
         <ion-buttons class="left-box">
@@ -31,11 +31,34 @@
         </ion-buttons>
       </ion-buttons>
     </ng-container>
+  </ion-list> -->
+  <ion-list *ngIf="segmentValue=='all'">
+    <div class="list-songs" *ngFor="let i of songs">
+      <ion-buttons (click)="start(i)" class="song-flex">
+        <ion-buttons class="name-music">
+          <ion-icon class="icon-music" size="large" name="musical-notes-outline" style="margin-right: 5px"></ion-icon>
+          <p class="item-title three-dots-2">{{ i.name }}</p>
+        </ion-buttons>
+        <ion-buttons class="item-artist">
+          <p class="three-dots-2">{{ i.artist }}</p>
+          <ion-icon class="icon-heart" size="large" [name]="i.favourite ? 'heart': 'heart-outline'"
+            [ngClass]="{'liked': i.favourite}" style="margin-left: 5px" (click)="toggleLike(i)">
+          </ion-icon>
+        </ion-buttons>
+
+      </ion-buttons>
+    </div>
+
+    <ion-infinite-scroll #infiniteScrollSongs (ionInfinite)="loadMoreSongs($event)" threshold="100px">
+      <ion-infinite-scroll-content loadingSpinner="lines"></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
   </ion-list>
   <ion-list *ngIf="!songs.length && notFound && segmentValue == 'all'" class="not-found">
     Không tìm thấy
   </ion-list>
-  <ion-list class="song-list" [ngClass]="{'display-none': segmentValue != 'like'}">
+
+
+  <!-- <ion-list class="song-list" [ngClass]="{'display-none': segmentValue != 'like'}">
     <ng-container *ngFor="let song of favoriteSongs">
       <ion-buttons class="song-cover" [ngClass]="{'active-song-cover': checkActiveSong(song)}" (click)="start(song)">
         <ion-buttons class="left-box">
@@ -50,13 +73,35 @@
         </ion-buttons>
       </ion-buttons>
     </ng-container>
-  </ion-list>
+  </ion-list> -->
+  <div *ngIf="segmentValue =='like'">
+    <div class="list-songs" *ngFor="let i of favoriteSongs">
+      <ion-buttons (click)="start(i)" class="song-flex">
+        <ion-buttons class="name-music">
+          <ion-icon class="icon-music" size="large" name="musical-notes-outline" style="margin-right: 5px"></ion-icon>
+          <p class="item-title three-dots-2">{{ i.name }}</p>
+        </ion-buttons>
+        <ion-buttons class="item-artist">
+          <p class="three-dots-2">{{ i.artist }}</p>
+          <ion-icon size="large" name="heart" class="liked" style="margin-left: 5px" (click)="toggleLike(song)">
+
+          </ion-icon>
+        </ion-buttons>
+
+      </ion-buttons>
+    </div>
+
+  </div>
   <ion-list *ngIf="!favoriteSongs.length && notFoundSong && segmentValue == 'like'" class="not-found">
     Không tìm thấy
   </ion-list>
-  <ion-infinite-scroll #infiniteScrollSongs (ionInfinite)="loadMoreSongs($event)" threshold="100px">
+  <ion-infinite-scroll *ngIf="segmentValue == 'like'" #infiniteScrollFaveolate
+    (ionInfinite)="loadMoreSongsFavorite($event)" threshold="100px">
     <ion-infinite-scroll-content loadingSpinner="lines"></ion-infinite-scroll-content>
   </ion-infinite-scroll>
+  <!-- <ion-infinite-scroll #infiniteScrollSongs (ionInfinite)="loadMoreSongs($event)" threshold="100px">
+    <ion-infinite-scroll-content loadingSpinner="lines"></ion-infinite-scroll-content>
+  </ion-infinite-scroll> -->
 
 </ion-content>
 
@@ -98,8 +143,10 @@
     </ion-avatar>
   </div>
 
-  <div #contentLyricclass="lyrics" *ngIf="activeLyric != null">
-    <div id="content-lyric" [innerHTML]="activeLyric">
+  <div #contentLyric class="modal-content">
+    <div class="lyrics" *ngIf="activeLyric != null">
+      <div id="content-lyric" [innerHTML]="activeLyric">
+      </div>
     </div>
   </div>
 

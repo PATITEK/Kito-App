@@ -16,6 +16,8 @@ import { async } from '@angular/core/testing';
 export class HymnMusicPage implements OnInit {
   @ViewChild('range', { static: false }) range: IonRange;
   @ViewChild('infiniteScrollSongs', { static: false }) infinityScroll: IonInfiniteScroll;
+  @ViewChild('infiniteScrollFaveolate', { static: false }) infiniteScrollFaveScroll: IonInfiniteScroll;
+
   @ViewChild(IonContent) ionContent: IonContent;
   @ViewChild('contentLyric') lyricContent: ElementRef;
   // @ViewChild('contentLyric', { read: ElementRef }) contentLyricTouch: ElementRef
@@ -60,6 +62,7 @@ export class HymnMusicPage implements OnInit {
   }
   pageRequestFavoriteSongs: IHymnMusic = {
     page: 1,
+    per_page: 16,
     filter: "",
     filter_type: "asc"
   }
@@ -70,7 +73,7 @@ export class HymnMusicPage implements OnInit {
     private hymnMusicService: HymnMusicService,
     private loadingService: LoadingService,
     private modalCtrl: ModalController,
-    // private gestureCtrl: GestureController
+    private gestureCtrl: GestureController
   ) {
 
     // const gesture: Gesture = this.gestureCtrl.create({
@@ -85,7 +88,6 @@ export class HymnMusicPage implements OnInit {
   ngOnInit() {
     this.loadingService.present();
     this.getData();
-
   }
 
   ngOnDestroy() {
@@ -110,6 +112,7 @@ export class HymnMusicPage implements OnInit {
     this.favoriteSongs = [];
     this.getData();
     this.infinityScroll.disabled = false;
+    this.infiniteScrollFaveScroll.disabled = false;
     this.ionContent.scrollToTop(0);
   }
 
@@ -148,26 +151,35 @@ export class HymnMusicPage implements OnInit {
     this.notFound = false;
     this.hymnMusicService.getAll(this.pageRequestSongs).subscribe(data => {
       this.notFound = true;
-      this.songs = [];
-      this.songs = this.songs.concat(data.songs);
+      this.songs = this.songs.concat(data.songs)
       this.pageRequestSongs.page++;
       func && func();
       if (this.songs.length >= data.meta.pagination.total_objects) {
         this.infinityScroll.disabled = true;
-        this.loadedSong = true;
       }
-      this.shuffleSongs();
-      this.loadingService.dismiss();
+
+      setTimeout(() => {
+        this.loadingService.dismiss();
+      }, 1500)
     })
   }
 
-  getFavoriteSongs() {
-    this.notFoundSong = false;
-    this.favoriteSongs = [];
+  getFavoriteSongs(func?) {
+    this.notFound = false;
     this.hymnMusicService.getAllFavorite(this.pageRequestFavoriteSongs).subscribe(data => {
-      this.notFoundSong = true;
-      this.favoriteSongs = this.songs.concat(data.songs);
-      this.shuffleFavoriteSongs();
+      this.notFound = true;
+      this.favoriteSongs = this.favoriteSongs.concat(data.songs)
+      this.pageRequestFavoriteSongs.page++;
+      func && func();
+      if (this.favoriteSongs.length >= data.meta.pagination.total_objects) {
+        this.infiniteScrollFaveScroll.disabled = true;
+      }
+
+
+
+      setTimeout(() => {
+        this.loadingService.dismiss();
+      }, 1500)
     })
   }
 
@@ -178,14 +190,26 @@ export class HymnMusicPage implements OnInit {
 
   changedSegment(event) {
     this.segmentValue = event.target.value;
-    this.infinityScroll.complete();
+    this.ionContent.scrollToTop(0);
+    // this.pageRequestFavoriteSongs.page = 1;
+    // this.pageRequestSongs.page = 1;
+    // this.infiniteScrollFaveScroll.disabled = true;
+    // this.infinityScroll.disabled = true;
     if (this.checkAllSegment()) {
+      this.infinityScroll.complete();
+
       if (!this.loadedSong) {
         this.infinityScroll.disabled = false;
+
       }
     } else {
-      this.infinityScroll.disabled = true;
+      this.infiniteScrollFaveScroll.complete();
+      this.infiniteScrollFaveScroll.disabled = false;
+
     }
+    // this.segmentValue = event.target.value;
+
+
   }
 
 
@@ -215,10 +239,10 @@ export class HymnMusicPage implements OnInit {
 
         this.updateProgress();
         let maxTime = this.player.duration();
-        let heightLyric = this.lyricContent.nativeElement.offsetHeight;
+        // let heightLyric = this.lyricContent.nativeElement.offsetHeight;
         let InitHeight = 0;
         let that = this;
-        let timeLoading = heightLyric / (maxTime - 20);
+        let timeLoading = 300 / (maxTime - 20);
         // let time = this.timeFlag;
         let contentLyricDOM = document.querySelector('.modal-content');
         function myLoop() {
@@ -240,7 +264,7 @@ export class HymnMusicPage implements OnInit {
             }
 
             if (that.timeFlag <= 20) {
-              contentLyricDOM.scrollTop = 0;
+              contentLyricDOM.scrollTop = 10;
             }
 
 
@@ -302,19 +326,19 @@ export class HymnMusicPage implements OnInit {
   async toggleHasModal(bool) {
 
     const lyrictest = this.lyricContent.nativeElement;
-    // const gesture = await this.gestureCtrl.create({
-    //   el: this.lyricContent.nativeElement,
-    //   gestureName: 'swipe',
-    //   direction: 'y',
-    //   onMove: ev => {
-    //     this.activeScrollLyric = false;
-    //   },
-    //   onEnd: ev => {
+    const gesture = await this.gestureCtrl.create({
+      el: this.lyricContent.nativeElement,
+      gestureName: 'swipe',
+      direction: 'y',
+      onMove: ev => {
+        this.activeScrollLyric = false;
+      },
+      onEnd: ev => {
 
-    //   }
-    // }
-    // );
-    // gesture.enable(true);
+      }
+    }
+    );
+    gesture.enable(true);
     this.hasModal = bool;
     this.hymnMusicService.getDetail(this.activeSong.id).subscribe((data: any) => {
       this.activeLyric = data.song.lyric;
@@ -367,6 +391,7 @@ export class HymnMusicPage implements OnInit {
 
   next() {
     const { list, index } = this.getCurrentListAndIndex();
+
     this.start(index === list.length - 1 ? list[0] : list[index + 1]);
     this.activeLyric = list[index + 1].lyric;
   }
@@ -405,11 +430,21 @@ export class HymnMusicPage implements OnInit {
   }
 
   loadMoreSongs(event) {
-    if (this.checkAllSegment()) {
-      this.getSongs(() => {
-        event.target.complete();
-      });
-    }
+
+    this.getSongs(() => {
+      event.target.complete();
+    });
+
+
+
+  }
+  loadMoreSongsFavorite(event) {
+
+    this.getFavoriteSongs(() => {
+      event.target.complete();
+    })
+
+
   }
 
   async clickFiller() {
@@ -443,6 +478,11 @@ export class HymnMusicPage implements OnInit {
           this.selectSort = data.data.sort;
           this.pageRequestSongs.filter_type = data.data.sort;
         }
+        this.songs = await [];
+        this.favoriteSongs = await [];
+        this.pageRequestFavoriteSongs.page = await 0;
+        this.pageRequestSongs.page = await 0;
+
         this.getData();
       });
 

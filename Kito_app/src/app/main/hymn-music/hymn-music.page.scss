@@ -285,3 +285,39 @@ ion-footer {
     right: 55px;
   }
 }
+
+//
+.list-songs {
+  padding: 5px 20px;
+  .song-flex {
+    justify-content: space-between;
+  }
+  .name-music {
+    margin-right: 15px;
+    .icon-music {
+      color: #c8c8c8;
+      width: 25px;
+    }
+    p {
+      flex: 1;
+      word-break: break-word;
+      color: #424242;
+      font-size: 16px;
+    }
+  }
+  .item-artist {
+    .icon-heart {
+      width: 32px;
+      height: 32px;
+      min-width: 32px;
+    }
+    p {
+      text-align: end;
+      flex: 1;
+      text-align: right;
+      word-break: break-word;
+      color: #828282;
+      font-size: 14px;
+    }
+  }
+}
