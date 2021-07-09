@@ -53,7 +53,7 @@ export class CalendarDetailPage implements OnInit {
       this.data['created_at'] = new Date (this.data['created_at'])
       this.data['date'] = new Date (this.data['date'])
       this.day = this.data['date'].getDay()
-
+      console.log(this.data)
      this.DATES.forEach(i =>{
         if(i.value == this.day) {
           this.dayName = i.name

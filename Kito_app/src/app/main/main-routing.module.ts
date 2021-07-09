@@ -23,12 +23,7 @@ const routes: Routes = [
   },
   {
     path: 'store',
-    loadChildren: () => import('./../store/store.module').then( m => m.StorePageModule)
-  },
-  {
-    path: '',
-    redirectTo: '',
-    pathMatch: 'full'
+    loadChildren: () => import('./store/store.module').then( m => m.StorePageModule)
   },
   {
     path: 'calendar',
@@ -41,6 +36,12 @@ const routes: Routes = [
   {
     path: 'hymn-video',
     loadChildren: () => import('./hymn-video/hymn-video.module').then( m => m.HymnVideoPageModule)
+  },
+
+  {
+    path: '',
+    redirectTo: '',
+    pathMatch: 'full'
   },
 
 

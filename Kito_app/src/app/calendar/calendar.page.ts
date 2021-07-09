@@ -94,7 +94,6 @@ export class CalendarPage implements OnInit {
       cal_date: `${this.currentYear}` + '-' + `${this.paramMonth}` + '-' + '01'
     }
     this.calendarService.getByMonth(this.paramCalendar).subscribe(data => {
-      console.log(data)
       this.loadingService.dismiss()
       this.calendarMonth = data.calendars
       this.masses = data.masses

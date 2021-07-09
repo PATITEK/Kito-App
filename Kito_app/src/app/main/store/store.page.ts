@@ -11,11 +11,9 @@ import { AddStoreComponent } from 'src/app/@modular/add-store/add-store.componen
   styleUrls: ['./store.page.scss'],
 })
 export class StorePage implements OnInit {
-  @ViewChild(IonContent) ionContent: IonContent;
+  // @ViewChild(IonContent) ionContent: IonContent;
   @ViewChild('infiniteScroll') infinityScroll: IonInfiniteScroll;
-  @ViewChild('infiniteScroll') infinityScrollBracelet: IonInfiniteScroll;
-
-
+  
   headerCustom = { title: 'Cửa hàng' };
   list = [];
   cart = [];
@@ -41,15 +39,7 @@ export class StorePage implements OnInit {
     search: '',
     sort: this.sortType.newest
   }
-  pageRequesBracelet: IPageProduct = {
-    page: 1,
-    per_page: 6,
-    category_id: this.currentCategoryId,
-    search: '',
-    sort: this.sortType.newest
-  }
-  listBracelet = []
-  Tab = 1
+
   constructor(
     public dateTimeService: DateTimeService,
     private router: Router,
@@ -61,6 +51,7 @@ export class StorePage implements OnInit {
 
   ngOnInit() {
     this.getCategories();
+    
   }
 
   ionViewWillEnter() {
@@ -80,11 +71,13 @@ export class StorePage implements OnInit {
     this.resetAmount();
   }
 
-  getProducts(event?) {
+  getProducts() {
     this.notFound = false;
     this.pageRequestProducts.category_id = this.currentCategoryId;
     const tempCategoryId = this.currentCategoryId;
+    console.log(this.pageRequestProducts)
     this.storeService.getAllProducts(this.pageRequestProducts).subscribe(data => {
+
       this.notFound = true;
       this.loadingService.dismiss();
       if (tempCategoryId !== this.currentCategoryId) {
@@ -97,37 +90,28 @@ export class StorePage implements OnInit {
       this.list = this.list.concat(data.products);
       this.pageRequestProducts.page++;
 
-      this.infinityScroll.disabled = false;
+      // this.infinityScroll.disabled = false;
+      console.log()
       if (this.list.length >= data.meta.pagination.total_objects) {
-        this.infinityScroll.disabled = true;
-        this.infinityScroll.complete();
-      }
-
-      if (event) {
-        event.target.complete();
+        // this.infinityScroll.disabled = true;
+        // this.infinityScroll.complete();
+      }else {
+        // this.infinityScroll.disabled = false
       }
     })
   }
-  getBracelet() {
-    this.pageRequesBracelet.category_id = this.currentCategoryId;
-    this.storeService.getAllProducts(this.pageRequesBracelet).subscribe(data => {
-      this.notFound = true;
-      this.loadingService.dismiss();
-      data.products.forEach(product => {
-        product.unit_price = 'đ';
-        product.amount = 0;
-      })
-      this.listBracelet = this.listBracelet.concat(data.products);
-      this.pageRequesBracelet.page++;
-
-      this.infinityScrollBracelet.disabled = false;
-      if (this.listBracelet.length >= data.meta.pagination.total_objects) {
-        this.infinityScrollBracelet.disabled = true;
-        this.infinityScrollBracelet.complete();
-      }
-    })
+  changeCategory(category) {
+    this.setHasSetting(false);
+    if (this.currentCategoryId !== category.id) {
+      this.pageRequestProducts.page = 1;
+      this.currentCategoryId = category.id;
+      this.infinityScroll.disabled = false
+      this.list = [];
+      // this.ionContent.scrollToTop(0).then(() => {
+        this.getProducts();
+      //})
+    }
   }
-  
   getCategories() {
     this.storeService.getAllCategories(this.pageRequestCategories).subscribe(data => {
       this.categories = data.categories;
@@ -168,17 +152,7 @@ export class StorePage implements OnInit {
     this.router.navigateByUrl('main/store/cart');
   }
 
-  changeCategory(category) {
-    this.setHasSetting(false);
-    if (this.currentCategoryId !== category.id) {
-      this.pageRequestProducts.page = 1;
-      this.currentCategoryId = category.id;
-      this.list = [];
-      this.ionContent.scrollToTop(0).then(() => {
-        this.getProducts();
-      })
-    }
-  }
+
 
   async openAddModal(item) {
     const modal = await this.modalController.create({
@@ -234,11 +208,12 @@ export class StorePage implements OnInit {
     this.getProducts();
   }
 
-  loadMoreProducts(event) {
-    this.getProducts(event);
+  loadMoreProducts() {
+    console.log(1)
+    this.getProducts();
   }
 
-  onScrollContent(event) {
+  onScrollContent() {
     this.setHasSetting(false);
   }
 

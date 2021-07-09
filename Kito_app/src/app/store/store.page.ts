@@ -55,6 +55,7 @@ export class StorePage implements OnInit {
   }
   Activecategory(item) {
     this.currentCategoryId = item.id
+    this.getProducts()
   }
   getProducts() {
     this.pageRequestProducts.category_id = this.currentCategoryId;
@@ -62,6 +63,9 @@ export class StorePage implements OnInit {
       console.log(data)
       this.products = data.products
     })
+  }
+  loadMoreProducts() {
+    
   }
 
 }

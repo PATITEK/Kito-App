@@ -27,7 +27,7 @@ import { NativePageTransitions } from '@ionic-native/native-page-transitions/ngx
 import { CommonModule } from '@angular/common';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 import { PhotoLibrary } from '@ionic-native/photo-library/ngx';
-import { ImagePicker } from '@ionic-native/image-picker/ngx';
+// import { ImagePicker } from '@ionic-native/image-picker/ngx';
 
 // import { IonicSwipeAllModule } from 'ionic-swipe-all';
 @NgModule({
@@ -67,7 +67,7 @@ import { ImagePicker } from '@ionic-native/image-picker/ngx';
     SocialSharing,
     SocialSharingService,
     PhotoLibrary,
-    ImagePicker
+    // ImagePicker
   ],
   bootstrap: [AppComponent]
 })
