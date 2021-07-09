@@ -321,3 +321,19 @@ ion-footer {
     }
   }
 }
+
+.active-song-css {
+  .name-music {
+    .item-title {
+      font-weight: 600;
+    }
+    .icon-music {
+      color: #edd81f;
+    }
+  }
+  .item-artist {
+    p {
+      font-weight: 600;
+    }
+  }
+}

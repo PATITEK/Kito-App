@@ -65,8 +65,8 @@ export class HymnVideoPage implements OnInit {
   }
   getBiBlesSong(func?) {
     this.notFound = false;
-    this.hymnVideoService.getAll(this.pageRequestMusic).subscribe((data) => {
-      data.songs.forEach(element => {
+    this.hymnVideoService.getAllBibleSong(this.pageRequestMusic).subscribe((data) => {
+      data.bible_songs.forEach(element => {
         this.music.push(element)
       });
       this.pageRequestMusic.page++

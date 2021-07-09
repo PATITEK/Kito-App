@@ -17,21 +17,21 @@ export class GlobalErrorHandler implements ErrorHandler {
     handleError(error) {
         console.log(error);
 
-        // this.loadingService.dismiss();
-        // if (error.message) {console.error(error.message);}
-        // if (error.message === 'Uncaught (in promise): overlay does not exist' || error.message === 'Uncaught (in promise): plugin_not_installed') {
-        //     return
-        // }
-        // else if (error.message === 'Signature has expired' || error.message === 'Signature verification raised') {
-        //     this.validateConfirm();
-        //     return
-        // }
-        // // else 
-        // else if (error.message != null) {
-        //     this.toarstSerivce.presentFail(error.message);
-        // }
+        this.loadingService.dismiss();
+        if (error.message) { console.error(error.message); }
+        if (error.message === 'Uncaught (in promise): overlay does not exist' || error.message === 'Uncaught (in promise): plugin_not_installed') {
+            return
+        }
+        else if (error.message === 'Signature has expired' || error.message === 'Signature verification raised') {
+            this.validateConfirm();
+            return
+        }
+        // else 
+        else if (error.message != null) {
+            this.toarstSerivce.presentFail(error.message);
+        }
 
-        // this.netWorkService.setSubscriptions();
+        this.netWorkService.setSubscriptions();
     }
 
     async validateConfirm() {
