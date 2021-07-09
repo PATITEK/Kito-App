@@ -208,7 +208,7 @@ export class BibleSongDetailComponent implements OnInit {
     const { list, index } = this.getCurrentListAndIndex();
     this.data = list[index + 1];
 
-    this.start(index === list.length - 1 ? list[0] : list[index + 1]);
+    this.start(index === list.length + 1 ? list[0] : list[index + 1]);
     // this.activeLyric = list[index + 1].lyric;
   }
 

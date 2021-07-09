@@ -196,15 +196,15 @@ export class HymnMusicPage implements OnInit {
     // this.infiniteScrollFaveScroll.disabled = true;
     // this.infinityScroll.disabled = true;
     if (this.checkAllSegment()) {
-      this.infinityScroll.complete();
+      // this.infinityScroll.complete();
 
       if (!this.loadedSong) {
-        this.infinityScroll.disabled = false;
+        // this.infinityScroll.disabled = false;
 
       }
     } else {
-      this.infiniteScrollFaveScroll.complete();
-      this.infiniteScrollFaveScroll.disabled = false;
+      // this.infiniteScrollFaveScroll.complete();
+      // this.infiniteScrollFaveScroll.disabled = false;
 
     }
     // this.segmentValue = event.target.value;
@@ -226,7 +226,7 @@ export class HymnMusicPage implements OnInit {
 
   start(song) {
     console.log(song);
-
+    this.timeFlag = -1;
     this.activeSong = song;
     if (this.player) {
       this.player.stop();

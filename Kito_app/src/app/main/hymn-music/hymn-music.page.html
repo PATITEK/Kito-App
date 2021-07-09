@@ -34,7 +34,7 @@
   </ion-list> -->
   <ion-list *ngIf="segmentValue=='all'">
     <div class="list-songs" *ngFor="let i of songs">
-      <ion-buttons (click)="start(i)" class="song-flex">
+      <ion-buttons [ngClass]="{'active-song-css': checkActiveSong(i)}" (click)="start(i)" class="song-flex">
         <ion-buttons class="name-music">
           <ion-icon class="icon-music" size="large" name="musical-notes-outline" style="margin-right: 5px"></ion-icon>
           <p class="item-title three-dots-2">{{ i.name }}</p>
