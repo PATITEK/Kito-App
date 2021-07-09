@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { CalendarDetailComponent } from './calendar-detail.component';
+import { StorePage } from './store.page';
 
-describe('CalendarDetailComponent', () => {
-  let component: CalendarDetailComponent;
-  let fixture: ComponentFixture<CalendarDetailComponent>;
+describe('StorePage', () => {
+  let component: StorePage;
+  let fixture: ComponentFixture<StorePage>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ CalendarDetailComponent ],
+      declarations: [ StorePage ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(CalendarDetailComponent);
+    fixture = TestBed.createComponent(StorePage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

@@ -33,7 +33,9 @@ export class CameraService {
                 var image = this.dataURItoBlob(dataUri);
                 let formData = new FormData;
                 formData.append('files[]', image);
+                console.log("form", formData)
                 this.accountService.uploadPhoto(formData).subscribe((data) => {
+                    console.log(data)
                     image_avatar = {
                         "app_user": {
                             "avatar": data['data'][0]

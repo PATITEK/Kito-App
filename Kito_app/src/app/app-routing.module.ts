@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './@app-core/auth-guard.service';
 import { } from './changepassword/changepassword.module'
-import { SlideComponent } from './@modular/slide/slide.component';
 
 const routes: Routes = [
   {
@@ -111,12 +110,32 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
+    path: 'calendar',
+    loadChildren: () => import('./calendar/calendar.module').then( m => m.CalendarPageModule),
+    canActivate: [AuthGuard],
+
+  },
+  {
+    path: 'store',
+    loadChildren: () => import('./store/store.module').then( m => m.StorePageModule),
+    canActivate: [AuthGuard],
+
+  },
+  {
+    path: 'calendar-detail',
+    loadChildren: () => import('./@modular/calendar-detail/calendar-detail.module').then( m => m.CalendarDetailPageModule),
+    canActivate: [AuthGuard],
+
+  },
+
+  {
     path: 'tabbar-manager',
     loadChildren: () => import('./tabbar-manager/tabbar-manager.module').then(m => m.TabbarManagerPageModule),
     canActivate: [AuthGuard]
   },
   { path: '', redirectTo: '/tabbar-manager/main', pathMatch: 'full' },
   { path: '**', redirectTo: 'tabbar-manager/main' },
+
 
 
   // {
