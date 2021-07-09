@@ -111,12 +111,32 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
+    path: 'calendar',
+    loadChildren: () => import('./calendar/calendar.module').then( m => m.CalendarPageModule),
+    canActivate: [AuthGuard],
+
+  },
+  {
+    path: 'store',
+    loadChildren: () => import('./store/store.module').then( m => m.StorePageModule),
+    canActivate: [AuthGuard],
+
+  },
+  {
+    path: 'calendar-detail',
+    loadChildren: () => import('./@modular/calendar-detail/calendar-detail.module').then( m => m.CalendarDetailPageModule),
+    canActivate: [AuthGuard],
+
+  },
+
+  {
     path: 'tabbar-manager',
     loadChildren: () => import('./tabbar-manager/tabbar-manager.module').then(m => m.TabbarManagerPageModule),
     canActivate: [AuthGuard]
   },
   { path: '', redirectTo: '/tabbar-manager/main', pathMatch: 'full' },
   { path: '**', redirectTo: 'tabbar-manager/main' },
+
 
 
   // {

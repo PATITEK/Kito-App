@@ -90,6 +90,7 @@ export class CalendarPage implements OnInit {
         } else {
           this.months.unshift(month);
         }
+        console.log(this.months)
       })
 
       firstLoad && this.slides.slideTo(this.getCurrentMonthIndex()).then(() => {
