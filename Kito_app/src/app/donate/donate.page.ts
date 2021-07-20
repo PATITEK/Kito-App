@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AccountService, AuthService, DonateService, IPageRequest, ParishesService } from '../@app-core/http';
-import { ImageService, LoadingService } from '../@app-core/utils';
+import { DonateService, IPageRequest, ParishesService } from '../@app-core/http';
+import { LoadingService } from '../@app-core/utils';
 import { ToastController } from '@ionic/angular';
 import { DioceseService } from '../@app-core/http/diocese';
 
@@ -29,13 +29,7 @@ export class DonatePage implements OnInit {
   level;
   data;
   frmDonate: FormGroup;
-  error_messages = {
-    'amount': [
-      {
-        type: 'require', message: 'This field must have a value!'
-      }
-    ],
-  }
+
   dataParams;
   pageResult: IPageRequest = {
     page: 1,
@@ -121,14 +115,12 @@ export class DonatePage implements OnInit {
     else return `url(${this.img})`
   }
   callChangeDot() {
-  
-    let data=this.frmDonate.get('amount').value;
+    let data = this.frmDonate.get('amount').value;
     data = data.replace(/[^0-9]/gm, '');
     data = data.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
     this.frmDonate.controls['amount'].setValue(data);
-
   }
-  
+
   onSubmit() {
     this.amount = this.frmDonate.get('amount').value.replace(/\,/g, '');
     if (this.frmDonate.get('amount').dirty || this.frmDonate.get('amount').touched) {
@@ -151,7 +143,7 @@ export class DonatePage implements OnInit {
     }
     this.amount = parseInt(this.amount);
     var donate = {
-      "donation": {
+      donation: {
         "email": localStorage.getItem('email'),
         "token": "",
         "amount": this.amount,
@@ -159,7 +151,8 @@ export class DonatePage implements OnInit {
         "source_type": this.source_type,
         "source_id": this.source_id,
         "payment_type": ''
-      }
+      },
+      type_page: 'donate'
     }
     this.router.navigate(['paymentmethods'], {
       queryParams: {

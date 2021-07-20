@@ -2,9 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { API_URL, AuthService } from 'src/app/@app-core/http';
-import { LoadingService, ToastService } from 'src/app/@app-core/utils';
+import { LoadingService } from 'src/app/@app-core/utils';
 import { Inject } from '@angular/core';
-import { HttpHeaders } from "@angular/common/http";
 
 @Component({
   selector: 'app-verification',
@@ -42,7 +41,6 @@ export class VerificationPage implements OnInit {
     @Inject(API_URL) private apiUrl: string,
     public formBuilder: FormBuilder,
     private router: Router,
-    private toastService: ToastService,
     private authService: AuthService,
     private loadingService: LoadingService
   ) {
@@ -88,9 +86,10 @@ export class VerificationPage implements OnInit {
       this.loadingService.dismiss();
       this.router.navigateByUrl("/auth-manager/new-password");
     },
-    (data:any)=> {
+    (error: any)=> {
       this.inputCode.reset();
         this.wrongCode = true;
+        throw error
     })
   }
 }

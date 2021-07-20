@@ -1,10 +1,12 @@
 ion-content {
   --padding-top: 80px;
   --overflow: hidden;
-  --background: linear-gradient(180deg, #1800ae 0%, #ffffff 100%);
+  --background: linear-gradient(180deg, #edd81f 0%, #f2fcfe 100%);
 }
 .title-ques {
   color: #ffffff;
+  display: block;
+  margin: auto;
 }
 .list-menu-ques {
   position: relative;
@@ -12,7 +14,7 @@ ion-content {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  height: calc(100% - 45px);
+  height: calc(100% - 0px);
   overflow: scroll;
   .menu-item {
     height: 25vh;
@@ -38,7 +40,7 @@ ion-content {
       top: 50%;
       text-align: center;
       color: #ffffff;
-      font-size: 18px;
+      font-size: 2.5vh;
       transform: translateY(-100%);
     }
   }
@@ -53,7 +55,7 @@ ion-content {
   .img-star1 {
     position: absolute;
     left: 0;
-    top: 0;
+    top: 10vh;
     z-index: 1;
   }
   .img-star2 {
@@ -65,7 +67,7 @@ ion-content {
   .img-star3 {
     position: absolute;
     left: 0;
-    top: 50vh;
+    top: 60vh;
     z-index: 1;
   }
   .img-star4 {

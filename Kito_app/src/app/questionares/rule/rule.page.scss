@@ -1,10 +1,11 @@
 ion-content {
   --padding-top: 80px;
   --overflow: hidden;
-  --background: linear-gradient(180deg, #1800ae 0%, #ffffff 100%);
+  --background: linear-gradient(180deg, #edd81f 0%, #ffffff 100%);
 }
 .title-ques {
-  color: #ffffff;
+  color: #002d63;
+  text-align: center;
 }
 .rule-cover {
   height: calc(100% - 60px);
@@ -18,11 +19,16 @@ ion-content {
     margin: auto;
     margin-top: 30px;
     ion-label {
-      color: #ffffff;
+      color: #002d63;
       justify-content: center;
       display: block;
       margin: auto;
     }
+  }
+  img {
+    width: 45vh;
+    display: block;
+    margin: auto;
   }
 }
 
@@ -36,7 +42,7 @@ ion-content {
   .img-star1 {
     position: absolute;
     left: 0;
-    top: 0;
+    top: 5vh;
     z-index: 1;
   }
   .img-star2 {

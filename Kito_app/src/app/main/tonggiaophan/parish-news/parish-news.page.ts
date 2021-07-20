@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { IPageRequest, VaticanService } from 'src/app/@app-core/http';
+import { VaticanService } from 'src/app/@app-core/http';
 import { PopeService } from 'src/app/@app-core/http/pope';
+import { IPageVatican } from 'src/app/@app-core/http/vatican/vatican.DTO';
 
 @Component({
   selector: 'app-parish-news',
@@ -14,6 +15,7 @@ export class ParishNewsPage implements OnInit {
     {
       heading: 'Tin tức Vatican',
       items: [],
+      category_id: 2,
       type: { general: 'news', detail: 'vatican' }
     },
     {
@@ -22,31 +24,54 @@ export class ParishNewsPage implements OnInit {
       type: { general: 'story', detail: 'pope' }
     }
   ]
-  pageRequest: IPageRequest = {
+  pageRequest: IPageVatican = {
     page: 1,
-    per_page: 4
+    per_page: 4,
+    category_id: 2
   }
-
+  pageRequestPope: IPageVatican = {
+    page: 1,
+    per_page: 4,
+    // category_id: 2
+  }
   constructor(
     private vaticanService: VaticanService,
-    private popeService: PopeService
+    private popeService: PopeService,
+    // private categoryService:va
   ) { }
 
   ngOnInit() {
-    this.getData();
+    this.vaticanService.getCategory().subscribe((data) => {
+      data.vatican_news_categories.forEach(element => {
+        if (element.name == "Vatican") {
+          this.pageRequest.category_id = element.id;
+        }
+        // if (element.name == "Đức Giáo Hoàng") {
+        //   this.pageRequestPope.category_id = element.id
+        // }
+
+      });
+      this.getData();
+    })
+
   }
 
   getVatican() {
+
     this.vaticanService.getAll(this.pageRequest).subscribe(data => {
       data.vatican_news.forEach(v => v.type = this.list[0].type);
       this.list[0].items = data.vatican_news;
+      this.list[0].category_id = this.pageRequest.category_id
     })
   }
 
   getPope() {
-    this.popeService.getAll(this.pageRequest).subscribe(data => {
+    this.popeService.getAll(this.pageRequestPope).subscribe(data => {
+
       data.pope_infos.forEach(v => v.type = this.list[1].type);
       this.list[1].items = data.pope_infos;
+
+
     })
   }
 
@@ -54,4 +79,5 @@ export class ParishNewsPage implements OnInit {
     this.getVatican();
     this.getPope();
   }
+
 }

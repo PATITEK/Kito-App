@@ -10,8 +10,6 @@ export class SettingLanguagesPage implements OnInit {
   languages = [
     { name: 'Tiếng Việt', id: 0 },
     { name: 'English', id: 1 },
-    { name: 'עִברִית', id: 2 },
-    { name: '中國人', id: 3 },
   ];
   selectedLanguage = { name: 'Việt Nam', id: 0 };
 

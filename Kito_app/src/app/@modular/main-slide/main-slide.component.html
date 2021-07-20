@@ -2,7 +2,7 @@
   <!-- <div class="heading-box">
     <ion-label>{{ data.heading }}</ion-label>
   </div> -->
-  <ion-slides pager="true" [options]="slideOptions">
+  <ion-slides *ngIf="data.items.length>0" pager="true" [options]="slideOptions">
     <ion-slide *ngFor="let item of data.items" class="item">
       <div class="item-inner main-box-shadow" (click)="goToItemDetail(item)">
         <img class="item-img" [src]="item.thumb_image ? item.thumb_image.url : item.thumb_images[0].url">
@@ -13,7 +13,7 @@
     </ion-slide>
   </ion-slides>
 
-  <div class="see-more-box">
+  <div *ngIf="data.items.length>0" class="see-more-box">
     <ion-label class="active-effect" (click)="seeMore()">Xem thêm >></ion-label>
   </div>
 </div>

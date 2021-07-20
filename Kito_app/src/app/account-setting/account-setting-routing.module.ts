@@ -30,6 +30,10 @@ const routes: Routes = [
   },  {
     path: 'change-avatar',
     loadChildren: () => import('./change-avatar/change-avatar.module').then( m => m.ChangeAvatarPageModule)
+  },
+  {
+    path: 'notification',
+    loadChildren: () => import('./notification/notification.module').then( m => m.NotificationPageModule)
   }
 
 

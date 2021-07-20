@@ -1,14 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { AccountService, PERMISSIONS } from './http';
-// import * as jwt_decode from 'jwt-decode';
-
 @Injectable()
 export class StorageService {
     private userSub: BehaviorSubject<any> = new BehaviorSubject<any>(null);
-
     constructor(
-        private accountService: AccountService
+        private accountService: AccountService,
     ) { }
     public clear() {
         this.userSub.next(null);
@@ -39,9 +36,5 @@ export class StorageService {
             }
             return this.userSub.next(data.user);
         }
-    }
-    public detokenUser(value) {
-        //   const data = jwt_decode(value);
-        return "";
     }
 }

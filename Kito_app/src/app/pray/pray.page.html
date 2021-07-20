@@ -19,6 +19,12 @@
       </ion-item-group>
   </ion-item-group>
  <ion-item-group class="group__donate">
+  <ion-label>Thông tin đi lễ:</ion-label>
+  <ion-item>
+    <ion-label position="floating">Vui lòng chọn ngày:</ion-label>
+    <ion-datetime mode="ios" displayFormat="DD/MM/YYYY"  formControlName ="day" min="2021-04-01" [(ngModel)]="myDate" ></ion-datetime>
+  </ion-item>
+  
     <ion-label> Nhập số tiền đóng góp:</ion-label>
     <ion-item-group>
       <ion-img src="assets/img/dola.svg"></ion-img>
@@ -35,9 +41,12 @@
  <ion-label class="donate__other" (click)="goToDioceses()">Đóng góp giáo xứ khác?</ion-label>
 </ion-item-group>
 <ion-item-group class="footer">
-    <ion-buttons>
-        {{name}}
-    </ion-buttons>
+  <ion-buttons>
+    <ion-avatar>
+      <img src="{{avatar}}" />
+    </ion-avatar>
+    <ion-label>{{name}} </ion-label>
+  </ion-buttons> 
    <ion-button type="submit"  [disabled] ="frmPray.invalid">
      Xác nhận
    </ion-button>

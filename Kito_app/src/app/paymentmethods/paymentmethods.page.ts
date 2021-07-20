@@ -5,7 +5,6 @@ import { DonateService, OrderService } from '../@app-core/http';
 import { LoadingService, ToastService } from '../@app-core/utils';
 import { PaymentupComponent } from '../@modular/paymentup/paymentup.component';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
-declare var Stripe;
 
 @Component({
   selector: 'app-paymentmethods',
@@ -49,6 +48,7 @@ export class PaymentmethodsPage implements OnInit {
   }
   async presentAlertMoMo(header: string, text: string) {
     const alert = await this.alert.create({
+      mode: 'ios',
       header: header,
       message: text,
       buttons: [
@@ -69,33 +69,46 @@ export class PaymentmethodsPage implements OnInit {
     await alert.present();
   }
   goMomo() {
-    if (this.dataParam.type) {
+    if (this.dataParam.type_page == 'order') {
       const orderParam = {
-        "donation": {
+        order_payment: {
           "app_link": "no link",
           "order_id": this.dataParam.order_id,
         }
       }
-      this.loading.present('Vui lòng chờ...');
+      this.loading.present();
       this.orderService.paymentOrder_Momo(orderParam).subscribe((data) => {
         this.openMomoPopUp();
       },
         () => {
           this.loading.dismiss();
-          this.toart.present('Hãy thử lại sau', 'top', 2000, 'dark')
+          this.toart.presentSuccess('Hãy thử lại sau')
         })
     }
-    else {
-      this.loading.present('Vui lòng chờ...');
+    else if(this.dataParam.type_page == 'pray') {
+    this.dataParam.pray_log["app_link"] ="no link";
+      this.loading.present();
+      this.dataParam.pray_log.payment_type = 'momo';
+      this.donateService.prayByMoMo(this.dataParam).subscribe((data) => {
+        this.payment = data;
+        this.openMomoPopUp();
+      },
+        () => {
+          this.loading.dismiss();
+          this.toart.presentSuccess('Hãy thử lại sau');
+        })
+    }
+    else if(this.dataParam.type_page == 'donate'){
+      this.dataParam.donation["app_link"] ="no link";
+      this.loading.present();
       this.dataParam.donation.payment_type = 'momo';
-      this.dataParam.donation['app_link'] = "no link";
       this.donateService.donateByMoMo(this.dataParam).subscribe((data) => {
         this.payment = data;
         this.openMomoPopUp();
       },
         () => {
           this.loading.dismiss();
-          this.toart.present('Hãy thử lại sau', 'top', 2000, 'dark');
+          this.toart.presentSuccess('Hãy thử lại sau');
         })
     }
   }

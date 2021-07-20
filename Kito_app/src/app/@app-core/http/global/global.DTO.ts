@@ -4,6 +4,7 @@ export class IPageRequest {
     total_objects?: number;
     search?: string;
     sort?: string;
+ 
     typeSort?: number;
 }
 

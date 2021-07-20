@@ -13,6 +13,7 @@ export class CompleteQuestionPage implements OnInit {
   title = '';
   win = new Audio();
   lose = new Audio();
+  questionsLength = 0;
   buttons = [
     {
       name: 'Chơi tiếp',
@@ -34,15 +35,17 @@ export class CompleteQuestionPage implements OnInit {
 
   ionViewWillLeave() {
     localStorage.removeItem('score');
+    localStorage.removeItem('questionsLength');
     this.pauseAudios();
   }
 
   init() {
+    this.questionsLength = parseInt(localStorage.getItem('questionsLength'));
     localStorage.removeItem('questionType');
     localStorage.removeItem('questionTypeName');
     this.score = parseInt(localStorage.getItem('score'));
     this.lose.play();
-    if ( this.score == 10) {
+    if ( this.score == this.questionsLength) {
       this.imgUrl = '../../assets/img/questionares/success.svg';
       this.title = 'HOÀN THÀNH XUẤT SẮC !';
       this.win.play();

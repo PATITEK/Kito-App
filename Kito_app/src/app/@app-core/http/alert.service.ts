@@ -1,7 +1,5 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AlertController, LoadingController } from '@ionic/angular';
-
 @Injectable({
   providedIn: 'root'
 })
@@ -9,7 +7,6 @@ export class AlertService {
 
   isLoading = false;
   constructor(
-    private http: HttpClient,
     public loadingController: LoadingController,
     public alertCtrl: AlertController
   ) { }

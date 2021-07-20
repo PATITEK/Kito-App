@@ -12,9 +12,12 @@ import { DateTimeService } from 'src/app/@app-core/utils';
 export class PrayerDetailPage implements OnInit {
   headerCustom = {title: 'Chi tiết bài đọc'};
   dateList = [];
+  data: any;
   dateItem: any;
+  dateActive: any;
   event = {
-    description: ''
+    description: '',
+    prayers: ''
   }
 
   constructor(
@@ -30,14 +33,14 @@ export class PrayerDetailPage implements OnInit {
 
   getData() {
     this.route.queryParams.subscribe(params => {
-      this.dateList = JSON.parse(params['data']).dateList;
+      this.data = JSON.parse(params['data']);
+      this.dateList = this.data.dateList; 
+      this.dateActive = this.data.dateActive;
       this.dateList.forEach(dateItem => dateItem.date = new Date(dateItem.date));
-
       this.eventsService.getDetail(JSON.parse(params['data']).eventId).subscribe(data => {
         this.event = data.event;
       })
-
-      this.dateItem = JSON.parse(params['data']).dateItem;
+      this.dateItem = this.data.dateItem;
       this.dateItem.date = new Date(this.dateItem.date)
     }).unsubscribe();
   }

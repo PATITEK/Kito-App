@@ -10,11 +10,15 @@ export class LoadingService {
     public loadingController: LoadingController
   ) { }
 
-  async present(text?) {
+  async present() {
     this.isLoading = true;
     return await this.loadingController.create({
-      message: text,
+      message: '<ion-img src="/assets/icon/icon-loading.svg" alt="loading..." style="width: 10vh; height: 10vh"></ion-img>',
       mode: 'ios',
+      cssClass: 'scale-down-center',
+      showBackdrop: true,
+      keyboardClose: true,
+      spinner: null
     }).then(a => {
       a.present().then(() => {
         if (!this.isLoading) {

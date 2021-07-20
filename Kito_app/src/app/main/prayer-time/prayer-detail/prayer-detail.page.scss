@@ -66,16 +66,29 @@ ion-content {
 
 .body-header {
   font-size: 16px;
-  margin-bottom: 16px;
+  margin-bottom: 10px;
   height: calc(100% + 8px);
   overflow-y: scroll;
-
+  ion-list {
+    line-height: 22px;
+    background: #f5f5f5 !important;
+    color: #828282;
+    p {
+      margin-bottom: 5px;
+      margin-top: 5px;
+    }
+    .user_name {
+      color: #002d63;
+    }
+    ion-label {
+      color: #424242;
+    }
+  }
   ion-label {
     display: block;
     color: #002d63;
     line-height: 20px;
   }
-
   .item-name {
     font-weight: 500;
     font-size: 18px;

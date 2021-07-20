@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AccountService } from 'src/app/@app-core/http/account/account.service';
-import { ImageService, LoadingService } from 'src/app/@app-core/utils';
+import { Router } from '@angular/router';
+import { NavController, Platform } from '@ionic/angular';
+import { LoadingService, CameraService } from 'src/app/@app-core/utils';
 
 @Component({
   selector: 'app-popoverimage',
@@ -10,15 +11,29 @@ import { ImageService, LoadingService } from 'src/app/@app-core/utils';
 export class PopoverimageComponent implements OnInit {
 
   constructor(
-    private imageService: ImageService,
-    private accountService: AccountService,
-    private loadingService: LoadingService
+    private router: Router,
+    private loadingService: LoadingService,
+    private platform: Platform,
+    private navController: NavController,
+    private CameraService: CameraService
   ) { }
   avatar = '';
+  subscribe: any;
+  count = 0;
   ngOnInit() {
-    this.loadingService.dismiss();
-    // this.imageService.getImage();
     this.avatar = localStorage.getItem('avatar');
+    this.subscribe = this.platform.backButton.subscribeWithPriority(99999, () => {
+      if (this.router.url === '/account') {
+        this.count++;
+        if (this.count == 1) {
+          this.CameraService.popoverImage.dismiss();
+          this.count = 0;
+        }
+      }
+      else {
+        this.navController.back();
+      }
+    })
   }
   getUrl() {
     return `url(${this.avatar})`

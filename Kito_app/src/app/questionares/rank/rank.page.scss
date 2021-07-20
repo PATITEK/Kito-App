@@ -1,5 +1,7 @@
 ion-content {
   --padding-top: 80px;
+  --padding-start: 5px;
+  --padding-end: 5px;
   --background: linear-gradient(180deg, #b11100 0%, #321d00 100%);
   --overflow: hidden;
 }
@@ -18,7 +20,7 @@ ul {
   position: relative;
   display: flex;
   flex-direction: column;
-  height: calc(100% - 45px);
+  height: calc(100% - 15px);
   padding-bottom: 20px;
   li {
     display: flex;
@@ -27,16 +29,15 @@ ul {
     .stt-rank {
       color: white;
       font-size: 20px;
-      flex-basis: 15%;
+      flex-basis: 6vh;
       text-align: center;
     }
     .rank-img {
-        width: 7vh;
-        height: 7vh;
+      width: 6vh;
+      height: 6vh;
     }
     .rank-info {
       flex-basis: 85%;
-      border: 2px solid #ffffff;
       box-sizing: border-box;
       border-radius: 20px;
       padding: 5px 10px;
@@ -51,16 +52,18 @@ ul {
       }
       .name {
         color: #ffffff;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        position: absolute;
+        left: 13vh;
+        margin-top: 1vh;
+        width: 20vh;
       }
       .rank-point {
-        color: #ffffff;
+        color: #ffff00;
         display: flex;
         justify-content: center;
         align-items: center;
-        img {
+        ion-icon {
+          color: #ffff00;
           padding: 0 10px;
         }
       }
@@ -78,13 +81,14 @@ ul {
   .img-star1 {
     position: absolute;
     left: 0;
-    top: 0;
+    top: 10vh;
     z-index: 1;
+    transform: rotate(90deg);
   }
   .img-star2 {
     position: absolute;
     left: 0;
-    top: 0vh;
+    top: 10vh;
     z-index: 1;
   }
   .img-star3 {
@@ -92,10 +96,18 @@ ul {
     left: 0;
     top: 50vh;
     z-index: 1;
+    transform: rotate(90deg);
   }
   .img-star4 {
     position: absolute;
-    left: 0;
+    left: 10vh;
+    top: 50vh;
+    z-index: 1;
+    transform: rotate(90deg);
+  }
+  .img-star5 {
+    position: absolute;
+    left: 10vh;
     top: 50vh;
     z-index: 1;
   }

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ToastController } from '@ionic/angular';
-
+import { TOARST } from '../http/@http-config/messages'
 @Injectable({
   providedIn: 'root'
 })
@@ -10,14 +10,25 @@ export class ToastService {
     public toastController: ToastController
   ) { }
 
-  async present(message, position = 'top', duration = 1000, color) {
+  async presentSuccess(message?, position?, duration?, color?) {
+    const toast = await this.toastController.create({
+      mode: 'ios',
+      message: message || 'Thành công!',
+      duration: duration || 1000,
+      position: position || 'top',
+      cssClass: 'toast-css',
+      color: color || TOARST.COLOR.dark,
+    });
+    toast.present();
+  }
+  async presentFail(message?, position?, duration?, color?) {
     const toast = await this.toastController.create({
       mode: 'ios',
       message: message,
-      duration: duration,
-      position: position == 'top' ? 'top' : 'bottom',
-      cssClass:'toast-css',
-     color: color,
+      duration: duration || 1000,
+      position: position ||'top',
+      cssClass: 'toast-css',
+      color: color || TOARST.COLOR.dark,
     });
     toast.present();
   }

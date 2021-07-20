@@ -6,6 +6,7 @@
   z-index: 10;
   padding: 3px 16px 10px;
   background: #fff;
+  height: 45px;
 
   ion-searchbar {
     --background: #fff;
@@ -17,6 +18,7 @@
     border-radius: 5px;
     height: 32px;
     padding: 0 5px;
+    animation: opacitySearch 0.5s;
   }
 }
 
@@ -30,4 +32,19 @@
   bottom: 7px;
   margin: auto;
   z-index: 99;
+}
+.icon-search {
+  position: absolute;
+  right: 0;
+  top: 0;
+  transform: translate(-50%, 75%);
+  color: #c8c8c8;
+}
+@keyframes opacitySearch {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }

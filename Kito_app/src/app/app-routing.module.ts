@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './@app-core/auth-guard.service';
 import { } from './changepassword/changepassword.module'
-import { SlideComponent } from './@modular/slide/slide.component';
 
 const routes: Routes = [
   {
@@ -46,11 +45,13 @@ const routes: Routes = [
   },
   {
     path: 'account',
-    loadChildren: () => import('./account/account.module').then(m => m.AccountPageModule)
+    loadChildren: () => import('./account/account.module').then(m => m.AccountPageModule),
+    canActivate: [AuthGuard],
   },
   {
     path: 'account-setting',
-    loadChildren: () => import('./account-setting/account-setting.module').then(m => m.AccountSettingPageModule)
+    loadChildren: () => import('./account-setting/account-setting.module').then(m => m.AccountSettingPageModule),
+    canActivate: [AuthGuard],
   },
   {
     path: 'slide',
@@ -62,6 +63,7 @@ const routes: Routes = [
     loadChildren: () => import('./@modular/modal-detail-order/modal-detail-order.module').then(m => m.ModalDetailOrderPageModule),
     canActivate: [AuthGuard],
   },
+
   {
     path: 'dioceses',
     loadChildren: () => import('./dioceses/dioceses.module').then(m => m.DiocesesPageModule),
@@ -69,12 +71,12 @@ const routes: Routes = [
   },
   {
     path: 'news',
-    loadChildren: () => import('./@modular/news/news.module').then( m => m.NewsPageModule),
+    loadChildren: () => import('./@modular/news/news.module').then(m => m.NewsPageModule),
     canActivate: [AuthGuard],
   },
   {
     path: 'information',
-    loadChildren: () => import('./@modular/information/information.module').then( m => m.InformationPageModule),
+    loadChildren: () => import('./@modular/information/information.module').then(m => m.InformationPageModule),
     canActivate: [AuthGuard],
   },
   {
@@ -89,19 +91,58 @@ const routes: Routes = [
   },
   {
     path: 'map',
-    loadChildren: () => import('./@modular/map/map.module').then(m => m.MapPageModule)
+    loadChildren: () => import('./@modular/map/map.module').then(m => m.MapPageModule),
+    canActivate: [AuthGuard],
   },
   {
     path: 'statistic',
-    loadChildren: () => import('./statistic/statistic.module').then(m => m.StatisticPageModule)
+    loadChildren: () => import('./statistic/statistic.module').then(m => m.StatisticPageModule),
+    canActivate: [AuthGuard],
   },
   {
     path: 'questionares',
-    loadChildren: () => import('./questionares/questionares.module').then( m => m.QuestionaresPageModule),
+    loadChildren: () => import('./questionares/questionares.module').then(m => m.QuestionaresPageModule),
     canActivate: [AuthGuard],
   },
-  { path: '', redirectTo: '/main', pathMatch: 'full' },
-  { path: '**', redirectTo: 'main' },
+  {
+    path: 'community',
+    loadChildren: () => import('./community/community.module').then(m => m.CommunityPageModule),
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'calendar',
+    loadChildren: () => import('./calendar/calendar.module').then( m => m.CalendarPageModule),
+    canActivate: [AuthGuard],
+
+  },
+  {
+    path: 'store',
+    loadChildren: () => import('./store/store.module').then( m => m.StorePageModule),
+    canActivate: [AuthGuard],
+
+  },
+  {
+    path: 'calendar-detail',
+    loadChildren: () => import('./@modular/calendar-detail/calendar-detail.module').then( m => m.CalendarDetailPageModule),
+    canActivate: [AuthGuard],
+
+  },
+
+  {
+    path: 'tabbar-manager',
+    loadChildren: () => import('./tabbar-manager/tabbar-manager.module').then(m => m.TabbarManagerPageModule),
+    canActivate: [AuthGuard]
+  },
+  { path: '', redirectTo: '/tabbar-manager/main', pathMatch: 'full' },
+  { path: '**', redirectTo: 'tabbar-manager/main' },
+
+
+
+  // {
+  //   path: 'popup-registe',
+  //   loadChildren: () => import('./@modular/popup-registe/popup-registe.module').then( m => m.PopupRegistePageModule)
+  // },
+
 
 ];
 @NgModule({

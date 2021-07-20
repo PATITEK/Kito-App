@@ -25,7 +25,7 @@ ion-segment {
   height: 50px;
 
   ion-segment-button {
-    max-width: 160px;
+    max-width: 174px;
     margin: 0 7px;
     --border-radius: 15px;
     --background: #F6C33E;
@@ -54,7 +54,11 @@ ion-segment {
   background: transparent;
   overflow-y: auto;
 }
-
+.order-last {
+  color: #f6c33e !important; 
+  margin: 5px 0;
+  font-size: 16px !important;
+}
 .event {
   border-radius: 25px;
   padding: 15px;

@@ -16,6 +16,8 @@ export * from './diocese-news';
 export * from './bishop';
 export * from './store';
 export * from './questionares';
+export * from './doctrine_classes';
 export * from './course'
 export * from './calendar'
 export * from './hymn-music'
+export * from './post'

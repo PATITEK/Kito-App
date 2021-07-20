@@ -29,12 +29,14 @@ ion-footer {
     color: #828282;
     font-size: 16px;
     font-weight: 500;
+    text-decoration: underline;
   }
 
   .address-content {
     align-items: flex-start;
     background: #f8f8f8;
     border-radius: 10px;
+    z-index: -1;
     height: 59px;
     padding: 0 10px;
     margin-bottom: 23px;

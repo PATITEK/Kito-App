@@ -34,9 +34,6 @@ export class AccountPage implements OnInit {
       { type: 'required', message: 'Email is required.' },
       { type: 'pattern', message: 'Email is invalid.' },
     ],
-    // full_address: [
-    //   { type: 'required', message: 'Address is required.' }
-    // ]
   }
 
   constructor(
@@ -49,7 +46,7 @@ export class AccountPage implements OnInit {
     public imageService: ImageService,
     private alertCtrl: AlertController,
     private cameraService: CameraService,
-    private router:Router
+    private router: Router,
   ) { }
   ngOnInit() {
     this.initForm();
@@ -61,7 +58,6 @@ export class AccountPage implements OnInit {
   }
 
   ionViewWillEnter() {
-    //  this.imageService.getImage();
     this.avatar = localStorage.getItem('avatar')
   }
 
@@ -78,7 +74,6 @@ export class AccountPage implements OnInit {
         Validators.required,
         Validators.pattern(PATTERN.EMAIL)
       ])),
-      // full_address: new FormControl('', Validators.required),
     });
   }
 
@@ -94,24 +89,12 @@ export class AccountPage implements OnInit {
           }
         },
         {
-          text:"Cập nhật ảnh đại diện",
-          handler:()=>{
-      this.router.navigateByUrl('/account-setting/change-avatar');
+          text: "Thay đổi ảnh đại diện",
+          handler: () => {
+            this.router.navigateByUrl('/account-setting/change-avatar');
           }
         },
-        // {
-        //   text: 'Chọn từ thư viện',
-        //   handler: () => {
 
-        //     this.cameraService.getAvatarUpload(this.image_avatar);
-        //   }
-        // },
-        // {
-        //   text: 'Chụp ảnh mới',
-        //   handler: () => {
-        //     this.cameraService.getAvatarTake(this.image_avatar);
-        //   }
-        // },
         {
           text: 'Xóa ảnh đại diện',
           handler: () => {
@@ -127,7 +110,7 @@ export class AccountPage implements OnInit {
     await alertAvatarSetting.present();
   }
 
-  async openModalPassword(ev: any) {
+  async openModalPassword() {
     const popover = await this.passwordModal.create({
       component: ChangepasswordPage,
       cssClass: 'modalPassword',
@@ -160,12 +143,13 @@ export class AccountPage implements OnInit {
       localStorage.setItem('fullname', data.app_user.full_name);
       this.activatedInput = false;
       this.loadingService.dismiss();
-      this.toastService.present('Cập nhật thành công !', 'top', 2000, 'dark');
+      this.toastService.presentSuccess('Cập nhật thành công !');
     });
   }
 
   canUpdate() {
     return JSON.stringify(this.lastForm) !== JSON.stringify(this.form.value) && this.form.valid;
   }
+
 }
 

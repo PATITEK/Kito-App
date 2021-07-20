@@ -1,7 +1,6 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
-import { ModalController } from '@ionic/angular';
-import { SpeechRecognitionService } from 'src/app/@app-core/utils';
-import { ModalMenuComponent } from '../modal-menu/modal-menu.component';
+import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { Platform } from '@ionic/angular';
+import { SpeechRecognition } from '@ionic-native/speech-recognition/ngx'
 
 @Component({
   selector: 'app-search-bar-nav',
@@ -9,36 +8,50 @@ import { ModalMenuComponent } from '../modal-menu/modal-menu.component';
   styleUrls: ['./search-bar-nav.component.scss'],
 })
 export class SearchBarNavComponent implements OnInit {
-  @ViewChild('searchBar') searchBar: any;
+  @ViewChild('search') search: any;
   @Output() output = new EventEmitter<string>();
+  input = '';
   hiddenSearchBar = true;
-
   constructor(
-    private modalCtrl: ModalController,
-    private SpeechRecognitionService: SpeechRecognitionService,
-  ) { }
-
-  ngOnInit() { }
-
-  toggleHideSearchBar(value) {
-    this.hiddenSearchBar = value;
-    if (!value) {
-      this.searchBar.setFocus();
-    }
+    public PlatForm: Platform,
+    private speechRecognition: SpeechRecognition
+  ) {
   }
+  ngOnInit() {
 
-  async openModalMenu() {
-    const popover = await this.modalCtrl.create({
-      component: ModalMenuComponent,
-      cssClass: 'modalMenu',
-    });
-    return await popover.present();
   }
+  async showSearch() {
+    // this.hiddenSearchBar = value;
+    // if (!value) {
+    //   // this.searchBar.setFocus();
+    // }
+    this.hiddenSearchBar = await false;
+    setTimeout(async () => {
 
+      this.search.setFocus()
+    }, 100);
+
+  }
+  BlurSearch() {
+    this.hiddenSearchBar = true;
+
+  }
   startVoice() {
-    this.SpeechRecognitionService.checkPermission();
+    this.PlatForm.ready().then(() => {
+      this.speechRecognition.requestPermission().then(
+        async () => {
+          await this.startVoiceRecord();
+          this.search.setFocus();
+        }
+      )
+    })
+    return;
   }
-
+  startVoiceRecord() {
+    this.speechRecognition.startListening().subscribe((matches: Array<string>) => {
+      this.input = matches[0];
+    })
+  }
   changeInput(value) {
     this.output.emit(value);
   }

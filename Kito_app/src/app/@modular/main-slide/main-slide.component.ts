@@ -22,12 +22,12 @@ export class MainSlideComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-   }
+  }
 
   seeMore() {
     const data = {
       type: this.data.type,
-      id: this.data.id ? this.data.id : null
+      id: this.data.category_id
     }
     switch (this.data.type.general) {
       case 'news':

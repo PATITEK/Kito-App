@@ -1,17 +1,13 @@
+import { NetworkService } from './../../@app-core/utils/network.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService, IPageRequest, PATTERN } from 'src/app/@app-core/http';
 import { ToastController } from '@ionic/angular';
-import { defaultCoreCipherList } from 'constants';
-import { LoadingService, OneSignalService } from 'src/app/@app-core/utils';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastService } from 'src/app/@app-core/utils';
 import { DioceseService } from 'src/app/@app-core/http/diocese';
 import { ParishesService } from 'src/app/@app-core/http/parishes';
 import { IPageParishes } from 'src/app/@app-core/http/parishes/parishes.DTO';
-
-
 
 @Component({
   selector: 'app-login',
@@ -84,10 +80,9 @@ export class LoginPage implements OnInit {
     public toastController: ToastController,
     private formBuilder: FormBuilder,
     private toastService: ToastService,
-    private loadingService: LoadingService,
     private diocese: DioceseService,
-    private oneSignal: OneSignalService,
-    private parishes: ParishesService
+    private parishes: ParishesService,
+    private networkService: NetworkService
   ) { }
   pageRequestDioceses: IPageRequest = {
     page: 1,
@@ -100,6 +95,8 @@ export class LoginPage implements OnInit {
   }
 
   ngOnInit() {
+    localStorage.setItem('isRepeat', 'true');
+    this.networkService.setSubscriptions();
     this.authService.countryCode().subscribe((data: any) => {
       this.country_codes = data.country_codes;
       this.code = data.country_codes[0].phone_code;
@@ -117,7 +114,7 @@ export class LoginPage implements OnInit {
     // this.oneSignal.startOneSignal();
     // this.oneSignal.setUpOneSignal();
   }
-  onSelectChange() {
+  onSelectChange(event) {
     this.pageRequestParishes.diocese_id = this.formSignUp.get('dioceses').value;
     this.parishes.getAllWithDioceseId(this.pageRequestParishes).subscribe(data => {
       this.listParishes = data.parishes;
@@ -166,6 +163,7 @@ export class LoginPage implements OnInit {
     this.segmentValue = event.target.value;
   }
   canSubmitLogin() {
+
     return this.formLogin.valid;
   }
 
@@ -181,51 +179,67 @@ export class LoginPage implements OnInit {
       let dataFormLogin = this.formLogin.value;
       dataFormLogin.phone_number = dataFormLogin.phone_number.length == 10 ? dataFormLogin.phone_number.substring(1, 10) : dataFormLogin.phone_number;
       dataFormLogin.phone_number = `+84${dataFormLogin.phone_number}`;
+
       let dataSubmit = {
         "phone_number": dataFormLogin.phone_number,
         "password": dataFormLogin.password
       }
       this.authService.login(dataSubmit).subscribe(
-        (data: any) => {
+        () => {
           this.showSpinner = false;
           this.router.navigate(['main/chabad']);
         },
-        (data: any) => {
+        (error: any) => {
           this.showSpinner = false;
+          throw error
         }
       );
     }
   }
 
   submitSignUp() {
+
+
     this.showSpinner = true;
     if (!this.canSubmitSignUp()) {
+      this.toastService.presentSuccess('Kiểm tra lại các trường');
+
       this.showSpinner = false;
       this.markFormGroupTouched(this.formSignUp);
     } else if (!this.checkMatchConfirmedPassword()) {
       this.showSpinner = false;
-      this.toastService.present('Confirmed password not match', 'top', 2000, 'dark');
+      this.toastService.presentSuccess('Mật khẩu không trùng khớp');
     } else {
+
       let data = this.formSignUp.value;
-      data.phone_number = data.phone_number.length == 10 ? data.phone_number.substring(1, 10) : data.phone_number;
-      // data.phone_number = `+${this.formSignUp.value.country_code}${data.phone_number}`;
-      data.phone_number = `+${84}${data.phone_number}`; // BE checked multi language, till now just only use 84
+
+      if (data.phone_number.search("0") == 0) {
+        data.phone_number = data.phone_number.substring(1);
+      }
+      // if (data.phone_number.search("+84") == 0) {
+      //   data.phone_number = '+84' + data.phone_number;
+
+      // }
+
+
+
+
       let submitData = {
         "full_name": data.full_name,
         "sex": data.sex,
         "birthday": data.age,
         "full_address": data.full_address,
-        "phone_number": data.phone_number,
+        "phone_number": '+84' + data.phone_number,
         "email": data.email,
         "password": data.password,
         "password_confirmation": data.confirmed_password,
         "parish_id": data.parish_id
       }
       this.authService.signup(submitData).subscribe(
-        (data) => {
-        },
-        (data: any) => {
+        () => { },
+        (error: any) => {
           this.showSpinner = false;
+          throw error;
         }
       );
     }
