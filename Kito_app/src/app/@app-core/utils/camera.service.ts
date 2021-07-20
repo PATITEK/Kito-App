@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { LoadingService, ToastService } from 'src/app/@app-core/utils';
 import { Camera } from '@ionic-native/camera/ngx';
-import { AccountService, LOADING } from '../http';
+import { AccountService } from '../http';
 import { PopoverController } from '@ionic/angular';
 import { PopoverimageComponent } from '../../@modular/popoverimage/popoverimage.component';
 
 @Injectable()
 export class CameraService {
-
     image_null: any;
+    public popoverImage: any;
 
     constructor(
         public camera: Camera,
@@ -19,7 +19,7 @@ export class CameraService {
 
     ) { }
     public getAvatarUpload(image_avatar) {
-        this.loadingService.present(LOADING.WAITING);
+        this.loadingService.present();
         const options = {
             destinationType: this.camera.DestinationType.DATA_URL,
             encodingType: this.camera.EncodingType.JPEG,
@@ -33,7 +33,9 @@ export class CameraService {
                 var image = this.dataURItoBlob(dataUri);
                 let formData = new FormData;
                 formData.append('files[]', image);
+                console.log("form", formData)
                 this.accountService.uploadPhoto(formData).subscribe((data) => {
+                    console.log(data)
                     image_avatar = {
                         "app_user": {
                             "avatar": data['data'][0]
@@ -44,18 +46,17 @@ export class CameraService {
                     })
                     this.loadingService.dismiss();
                     this.accountService.getAccounts().subscribe();
-                    this.toastService.present('Cập nhật ảnh thành công !', 'top', 2000,'dark');
+                    this.toastService.presentSuccess('Cập nhật ảnh thành công !');
                 })
             } else {
             }
         }).catch((err) => {
             console.error(err)
             this.loadingService.dismiss();
-            this.toastService.present('Xảy ra lỗi, vui lòng thử lại sau !', 'top', 2000, 'dark');
         })
     }
     public getAvatarTake(image_avatar) {
-        this.loadingService.present(LOADING.WAITING);
+        this.loadingService.present();
         const options = {
             destinationType: this.camera.DestinationType.DATA_URL,
             encodingType: this.camera.EncodingType.JPEG,
@@ -80,15 +81,13 @@ export class CameraService {
                     })
                     this.loadingService.dismiss();
                     this.accountService.getAccounts().subscribe();
-                    this.toastService.present('Cập nhật ảnh thành công !', 'top', 2000,'dark');
+                    this.toastService.presentSuccess('Cập nhật ảnh thành công !', 'top', 2000, 'dark');
                 })
             } else {
             }
         }).catch((err) => {
             console.error(err)
             this.loadingService.dismiss();
-            this.toastService.present('Xảy ra lỗi, vui lòng thử lại sau !', 'top', 2000,'dark');
-
         })
     }
 
@@ -109,22 +108,27 @@ export class CameraService {
     }
 
     async viewAvatar() {
-        this.loadingService.present(LOADING.WAITING);
-        const popoverImage = await this.popoverController.create({
-            component: PopoverimageComponent,
-            cssClass: 'image_popover_css',
-            translucent: true,
-            mode: 'md'
-        });
-        return await popoverImage.present();
+        if (localStorage.getItem('avatar') == 'https://i.imgur.com/edwXSJa.png') {
+            this.toastService.presentSuccess('Bạn chưa có ảnh đại diện', 'top', 2000, 'dark');
+        }
+        else {
+            this.popoverImage = await this.popoverController.create({
+                component: PopoverimageComponent,
+                cssClass: 'view-avatar-modal',
+                translucent: true,
+                mode: 'md'
+            });
+            return await this.popoverImage.present();
+        }
+
     }
 
     removeAvatar() {
         if (localStorage.getItem('avatar') == 'https://i.imgur.com/edwXSJa.png') {
-            this.toastService.present('Bạn chưa có ảnh đại diện', 'top', 2000, 'dark');
+            this.toastService.presentSuccess('Bạn chưa có ảnh đại diện');
         }
         else {
-            this.loadingService.present(LOADING.WAITING);
+            this.loadingService.present();
             this.image_null = {
                 "thumb_image": {
                     "url": null
@@ -134,12 +138,12 @@ export class CameraService {
                 (data: any) => {
                     localStorage.setItem('avatar', 'https://i.imgur.com/edwXSJa.png')
                     this.loadingService.dismiss();
-                    this.toastService.present('Xóa ảnh thành công !', 'top', 2000, 'dark');
+                    this.toastService.presentSuccess('Xóa ảnh thành công !');
                 },
                 (data: any) => {
                     this.loadingService.dismiss();
                     if (data.error) {
-                        this.toastService.present('Lỗi rồi !', 'top', 2000, 'dark');
+                        throw data.error
                     }
                 }
             )

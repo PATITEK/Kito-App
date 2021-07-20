@@ -78,31 +78,22 @@ export class PaymentupComponent implements OnInit {
           errorElement.textContent = result.error.message;
         }
         else {
-          const param = {
-            donation : {
-              "email": localStorage.getItem('email'),
-              "token": result.source.id,
-              "order_id": this.data.order_id
-          }
-        }
         const datapasing: IDataNoti = {
           title: 'THÀNH CÔNG',
           des: 'Thanh toán thành công!',
           routerLink: '/main/chabad'
         }
-          if(this.data.type) {
-            this.data.token = result.source.id;
-            this.orderService.paymentOrder_Visa(param).subscribe((data)=>{
-              this.loadingService.dismiss();
-              this.pageNotiService.setdataStatusNoti(datapasing);
-              this.router.navigateByUrl('/page-noti');
-            },
-            ()=> {
-              this.loadingService.dismiss();
-              this.toart.present('Hãy thử lại sau', 'top', 1000, 'dark');
-            }) 
+          if(this.data.type_page == 'pray') {
+            this.loadingService.dismiss();
+            this.data.pray_log.token = result.source.id;
+            this.data.pray_log.payment_type = 'visa_master';
+            this.router.navigate(['/payment'], {
+              queryParams: {
+                data: JSON.stringify(this.data)
+              }
+            },)
           }
-          else {
+          else if(this.data.type_page == 'donate') {
             this.loadingService.dismiss();
             this.data.donation.token = result.source.id;
             this.data.donation.payment_type = 'visa_master';
@@ -111,8 +102,26 @@ export class PaymentupComponent implements OnInit {
                 data: JSON.stringify(this.data)
               }
             },)
+          
           }
-        
+          else {
+              const paramOrder = {
+              order_payment : {
+              "email": localStorage.getItem('email'),
+              "token": result.source.id,
+              "order_id": this.data.order_id
+          }
+        }
+         this.orderService.paymentOrder_Visa(paramOrder).subscribe((data)=>{
+              this.loadingService.dismiss();
+              this.pageNotiService.setdataStatusNoti(datapasing);
+              this.router.navigateByUrl('/page-noti');
+            },
+            (error: any)=> {
+              this.loadingService.dismiss();
+              this.toart.presentSuccess('Hãy thử lại sau');
+            }) 
+          }
           this.dismissModal();
         }
       });

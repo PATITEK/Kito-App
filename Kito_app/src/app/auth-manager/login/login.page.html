@@ -79,19 +79,18 @@
             <div class="phone-number-box">
               <ion-label class="label">Số điện thoại</ion-label>
               <ion-buttons class="phone-number-body">
-                +
+                <!-- +
                 <ion-select mode='ios' [selectedText]="code" value=""formControlName="country_code"  [(ngModel)]="code" class="select country-code-select">
                   <ion-select-option [value]="country.phone_code" *ngFor="let country of country_codes">
                     {{country.phone_code}}</ion-select-option>
-                </ion-select>
-                <!-- <ion-label class="country-code">+{{ formSignUp.value.country_code }}</ion-label> -->
-                <!-- <ion-label class="country-code">+84</ion-label> -->
+                </ion-select> -->
+             
                 <input class="input" formControlName="phone_number">
               </ion-buttons>
             </div>
             <div class="age-box">
               <ion-label class="label">Năm Sinh</ion-label>
-              <ion-datetime formControlName="age" class="input" displayFormat="YYYY" min="1900" max="2021" ></ion-datetime>
+              <ion-datetime mode="ios" formControlName="age" class="input" displayFormat="YYYY" min="1900" max="2021" ></ion-datetime>
             </div>
           </ion-buttons>
 
@@ -167,12 +166,12 @@
             {{item.name}}
           </ion-select-option>
         </ion-select>
-        <ng-container *ngFor="let validation of validationSignUpMessages.dioceses">
+        <!-- <ng-container *ngFor="let validation of validationSignUpMessages.dioceses">
           <div class="error-message"
             *ngIf="formSignUp.get('dioceses').hasError(validation.type) && (formSignUp.get('dioceses').dirty || formSignUp.get('dioceses').touched)">
             {{ validation.message }}
           </div>
-       </ng-container>
+       </ng-container> -->
         <ion-label class="label">Giáo xứ</ion-label>
         <ion-select mode='ios' class="select mr-bottom" formControlName="parish_id">
           <ion-select-option  [value]="item.id" *ngFor="let item of listParishes">

@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController, IonContent, IonInfiniteScroll, ModalController } from '@ionic/angular';
 import { IPageCategory, IPageProduct, StoreService } from 'src/app/@app-core/http';
-import { DateTimeService } from 'src/app/@app-core/utils';
+import { DateTimeService, LoadingService } from 'src/app/@app-core/utils';
 import { AddStoreComponent } from 'src/app/@modular/add-store/add-store.component';
 
 @Component({
@@ -11,16 +11,16 @@ import { AddStoreComponent } from 'src/app/@modular/add-store/add-store.componen
   styleUrls: ['./store.page.scss'],
 })
 export class StorePage implements OnInit {
-  @ViewChild(IonContent) ionContent: IonContent;
+  // @ViewChild(IonContent) ionContent: IonContent;
   @ViewChild('infiniteScroll') infinityScroll: IonInfiniteScroll;
-
+  
   headerCustom = { title: 'Cửa hàng' };
   list = [];
   cart = [];
   hasSetting = false;
   categories = [];
   currentCategoryId = null;
-
+  notFound = false;
   sortType = {
     newest: 'newest',
     topSeller: 'top-seller',
@@ -45,16 +45,17 @@ export class StorePage implements OnInit {
     private router: Router,
     private modalController: ModalController,
     private storeService: StoreService,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private loadingService: LoadingService
   ) { }
 
   ngOnInit() {
     this.getCategories();
+    
   }
 
   ionViewWillEnter() {
     this.getCart();
-
     const parishId = localStorage.getItem('tempParishId');
     if (parishId) {
       if (parishId !== this.pageRequestCategories.parish_id) {
@@ -63,7 +64,6 @@ export class StorePage implements OnInit {
         this.reset();
         this.getCategories();
       }
-      localStorage.removeItem('tempParishId');
     }
   }
 
@@ -71,10 +71,15 @@ export class StorePage implements OnInit {
     this.resetAmount();
   }
 
-  getProducts(event?) {
+  getProducts() {
+    this.notFound = false;
     this.pageRequestProducts.category_id = this.currentCategoryId;
     const tempCategoryId = this.currentCategoryId;
+    console.log(this.pageRequestProducts)
     this.storeService.getAllProducts(this.pageRequestProducts).subscribe(data => {
+
+      this.notFound = true;
+      this.loadingService.dismiss();
       if (tempCategoryId !== this.currentCategoryId) {
         return;
       }
@@ -85,24 +90,37 @@ export class StorePage implements OnInit {
       this.list = this.list.concat(data.products);
       this.pageRequestProducts.page++;
 
-      this.infinityScroll.disabled = false;
+      // this.infinityScroll.disabled = false;
+      console.log()
       if (this.list.length >= data.meta.pagination.total_objects) {
-        this.infinityScroll.disabled = true;
-        this.infinityScroll.complete();
-      }
-
-      if (event) {
-        event.target.complete();
+        // this.infinityScroll.disabled = true;
+        // this.infinityScroll.complete();
+      }else {
+        // this.infinityScroll.disabled = false
       }
     })
   }
-
+  changeCategory(category) {
+    this.setHasSetting(false);
+    if (this.currentCategoryId !== category.id) {
+      this.pageRequestProducts.page = 1;
+      this.currentCategoryId = category.id;
+      this.infinityScroll.disabled = false
+      this.list = [];
+      // this.ionContent.scrollToTop(0).then(() => {
+        this.getProducts();
+      //})
+    }
+  }
   getCategories() {
     this.storeService.getAllCategories(this.pageRequestCategories).subscribe(data => {
       this.categories = data.categories;
       this.currentCategoryId = this.categories[0].id;
       this.getProducts();
     })
+    localStorage.removeItem('cart');
+    this.cart = [];
+    localStorage.setItem('tempParishId', this.pageRequestCategories.parish_id);
   }
 
   resetAmount() {
@@ -134,17 +152,7 @@ export class StorePage implements OnInit {
     this.router.navigateByUrl('main/store/cart');
   }
 
-  changeCategory(category) {
-    this.setHasSetting(false);
-    if (this.currentCategoryId !== category.id) {
-      this.pageRequestProducts.page = 1;
-      this.currentCategoryId = category.id;
-      this.list = [];
-      this.ionContent.scrollToTop(0).then(() => {
-        this.getProducts();
-      })
-    }
-  }
+
 
   async openAddModal(item) {
     const modal = await this.modalController.create({
@@ -193,17 +201,19 @@ export class StorePage implements OnInit {
   }
 
   sort(sortType = this.sortType.newest) {
+    this.loadingService.present();
     this.setHasSetting(false);
     this.pageRequestProducts.sort = sortType;
     this.reset();
     this.getProducts();
   }
 
-  loadMoreProducts(event) {
-    this.getProducts(event);
+  loadMoreProducts() {
+    console.log(1)
+    this.getProducts();
   }
 
-  onScrollContent(event) {
+  onScrollContent() {
     this.setHasSetting(false);
   }
 

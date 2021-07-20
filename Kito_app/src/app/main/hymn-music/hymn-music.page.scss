@@ -2,6 +2,7 @@ ion-content {
   --padding-top: calc(80px + 45px + 52px);
   --padding-start: 6px;
   --padding-end: 6px;
+  --overflow: auto;
 
   ion-segment {
     padding: 10px 10px;
@@ -21,7 +22,7 @@ ion-content {
       --border-radius: 10px;
 
       &::part(indicator-background) {
-        background: #f6c33e;
+        background: #edd81f;
         box-shadow: 0px 5px 8px rgba(189, 189, 189, 0.25);
       }
     }
@@ -33,6 +34,8 @@ ion-footer {
 }
 
 .song-list {
+  height: calc(100% - 16px);
+  overflow: scroll;
   .song-cover {
     padding: 10px;
     justify-content: space-between;
@@ -71,7 +74,7 @@ ion-footer {
   }
 
   .active-song-cover {
-    background: #f2f2f2;
+    background: #fffce0;
 
     .left-box {
       .song-name {
@@ -146,7 +149,6 @@ ion-footer {
   z-index: 10;
   flex-direction: column;
   background-color: #fff;
-  border-top: 1px solid #bdbdbd;
   transform: translateY(100%);
   transition: 0.3s;
 
@@ -261,4 +263,77 @@ ion-footer {
   color: #828282;
   min-width: 75px;
   justify-content: flex-end;
+}
+.filler-icon {
+  width: 15px;
+  position: fixed;
+  top: 80px;
+  right: 0;
+  z-index: 10;
+  transform: translate(-75%, 100%);
+}
+:host ::ng-deep .search-music {
+  .search-bar-container {
+    .icon-search {
+      margin-right: 25px !important;
+    }
+  }
+  ion-searchbar {
+    width: 90%;
+  }
+  .voice {
+    right: 55px;
+  }
+}
+
+//
+.list-songs {
+  padding: 5px 20px;
+  .song-flex {
+    justify-content: space-between;
+  }
+  .name-music {
+    margin-right: 15px;
+    .icon-music {
+      color: #c8c8c8;
+      width: 25px;
+    }
+    p {
+      flex: 1;
+      word-break: break-word;
+      color: #424242;
+      font-size: 16px;
+    }
+  }
+  .item-artist {
+    .icon-heart {
+      width: 32px;
+      height: 32px;
+      min-width: 32px;
+    }
+    p {
+      text-align: end;
+      flex: 1;
+      text-align: right;
+      word-break: break-word;
+      color: #828282;
+      font-size: 14px;
+    }
+  }
+}
+
+.active-song-css {
+  .name-music {
+    .item-title {
+      font-weight: 600;
+    }
+    .icon-music {
+      color: #edd81f;
+    }
+  }
+  .item-artist {
+    p {
+      font-weight: 600;
+    }
+  }
 }

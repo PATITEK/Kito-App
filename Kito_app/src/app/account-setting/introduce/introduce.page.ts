@@ -6,10 +6,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./introduce.page.scss'],
 })
 export class IntroducePage implements OnInit {
-
+  isShowLicense = false;
   constructor() { }
   headerCustom = { title: 'Giới thiệu' };
   ngOnInit() {
+  }
+  showLicense() {
+    if(this.isShowLicense == false) {
+      this.isShowLicense = true;
+    } else this.isShowLicense = false;
   }
 
 }

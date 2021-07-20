@@ -27,6 +27,7 @@ export class ParishesPage implements OnInit {
   data;
   dataParish = [];
   type_page;
+  notFound = false;
   ngOnInit() {
     this.loadingService.present();
     this.route.queryParams.subscribe(params => {
@@ -37,7 +38,9 @@ export class ParishesPage implements OnInit {
     this.getAll();
   }
   getAll() {
+    this.notFound = false;
     this.parishesService.getAllWithDioceseId(this.pageParish).subscribe((data: any) => {
+      this.notFound = true;
       this.loadingService.dismiss()
       this.dataParish = data.parishes;
     });

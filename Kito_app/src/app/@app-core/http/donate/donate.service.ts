@@ -30,4 +30,33 @@ export class DonateService {
       }));
 
   }
+  public prayByVisa(req) {
+    return this.http.post(`${APICONFIG.PRAY.PRAY_VISA}`, req).pipe(
+      map((result) => {
+        return result;
+      }),
+      catchError((errorRes: any) => {
+        throw errorRes.error;
+      }));
+  }
+  public prayByMoMo(req) {
+    return this.http.post(`${APICONFIG.PRAY.PRAY_MOMO}`, req).pipe(
+      map((result) => {
+        return result;
+      }),
+      catchError((errorRes: any) => {
+        throw errorRes.error;
+      }));
+
+  }
+  public registerDevice(req) {
+    return this.http.post(`${APICONFIG.DEVICES.REGISTER}`, req).pipe(
+        map((result) =>{
+            return result
+        }),
+        catchError((error)=>{
+            throw error
+        })
+    )
+}
 }

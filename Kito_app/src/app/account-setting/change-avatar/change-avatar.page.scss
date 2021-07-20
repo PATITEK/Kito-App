@@ -18,11 +18,11 @@ ion-content {
     margin: 5px 10px;
   }
   @media screen and (max-height: 569px) {
-      .avatar-item {
-        width: calc(72vw / 3);
-        height: calc(72vw / 3);
-      }
+    .avatar-item {
+      width: calc(72vw / 3);
+      height: calc(72vw / 3);
     }
+  }
 }
 ion-avatar {
   transition: all 0.1s;
@@ -35,17 +35,10 @@ ion-avatar {
   padding: 5px;
 }
 .btn-ok {
-  --padding: 20px 35px;
   --background: #f6c33e;
-  color: white;
   --border-radius: 30px;
-  --padding-start: 50px;
-  --padding-end: 50px;
-  --padding-top: 10px;
-  --padding-bottom: 10px;
-}
-.button-submit{
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: block;
+  margin: auto;
+  width: 100px;
+  padding-top: 7px;
 }

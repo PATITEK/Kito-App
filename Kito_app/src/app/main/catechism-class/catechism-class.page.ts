@@ -11,21 +11,25 @@ export class CatechismClassPage implements OnInit {
 
   catechismList = [
     {
+      id:0,
       name: 'Giáo lý Hồng Ân',
       thumbImage: 'assets/img/catechism-menu-1.svg',
       desUrl: 'main/catechism-class/catechism'
     },
     {
+      id: 1,
       name: 'Giáo lý hôn nhân',
       thumbImage: 'assets/img/catechism-menu-2.svg',
       desUrl: 'main/catechism-class/catechism-marriage'
     },
     {
+      id: 2,
       name: 'Giáo lý dự tòng',
       thumbImage: 'assets/img/catechism-menu-4.svg',
       desUrl: 'main/catechism-class/catechism-marriage'
     },
     {
+      id: 3,
       name: 'Đố vui giáo lý',
       thumbImage: 'assets/img/catechism-menu-3.svg',
       desUrl: '/questionares'
@@ -42,7 +46,8 @@ export class CatechismClassPage implements OnInit {
   goToCatechismDetail(catechism) {
     this.router.navigate([catechism.desUrl], {
       queryParams: {
-        data: catechism.name
+        data: catechism.name,
+        id: catechism.id
       }
     })
   }

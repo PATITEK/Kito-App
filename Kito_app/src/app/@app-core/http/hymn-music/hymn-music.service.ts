@@ -81,4 +81,32 @@ export class HymnMusicService {
 			}));
 	}
 
+	public getAllLectureVideo(request: IPageRequest) {
+		return this.http.get<any>(`${APICONFIG.VIDEO.GET_ALL}?${(requestQuery(request))}`).pipe(
+			map((result) => {
+				return result;
+			}),
+			catchError((errorRes: any) => {
+				throw errorRes.error;
+			})
+		)
+	}
+	public getAllBibleSong(request: IPageRequest) {
+		return this.http.get<any>(`${APICONFIG.VIDEO.GET_BIBEL_SONG}?${(requestQuery(request))}`).pipe(
+			map((result) => {
+				return result
+			}),
+			catchError((errorRes: any) => {
+				throw errorRes.console.error;
+
+			})
+		)
+	}
+	public getBibleSongDetail(id: string) {
+		return this.http.get<any>(`${APICONFIG.VIDEO.GET_BIBLE_SONG_DETAIL(id)}`).pipe(
+			map((result) => {
+				return result;
+			}),
+			catchError((errorRes) => { throw errorRes.error; }));
+	}
 }

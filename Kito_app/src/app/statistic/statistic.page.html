@@ -2,7 +2,7 @@
   <app-header [headerCustom]="headerCustom"></app-header>
 </ion-header>
 
-<ion-content [scrollEvents]="true" (ionScroll)="onScrollContent($event)">
+<ion-content [scrollEvents]="true" (ionScroll)="onScrollContent($event)" *ngIf="years.length > 0">
   <div class="fixed">
     <div class="years">
       <ion-buttons class="selected-year-box" (click)="toggleHasYearOptions(true)">
@@ -84,7 +84,7 @@
               </ion-buttons>
               <ion-buttons class="bottom-box-body-note">
                 <div class="circle"></div>
-                <span>Có tham dữ lễ</span>
+                <span>Có tham dự lễ</span>
               </ion-buttons>
             </div>
           </div>

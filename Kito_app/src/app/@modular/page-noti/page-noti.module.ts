@@ -8,14 +8,13 @@ import { PageNotiComponent } from './page-noti.component';
 
 
 @NgModule({
-  declarations: [],
   imports: [
-    CommonModule,
     CommonModule,
     FormsModule,
     IonicModule,
     PageNotiRoutingModule
   ],
+  declarations: [PageNotiComponent],
   exports: [PageNotiComponent],
 })
 export class PageNotiModule { }

@@ -7,7 +7,7 @@
     <ion-label class="address-title">Giao hàng đến:</ion-label>
     <ion-buttons class="address-content">
       <img src="assets/icon/location.svg">
-      <p class="address">{{location}}</p>
+      <p class="address">{{address}}</p>
     </ion-buttons>
     <ion-label class="address-title">SDT người nhận:</ion-label>
     <ion-buttons class="address-content phone-content">
@@ -32,7 +32,7 @@
 
   <div class="total-box">
     <ion-buttons class="total-item">
-      <ion-label>Phí vận chuyển</ion-label>
+      <ion-label>Phí giao hàng</ion-label>
       <span class="total-price">{{ cart.length ? dateTimeService.numberWithCommas(shipCost) : 0 }} đ</span>
     </ion-buttons>
     <ion-buttons class="total-item">

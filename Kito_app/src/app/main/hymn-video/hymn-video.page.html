@@ -1,33 +1,51 @@
 <ion-header>
   <app-header [headerCustom]="headerCustom"></app-header>
 </ion-header>
-
 <ion-content>
-  <app-search-bar-nav></app-search-bar-nav>
+  <app-search-bar-nav (output)="search($event)"></app-search-bar-nav>
+  <ion-segment (ionChange)="changedSegment($event)" value="video" swipeGesture="false" mode="ios">
+    <ion-segment-button value="video" class="intro">
+      <ion-label>VIDEO BÀI GIẢNG</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="music" class="biography">
+      <ion-label>SÁCH TIẾNG NÓI</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+  <div *ngIf="segmentValue =='video'" class="main-news">
+    <div class="list-item" *ngFor="let i of videos">
+      <iframe class="main-watch" [src]="i.trustLink" frameborder="0" allowfullscreen></iframe>
+      <ion-buttons class="text-box">
 
-  <div class="main-news" *ngFor="let data of datas">
-    <div class="img-container">
-      <img class="item-img" src="{{ data.thumb_img }}" />
+        <ion-col>
+          <p class="item-title three-dots-2">{{ i.name }}</p>
+        </ion-col>
+
+      </ion-buttons>
     </div>
 
-    <ion-buttons class="text-box">
-      <ion-avatar>
-        <img src="{{ data.avatar }}" />
-      </ion-avatar>
-      <ion-col>
-        <p class="item-title three-dots-2">{{ data.title }}</p>
-        <p class="item-title-bottom three-dots-2">{{ data.sub_title }}</p>
-      </ion-col>
-      <ion-buttons class="right-box text">
-        <ion-buttons>
-          <ion-icon name="eye"></ion-icon>
-          <ion-label>{{ data.views }}</ion-label>
-        </ion-buttons>
-        <ion-buttons class="time-box">
-          <ion-icon name="time"></ion-icon>
-          <ion-label>{{ data.time }}</ion-label>
-        </ion-buttons>
-      </ion-buttons>
-    </ion-buttons>
   </div>
+  <div *ngIf="!videos.length && notFound" class="not-found">
+    Không tìm thấy
+  </div>
+  <ion-infinite-scroll #infiniteScrollVideos (ionInfinite)="loadMoreVideos($event)">
+    <ion-infinite-scroll-content loadingSpinner="lines"></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+  <!-- Sách tiếng nói -->
+  <div *ngIf="segmentValue=='music'" class="main-news">
+    <div class="list-item" *ngFor="let i of music">
+      <ion-buttons (click)=" gotoBibleSongDetail(i.id)" class="item-music">
+        <ion-col>
+          <p class="item-title three-dots-2">{{ i.name }}</p>
+        </ion-col>
+        <img class="icon-next" src="assets/icon/icon-next.svg" alt="">
+      </ion-buttons>
+    </div>
+  </div>
+  <div *ngIf="!music.length && notFound" class="not-found">
+    Không tìm thấy
+  </div>
+  <ion-infinite-scroll #infiniteScrollVideos (ionInfinite)="loadMoreMusic($event)">
+    <ion-infinite-scroll-content loadingSpinner="lines"></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
 </ion-content>

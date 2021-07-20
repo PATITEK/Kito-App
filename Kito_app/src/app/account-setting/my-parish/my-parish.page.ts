@@ -44,6 +44,7 @@ export class MyParishPage implements OnInit {
       this.img = data.parish.thumb_image.url;
     })
   }
+
   getUrl() {
     return `url(${this.img})`
   }

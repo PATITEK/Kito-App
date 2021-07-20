@@ -1,7 +1,10 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { OneSignal } from '@ionic-native/onesignal/ngx';
 import { AlertController } from '@ionic/angular';
 import { Platform } from '@ionic/angular';
+import { catchError, map } from 'rxjs/operators';
+import { APICONFIG } from './../../@app-core/http/@http-config/api';
 
 @Injectable()
 export class OneSignalService {
@@ -9,6 +12,7 @@ export class OneSignalService {
         public oneSignal: OneSignal,
         public alert: AlertController,
         public PlatForm: Platform,
+        private http: HttpClient
     ) { }
     
     //Only use this method, should be placed in Oninit or IonviewwillEnter
@@ -44,4 +48,5 @@ export class OneSignalService {
             ele.present();
         });
     }
+    
 }

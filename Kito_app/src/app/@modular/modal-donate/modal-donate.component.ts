@@ -10,10 +10,7 @@ import { AuthService } from 'src/app/@app-core/http';
 })
 export class ModalDonateComponent implements OnInit {
   constructor(private router: Router, 
-    private route: ActivatedRoute,
     private modalCtrl: ModalController,
-    private navParams: NavParams,
-    private authService: AuthService
     ) { 
     }
     @Input() diocese_id: any;

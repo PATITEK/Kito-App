@@ -20,7 +20,7 @@ export class TonggiaophanPage implements OnInit {
     thumb_image: { url: "assets/img/tonggiaophan/vatican.jpg" }
   }
   output;
-
+  notFound = false;
   constructor(
     private diocesesService: DioceseService,
     private loading: LoadingService
@@ -31,14 +31,19 @@ export class TonggiaophanPage implements OnInit {
     this.getAllDiocese();
   }
   getAllDiocese() {
+    this.notFound = false;
     this.diocesesService.getAll(this.pageRequest).subscribe(data => {
+      this.notFound = true;
       this.loading.dismiss();
       data.dioceses.forEach(diocese => {
         let hasNull = false;
-        for (let i in diocese) {
-          if (diocese[i] === null) {
+        for (let i
+
+          in diocese) {
+
+          if (diocese[i] =="location"&& diocese[i] === null) {
             hasNull = true;
-            break;
+            return;
           }
         }
         !hasNull && this.dioceses.push(diocese);
